@@ -1,0 +1,142 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+namespace BucketsGame
+{
+    public class PlayerController : MonoBehaviour
+    {
+        public Rigidbody2D rb;
+        public BoxCollider2D col;
+        public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
+        public GamePlayerInput input;
+
+        public float moveSpeed = 6;
+        
+        public float jumpForce = 10;
+        public float maxFallSpeed = -10;
+
+        [Header("Ground Collision")]
+        public LayerMask groundLayers;
+        public bool grounded = false;
+        void Start()
+        {
+
+        }
+
+        void Update()
+        {
+
+        }
+        private void FixedUpdate()
+        {
+            GroundCheck();
+            MoveHandler();
+            input.jumpPress = false;
+        }
+
+        private void GroundCheck()
+        {
+            //Vertical Collision
+            float sizeMult = 0.1f;
+            Vector2 collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset * sizeMult);
+            float collisionBoxDistance = collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);
+            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+
+            Color boxColor = Color.red;
+            if (collision)
+            {
+                boxColor = Color.green;
+                if (!grounded) // If grounded before, touch land
+                    TouchLand();
+               
+                Debug.DrawRay(collision.point, collision.normal, Color.yellow);
+            }
+            else // OnCollisionExit
+            {
+                grounded = false;
+            }
+
+            float displayTime = 0f;
+            Vector2 boxCenter = closestContactPointD;
+            Vector2 boxExtents = collisionBoxSize * 0.5f;
+            Debug.DrawLine(new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y),
+                new Vector2(boxCenter.x + boxExtents.x, boxCenter.y + boxExtents.y), boxColor, displayTime);
+            Debug.DrawLine(new Vector2(boxCenter.x + boxExtents.x, boxCenter.y + boxExtents.y),
+               new Vector2(boxCenter.x - boxExtents.x, boxCenter.y + boxExtents.y), boxColor, displayTime);
+            Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y + boxExtents.y),
+               new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
+            Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y),
+               new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
+        }
+        private void TouchLand()
+        {
+            grounded = true;
+        }
+        private void MoveHandler()
+        {
+            int moveH = (int)input.inputH;
+            int moveV = (int)input.inputV;
+
+            if (!grounded) // Mid-air
+            {
+                float velX = moveH * moveSpeed;
+                rb.velocity = new Vector2(velX, rb.velocity.y);
+                if (moveV < 0) // Fast Fall
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
+                }
+                if (moveV == 0 && rb.velocity.y > 0) // Cancel Jump
+                {
+                    Debug.Log("Cancel Jump!");
+                    rb.velocity = new Vector2(rb.velocity.x, 0);
+                }
+            }
+            else // In Ground
+            {
+                float velX = moveH * moveSpeed;
+                float velY = moveV * jumpForce;
+                rb.velocity = new Vector2(velX, rb.velocity.y);
+                if (input.jumpPress) // Jump
+                {
+                    Debug.Log("Jump!");
+                    rb.velocity = new Vector2(rb.velocity.x, velY);
+                }
+            }
+            CapVelocity();
+        }
+        private void CapVelocity()
+        {
+            if (rb.velocity.y < maxFallSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
+            }
+        }
+
+        public void Move(InputAction.CallbackContext context)
+        {
+            if (context.performed || context.canceled)
+                input.inputH = context.ReadValue<float>();
+        }
+        public void Vertical(InputAction.CallbackContext context)
+        {
+            if (context.performed || context.canceled)
+            {
+                float value = context.ReadValue<float>();
+                input.inputV = value;
+                if (value > 0) input.jumpPress = true;
+            }
+        }
+    }
+
+    [System.Serializable]
+    public struct GamePlayerInput
+    {
+        public float inputH;
+        public float inputV;
+
+        public bool jumpPress;
+    }
+}
+
