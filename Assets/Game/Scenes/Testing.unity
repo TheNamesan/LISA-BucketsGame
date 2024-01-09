@@ -431,18 +431,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1057024839}
-        m_TargetAssemblyTypeName: BucketsGame.PlayerController, Assembly-CSharp
-        m_MethodName: Vertical
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_ActionId: d08470e3-c781-465b-b35a-873d4c7099e7
     m_ActionName: Player/MoveH[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -486,7 +474,19 @@ MonoBehaviour:
     m_ActionId: 8d6a0eaf-b70a-4e59-8d8d-9ad80e92198f
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1057024839}
+        m_TargetAssemblyTypeName: BucketsGame.PlayerController, Assembly-CSharp
+        m_MethodName: Vertical
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6183d87a-4eaa-4f13-82e2-57b2184a9c67
     m_ActionName: Player/MoveV[/Keyboard/s,/Keyboard/w]
   m_NeverAutoSwitchControlSchemes: 0
@@ -665,12 +665,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_GravityScale: 2
+  m_Material: {fileID: 6200000, guid: 51af410f3cebe764db8e9ada212179e3, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!4 &1057024838
 Transform:
   m_ObjectHideFlags: 0
@@ -701,8 +701,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1057024836}
   col: {fileID: 1057024835}
-  moveSpeed: 6
-  jumpForce: 10
+  input:
+    inputH: 0
+    inputV: 0
+    jumpPress: 0
+  moveSpeed: 7
+  jumpForce: 12
+  extraJumps: 1
+  maxFallSpeed: -15
   groundLayers:
     serializedVersion: 2
     m_Bits: 64

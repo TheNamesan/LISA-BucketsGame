@@ -15,7 +15,10 @@ namespace BucketsGame
         public float moveSpeed = 6;
         
         public float jumpForce = 10;
+        public int extraJumps = 1;
         public float maxFallSpeed = -10;
+
+        private int m_jumps = 0;
 
         [Header("Ground Collision")]
         public LayerMask groundLayers;
@@ -73,6 +76,7 @@ namespace BucketsGame
         private void TouchLand()
         {
             grounded = true;
+            m_jumps = extraJumps;
         }
         private void MoveHandler()
         {
@@ -82,12 +86,14 @@ namespace BucketsGame
             if (!grounded) // Mid-air
             {
                 float velX = moveH * moveSpeed;
+                float velY = moveV * jumpForce;
                 rb.velocity = new Vector2(velX, rb.velocity.y);
+                Jump(velY, true); // Double Jump
                 if (moveV < 0) // Fast Fall
                 {
                     rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
                 }
-                if (moveV == 0 && rb.velocity.y > 0) // Cancel Jump
+                else if (moveV == 0 && rb.velocity.y > 0) // Cancel Jump
                 {
                     Debug.Log("Cancel Jump!");
                     rb.velocity = new Vector2(rb.velocity.x, 0);
@@ -98,14 +104,27 @@ namespace BucketsGame
                 float velX = moveH * moveSpeed;
                 float velY = moveV * jumpForce;
                 rb.velocity = new Vector2(velX, rb.velocity.y);
-                if (input.jumpPress) // Jump
-                {
-                    Debug.Log("Jump!");
-                    rb.velocity = new Vector2(rb.velocity.x, velY);
-                }
+                Jump(velY);
             }
             CapVelocity();
         }
+
+        private void Jump(float velY, bool useExtraJumps = false)
+        {
+            if (input.jumpPress) // Jump
+            {
+                // If jumping mid-air and not enough extra jumps, abort
+                if (useExtraJumps)
+                {
+                    if (m_jumps <= 0) return;
+                    else m_jumps--;
+                }
+                Debug.Log("Jump!");
+                rb.velocity = new Vector2(rb.velocity.x, velY);
+                
+            }
+        }
+
         private void CapVelocity()
         {
             if (rb.velocity.y < maxFallSpeed)
