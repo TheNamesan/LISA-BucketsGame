@@ -46,6 +46,14 @@ namespace BucketsGame
             if (context.canceled)
                 player.input.dashDown = false;
         }
+        public void Focus(InputAction.CallbackContext context)
+        {
+            if (!player) return;
+            if (context.performed)
+                player.input.focus = true;
+            if (context.canceled)
+                player.input.focus = false;
+        }
     }
     [System.Serializable]
     public struct GamePlayerInput
@@ -61,5 +69,6 @@ namespace BucketsGame
         public bool shootDown;
         public bool dashDown;
         public bool jumpDown;
+        public bool focus;
     }
 }
