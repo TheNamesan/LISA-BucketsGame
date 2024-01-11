@@ -29,8 +29,14 @@ namespace BucketsGame
         {
             if (!player) return;
             player.input.mousePoint = context.ReadValue<Vector2>();
-            //Debug.Log("Mouse Position: " + player.input.mousePoint);
-            //Debug.Log("Mouse Position in World: " + SceneProperties.instance.camManager.cam.ScreenToWorldPoint(player.input.mousePoint));
+        }
+        public void Shoot(InputAction.CallbackContext context)
+        {
+            if (!player) return;
+            if (context.performed)
+                player.input.shootDown = true;
+            if (context.canceled)
+                player.input.shootDown = false;
         }
     }
     [System.Serializable]
@@ -44,6 +50,7 @@ namespace BucketsGame
                 if (!cam) return Vector2.zero;
                 return cam.ScreenToWorldPoint(mousePoint);
         }}
+        public bool shootDown;
 
         public bool jumpPress;
     }

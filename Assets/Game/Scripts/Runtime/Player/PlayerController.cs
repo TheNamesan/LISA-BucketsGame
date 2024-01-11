@@ -8,24 +8,21 @@ namespace BucketsGame
     {
         public Rigidbody2D rb;
         public BoxCollider2D col;
+        public WeaponBehaviour weapon;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
         public GamePlayerInput input;
 
         public float moveSpeed = 6;
-        
+
+        [Header("Jump")]
         public float jumpForce = 10;
         public int extraJumps = 1;
         public float maxFallSpeed = -10;
-
         private int m_jumps = 0;
 
         [Header("Ground Collision")]
         public LayerMask groundLayers;
         public bool grounded = false;
-        void Start()
-        {
-
-        }
 
         void Update()
         {
@@ -37,6 +34,7 @@ namespace BucketsGame
             ShootHandler();
             MoveHandler();
             input.jumpPress = false;
+            input.shootDown = false;
         }
 
         private void GroundCheck()
@@ -53,7 +51,7 @@ namespace BucketsGame
                 boxColor = Color.green;
                 if (!grounded) // If grounded before, touch land
                     TouchLand();
-               
+
                 Debug.DrawRay(collision.point, collision.normal, Color.yellow);
             }
             else // OnCollisionExit
@@ -75,11 +73,11 @@ namespace BucketsGame
         }
         private void ShootHandler()
         {
-            //float distance = Vector2.Distance(rb.position, input.MousePointWorld);
-            Vector2 vector = DistanceToMouse();
-            float distance = vector.magnitude;
-            Color color = Color.Lerp(Color.green, Color.red, Mathf.InverseLerp(0, 10, distance));
-            Debug.DrawLine(rb.position, input.MousePointWorld, color);
+            if (input.shootDown)
+            {
+                Debug.Log(DistanceToMouse().normalized);
+                weapon?.Shoot(DistanceToMouse().normalized);
+            }
         }
         private void TouchLand()
         {
@@ -129,7 +127,7 @@ namespace BucketsGame
                 }
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
-                
+
             }
         }
 
@@ -143,6 +141,10 @@ namespace BucketsGame
         public Vector2 DistanceToMouse()
         {
             return input.MousePointWorld - rb.position;
+        }
+        public float AngleToMouse()
+        {
+            return Vector2.SignedAngle(rb.position, input.MousePointWorld);
         }
     }
 }
