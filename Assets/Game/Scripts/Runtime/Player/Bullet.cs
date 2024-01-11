@@ -19,7 +19,6 @@ namespace BucketsGame
         {
             Movement();
             Ticks();
-            Debug.Log(SceneProperties.cam.WorldToScreenPoint(rb.position));
         }
 
         private void Ticks()

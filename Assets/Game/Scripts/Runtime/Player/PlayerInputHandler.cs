@@ -22,7 +22,7 @@ namespace BucketsGame
             {
                 float value = context.ReadValue<float>();
                 player.input.inputV = value;
-                if (value > 0) player.input.jumpPress = true;
+                if (value > 0) player.input.jumpDown = true;
             }
         }
         public void Pointer(InputAction.CallbackContext context)
@@ -38,6 +38,14 @@ namespace BucketsGame
             if (context.canceled)
                 player.input.shootDown = false;
         }
+        public void Dash(InputAction.CallbackContext context)
+        {
+            if (!player) return;
+            if (context.performed)
+                player.input.dashDown = true;
+            if (context.canceled)
+                player.input.dashDown = false;
+        }
     }
     [System.Serializable]
     public struct GamePlayerInput
@@ -51,7 +59,7 @@ namespace BucketsGame
                 return cam.ScreenToWorldPoint(mousePoint);
         }}
         public bool shootDown;
-
-        public bool jumpPress;
+        public bool dashDown;
+        public bool jumpDown;
     }
 }

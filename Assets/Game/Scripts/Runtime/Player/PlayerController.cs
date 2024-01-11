@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace BucketsGame
 {
+    public enum Facing
+    {
+        Right = 0, 
+        Left = 1
+    }
     public class PlayerController : MonoBehaviour
     {
         public Rigidbody2D rb;
@@ -11,6 +16,7 @@ namespace BucketsGame
         public WeaponBehaviour weapon;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
         public GamePlayerInput input;
+        public Facing facing = Facing.Right;
 
         public float moveSpeed = 6;
 
@@ -24,6 +30,13 @@ namespace BucketsGame
         public LayerMask groundLayers;
         public bool grounded = false;
 
+        [Header("Dash")]
+        public float dashSpeed = 15;
+        public int dashTicksDuration = 25;
+        public bool dashing = false;
+        private int m_dashTicks = 0;
+        private int m_dashDirection = 0;
+
         void Update()
         {
 
@@ -31,10 +44,21 @@ namespace BucketsGame
         private void FixedUpdate()
         {
             GroundCheck();
-            ShootHandler();
+            InputCheck();
             MoveHandler();
-            input.jumpPress = false;
+            DashTimer();
+            input.jumpDown = false;
+            input.dashDown = false;
             input.shootDown = false;
+        }
+
+        private void InputCheck()
+        {
+            if (input.dashDown && m_dashTicks <= 0) // Dash Input
+            {
+                DashHandler();
+            }
+            ShootHandler();
         }
 
         private void GroundCheck()
@@ -75,7 +99,6 @@ namespace BucketsGame
         {
             if (input.shootDown)
             {
-                Debug.Log(DistanceToMouse().normalized);
                 weapon?.Shoot(DistanceToMouse().normalized);
             }
         }
@@ -91,7 +114,7 @@ namespace BucketsGame
 
             if (!grounded) // Mid-air
             {
-                float velX = moveH * moveSpeed;
+                float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
                 rb.velocity = new Vector2(velX, rb.velocity.y);
                 Jump(velY, true); // Double Jump
@@ -104,20 +127,52 @@ namespace BucketsGame
                     Debug.Log("Cancel Jump!");
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                 }
+                ChangeFacingOnMove(moveH);
             }
             else // In Ground
             {
-                float velX = moveH * moveSpeed;
+                float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
                 rb.velocity = new Vector2(velX, rb.velocity.y);
                 Jump(velY);
+                ChangeFacingOnMove(moveH);
             }
             CapVelocity();
         }
 
+        private void ChangeFacingOnMove(float moveH)
+        {
+            if (moveH > 0) ChangeFacing(Facing.Right);
+            if (moveH < 0) ChangeFacing(Facing.Left);
+        }
+
+        private float GetVelX(int moveH)
+        {
+            float velocity = moveH * moveSpeed; // Walk Speed
+            if (dashing) velocity = dashSpeed * m_dashDirection; // Dash Speed
+            return velocity;
+        }
+        private void DashHandler()
+        {
+            m_dashTicks = dashTicksDuration;
+            m_dashDirection = FacingToInt(facing);
+            dashing = true;
+        }
+        private void DashTimer()
+        {
+            if (!dashing) return;
+            m_dashTicks--;
+            if (m_dashTicks < 0) StopDash();
+        }
+        private void StopDash()
+        {
+            m_dashTicks = 0;
+            m_dashDirection = 0;
+            dashing = false;
+        }
         private void Jump(float velY, bool useExtraJumps = false)
         {
-            if (input.jumpPress) // Jump
+            if (input.jumpDown) // Jump
             {
                 // If jumping mid-air and not enough extra jumps, abort
                 if (useExtraJumps)
@@ -137,6 +192,14 @@ namespace BucketsGame
             {
                 rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
             }
+        }
+        public void ChangeFacing(Facing newFacing)
+        {
+            facing = newFacing;
+        }
+        public int FacingToInt(Facing faceDir)
+        {
+            return faceDir == Facing.Right ? 1 : -1;
         }
         public Vector2 DistanceToMouse()
         {

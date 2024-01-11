@@ -12,19 +12,21 @@ namespace BucketsGame
         [SerializeField] private Vector2 m_minOffset = Vector2.zero;
         [SerializeField] private Vector2 m_maxOffset = Vector2.one;
         [SerializeField] private Vector2 m_minDistance = Vector2.zero;
-        [SerializeField] private Vector2 m_maxDistance = Vector2.one * 10;
+        [SerializeField] private Vector2 m_maxDistance = Vector2.one * 5;
 
         private void LateUpdate()
         {
-            FollowPointer();
+            Vector2 result = new Vector2();
+            result += FollowPointer();
+            result += FollowPlayer();
+            ApplyOffset(result);
         }
-        private void FollowPointer()
+        private Vector2 FollowPointer()
         {
-            if (!virtualCam) return;
+            if (!virtualCam) return Vector2.zero;
             var player = SceneProperties.mainPlayer;
-            if (!player) return;
+            if (!player) return Vector2.zero;
             Vector2 distance = player.DistanceToMouse();
-            Vector2 sign = new Vector2(Mathf.Sign(distance.x), Mathf.Sign(distance.y));
             float magnitude = distance.magnitude;
             Vector2 inverseLerp = new Vector2(Mathf.InverseLerp(m_minDistance.x, m_maxDistance.x, Mathf.Abs(distance.x)), Mathf.InverseLerp(m_minDistance.y, m_maxDistance.y, Mathf.Abs(distance.y)));
             Vector2 lerp = new Vector2(Mathf.Lerp(m_minOffset.x, m_maxOffset.x, Mathf.Abs(inverseLerp.x)), Mathf.Lerp(m_minOffset.y, m_maxOffset.y, Mathf.Abs(inverseLerp.y)));
@@ -36,7 +38,23 @@ namespace BucketsGame
             Color color = Color.Lerp(Color.green, Color.red, inverseLerp.magnitude);
             if (inverseLerp.magnitude >= 1) color = Color.black;
             Debug.DrawLine(player.rb.position, player.input.MousePointWorld, color);
-            virtualCam.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset = offset;
+            return offset;
+        }
+        private Vector2 FollowPlayer()
+        {
+            var player = SceneProperties.mainPlayer;
+            if (!player) return Vector2.zero;
+            var vel = player.rb.velocity;
+            Vector2 value = vel.normalized * 2 * Vector2.right; // Follow only velocity X
+            return value;
+        }
+        private void ApplyOffset(Vector2 value)
+        {
+            var framing = virtualCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+            if (framing)
+            {
+                framing.m_TrackedObjectOffset = value;
+            }
         }
     }
 }
