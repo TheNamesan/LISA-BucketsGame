@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace BucketsGame
 {
@@ -35,6 +34,7 @@ namespace BucketsGame
         private void FixedUpdate()
         {
             GroundCheck();
+            ShootHandler();
             MoveHandler();
             input.jumpPress = false;
         }
@@ -73,10 +73,18 @@ namespace BucketsGame
             Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y),
                new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
         }
+        private void ShootHandler()
+        {
+            //float distance = Vector2.Distance(rb.position, input.MousePointWorld);
+            Vector2 vector = DistanceToMouse();
+            float distance = vector.magnitude;
+            Color color = Color.Lerp(Color.green, Color.red, Mathf.InverseLerp(0, 10, distance));
+            Debug.DrawLine(rb.position, input.MousePointWorld, color);
+        }
         private void TouchLand()
         {
             grounded = true;
-            m_jumps = extraJumps;
+            m_jumps = extraJumps; // Restore mid-air jumps
         }
         private void MoveHandler()
         {
@@ -132,30 +140,10 @@ namespace BucketsGame
                 rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
             }
         }
-
-        public void Move(InputAction.CallbackContext context)
+        public Vector2 DistanceToMouse()
         {
-            if (context.performed || context.canceled)
-                input.inputH = context.ReadValue<float>();
+            return input.MousePointWorld - rb.position;
         }
-        public void Vertical(InputAction.CallbackContext context)
-        {
-            if (context.performed || context.canceled)
-            {
-                float value = context.ReadValue<float>();
-                input.inputV = value;
-                if (value > 0) input.jumpPress = true;
-            }
-        }
-    }
-
-    [System.Serializable]
-    public struct GamePlayerInput
-    {
-        public float inputH;
-        public float inputV;
-
-        public bool jumpPress;
     }
 }
 
