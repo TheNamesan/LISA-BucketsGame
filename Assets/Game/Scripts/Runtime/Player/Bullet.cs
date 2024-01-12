@@ -32,6 +32,13 @@ namespace BucketsGame
             if (!rb) return;
             var vel = transform.right * velocity;
             rb.velocity = vel;
+
+            RaycastHit2D hit = Physics2D.CircleCast(rb.position, transform.localScale.x, rb.transform.up, 0, (1 << 6));
+            if (hit)
+            {
+                
+                ReturnToPool();
+            } 
         }
         private void ReturnToPool()
         {
@@ -39,9 +46,13 @@ namespace BucketsGame
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.layer != 7) 
-             ReturnToPool();
+            //if (other.gameObject.layer != 7) 
+            // ReturnToPool();
         }
-
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            //if (collision.gameObject.layer != 7)
+            //    ReturnToPool();
+        }
     }
 }

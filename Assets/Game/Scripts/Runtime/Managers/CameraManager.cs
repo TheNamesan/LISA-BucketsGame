@@ -44,8 +44,10 @@ namespace BucketsGame
         {
             var player = SceneProperties.mainPlayer;
             if (!player) return Vector2.zero;
-            var vel = player.rb.velocity;
-            Vector2 value = vel.normalized * 2 * Vector2.right; // Follow only velocity X
+            var vel = player.rb.velocity.normalized.x;
+            if (Mathf.Abs(player.rb.velocity.x) < 0.0001f) vel = 0; // Fixes weird rb jank when landing
+            Vector2 value = new Vector2(vel, 0); // Follow only velocity X
+            //if (vel.y < 1) return Vector2.zero;
             return value;
         }
         private void ApplyOffset(Vector2 value)

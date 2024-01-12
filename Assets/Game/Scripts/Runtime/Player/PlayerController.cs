@@ -14,6 +14,7 @@ namespace BucketsGame
         public Rigidbody2D rb;
         public BoxCollider2D col;
         public WeaponBehaviour weapon;
+        public SpriteRenderer sprite;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
         public GamePlayerInput input;
         public Facing facing = Facing.Right;
@@ -22,6 +23,7 @@ namespace BucketsGame
 
         [Header("Jump")]
         public float jumpForce = 10;
+        public float gravityScale = 2;
         public int extraJumps = 1;
         public float maxFallSpeed = -10;
         private int m_jumps = 0;
@@ -32,7 +34,11 @@ namespace BucketsGame
         public Collider2D groundCollider = null;
         public Vector2 groundPoint;
         public Vector2 groundNormal;
+        public Vector2 groundNormalSide;
         public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
+        public Vector2 GroundNormalSidePerpendicular { get => Vector2.Perpendicular(groundNormalSide).normalized; }
+        public bool IsOnSlope { get => groundNormal != Vector2.up; }
+        
 
         [Header("Dash")]
         public float dashSpeed = 15;
@@ -42,8 +48,12 @@ namespace BucketsGame
         private int m_dashDirection = 0;
 
         private void Update()
-        {
-
+        { 
+            if (sprite)
+            {
+                if (grounded) sprite.color = Color.white; // Tmp
+                else sprite.color = Color.green;
+            }
         }
         private void FixedUpdate()
         {
@@ -51,6 +61,7 @@ namespace BucketsGame
             InputCheck();
             MoveHandler();
             TimerHandler();
+            ExpectedPosition();
             input.jumpDown = false;
             input.dashDown = false;
             input.shootDown = false;
@@ -69,7 +80,10 @@ namespace BucketsGame
             }
             else Time.timeScale = 1;
         }
-
+        private void ExpectedPosition()
+        {
+            Debug.DrawRay(closestContactPointD + rb.velocity * Time.fixedDeltaTime, Vector3.up, Color.blue);
+        }
         private void GroundCheck()
         {
             //Vertical Collision
@@ -79,18 +93,49 @@ namespace BucketsGame
             RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
 
             Color boxColor = Color.red;
+
+            // This is a fix used when reaching the top of a slope
+            if (!collision && IsOnSlope && grounded) // If was on slope climbing up, attempt to find expected ground
+            {
+                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance * 3000000f, groundLayers);
+                if (snapAttempt)
+                { 
+                    collision = snapAttempt;
+                    rb.velocity = Vector2.zero; // Important!
+                    SnapToGround(sizeMult, collision, instant: true); // The instant is important so it doesn't cancel the speed in MoveHandler (rb.MovePosition is the issue)
+                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+                }
+            }
             if (collision)
             {
-                //Vector2 normal = Physics2D.BoxCast(closestContactPointD, new Vector2(collisionBoxSize.x, 1f), 
-                //    0f, Vector2.down, collisionBoxDistance, groundLayers).normal;
-                Vector2 normal = collision.normal;
                 var collider = collision.collider;
+                Vector2 normal = collision.normal;
+                float distance = col.size.y;
+                RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
+                RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
+                //RaycastHit2D normalHitV = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
+                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                
+                if (normalHitHR)
+                {
+                    groundNormalSide = normalHitHR.normal;
+                }
+                if (normalHitHL)
+                {
+                    groundNormalSide = normalHitHL.normal;
+                }
+                if (normalHitV)
+                {
+                    normal = normalHitV.normal;
+                }
+
                 if (grounded) 
                 {
                     boxColor = Color.yellow;
                 }
                 if (!grounded) // If mid-air before, touch land
                 {
+                    SnapToGround(sizeMult, collision);
                     TouchLand();
                     boxColor = Color.green;
                 }
@@ -99,8 +144,7 @@ namespace BucketsGame
             }
             else // OnCollisionExit
             {
-                grounded = false;
-                UpdateGroundData(null);
+                SetAirborne();
             }
 
             float displayTime = 0f;
@@ -115,6 +159,37 @@ namespace BucketsGame
             Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y),
                new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
         }
+
+        private void SetAirborne()
+        {
+            //Debug.Log("Going airborne");
+            grounded = false;
+            UpdateGroundData(null);
+            EnableGravity(true);
+        }
+
+        private void SnapToGround(float sizeMult, RaycastHit2D collision, float offsetForce = 10, bool instant = false)
+        {
+            int layerMask = 1 << collision.collider.gameObject.layer;
+            float distance = Vector2.Distance(closestContactPointD, rb.position) * 1.25f;
+            RaycastHit2D hitW = Physics2D.Raycast(rb.position, Vector2.down, distance, layerMask);
+            Vector2 landingPosition = (hitW ? hitW.point : collision.point);
+            if (landingPosition == collision.point) Debug.Log("Using collision point");
+            float offset = Physics2D.defaultContactOffset * sizeMult * offsetForce;
+            float moveToY = landingPosition.y + Vector2.Distance(closestContactPointD, rb.position) + offset;
+            if (!instant)
+            {
+                if (rb.velocity.y > -1f) { rb.MovePosition(new Vector2(rb.position.x, moveToY)); }  // if velocity is too small, smooth out the positioning
+                else rb.position = new Vector2(rb.position.x, moveToY); // else position the player instantly
+            }
+            else rb.position = new Vector2(rb.position.x, moveToY); // else position the player instantly
+        }
+
+        private void EnableGravity(bool enable)
+        {
+            if (enable) rb.gravityScale = gravityScale;
+            else rb.gravityScale = 0;
+        }
         private void ShootHandler()
         {
             if (input.shootDown)
@@ -126,6 +201,7 @@ namespace BucketsGame
         {
             grounded = true;
             m_jumps = extraJumps; // Restore mid-air jumps
+            EnableGravity(false);
         }
         private void UpdateGroundData(Collider2D collider, Vector2 point = new Vector2(), Vector2 normal = new Vector2())
         {
@@ -134,6 +210,7 @@ namespace BucketsGame
             {
                 groundPoint = Vector2.zero;
                 groundNormal = Vector2.up;
+                groundNormalSide = Vector2.up;
             }
             else
             {
@@ -169,8 +246,11 @@ namespace BucketsGame
                 DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
-                Vector2 finalVel = new Vector2(velX, rb.velocity.y);
-                finalVel *= new Vector2(1, -GroundNormalPerpendicular.y);
+                Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
+                if (IsOnSlope) // On Slope
+                {
+                    finalVel = new Vector2(velX, velX) * -GroundNormalPerpendicular;
+                }
                 rb.velocity = finalVel;
                 Jump(velY);
                 ChangeFacingOnMove(moveH);
@@ -229,6 +309,7 @@ namespace BucketsGame
                 }
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
+                SetAirborne(); //Setting this here so slope fixes get ignored
             }
         }
 
