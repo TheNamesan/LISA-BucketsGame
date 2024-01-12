@@ -29,6 +29,10 @@ namespace BucketsGame
         [Header("Ground Collision")]
         public LayerMask groundLayers;
         public bool grounded = false;
+        public Collider2D groundCollider = null;
+        public Vector2 groundPoint;
+        public Vector2 groundNormal;
+        public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
 
         [Header("Dash")]
         public float dashSpeed = 15;
@@ -37,7 +41,7 @@ namespace BucketsGame
         private int m_dashTicks = 0;
         private int m_dashDirection = 0;
 
-        void Update()
+        private void Update()
         {
 
         }
@@ -46,7 +50,7 @@ namespace BucketsGame
             GroundCheck();
             InputCheck();
             MoveHandler();
-            DashTimer();
+            TimerHandler();
             input.jumpDown = false;
             input.dashDown = false;
             input.shootDown = false;
@@ -77,15 +81,26 @@ namespace BucketsGame
             Color boxColor = Color.red;
             if (collision)
             {
-                boxColor = Color.green;
-                if (!grounded) // If grounded before, touch land
+                //Vector2 normal = Physics2D.BoxCast(closestContactPointD, new Vector2(collisionBoxSize.x, 1f), 
+                //    0f, Vector2.down, collisionBoxDistance, groundLayers).normal;
+                Vector2 normal = collision.normal;
+                var collider = collision.collider;
+                if (grounded) 
+                {
+                    boxColor = Color.yellow;
+                }
+                if (!grounded) // If mid-air before, touch land
+                {
                     TouchLand();
-
-                Debug.DrawRay(collision.point, collision.normal, Color.yellow);
+                    boxColor = Color.green;
+                }
+                UpdateGroundData(collider, collision.point, normal);
+                Debug.DrawRay(collision.point, normal, Color.green);
             }
             else // OnCollisionExit
             {
                 grounded = false;
+                UpdateGroundData(null);
             }
 
             float displayTime = 0f;
@@ -112,6 +127,20 @@ namespace BucketsGame
             grounded = true;
             m_jumps = extraJumps; // Restore mid-air jumps
         }
+        private void UpdateGroundData(Collider2D collider, Vector2 point = new Vector2(), Vector2 normal = new Vector2())
+        {
+            groundCollider = collider;
+            if (!groundCollider) //If no collider, set default normal
+            {
+                groundPoint = Vector2.zero;
+                groundNormal = Vector2.up;
+            }
+            else
+            {
+                groundPoint = point;
+                groundNormal = normal;
+            }
+        }
         private void MoveHandler()
         {
             int moveH = (int)input.inputH;
@@ -119,6 +148,7 @@ namespace BucketsGame
 
             if (!grounded) // Mid-air
             {
+                DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
                 rb.velocity = new Vector2(velX, rb.velocity.y);
@@ -136,13 +166,21 @@ namespace BucketsGame
             }
             else // In Ground
             {
+                DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
-                rb.velocity = new Vector2(velX, rb.velocity.y);
+                Vector2 finalVel = new Vector2(velX, rb.velocity.y);
+                finalVel *= new Vector2(1, -GroundNormalPerpendicular.y);
+                rb.velocity = finalVel;
                 Jump(velY);
                 ChangeFacingOnMove(moveH);
             }
             CapVelocity();
+        }
+
+        private void DashCancelCheck(int moveH)
+        {
+            if (dashing && moveH != 0 && m_dashDirection != moveH) { StopDash(); } // Cancel Dash
         }
 
         private void ChangeFacingOnMove(float moveH)
@@ -150,7 +188,10 @@ namespace BucketsGame
             if (moveH > 0) ChangeFacing(Facing.Right);
             if (moveH < 0) ChangeFacing(Facing.Left);
         }
-
+        private void TimerHandler()
+        {
+            DashTimer();
+        }
         private float GetVelX(int moveH)
         {
             float velocity = moveH * moveSpeed; // Walk Speed
@@ -163,6 +204,7 @@ namespace BucketsGame
             m_dashDirection = FacingToInt(facing);
             dashing = true;
         }
+
         private void DashTimer()
         {
             if (!dashing) return;
@@ -187,7 +229,6 @@ namespace BucketsGame
                 }
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
-
             }
         }
 

@@ -891,7 +891,7 @@ MonoBehaviour:
     m_Bits: 64
   grounded: 0
   dashSpeed: 15
-  dashTicksDuration: 25
+  dashTicksDuration: 20
   dashing: 0
 --- !u!114 &1057024840
 MonoBehaviour:
@@ -919,6 +919,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7651473218300279274, guid: 828e4795e14d84c4194db5f936f336ca, type: 3}
+  ticksFireRate: 10
 --- !u!1 &1357161234
 GameObject:
   m_ObjectHideFlags: 0
