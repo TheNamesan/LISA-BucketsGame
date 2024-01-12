@@ -113,7 +113,7 @@ namespace BucketsGame
                 float distance = col.size.y;
                 //RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
                 //RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
-                RaycastHit2D normalHitVDown = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
+                RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
                 RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
                 
                 //if (normalHitHR)
@@ -128,13 +128,25 @@ namespace BucketsGame
                 {
                     normal = normalHitV.normal;
                 }
-                if (normalHitVDown)
+                if (normalHitVRay)
                 {
-                    if (Mathf.Abs(normalHitVDown.normal.x) - Mathf.Abs(normalHitV.normal.x) != 0)
+                    //var boxDiff = new Vector2(Mathf.Abs(normalHitV.normal.x), Mathf.Abs(normalHitV.normal.y)) - Vector2.up;
+                    //var rayDiff = new Vector2(Mathf.Abs(normalHitVRay.normal.x), Mathf.Abs(normalHitVRay.normal.y)) - Vector2.up;
+                    var boxDiff = Vector2.Distance(normalHitV.normal, Vector2.up);
+                    var rayDiff = Vector2.Distance(normalHitVRay.normal, Vector2.up);
+                    if (boxDiff < rayDiff)
                     {
-                        if (normalHitVDown.point.y < normalHitV.point.y)
-                            normal = normalHitVDown.normal; // If this takes priority, it allows climbing down normally
+                        normal = normalHitVRay.normal; // If this takes priority, it allows climbing down normally
                     }
+
+                    //if (Mathf.Abs(normalHitVDown.normal.x) - Mathf.Abs(normalHitV.normal.x) != 0)
+                    //{
+                    //    //var value = normalHitVDown.point - normalHitV.point;
+                    //    //normal = value.normalized;
+                    //    //Debug.DrawRay(normalHitV.point, normal, Color.red);
+                    //    if (normalHitVDown.point.y < normalHitV.point.y)
+                    //        normal = normalHitVDown.normal; // If this takes priority, it allows climbing down normally
+                    //}
                         
                 }
 
