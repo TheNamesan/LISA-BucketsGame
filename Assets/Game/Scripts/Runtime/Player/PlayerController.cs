@@ -111,22 +111,31 @@ namespace BucketsGame
                 var collider = collision.collider;
                 Vector2 normal = collision.normal;
                 float distance = col.size.y;
-                RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
-                RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
-                //RaycastHit2D normalHitV = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
+                //RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
+                //RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
+                RaycastHit2D normalHitVDown = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
                 RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
                 
-                if (normalHitHR)
-                {
-                    groundNormalSide = normalHitHR.normal;
-                }
-                if (normalHitHL)
-                {
-                    groundNormalSide = normalHitHL.normal;
-                }
+                //if (normalHitHR)
+                //{
+                //    groundNormalSide = normalHitHR.normal;
+                //}
+                //if (normalHitHL)
+                //{
+                //    groundNormalSide = normalHitHL.normal;
+                //}
                 if (normalHitV)
                 {
                     normal = normalHitV.normal;
+                }
+                if (normalHitVDown)
+                {
+                    if (Mathf.Abs(normalHitVDown.normal.x) - Mathf.Abs(normalHitV.normal.x) != 0)
+                    {
+                        if (normalHitVDown.point.y < normalHitV.point.y)
+                            normal = normalHitVDown.normal; // If this takes priority, it allows climbing down normally
+                    }
+                        
                 }
 
                 if (grounded) 
