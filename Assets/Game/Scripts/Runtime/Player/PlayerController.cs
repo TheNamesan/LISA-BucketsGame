@@ -97,7 +97,7 @@ namespace BucketsGame
             // This is a fix used when reaching the top of a slope
             if (!collision && IsOnSlope && grounded) // If was on slope climbing up, attempt to find expected ground
             {
-                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance * 3000000f, groundLayers);
+                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance * 100f, groundLayers);
                 if (snapAttempt)
                 { 
                     collision = snapAttempt;
