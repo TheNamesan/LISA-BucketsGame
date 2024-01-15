@@ -49,11 +49,11 @@ namespace BucketsGame
 
         private void Update()
         { 
-            if (sprite)
-            {
-                if (grounded) sprite.color = Color.white; // Tmp
-                else sprite.color = Color.green;
-            }
+            //if (sprite)
+            //{
+            //    if (grounded) sprite.color = Color.white; // Tmp
+            //    else sprite.color = Color.green;
+            //}
         }
         private void FixedUpdate()
         {
