@@ -74,11 +74,11 @@ namespace BucketsGame
                 DashHandler();
             }
             ShootHandler();
-            if (input.focus) // Tmp?
-            {
-                Time.timeScale = 0.25f;
-            }
-            else Time.timeScale = 1;
+            //if (input.focus) // Tmp?
+            //{
+            //    Time.timeScale = 0.25f;
+            //}
+            //else Time.timeScale = 1;
         }
         private void ExpectedPosition()
         {
