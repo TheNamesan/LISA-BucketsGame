@@ -202,7 +202,7 @@ namespace BucketsGame
         private void SetAirborne()
         {
             //Debug.Log("Going airborne");
-            if (grounded) ChangeState(CharacterStates.Airborne);
+            if (grounded && !dashing) ChangeState(CharacterStates.Airborne);
             grounded = false;
             UpdateGroundData(null);
             EnableGravity(true);
@@ -219,8 +219,9 @@ namespace BucketsGame
             float moveToY = landingPosition.y + Vector2.Distance(closestContactPointD, rb.position) + offset;
             if (!instant)
             {
-                if (rb.velocity.y > -1f) { rb.MovePosition(new Vector2(rb.position.x, moveToY)); }  // if velocity is too small, smooth out the positioning
-                else rb.position = new Vector2(rb.position.x, moveToY); // else position the player instantly
+                var pos = new Vector2(rb.position.x + rb.velocity.x * Time.deltaTime, moveToY);
+                if (rb.velocity.y > -1f) { rb.MovePosition(pos); }  // if velocity is too small, smooth out the positioning
+                else rb.position = pos; // else position the player instantly
             }
             else rb.position = new Vector2(rb.position.x, moveToY); // else position the player instantly
         }
@@ -385,7 +386,7 @@ namespace BucketsGame
                 {
                     if (m_jumps <= 0) return;
                     else m_jumps--;
-                    ChangeState(CharacterStates.Airborne);
+                    if (!dashing) ChangeState(CharacterStates.Airborne);
                 }
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
