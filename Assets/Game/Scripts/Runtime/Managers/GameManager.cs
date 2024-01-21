@@ -9,6 +9,8 @@ namespace BucketsGame
         public int maxFocusTicks = 150;
         public int focusTicks = 0;
         public bool focusMode = false;
+        public LayerMask groundLayers;
+        public LayerMask hurtboxLayers;
         public static GameManager instance;
         private void Awake()
         {
@@ -39,7 +41,7 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (player != null)
             {
-                if (player.input.focus && focusTicks > 0)
+                if (player.input.focus && focusTicks > 0 && !player.dead)
                 {
                     ToggleFocus(true);
                     focusTicks--;

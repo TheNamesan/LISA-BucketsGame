@@ -49,6 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7651473218300279273}
   velocity: 30
+  groundLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  team: 0
 --- !u!212 &7651473218300279275
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -15,9 +15,15 @@ namespace BucketsGame
         public BoxCollider2D col;
         public WeaponBehaviour weapon;
         public SpriteRenderer sprite;
+        public PhysicsMaterial2D aliveMat;
+        public PhysicsMaterial2D deadMat;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
         public GamePlayerInput input;
         public Facing facing = Facing.Right;
+
+        public bool dead { get => m_dead; }
+        private bool m_dead = false;
+        private Vector2 lastPosition;
 
         public float moveSpeed = 6;
 
@@ -50,16 +56,24 @@ namespace BucketsGame
         private int m_dashTicks = 0;
         private int m_dashDirection = 0;
 
+        private void OnEnable()
+        {
+            lastPosition = rb.position;
+        }
         private void Update()
         {
             if (sprite)
             {
                 if (grounded) sprite.color = Color.white; // Tmp
                 else sprite.color = Color.green;
+                if (m_dead) sprite.flipY = true;
             }
         }
         private void FixedUpdate()
         {
+            if (!m_dead) rb.sharedMaterial = aliveMat;
+            else rb.sharedMaterial = deadMat;
+            lastPosition = rb.position;
             GroundCheck();
             InputCheck();
             MoveHandler();
@@ -77,11 +91,6 @@ namespace BucketsGame
                 DashHandler();
             }
             ShootHandler();
-            //if (input.focus) // Tmp?
-            //{
-            //    Time.timeScale = 0.25f;
-            //}
-            //else Time.timeScale = 1;
         }
         private void ExpectedPosition()
         {
@@ -89,6 +98,7 @@ namespace BucketsGame
         }
         private void GroundCheck()
         {
+            if (m_dead) return;
             //Vertical Collision
             float sizeMult = 0.1f;
             Vector2 collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset * sizeMult);
@@ -124,14 +134,6 @@ namespace BucketsGame
                 Vector2 leftOrigin = closestContactPointD - offset;
                 normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
 
-                //if (normalHitHR)
-                //{
-                //    groundNormalSide = normalHitHR.normal;
-                //}
-                //if (normalHitHL)
-                //{
-                //    groundNormalSide = normalHitHL.normal;
-                //}
                 if (normalRight)
                 {
                     Debug.DrawRay(normalRight.point, normalRight.normal, Color.red); //
@@ -220,6 +222,7 @@ namespace BucketsGame
         }
         private void ShootHandler()
         {
+            if (m_dead) return;
             if (input.shootDown)
             {
                 weapon?.Shoot(DistanceToMouse().normalized);
@@ -250,7 +253,7 @@ namespace BucketsGame
         {
             int moveH = (int)input.inputH;
             int moveV = (int)input.inputV;
-
+            if (m_dead) return;
             if (!grounded) // Mid-air
             {
                 DashCancelCheck(moveH);
@@ -361,6 +364,17 @@ namespace BucketsGame
                 rb.velocity = new Vector2(rb.velocity.x, velY);
                 SetAirborne(); //Setting this here so slope fixes get ignored
             }
+        }
+        public void Hurt(Vector2 launch)
+        {
+            if (m_dead) return;
+            Debug.Log("Ouch");
+            m_dead = true;
+            SetAirborne();
+            //Debug.Log($"{launch} || {lastPosition}");
+            //Vector2 launchDir = new Vector2(Mathf.Sign(Mathf.Abs(launch.x) - Mathf.Abs(lastPosition.x)), 0);
+            launch *= 40f;
+            rb.velocity = (launch);
         }
 
         private void CapVelocity()
