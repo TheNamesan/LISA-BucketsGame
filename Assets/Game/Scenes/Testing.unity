@@ -1182,7 +1182,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec57779f6cafe5140a36c92f003d5bf3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3c67864cd3e7deb4cbe2edd3c016d88d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1264,6 +1264,8 @@ GameObject:
   - component: {fileID: 1057024840}
   - component: {fileID: 1057024839}
   - component: {fileID: 1057024841}
+  - component: {fileID: 1057024842}
+  - component: {fileID: 1057024843}
   - component: {fileID: 1057024836}
   - component: {fileID: 1057024835}
   m_Layer: 7
@@ -1353,6 +1355,7 @@ MonoBehaviour:
   col: {fileID: 1057024835}
   weapon: {fileID: 1057024841}
   sprite: {fileID: 906793546}
+  animHandler: {fileID: 1057024842}
   hurtbox: {fileID: 1587175061}
   aliveMat: {fileID: 6200000, guid: 51af410f3cebe764db8e9ada212179e3, type: 2}
   deadMat: {fileID: 6200000, guid: 407de3b61d51842468f31788c3347a8b, type: 2}
@@ -1364,11 +1367,13 @@ MonoBehaviour:
     dashDown: 0
     jumpDown: 0
     focus: 0
+  lastState: 0
   facing: 0
   moveSpeed: 7
   jumpForce: 12
   gravityScale: 2
   extraJumps: 1
+  midairDashes: 1
   maxFallSpeed: -15
   groundLayers:
     serializedVersion: 2
@@ -1408,6 +1413,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7651473218300279274, guid: 828e4795e14d84c4194db5f936f336ca, type: 3}
   ticksFireRate: 10
+--- !u!114 &1057024842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057024834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2238fcf20a2f454b86bbcd5ca132445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1057024843}
+  spriteRenderer: {fileID: 906793546}
+  lastStateName: 
+  animationInWait: 0
+--- !u!95 &1057024843
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057024834}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2462af2889f3acf4782e445b504572cc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1159443336
 GameObject:
   m_ObjectHideFlags: 0
@@ -4853,7 +4895,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1508817559
 Transform:
   m_ObjectHideFlags: 0

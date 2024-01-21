@@ -4,22 +4,21 @@ using UnityEngine;
 
 namespace BucketsGame
 {
-    public enum Facing
-    {
-        Right = 0, 
-        Left = 1
-    }
+    public enum Facing { Right = 0, Left = 1 }
+    public enum CharacterStates { Idle = 0, Walk = 1, Falling = 2, Airborne = 3, Dashing = 4 };
     public class PlayerController : MonoBehaviour
     {
         public Rigidbody2D rb;
         public BoxCollider2D col;
         public WeaponBehaviour weapon;
         public SpriteRenderer sprite;
+        public CharacterAnimationHandler animHandler;
         public Hurtbox hurtbox;
         public PhysicsMaterial2D aliveMat;
         public PhysicsMaterial2D deadMat;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
         public GamePlayerInput input;
+        public CharacterStates lastState = CharacterStates.Idle;
         public Facing facing = Facing.Right;
 
         public bool dead { get => m_dead; }
@@ -77,6 +76,7 @@ namespace BucketsGame
                 if (hurtbox && hurtbox.invulnerable) sprite.color = Color.blue;
                 if (m_dead) sprite.flipY = true;
             }
+            GroundedAnimationStateCheck();
         }
         private void FixedUpdate()
         {
@@ -202,6 +202,7 @@ namespace BucketsGame
         private void SetAirborne()
         {
             //Debug.Log("Going airborne");
+            if (grounded) ChangeState(CharacterStates.Airborne);
             grounded = false;
             UpdateGroundData(null);
             EnableGravity(true);
@@ -359,6 +360,7 @@ namespace BucketsGame
             m_dashDirection = FacingToInt(facing);
             dashing = true;
             hurtbox?.SetInvulnerable(true);
+            ChangeState(CharacterStates.Dashing, true);
         }
         private void DashTimer()
         {
@@ -372,6 +374,7 @@ namespace BucketsGame
             m_dashDirection = 0;
             dashing = false;
             hurtbox?.SetInvulnerable(false);
+            if (!grounded) ChangeState(CharacterStates.Airborne);
         }
         private void Jump(float velY, bool useExtraJumps = false)
         {
@@ -382,6 +385,7 @@ namespace BucketsGame
                 {
                     if (m_jumps <= 0) return;
                     else m_jumps--;
+                    ChangeState(CharacterStates.Airborne);
                 }
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
@@ -410,6 +414,25 @@ namespace BucketsGame
         public void ChangeFacing(Facing newFacing)
         {
             facing = newFacing;
+            animHandler?.FlipSprite(facing);
+            //ChangeState(lastState);
+            GroundedAnimationStateCheck();
+        }
+        private void ChangeState(CharacterStates state, bool forcePlaySameAnim = false)
+        {
+            animHandler.ChangeAnimationState(this, state, forcePlaySameAnim);
+            lastState = state;
+        }
+        private void GroundedAnimationStateCheck()
+        {
+            //if (!grounded || jumping || hardLanded || climbing || falling) return;
+            if (!grounded || dashing) return;
+
+            if (Mathf.Abs(rb.velocity.x) > 0.000001f && input.inputH != 0)
+            {
+                ChangeState(CharacterStates.Walk);
+            }
+            else { ChangeState(CharacterStates.Idle); }
         }
         public int FacingToInt(Facing faceDir)
         {
