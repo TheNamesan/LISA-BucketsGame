@@ -32,8 +32,10 @@ namespace BucketsGame
         public float jumpForce = 10;
         public float gravityScale = 2;
         public int extraJumps = 1;
+        public int midairDashes = 1;
         public float maxFallSpeed = -10;
         private int m_jumps = 0;
+        private int m_midairDashes = 0;
 
         [Header("Ground Collision")]
         public LayerMask groundLayers;
@@ -60,6 +62,11 @@ namespace BucketsGame
         private void OnEnable()
         {
             lastPosition = rb.position;
+        }
+        private void Start()
+        {
+            m_jumps = extraJumps;
+            m_midairDashes = midairDashes;
         }
         private void Update()
         {
@@ -88,10 +95,10 @@ namespace BucketsGame
 
         private void InputCheck()
         {
-            if (input.dashDown && m_dashTicks <= 0) // Dash Input
-            {
-                DashHandler();
-            }
+            
+           
+            DashHandler();
+            
             ShootHandler();
         }
         private void ExpectedPosition()
@@ -234,6 +241,7 @@ namespace BucketsGame
         {
             grounded = true;
             m_jumps = extraJumps; // Restore mid-air jumps
+            m_midairDashes = midairDashes; // Restore mid-air jumps
             EnableGravity(false);
         }
         private void UpdateGroundData(Collider2D collider, Vector2 point = new Vector2(), Vector2 normal = new Vector2())
@@ -335,12 +343,23 @@ namespace BucketsGame
         }
         private void DashHandler()
         {
+            if (input.dashDown && m_dashTicks <= 0) // Dash Input
+            {
+                Dash(!grounded);
+            }
+        }
+        private void Dash(bool useMidairDashes = false)
+        {
+            if (useMidairDashes)
+            {
+                if (m_midairDashes <= 0) return;
+                else m_midairDashes--;
+            }
             m_dashTicks = dashTicksDuration;
             m_dashDirection = FacingToInt(facing);
             dashing = true;
             hurtbox?.SetInvulnerable(true);
         }
-
         private void DashTimer()
         {
             if (!dashing) return;
@@ -375,6 +394,7 @@ namespace BucketsGame
             Debug.Log("Ouch");
             m_dead = true;
             SetAirborne();
+            StopDash();
             launch *= 40f;
             rb.velocity = (launch);
             return true;
