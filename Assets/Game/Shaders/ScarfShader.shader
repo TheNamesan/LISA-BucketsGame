@@ -120,6 +120,7 @@ Shader "Custom/ScarfShader"
                 float t = _Time.y * _TimeScale + _TimeOffset;
                 float o = (i.uv.x + t) * _Frequency;
                 float waveFormula = sin(o) * _Amplitude;
+                waveFormula *= i.uv.x;
                 
                 float x = gv.x;
                 float y = waveFormula;
@@ -129,7 +130,9 @@ Shader "Custom/ScarfShader"
                 color += sinRender;
                 //color += smoothstep(0, 1, waveFormula);
 
+                
                 color.a = 1;
+                color.r = i.uv.x;
                 return sinRender;
             }
 
