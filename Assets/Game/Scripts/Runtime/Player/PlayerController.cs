@@ -35,8 +35,11 @@ namespace BucketsGame
         public Vector2 groundPoint;
         public Vector2 groundNormal;
         public Vector2 groundNormalSide;
+
         public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
         public Vector2 GroundNormalSidePerpendicular { get => Vector2.Perpendicular(groundNormalSide).normalized; }
+        RaycastHit2D normalRight;
+        RaycastHit2D normalLeft;
         public bool IsOnSlope { get => groundNormal != Vector2.up; }
         
 
@@ -48,12 +51,12 @@ namespace BucketsGame
         private int m_dashDirection = 0;
 
         private void Update()
-        { 
-            //if (sprite)
-            //{
-            //    if (grounded) sprite.color = Color.white; // Tmp
-            //    else sprite.color = Color.green;
-            //}
+        {
+            if (sprite)
+            {
+                if (grounded) sprite.color = Color.white; // Tmp
+                else sprite.color = Color.green;
+            }
         }
         private void FixedUpdate()
         {
@@ -115,7 +118,12 @@ namespace BucketsGame
                 //RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
                 RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
                 RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
-                
+                Vector2 offset = new Vector2(moveSpeed * Time.fixedDeltaTime, 0);
+                Vector2 rightOrigin = closestContactPointD + offset;
+                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                Vector2 leftOrigin = closestContactPointD - offset;
+                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+
                 //if (normalHitHR)
                 //{
                 //    groundNormalSide = normalHitHR.normal;
@@ -124,6 +132,14 @@ namespace BucketsGame
                 //{
                 //    groundNormalSide = normalHitHL.normal;
                 //}
+                if (normalRight)
+                {
+                    Debug.DrawRay(normalRight.point, normalRight.normal, Color.red); //
+                }
+                if (normalLeft)
+                {
+                    Debug.DrawRay(normalLeft.point, normalLeft.normal, Color.red); //
+                }
                 if (normalHitV)
                 {
                     normal = normalHitV.normal;
@@ -134,20 +150,11 @@ namespace BucketsGame
                     //var rayDiff = new Vector2(Mathf.Abs(normalHitVRay.normal.x), Mathf.Abs(normalHitVRay.normal.y)) - Vector2.up;
                     var boxDiff = Vector2.Distance(normalHitV.normal, Vector2.up);
                     var rayDiff = Vector2.Distance(normalHitVRay.normal, Vector2.up);
-                    if (boxDiff < rayDiff)
+                    if (boxDiff < rayDiff) // Keep this!!!!
                     {
+                        Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
                         normal = normalHitVRay.normal; // If this takes priority, it allows climbing down normally
                     }
-
-                    //if (Mathf.Abs(normalHitVDown.normal.x) - Mathf.Abs(normalHitV.normal.x) != 0)
-                    //{
-                    //    //var value = normalHitVDown.point - normalHitV.point;
-                    //    //normal = value.normalized;
-                    //    //Debug.DrawRay(normalHitV.point, normal, Color.red);
-                    //    if (normalHitVDown.point.y < normalHitV.point.y)
-                    //        normal = normalHitVDown.normal; // If this takes priority, it allows climbing down normally
-                    //}
-                        
                 }
 
                 if (grounded) 
@@ -268,15 +275,37 @@ namespace BucketsGame
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
                 Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
-                if (IsOnSlope) // On Slope
+                Vector2 normal = groundNormal;
+                if (moveH > 0) normal = GetNormalFrom(normal, normalRight);
+                else if (moveH < 0) normal = GetNormalFrom(normal, normalLeft);
+                if (normal != Vector2.up) // On Slope
                 {
-                    finalVel = new Vector2(velX, velX) * -GroundNormalPerpendicular;
+                    var perp = Vector2.Perpendicular(normal).normalized;
+                    finalVel = new Vector2(velX, velX) * -perp;
                 }
+                //if (IsOnSlope) // On Slope
+                //{
+                //    finalVel = new Vector2(velX, velX) * -GroundNormalPerpendicular;
+                //}
                 rb.velocity = finalVel;
                 Jump(velY);
                 ChangeFacingOnMove(moveH);
             }
             CapVelocity();
+        }
+
+        private Vector2 GetNormalFrom(Vector2 normal, RaycastHit2D ray)
+        {
+            if (ray)
+            {
+                if (ray.point.y - groundPoint.y > 0.05f)
+                {
+                    Debug.Log(ray.point.y - groundPoint.y);
+                    normal = ray.normal;
+                }
+            }
+
+            return normal;
         }
 
         private void DashCancelCheck(int moveH)

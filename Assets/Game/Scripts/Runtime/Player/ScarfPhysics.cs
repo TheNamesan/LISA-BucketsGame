@@ -41,14 +41,14 @@ namespace BucketsGame
         private void Update()
         {
             Simulation();
-            foreach (VerletPoint point in points)
-            {
-                point.Render();
-            }
-            foreach (VerletConstraint constraint in constraint)
-            {
-                constraint.Render();
-            }
+            //foreach (VerletPoint point in points)
+            //{
+            //    point.Render();
+            //}
+            //foreach (VerletConstraint constraint in constraint)
+            //{
+            //    constraint.Render();
+            //}
             if (line && anchorPoint)
             {
                 line.SetPosition(0, anchorPoint.position);
