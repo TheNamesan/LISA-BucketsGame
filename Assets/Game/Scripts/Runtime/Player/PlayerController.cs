@@ -15,6 +15,7 @@ namespace BucketsGame
         public BoxCollider2D col;
         public WeaponBehaviour weapon;
         public SpriteRenderer sprite;
+        public Hurtbox hurtbox;
         public PhysicsMaterial2D aliveMat;
         public PhysicsMaterial2D deadMat;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
@@ -66,6 +67,7 @@ namespace BucketsGame
             {
                 if (grounded) sprite.color = Color.white; // Tmp
                 else sprite.color = Color.green;
+                if (hurtbox && hurtbox.invulnerable) sprite.color = Color.blue;
                 if (m_dead) sprite.flipY = true;
             }
         }
@@ -336,6 +338,7 @@ namespace BucketsGame
             m_dashTicks = dashTicksDuration;
             m_dashDirection = FacingToInt(facing);
             dashing = true;
+            hurtbox?.SetInvulnerable(true);
         }
 
         private void DashTimer()
@@ -349,6 +352,7 @@ namespace BucketsGame
             m_dashTicks = 0;
             m_dashDirection = 0;
             dashing = false;
+            hurtbox?.SetInvulnerable(false);
         }
         private void Jump(float velY, bool useExtraJumps = false)
         {
@@ -365,16 +369,15 @@ namespace BucketsGame
                 SetAirborne(); //Setting this here so slope fixes get ignored
             }
         }
-        public void Hurt(Vector2 launch)
+        public bool Hurt(Vector2 launch)
         {
-            if (m_dead) return;
+            if (m_dead) return false;
             Debug.Log("Ouch");
             m_dead = true;
             SetAirborne();
-            //Debug.Log($"{launch} || {lastPosition}");
-            //Vector2 launchDir = new Vector2(Mathf.Sign(Mathf.Abs(launch.x) - Mathf.Abs(lastPosition.x)), 0);
             launch *= 40f;
             rb.velocity = (launch);
+            return true;
         }
 
         private void CapVelocity()

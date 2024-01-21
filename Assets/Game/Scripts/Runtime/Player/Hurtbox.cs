@@ -9,9 +9,16 @@ namespace BucketsGame
         public PlayerController callback;
         public BoxCollider2D col;
         public Team team;
-        public void Collision(Vector2 impactPoint)
+        public bool invulnerable { get => m_invulnerable; }
+        private bool m_invulnerable = false;
+        public bool Collision(Vector2 launchDir)
         {
-            callback?.Hurt(impactPoint);
+            if (!callback) return false;
+            return callback.Hurt(launchDir);
+        }
+        public void SetInvulnerable(bool value)
+        {
+            m_invulnerable = value;
         }
     }
 }

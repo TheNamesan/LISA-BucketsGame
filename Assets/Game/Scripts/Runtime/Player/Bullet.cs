@@ -51,16 +51,16 @@ namespace BucketsGame
             {
                 ReturnToPool();
             }
-            var hitboxLayers = GameManager.instance.hurtboxLayers;
+            var hitboxLayers = GameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
             RaycastHit2D hit = Physics2D.CircleCast(rb.position, transform.localScale.x, rb.transform.up, 0, hitboxLayers);
             if (hit)
             {
                 if (hit.collider.TryGetComponent(out Hurtbox hurtbox))
                 {
-                    if (hurtbox.team != team)
+                    if (hurtbox.team != team && !hurtbox.invulnerable)
                     {
-                        hurtbox.Collision(rb.velocity.normalized);
-                        ReturnToPool();
+                        bool hitTarget = hurtbox.Collision(rb.velocity.normalized);
+                        if (hitTarget) ReturnToPool();
                     }
                 }
             }
