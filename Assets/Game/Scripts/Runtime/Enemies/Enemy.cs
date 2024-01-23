@@ -20,7 +20,8 @@ namespace BucketsGame
                 {
                     sprite.color = Color.red;
                     rb.constraints = RigidbodyConstraints2D.None;
-                } 
+                }
+                else rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             }    
         }
         private void FixedUpdate()

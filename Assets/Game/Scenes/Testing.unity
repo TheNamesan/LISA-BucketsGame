@@ -216,6 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 52448484}
+  - component: {fileID: 52448488}
   - component: {fileID: 52448485}
   - component: {fileID: 52448487}
   - component: {fileID: 52448486}
@@ -270,6 +271,7 @@ MonoBehaviour:
   groundNormal: {x: 0, y: 0}
   gravityScale: 2
   maxFallSpeed: -15
+  m_dead: 0
   enemyState: 0
 --- !u!61 &52448486
 BoxCollider2D:
@@ -318,6 +320,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &52448488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52448483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7f06c7ca8995640b607dc41ac91d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  includeChildren: 1
+  ignores: []
 --- !u!1 &141018293
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +774,7 @@ MonoBehaviour:
   callback: {fileID: 1889320023}
   col: {fileID: 269351982}
   team: 1
+  m_invulnerable: 0
 --- !u!1 &352606056
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 662249652}
+  - component: {fileID: 662249656}
   - component: {fileID: 662249653}
   - component: {fileID: 662249655}
   - component: {fileID: 662249654}
@@ -985,6 +1003,7 @@ MonoBehaviour:
   groundNormal: {x: 0, y: 0}
   gravityScale: 2
   maxFallSpeed: -15
+  m_dead: 0
   enemyState: 0
 --- !u!61 &662249654
 BoxCollider2D:
@@ -1033,6 +1052,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &662249656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662249651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7f06c7ca8995640b607dc41ac91d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  includeChildren: 1
+  ignores: []
 --- !u!1 &670456183
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,6 +1551,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f376102b-c96d-480c-ae52-bcbf4f95575c
     m_ActionName: Player/Focus[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1057024840}
+        m_TargetAssemblyTypeName: BucketsGame.PlayerInputHandler, BucketsGameRuntime
+        m_MethodName: ResetLevel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 95502f3a-3bae-4a8f-9290-d1d07f03aeec
+    m_ActionName: Player/Reset[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1718,6 +1767,7 @@ MonoBehaviour:
   velocityMultiplier: {x: 0.8, y: 0.9}
   points: []
   constraint: []
+  timeCount: 0
   references:
     version: 2
     RefIds: []
@@ -1730,6 +1780,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1057024838}
+  - component: {fileID: 1057024844}
   - component: {fileID: 1057024840}
   - component: {fileID: 1057024839}
   - component: {fileID: 1057024841}
@@ -1835,6 +1886,7 @@ MonoBehaviour:
   groundNormal: {x: 0, y: 0}
   gravityScale: 2
   maxFallSpeed: -15
+  m_dead: 0
   weapon: {fileID: 1057024841}
   animHandler: {fileID: 1057024842}
   input:
@@ -1849,9 +1901,13 @@ MonoBehaviour:
   jumpForce: 12
   extraJumps: 1
   midairDashes: 1
+  m_jumps: 0
+  m_midairDashes: 0
   dashSpeed: 15
   dashTicksDuration: 20
   dashing: 0
+  m_dashTicks: 0
+  m_dashDirection: 0
 --- !u!114 &1057024840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1916,6 +1972,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1057024844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057024834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7f06c7ca8995640b607dc41ac91d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  includeChildren: 1
+  ignores:
+  - {fileID: 973594940}
+  - {fileID: 2056532930}
 --- !u!1 &1159443336
 GameObject:
   m_ObjectHideFlags: 0
@@ -5667,6 +5739,7 @@ MonoBehaviour:
   callback: {fileID: 1057024839}
   col: {fileID: 1587175060}
   team: 0
+  m_invulnerable: 0
 --- !u!1 &1605799267
 GameObject:
   m_ObjectHideFlags: 0
@@ -5948,6 +6021,7 @@ MonoBehaviour:
   callback: {fileID: 52448485}
   col: {fileID: 1775855608}
   team: 1
+  m_invulnerable: 0
 --- !u!1 &1778963533
 GameObject:
   m_ObjectHideFlags: 0
@@ -6129,6 +6203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1889320022}
+  - component: {fileID: 1889320026}
   - component: {fileID: 1889320023}
   - component: {fileID: 1889320025}
   - component: {fileID: 1889320024}
@@ -6183,6 +6258,7 @@ MonoBehaviour:
   groundNormal: {x: 0, y: 0}
   gravityScale: 2
   maxFallSpeed: -15
+  m_dead: 0
   enemyState: 0
 --- !u!61 &1889320024
 BoxCollider2D:
@@ -6231,6 +6307,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &1889320026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889320021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7f06c7ca8995640b607dc41ac91d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  includeChildren: 1
+  ignores: []
 --- !u!1 &2056532930
 GameObject:
   m_ObjectHideFlags: 0
@@ -6520,3 +6610,4 @@ MonoBehaviour:
   callback: {fileID: 662249653}
   col: {fileID: 2128921613}
   team: 1
+  m_invulnerable: 0

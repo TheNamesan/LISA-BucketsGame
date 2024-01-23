@@ -54,6 +54,12 @@ namespace BucketsGame
             if (context.canceled)
                 player.input.focus = false;
         }
+        public void ResetLevel(InputAction.CallbackContext context)
+        {
+            if (!player) return;
+            if (context.performed)
+                GameManager.instance.ResetLevel();
+        }
     }
     [System.Serializable]
     public struct GamePlayerInput

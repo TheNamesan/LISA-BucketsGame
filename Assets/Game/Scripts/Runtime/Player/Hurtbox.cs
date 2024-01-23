@@ -10,7 +10,7 @@ namespace BucketsGame
         public BoxCollider2D col;
         public Team team;
         public bool invulnerable { get => m_invulnerable; }
-        private bool m_invulnerable = false;
+        [SerializeField] private bool m_invulnerable = false;
         public bool Collision(Vector2 launchDir)
         {
             if (!callback) return false;

@@ -32,8 +32,8 @@ namespace BucketsGame
         public int extraJumps = 1;
         public int midairDashes = 1;
         //public float maxFallSpeed = -10;
-        private int m_jumps = 0;
-        private int m_midairDashes = 0;
+        [SerializeField] private int m_jumps = 0;
+        [SerializeField] private int m_midairDashes = 0;
 
         //[Header("Ground Collision")]
         //public LayerMask groundLayers;
@@ -51,8 +51,8 @@ namespace BucketsGame
         public float dashSpeed = 15;
         public int dashTicksDuration = 25;
         public bool dashing = false;
-        private int m_dashTicks = 0;
-        private int m_dashDirection = 0;
+        [SerializeField] private int m_dashTicks = 0;
+        [SerializeField] private int m_dashDirection = 0;
 
         private void OnEnable()
         {
@@ -71,6 +71,7 @@ namespace BucketsGame
                 else sprite.color = Color.green;
                 if (hurtbox && hurtbox.invulnerable) sprite.color = Color.blue;
                 if (m_dead) rb.constraints = RigidbodyConstraints2D.None;
+                else rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             }
             GroundedAnimationStateCheck();
         }

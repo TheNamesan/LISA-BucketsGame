@@ -17,7 +17,7 @@ namespace BucketsGame
         public Vector2 velocityMultiplier = new Vector2(0.5f, 0.9f);
         public List<VerletPoint> points = new();
         public List<VerletConstraint> constraint = new();
-        private float timeCount = 0;
+        [SerializeField] private float timeCount = 0;
         private void Awake()
         {
             if (iterations <= 0) iterations = 1;

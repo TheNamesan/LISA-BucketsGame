@@ -55,5 +55,11 @@ namespace BucketsGame
         {
             return (float)focusTicks / (float)maxFocusTicks;
         }
+        public void ResetLevel()
+        {
+            focusTicks = maxFocusTicks;
+            SceneProperties.instance.ResetLevel();
+            EntityResetCaller.onResetLevel.Invoke();
+        }    
     }
 }

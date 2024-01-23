@@ -21,15 +21,15 @@ namespace BucketsGame
         public Collider2D groundCollider = null;
         public Vector2 groundPoint;
         public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
-        protected RaycastHit2D normalRight;
-        protected RaycastHit2D normalLeft;
+        public RaycastHit2D normalRight;
+        public RaycastHit2D normalLeft;
         public bool IsOnSlope { get => groundNormal != Vector2.up; }
         public Vector2 groundNormal;
         public float gravityScale = 2;
         public float maxFallSpeed = -15;
 
         public bool dead { get => m_dead; }
-        protected bool m_dead = false;
+        [SerializeField] protected bool m_dead = false;
 
         protected virtual void GroundCheck()
         {
