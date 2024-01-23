@@ -43,6 +43,25 @@ namespace BucketsGame
         {
             instance = this;
         }
+        private void OnEnable()
+        {
+            string text = "";
+            var components = GetComponentsInChildren<Component>();
+            //text += JsonUtility.ToJson(components, true);
+            for (int i = 0; i < components.Length; i++)
+            {
+                if (components[i] is not MonoBehaviour)
+                {
+                    if (components[i] is Transform trs)
+                    {
+                        text += $"Position: {trs.position}. Rotation: {trs.rotation}\n";
+                    }
+                    continue;
+                }
+                text += JsonUtility.ToJson(components[i], true);
+            }
+            Debug.Log(text);
+        }
         private T GetObject<T>(ref T variable) where T : Object
         {
             var obj = FindObjectOfType<T>();

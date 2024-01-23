@@ -11,6 +11,8 @@ namespace BucketsGame
         public bool focusMode = false;
         public LayerMask groundLayers;
         public LayerMask hurtboxLayers;
+        public PhysicsMaterial2D aliveMat;
+        public PhysicsMaterial2D deadMat;
         public static GameManager instance;
         private void Awake()
         {

@@ -6,7 +6,7 @@ namespace BucketsGame
 {
     public class Hurtbox : MonoBehaviour
     {
-        public PlayerController callback;
+        public MovingEntity callback;
         public BoxCollider2D col;
         public Team team;
         public bool invulnerable { get => m_invulnerable; }
