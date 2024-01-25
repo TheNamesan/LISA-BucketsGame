@@ -13,7 +13,7 @@ namespace BucketsGame
         public Hurtbox hurtbox;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
         public Facing facing = Facing.Right;
-        public float moveSpeed = 7;
+        public float moveSpeed = 6;
 
         [Header("Ground Collision")]
         public LayerMask groundLayers;
@@ -188,6 +188,17 @@ namespace BucketsGame
                 rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
             }
         }
+        protected virtual Vector2 GetSlopeVelocity(int moveH, float velX, Vector2 velocity, Vector2 normal)
+        {
+            if (moveH > 0) normal = GetNormalFrom(normal, normalRight);
+            else if (moveH < 0) normal = GetNormalFrom(normal, normalLeft);
+            if (normal != Vector2.up) // On Slope
+            {
+                var perp = Vector2.Perpendicular(normal).normalized;
+                velocity = new Vector2(velX, velX) * -perp;
+            }
+            return velocity;
+        }
         protected Vector2 GetNormalFrom(Vector2 normal, RaycastHit2D ray)
         {
             if (ray)
@@ -199,6 +210,19 @@ namespace BucketsGame
                 }
             }
             return normal;
+        }
+        protected virtual void ChangeFacingOnMove(float moveH)
+        {
+            if (moveH > 0) ChangeFacing(Facing.Right);
+            if (moveH < 0) ChangeFacing(Facing.Left);
+        }
+        public virtual void ChangeFacing(Facing newFacing)
+        {
+            facing = newFacing;
+        }
+        public virtual int FaceToInt()
+        {
+            return (facing == Facing.Right ? 1 : -1);
         }
     }
 }

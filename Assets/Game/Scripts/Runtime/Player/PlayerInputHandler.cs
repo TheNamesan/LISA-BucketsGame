@@ -7,7 +7,7 @@ namespace BucketsGame
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        public PlayerController player;
+        public PlayerController player { get => SceneProperties.mainPlayer; }
         
         public void Move(InputAction.CallbackContext context)
         {

@@ -159,13 +159,7 @@ namespace BucketsGame
                 float velY = moveV * jumpForce;
                 Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
                 Vector2 normal = groundNormal;
-                if (moveH > 0) normal = GetNormalFrom(normal, normalRight);
-                else if (moveH < 0) normal = GetNormalFrom(normal, normalLeft);
-                if (normal != Vector2.up) // On Slope
-                {
-                    var perp = Vector2.Perpendicular(normal).normalized;
-                    finalVel = new Vector2(velX, velX) * -perp;
-                }
+                finalVel = GetSlopeVelocity(moveH, velX, finalVel, normal);
                 rb.velocity = finalVel;
                 Jump(velY);
                 ChangeFacingOnMove(moveH);
@@ -173,18 +167,12 @@ namespace BucketsGame
             CapVelocity();
         }
 
-        
 
         private void DashCancelCheck(int moveH)
         {
             if (dashing && moveH != 0 && m_dashDirection != moveH) { StopDash(); } // Cancel Dash
         }
 
-        private void ChangeFacingOnMove(float moveH)
-        {
-            if (moveH > 0) ChangeFacing(Facing.Right);
-            if (moveH < 0) ChangeFacing(Facing.Left);
-        }
         private void TimerHandler()
         {
             DashTimer();
@@ -256,15 +244,14 @@ namespace BucketsGame
             rb.velocity = (launch);
             return true;
         }
-
-        
-        public void ChangeFacing(Facing newFacing)
+        public override void ChangeFacing(Facing newFacing)
         {
             facing = newFacing;
             animHandler?.FlipSprite(facing);
-            //ChangeState(lastState);
             GroundedAnimationStateCheck();
         }
+
+
         private void ChangeState(CharacterStates state, bool forcePlaySameAnim = false)
         {
             animHandler.ChangeAnimationState(this, state, forcePlaySameAnim);
