@@ -15,9 +15,16 @@ namespace BucketsGame
         private float m_timePassed = 0;
         private void OnEnable()
         {
+            if (focusFill && focusFill.material != null)
+            {
+                focusFill.material = Instantiate(focusFill.material); // Copy of material
+            }
             ScrollBarEffect(0);
         }
-
+        private void OnDisable()
+        {
+            ScrollBarEffect(0);
+        }
         private void ScrollBarEffect(float newTime)
         {
             m_timePassed = newTime;

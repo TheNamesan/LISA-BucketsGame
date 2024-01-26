@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using DG.Tweening;
 
 namespace BucketsGame
 {
@@ -13,6 +14,9 @@ namespace BucketsGame
         [SerializeField] private Vector2 m_maxOffset = Vector2.one;
         [SerializeField] private Vector2 m_minDistance = Vector2.zero;
         [SerializeField] private Vector2 m_maxDistance = Vector2.one * 5;
+        [SerializeField] private Tween m_shakeTween = null;
+        [SerializeField] private CinemachineFramingTransposer framing;
+        [SerializeField] private CinemachineBasicMultiChannelPerlin noise;
 
         private void LateUpdate()
         {
@@ -52,11 +56,24 @@ namespace BucketsGame
         }
         private void ApplyOffset(Vector2 value)
         {
-            var framing = virtualCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+            if (!framing) framing = virtualCam.GetCinemachineComponent<CinemachineFramingTransposer>();
             if (framing)
             {
                 framing.m_TrackedObjectOffset = value;
             }
+        }
+        public void ShakeCamera(float initialAmplitude, float duration = 0.5f, bool unscaledTime = true)
+        {
+            if (!virtualCam) return;
+            if (!noise) noise = virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            if (!noise) return;
+            GameUtility.KillTween(ref m_shakeTween);
+            noise.m_AmplitudeGain = initialAmplitude;
+            m_shakeTween = DOTween.To(() => noise.m_AmplitudeGain, value => ShakeUpdate(value), 0f, duration).SetUpdate(unscaledTime);
+        }
+        private void ShakeUpdate(float value)
+        {
+            noise.m_AmplitudeGain = value;
         }
     }
 }

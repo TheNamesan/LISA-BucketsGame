@@ -242,6 +242,7 @@ namespace BucketsGame
             StopDash();
             launch *= 40f;
             rb.velocity = (launch);
+            GameManager.instance.OnPlayerDead();
             return true;
         }
         public override void ChangeFacing(Facing newFacing)

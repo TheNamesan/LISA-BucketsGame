@@ -58,5 +58,15 @@ namespace BucketsGame
             }
             CapVelocity();
         }
+        public override bool Hurt(Vector2 launch)
+        {
+            if (m_dead) return false;
+            m_dead = true;
+            SetAirborne();
+            launch *= 40f;
+            rb.velocity = (launch);
+            GameManager.instance.OnEnemyKill();
+            return true;
+        }
     }
 }
