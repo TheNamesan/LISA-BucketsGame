@@ -48,6 +48,7 @@ namespace BucketsGame
                     
                     SpawnBullet(dir);
                 }
+                SceneProperties.instance.camManager.ShakeCamera(10, 0.5f);
             }
             m_ticks = GetFireRate();
             Debug.Log("Pew");

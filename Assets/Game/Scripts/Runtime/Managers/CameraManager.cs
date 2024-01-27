@@ -11,6 +11,7 @@ namespace BucketsGame
         public Camera cam;
         public CinemachineVirtualCamera virtualCam;
         public CinemachineCameraOffset camOffset;
+        public float dashOffsetIntensity = 0.5f;
         [SerializeField] private Vector2 m_minOffset = Vector2.zero;
         [SerializeField] private Vector2 m_maxOffset = Vector2.one;
         [SerializeField] private Vector2 m_minDistance = Vector2.zero;
@@ -76,7 +77,7 @@ namespace BucketsGame
             var distanceToPlayer = player.input.MousePointWorld.y - player.transform.position.y;
             Debug.Log(distanceToPlayer);
             float duration = 0.05f;
-            Vector2 to = new Vector2(-player.dashDirection * 0.5f, Mathf.Sign(distanceToPlayer) * -0.2f);
+            Vector2 to = new Vector2(-player.dashDirection * 0.5f, Mathf.Sign(distanceToPlayer) * -0.2f) * dashOffsetIntensity;
             GameUtility.KillTween(ref m_dashingTween);
             m_dashingTween = DOTween.To(() => m_dashOffset, x => m_dashOffset = x, to, duration).From(Vector2.zero)
                 .SetLoops(2, LoopType.Yoyo).SetUpdate(true)
