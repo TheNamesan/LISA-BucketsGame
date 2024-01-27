@@ -12,6 +12,8 @@ namespace BucketsGame
         public SpriteRenderer sprite;
         public Hurtbox hurtbox;
         public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
+        public Vector2 closestContactPointR { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.right * col.bounds.size); }
+        public Vector2 closestContactPointL { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.left * col.bounds.size); }
         public Facing facing = Facing.Right;
         public float moveSpeed = 6;
 
@@ -23,6 +25,8 @@ namespace BucketsGame
         public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
         public RaycastHit2D normalRight;
         public RaycastHit2D normalLeft;
+        public RaycastHit2D wallRightHit;
+        public RaycastHit2D wallLeftHit;
         public bool IsOnSlope { get => groundNormal != Vector2.up; }
         public Vector2 groundNormal;
         public float gravityScale = 2;
@@ -123,6 +127,20 @@ namespace BucketsGame
                new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
             Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y),
                new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
+        }
+        protected virtual void WallCheck()
+        {
+            if (m_dead) return;
+            //Vertical Collision
+            float sizeMult = 0.1f;
+            Vector2 collisionBoxSize = new Vector2(Physics2D.defaultContactOffset * sizeMult, col.bounds.size.y);
+            float collisionBoxDistance = collisionBoxSize.x * 10f;
+            wallRightHit = Physics2D.BoxCast(closestContactPointR, collisionBoxSize, 0f, Vector2.right, collisionBoxDistance, groundLayers);
+            wallLeftHit = Physics2D.BoxCast(closestContactPointL, collisionBoxSize, 0f, Vector2.left, collisionBoxDistance, groundLayers);
+            if (wallRightHit) Debug.DrawRay(wallRightHit.point, wallRightHit.normal, Color.green);
+            if (wallLeftHit) Debug.DrawRay(wallLeftHit.point, wallLeftHit.normal, Color.green);
+
+            Color boxColor = Color.red;
         }
 
         protected virtual void SetAirborne()

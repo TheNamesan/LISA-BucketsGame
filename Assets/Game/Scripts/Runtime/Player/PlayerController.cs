@@ -80,6 +80,7 @@ namespace BucketsGame
             AssignDeadMaterial();
             lastPosition = rb.position;
             GroundCheck();
+            WallCheck();
             InputCheck();
             MoveHandler();
             TimerHandler();

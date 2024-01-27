@@ -40,6 +40,7 @@ namespace BucketsGame
             if (!m_dead) rb.sharedMaterial = GameManager.instance.aliveMat;
             else rb.sharedMaterial = GameManager.instance.deadMat;
             GroundCheck();
+            WallCheck();
             CheckPlayerDistance();
             MoveHandler();
         }
@@ -78,7 +79,6 @@ namespace BucketsGame
                         }
                         Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
                     }
-                    
                 }
                 //if (Mathf.Abs(distanceToPlayer) <= 4f) enemyState = EnemyAIState.Alert;
                 //else Debug.Log(distanceToPlayer);
@@ -138,8 +138,17 @@ namespace BucketsGame
                     {
                         speed = roamSpeed;
                         moveH = FaceToInt();
-                        if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft)) 
+                        // Fall Check
+                        if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH *= -1;
+                        // Wall Check
+                        if ((moveH > 0 && wallRightHit && wallRightHit.normal.x == -1) || 
+                            (moveH < 0 && wallLeftHit && wallLeftHit.normal.x == 1))
+                        {
+                            moveH *= -1;
+                            Debug.Log("FLIP!");
+                        }
+                            
                     }
                     float velX = moveH * speed;
                     Vector2 velocity = new Vector2(velX, 0);
