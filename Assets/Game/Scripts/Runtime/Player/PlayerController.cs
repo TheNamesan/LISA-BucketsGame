@@ -97,7 +97,103 @@ namespace BucketsGame
             input.dashDown = false;
             input.shootDown = false;
         }
+        protected override void GroundCheck()
+        {
+            if (m_dead) return;
+            //Vertical Collision
+            float sizeMult = 0.1f;
+            float boxSizeX = col.bounds.size.x;
+            Vector2 collisionBoxSize = new Vector2(boxSizeX, Physics2D.defaultContactOffset * sizeMult);
+            float collisionBoxDistance = collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);
+            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
 
+            Color boxColor = Color.red;
+
+            // This is a fix used when reaching the top of a slope
+            // Added dashing alongside IsOnSlope as sometimes moving too fast would put you airborne if you tried to slide down a slope
+            if (!collision && (IsOnSlope || dashing) && grounded) // If was on slope climbing up, attempt to find expected ground
+            {
+                var distance = collisionBoxDistance * 100f;
+                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                if (snapAttempt)
+                {
+                    collision = snapAttempt;
+                    rb.velocity = Vector2.zero; // Important!
+                    SnapToGround(sizeMult, collision, instant: true); // The instant is important so it doesn't cancel the speed in MoveHandler (rb.MovePosition is the issue)
+                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+                }
+            }
+            if (collision)
+            {
+                var collider = collision.collider;
+                Vector2 normal = collision.normal;
+                float distance = col.size.y;
+                //if (dashing) distance *= 1.5f;
+                //RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
+                //RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
+                RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
+                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                Vector2 offset = new Vector2((dashing ? dashSpeed : moveSpeed) * Time.fixedDeltaTime, 0);
+                Vector2 rightOrigin = closestContactPointD + offset;
+                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                Vector2 leftOrigin = closestContactPointD - offset;
+                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+
+                if (normalRight)
+                {
+                    Debug.DrawRay(normalRight.point, normalRight.normal, Color.red); //
+                }
+                if (normalLeft)
+                {
+                    Debug.DrawRay(normalLeft.point, normalLeft.normal, Color.red); //
+                }
+                if (normalHitV)
+                {
+                    normal = normalHitV.normal;
+                }
+                if (normalHitVRay)
+                {
+                    //var boxDiff = new Vector2(Mathf.Abs(normalHitV.normal.x), Mathf.Abs(normalHitV.normal.y)) - Vector2.up;
+                    //var rayDiff = new Vector2(Mathf.Abs(normalHitVRay.normal.x), Mathf.Abs(normalHitVRay.normal.y)) - Vector2.up;
+                    var boxDiff = Vector2.Distance(normalHitV.normal, Vector2.up);
+                    var rayDiff = Vector2.Distance(normalHitVRay.normal, Vector2.up);
+                    if (boxDiff < rayDiff) // Keep this!!!!
+                    {
+                        Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
+                        normal = normalHitVRay.normal; // If this takes priority, it allows climbing down normally
+                    }
+                }
+
+                if (grounded)
+                {
+                    boxColor = Color.yellow;
+                }
+                if (!grounded) // If mid-air before, touch land
+                {
+                    SnapToGround(sizeMult, collision);
+                    TouchLand();
+                    boxColor = Color.green;
+                }
+                UpdateGroundData(collider, collision.point, normal);
+                Debug.DrawRay(collision.point, normal, Color.green);
+            }
+            else // OnCollisionExit
+            {
+                SetAirborne();
+            }
+
+            float displayTime = 0f;
+            Vector2 boxCenter = closestContactPointD;
+            Vector2 boxExtents = collisionBoxSize * 0.5f;
+            Debug.DrawLine(new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y),
+                new Vector2(boxCenter.x + boxExtents.x, boxCenter.y + boxExtents.y), boxColor, displayTime);
+            Debug.DrawLine(new Vector2(boxCenter.x + boxExtents.x, boxCenter.y + boxExtents.y),
+               new Vector2(boxCenter.x - boxExtents.x, boxCenter.y + boxExtents.y), boxColor, displayTime);
+            Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y + boxExtents.y),
+               new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
+            Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y),
+               new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
+        }
         private void AssignDeadMaterial()
         {
             if (!m_dead) rb.sharedMaterial = GameManager.instance.aliveMat;
