@@ -31,27 +31,16 @@ namespace BucketsGame
         //public float gravityScale = 2;
         public int extraJumps = 1;
         public int midairDashes = 1;
-        //public float maxFallSpeed = -10;
         [SerializeField] private int m_jumps = 0;
         [SerializeField] private int m_midairDashes = 0;
 
-        //[Header("Ground Collision")]
-        //public LayerMask groundLayers;
-        //public bool grounded = false;
-        //public Collider2D groundCollider = null;
-        //public Vector2 groundPoint;
-        //public Vector2 groundNormal;
-
-        //public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
-        //private RaycastHit2D normalRight;
-        //private RaycastHit2D normalLeft;
-        //public bool IsOnSlope { get => groundNormal != Vector2.up; }
 
         [Header("Dash")]
         public float dashSpeed = 15;
         public int dashTicksDuration = 25;
         public bool dashing = false;
         [SerializeField] private int m_dashTicks = 0;
+        public int dashDirection { get => m_dashDirection; }
         [SerializeField] private int m_dashDirection = 0;
 
         [Header("Wall Jump")]
@@ -342,6 +331,7 @@ namespace BucketsGame
             dashing = true;
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
+            GameManager.instance.OnDash();
         }
         private void WallJump()
         {

@@ -80,6 +80,14 @@ namespace BucketsGame
             focusTicks += value;
             if (focusTicks > maxFocusTicks) focusTicks = maxFocusTicks;
         }
+        public void OnDash()
+        {
+            if (SceneProperties.instance)
+            {
+                SceneProperties.instance.camManager.PlayDashOffset();
+            }
+        }
+
         public void OnEnemyKill()
         {
             if (SceneProperties.instance)

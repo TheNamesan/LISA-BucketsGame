@@ -10,10 +10,13 @@ namespace BucketsGame
     {
         public Camera cam;
         public CinemachineVirtualCamera virtualCam;
+        public CinemachineCameraOffset camOffset;
         [SerializeField] private Vector2 m_minOffset = Vector2.zero;
         [SerializeField] private Vector2 m_maxOffset = Vector2.one;
         [SerializeField] private Vector2 m_minDistance = Vector2.zero;
         [SerializeField] private Vector2 m_maxDistance = Vector2.one * 5;
+        [SerializeField] private Tween m_dashingTween = null;
+        [SerializeField] private Vector2 m_dashOffset = new Vector2();
         [SerializeField] private Tween m_shakeTween = null;
         [SerializeField] private CinemachineFramingTransposer framing;
         [SerializeField] private CinemachineBasicMultiChannelPerlin noise;
@@ -49,7 +52,6 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (!player) return Vector2.zero;
             var vel = player.rb.velocity.normalized.x;
-            if (Mathf.Abs(player.rb.velocity.x) < 0.0001f) vel = 0; // Fixes weird rb jank when landing
             Vector2 value = new Vector2(vel, 0); // Follow only velocity X
             //if (vel.y < 1) return Vector2.zero;
             return value;
@@ -61,6 +63,24 @@ namespace BucketsGame
             {
                 framing.m_TrackedObjectOffset = value;
             }
+            if (camOffset)
+            {
+                camOffset.m_Offset.x = m_dashOffset.x;
+                camOffset.m_Offset.y = m_dashOffset.y;
+            }
+        }
+        public void PlayDashOffset()
+        {
+            var player = SceneProperties.mainPlayer;
+            if (!player) return;
+            var distanceToPlayer = player.input.MousePointWorld.y - player.transform.position.y;
+            Debug.Log(distanceToPlayer);
+            float duration = 0.05f;
+            Vector2 to = new Vector2(-player.dashDirection * 0.5f, Mathf.Sign(distanceToPlayer) * -0.2f);
+            GameUtility.KillTween(ref m_dashingTween);
+            m_dashingTween = DOTween.To(() => m_dashOffset, x => m_dashOffset = x, to, duration).From(Vector2.zero)
+                .SetLoops(2, LoopType.Yoyo).SetUpdate(true)
+                .SetEase(Ease.Linear);
         }
         public void ShakeCamera(float initialAmplitude, float duration = 0.5f, bool unscaledTime = true)
         {

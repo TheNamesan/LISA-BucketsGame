@@ -385,10 +385,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 8554847308507395930}
   virtualCam: {fileID: 8554847309708343404}
+  camOffset: {fileID: 6007828927435111045}
   m_minOffset: {x: 0, y: 0}
   m_maxOffset: {x: 2, y: 2}
   m_minDistance: {x: 2, y: 2}
   m_maxDistance: {x: 6, y: 4}
+  m_dashOffset: 0
   framing: {fileID: 0}
   noise: {fileID: 0}
 --- !u!81 &8554847308507395931
@@ -520,6 +522,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8554847309708343405}
   - component: {fileID: 8554847309708343404}
+  - component: {fileID: 6007828927435111045}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -581,6 +584,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 8554847308088989839}
+--- !u!114 &6007828927435111045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554847309708343406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_ApplyAfter: 1
+  m_PreserveComposition: 0
 --- !u!1 &8554847309772667502
 GameObject:
   m_ObjectHideFlags: 0
