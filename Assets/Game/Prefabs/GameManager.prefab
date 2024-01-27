@@ -31,7 +31,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1013428546601661257}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,8 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb989e7d6911ca249b750503731fb823, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitstun: 1
   maxFocusTicks: 150
   focusTicks: 0
+  hitFocusTicksRegain: 30
   focusMode: 0
   groundLayers:
     serializedVersion: 2
@@ -269,3 +272,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d04cdc1eff3c8dc42be8654c68829e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7098204292990112833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013428546601661257}
+  - component: {fileID: 3527732948820375077}
+  m_Layer: 0
+  m_Name: AfterImagesPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1013428546601661257
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098204292990112833}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6547701444824546337}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3527732948820375077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7098204292990112833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17f4f82125ff94b478e5f94cf921a49d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingObjects: 50
+  afterImagePrefab: {fileID: 9096477691981108290, guid: bb64c647294e82440b3d31ee453bac19, type: 3}
+  pool: []

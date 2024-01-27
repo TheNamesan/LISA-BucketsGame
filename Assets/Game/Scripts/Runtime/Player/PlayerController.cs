@@ -325,7 +325,7 @@ namespace BucketsGame
         }
         private void DashHandler()
         {
-            if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb) // Dash Input
+            if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb && !m_dead) // Dash Input
             {
                 Dash(!grounded);
             }
