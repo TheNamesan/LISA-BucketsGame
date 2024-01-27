@@ -27,7 +27,7 @@ namespace BucketsGame
         //public float moveSpeed = 6;
 
         [Header("Jump")]
-        public float jumpForce = 10;
+        public float jumpForce = 12;
         //public float gravityScale = 2;
         public int extraJumps = 1;
         public int midairDashes = 1;
@@ -53,6 +53,14 @@ namespace BucketsGame
         public bool dashing = false;
         [SerializeField] private int m_dashTicks = 0;
         [SerializeField] private int m_dashDirection = 0;
+
+        [Header("Wall Jump")]
+        public bool wallClimb = false;
+        public bool wallJumping = false;
+        public Vector2 wallJumpSpeed = new Vector2(25, 14);
+        public int wallJumpTicksDuration = 10;
+        [SerializeField] private int m_wallJumpTicks = 0;
+        [SerializeField] private int m_wallJumpDirection = 0;
 
         private void OnEnable()
         {
@@ -128,6 +136,8 @@ namespace BucketsGame
             grounded = true;
             m_jumps = extraJumps; // Restore mid-air jumps
             m_midairDashes = midairDashes; // Restore mid-air jumps
+            wallClimb = false;
+            StopWallJump();
             EnableGravity(false);
         }
         private void MoveHandler()
@@ -140,7 +150,38 @@ namespace BucketsGame
                 DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
-                rb.velocity = new Vector2(velX, rb.velocity.y);
+                if (((moveH > 0 || wallJumping) && (IsVerticalWall(wallRightHit)) ||
+                    ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) && !dashing) // Wall Climb
+                {
+                    StopWallJump();
+                    wallClimb = true;
+                }
+                if (wallClimb && (IsVerticalWall(wallRightHit) || IsVerticalWall(wallLeftHit))) // Wall Climb speed
+                {
+                    if (moveV < 0) wallClimb = false;
+                    else
+                    {
+                        rb.velocity = new Vector2(0f, rb.velocity.y * 0.8f);
+                        bool jumped = input.jumpDown || input.dashDown; // Wall Jump
+                        if (jumped)
+                        {
+                            rb.velocity = new Vector2(rb.velocity.x, wallJumpSpeed.y);
+                            wallClimb = false;
+                            WallJump();
+                            ChangeFacingOnMove(m_wallJumpDirection);
+                        }
+                        else return;
+                    }
+                }
+                if (wallJumping) // Wall Jump Speed
+                {
+                    rb.velocity = new Vector2(wallJumpSpeed.x * m_wallJumpDirection, rb.velocity.y);
+                    return;
+                }
+                else
+                {
+                    rb.velocity = new Vector2(velX, rb.velocity.y);
+                }
                 Jump(velY, true); // Double Jump
                 if (moveV < 0) // Fast Fall
                 {
@@ -168,6 +209,7 @@ namespace BucketsGame
             CapVelocity();
         }
 
+        
 
         private void DashCancelCheck(int moveH)
         {
@@ -177,6 +219,7 @@ namespace BucketsGame
         private void TimerHandler()
         {
             DashTimer();
+            WallJumpTimer();
         }
         private float GetVelX(int moveH)
         {
@@ -186,7 +229,7 @@ namespace BucketsGame
         }
         private void DashHandler()
         {
-            if (input.dashDown && m_dashTicks <= 0) // Dash Input
+            if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb) // Dash Input
             {
                 Dash(!grounded);
             }
@@ -204,11 +247,28 @@ namespace BucketsGame
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
         }
+        private void WallJump()
+        {
+            m_wallJumpTicks = wallJumpTicksDuration;
+            m_wallJumpDirection = -FaceToInt();
+            wallJumping = true;
+            hurtbox?.SetInvulnerable(true);
+        }
         private void DashTimer()
         {
             if (!dashing) return;
             m_dashTicks--;
             if (m_dashTicks < 0) StopDash();
+        }
+        private void WallJumpTimer()
+        {
+            if (!wallJumping) return;
+            m_wallJumpTicks--;
+            if (m_wallJumpTicks < 0)
+            { 
+                StopWallJump();
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }
         }
         private void StopDash()
         {
@@ -218,21 +278,34 @@ namespace BucketsGame
             hurtbox?.SetInvulnerable(false);
             if (!grounded) ChangeState(CharacterStates.Airborne);
         }
-        private void Jump(float velY, bool useExtraJumps = false)
+        private void StopWallJump()
+        {
+            m_wallJumpTicks = 0;
+            m_wallJumpDirection = 0;
+            wallJumping = false;
+            hurtbox?.SetInvulnerable(false);
+        }
+        /// <summary>
+        /// Returns true if jump force was applied.
+        /// </summary>
+        private bool Jump(float velY, bool useExtraJumps = false)
         {
             if (input.jumpDown) // Jump
             {
                 // If jumping mid-air and not enough extra jumps, abort
                 if (useExtraJumps)
                 {
-                    if (m_jumps <= 0) return;
+                    if (m_jumps <= 0) return false;
                     else m_jumps--;
                     if (!dashing) ChangeState(CharacterStates.Airborne);
                 }
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
+                wallClimb = false;
                 SetAirborne(); //Setting this here so slope fixes get ignored
+                return true;
             }
+            return false;
         }
         public override bool Hurt(Vector2 launch)
         {

@@ -142,6 +142,11 @@ namespace BucketsGame
 
             Color boxColor = Color.red;
         }
+        protected virtual bool IsVerticalWall(RaycastHit2D wallHit)
+        {
+            if (!wallHit) return false;
+            return Mathf.Abs(wallHit.normal.x) == 1;
+        }
 
         protected virtual void SetAirborne()
         {

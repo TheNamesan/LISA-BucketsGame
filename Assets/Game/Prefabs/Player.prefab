@@ -165,6 +165,12 @@ MonoBehaviour:
   dashing: 0
   m_dashTicks: 0
   m_dashDirection: 0
+  wallClimb: 0
+  wallJumping: 0
+  wallJumpSpeed: {x: 25, y: 14}
+  wallJumpTicksDuration: 5
+  m_wallJumpTicks: 0
+  m_wallJumpDirection: 0
 --- !u!114 &3711834660284266070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,7 +425,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 200933865
-  m_SortingLayer: -2
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

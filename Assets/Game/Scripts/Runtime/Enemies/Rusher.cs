@@ -142,11 +142,10 @@ namespace BucketsGame
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH *= -1;
                         // Wall Check
-                        if ((moveH > 0 && wallRightHit && wallRightHit.normal.x == -1) || 
-                            (moveH < 0 && wallLeftHit && wallLeftHit.normal.x == 1))
+                        if ((moveH > 0 && IsVerticalWall(wallRightHit)) ||
+                            (moveH < 0 && IsVerticalWall(wallLeftHit)))
                         {
                             moveH *= -1;
-                            Debug.Log("FLIP!");
                         }
                             
                     }
