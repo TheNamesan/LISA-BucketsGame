@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6423423899683277878}
   - component: {fileID: 6423423899683277879}
+  - component: {fileID: 4488901525268016715}
   m_Layer: 0
   m_Name: SceneProps
   m_TagString: Untagged
@@ -46,3 +47,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_camManager: {fileID: 0}
   m_player: {fileID: 0}
+--- !u!114 &4488901525268016715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6423423899683277877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c12cce46995b70478cbcfe1becc60b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundColliders: []

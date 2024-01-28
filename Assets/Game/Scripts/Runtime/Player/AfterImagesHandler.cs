@@ -8,6 +8,7 @@ namespace BucketsGame
     {
         public PlayerController player;
         public float rateOverTime = 20;
+        public Color targetColor = new Color(0, 1f, 1f, 0.5f);
         private float m_time = 0;
         private void Update()
         {
@@ -24,7 +25,7 @@ namespace BucketsGame
                     var pos = player.sprite.transform.position;
                     var sprite = player.sprite.sprite;
                     bool flip = player.sprite.flipX;
-                    Color color = Color.cyan;
+                    Color color = targetColor;
                     float duration = 1f;
                     AfterImagesPool.instance.CallAfterImage(pos, sprite, flip, color, duration);
                 }
