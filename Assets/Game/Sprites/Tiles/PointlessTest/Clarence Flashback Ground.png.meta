@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,7 +103,259 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_99
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e3bd4a9a2bac65448ffcccb7a1fc529
+      internalID: -437721023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_100
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb6801da750b2c4cbaad45392bd7b13
+      internalID: -723112428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_101
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da062ae31e8b0c3479e3d6743e156a11
+      internalID: 1983938544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_102
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ef7becb32635864bb26f15415f83258
+      internalID: -636369515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_106
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77089c51fca7dfb478a16ef133ffa7d7
+      internalID: -1139277084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_107
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59bc7d46bab8bf64987ef20a7994b923
+      internalID: 583336616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_108
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa50f3d4d3c0fc64aac578af6622d04d
+      internalID: 51295770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_109
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8049412cc4efdd44bba0b42a23e7c05e
+      internalID: -705021679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_114
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f5b14b8ccaf32489c7c515a2037bad
+      internalID: -1709433262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_115
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ba49cb845ead147bf607c3c711f786
+      internalID: 585328495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_116
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e504768973846034d910821cd49ba745
+      internalID: 1587710445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Clarence Flashback Ground_117
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9301d59defc514944996aba0b9b9e512
+      internalID: -2091005868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +366,129 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Clarence Flashback Ground_0: -226309738
+      Clarence Flashback Ground_1: 576288550
+      Clarence Flashback Ground_10: 1506434924
+      Clarence Flashback Ground_100: -723112428
+      Clarence Flashback Ground_101: 1983938544
+      Clarence Flashback Ground_102: -636369515
+      Clarence Flashback Ground_103: 981536114
+      Clarence Flashback Ground_104: -1075643445
+      Clarence Flashback Ground_105: 1189561946
+      Clarence Flashback Ground_106: -1139277084
+      Clarence Flashback Ground_107: 583336616
+      Clarence Flashback Ground_108: 51295770
+      Clarence Flashback Ground_109: -705021679
+      Clarence Flashback Ground_11: -2146055753
+      Clarence Flashback Ground_110: 1626649090
+      Clarence Flashback Ground_111: -1103332281
+      Clarence Flashback Ground_112: -1563022175
+      Clarence Flashback Ground_113: -928595385
+      Clarence Flashback Ground_114: -1709433262
+      Clarence Flashback Ground_115: 585328495
+      Clarence Flashback Ground_116: 1587710445
+      Clarence Flashback Ground_117: -2091005868
+      Clarence Flashback Ground_118: -419156953
+      Clarence Flashback Ground_119: 582785193
+      Clarence Flashback Ground_12: 1893339689
+      Clarence Flashback Ground_120: 2125180682
+      Clarence Flashback Ground_121: 1573552006
+      Clarence Flashback Ground_13: 1963827281
+      Clarence Flashback Ground_14: -2054209305
+      Clarence Flashback Ground_15: -1038476773
+      Clarence Flashback Ground_16: -427035316
+      Clarence Flashback Ground_17: -1741499956
+      Clarence Flashback Ground_18: -1245852518
+      Clarence Flashback Ground_19: -92538303
+      Clarence Flashback Ground_2: 1493150031
+      Clarence Flashback Ground_20: -564438921
+      Clarence Flashback Ground_21: -1627269873
+      Clarence Flashback Ground_22: 1812158177
+      Clarence Flashback Ground_23: 1100894078
+      Clarence Flashback Ground_24: -640102199
+      Clarence Flashback Ground_25: 1276444232
+      Clarence Flashback Ground_26: -1339478579
+      Clarence Flashback Ground_27: -632696991
+      Clarence Flashback Ground_28: -1407509731
+      Clarence Flashback Ground_29: -1367592138
+      Clarence Flashback Ground_3: 1405026150
+      Clarence Flashback Ground_30: 558568620
+      Clarence Flashback Ground_31: 1651313326
+      Clarence Flashback Ground_32: 1301869802
+      Clarence Flashback Ground_33: 1263179466
+      Clarence Flashback Ground_34: 683505400
+      Clarence Flashback Ground_35: -1499323036
+      Clarence Flashback Ground_36: 689640072
+      Clarence Flashback Ground_37: 1280768422
+      Clarence Flashback Ground_38: -982014541
+      Clarence Flashback Ground_39: 1652322743
+      Clarence Flashback Ground_4: 507198904
+      Clarence Flashback Ground_40: 628958498
+      Clarence Flashback Ground_41: -402378212
+      Clarence Flashback Ground_42: 905750071
+      Clarence Flashback Ground_43: -524137515
+      Clarence Flashback Ground_44: -941188750
+      Clarence Flashback Ground_45: 1891111142
+      Clarence Flashback Ground_46: -1307545044
+      Clarence Flashback Ground_47: -2019079714
+      Clarence Flashback Ground_48: -134929506
+      Clarence Flashback Ground_49: 354750863
+      Clarence Flashback Ground_5: -876048771
+      Clarence Flashback Ground_50: -350923313
+      Clarence Flashback Ground_51: 1685381707
+      Clarence Flashback Ground_52: 1554411675
+      Clarence Flashback Ground_53: 1654398489
+      Clarence Flashback Ground_54: -688732398
+      Clarence Flashback Ground_55: 808027494
+      Clarence Flashback Ground_56: 946928003
+      Clarence Flashback Ground_57: -1042645867
+      Clarence Flashback Ground_58: 451141799
+      Clarence Flashback Ground_59: -187970040
+      Clarence Flashback Ground_6: 288484233
+      Clarence Flashback Ground_60: 1242917439
+      Clarence Flashback Ground_61: 294896848
+      Clarence Flashback Ground_62: 1168068898
+      Clarence Flashback Ground_63: -749593983
+      Clarence Flashback Ground_64: -1629137551
+      Clarence Flashback Ground_65: 268358247
+      Clarence Flashback Ground_66: 975188809
+      Clarence Flashback Ground_67: -765471112
+      Clarence Flashback Ground_68: 2081384118
+      Clarence Flashback Ground_69: -936018106
+      Clarence Flashback Ground_7: -1007417687
+      Clarence Flashback Ground_70: -674220857
+      Clarence Flashback Ground_71: -1169991745
+      Clarence Flashback Ground_72: -1556234807
+      Clarence Flashback Ground_73: -1745793301
+      Clarence Flashback Ground_74: -5233062
+      Clarence Flashback Ground_75: -1913108011
+      Clarence Flashback Ground_76: 569820055
+      Clarence Flashback Ground_77: -1597283232
+      Clarence Flashback Ground_78: 838851276
+      Clarence Flashback Ground_79: -1597981250
+      Clarence Flashback Ground_8: -1762334826
+      Clarence Flashback Ground_80: -774938827
+      Clarence Flashback Ground_81: 2032047262
+      Clarence Flashback Ground_82: 1029055931
+      Clarence Flashback Ground_83: 918886678
+      Clarence Flashback Ground_84: -1442077375
+      Clarence Flashback Ground_85: -940637292
+      Clarence Flashback Ground_86: -352642379
+      Clarence Flashback Ground_87: -1832957195
+      Clarence Flashback Ground_88: 2081909237
+      Clarence Flashback Ground_89: -1783847981
+      Clarence Flashback Ground_9: -1535449521
+      Clarence Flashback Ground_90: -422221961
+      Clarence Flashback Ground_91: -1846377944
+      Clarence Flashback Ground_92: -665744105
+      Clarence Flashback Ground_93: 1305584717
+      Clarence Flashback Ground_94: -1620372517
+      Clarence Flashback Ground_95: 69058527
+      Clarence Flashback Ground_96: 371516885
+      Clarence Flashback Ground_97: 882220541
+      Clarence Flashback Ground_98: 643746436
+      Clarence Flashback Ground_99: -437721023
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
