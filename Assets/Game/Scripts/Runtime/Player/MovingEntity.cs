@@ -19,8 +19,11 @@ namespace BucketsGame
 
         [Header("Ground Collision")]
         public LayerMask groundLayers;
+        public LayerMask oneWayGroundLayers;
         public bool grounded = false;
+        public bool ignoreOneWay = false;
         public Collider2D groundCollider = null;
+        [SerializeField] protected List<Collider2D> ignoredOneWays = new();
         public Vector2 groundPoint;
         public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
         public RaycastHit2D normalRight;
@@ -29,33 +32,38 @@ namespace BucketsGame
         public RaycastHit2D wallLeftHit;
         public bool IsOnSlope { get => groundNormal != Vector2.up; }
         public Vector2 groundNormal;
+        [SerializeField] protected bool groundIsOneWay;
         public float gravityScale = 2;
         public float maxFallSpeed = -15;
 
         public bool dead { get => m_dead; }
         [SerializeField] protected bool m_dead = false;
+        protected readonly Vector2 NORMAL_LIMIT = new Vector2(1, 0);
 
         protected virtual void GroundCheck()
         {
             if (m_dead) return;
+            LayerMask layers = groundLayers;
+            if (!ignoreOneWay) layers = layers | oneWayGroundLayers;
+
             //Vertical Collision
             float sizeMult = 0.1f;
             Vector2 collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset * sizeMult);
             float collisionBoxDistance = collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);
-            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
 
             Color boxColor = Color.red;
 
             // This is a fix used when reaching the top of a slope
             if (!collision && IsOnSlope && grounded) // If was on slope climbing up, attempt to find expected ground
             {
-                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance * 100f, groundLayers);
+                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance * 100f, layers);
                 if (snapAttempt)
                 {
                     collision = snapAttempt;
                     rb.velocity = Vector2.zero; // Important!
                     SnapToGround(sizeMult, collision, instant: true); // The instant is important so it doesn't cancel the speed in MoveHandler (rb.MovePosition is the issue)
-                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
                 }
             }
             if (collision)
@@ -65,13 +73,13 @@ namespace BucketsGame
                 float distance = col.size.y;
                 //RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
                 //RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
-                RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
-                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, layers);
+                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, layers);
                 Vector2 offset = new Vector2(moveSpeed * Time.fixedDeltaTime, 0);
                 Vector2 rightOrigin = closestContactPointD + offset;
-                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
                 Vector2 leftOrigin = closestContactPointD - offset;
-                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
 
                 if (normalRight)
                 {
@@ -217,8 +225,11 @@ namespace BucketsGame
             else if (moveH < 0) normal = GetNormalFrom(normal, normalLeft);
             if (normal != Vector2.up) // On Slope
             {
-                var perp = Vector2.Perpendicular(normal).normalized;
-                velocity = new Vector2(velX, velX) * -perp;
+                if (normal.y >= NORMAL_LIMIT.y)
+                {
+                    var perp = Vector2.Perpendicular(normal).normalized;
+                    velocity = new Vector2(velX, velX) * -perp;
+                }
             }
             return velocity;
         }
@@ -226,9 +237,13 @@ namespace BucketsGame
         {
             if (ray)
             {
-                if (ray.point.y - groundPoint.y > 0.05f)
+                
+                // If difference in Y is relatively high and
+                // Normal.y is positive (angle between 0 and 180)
+                
+                if (ray.point.y - groundPoint.y > 0.05f && ray.normal.y >= NORMAL_LIMIT.y)
                 {
-                    Debug.Log(ray.point.y - groundPoint.y);
+                    Debug.Log($"{gameObject.name}: {ray.point.y - groundPoint.y}({ray.normal.y})");
                     normal = ray.normal;
                 }
             }

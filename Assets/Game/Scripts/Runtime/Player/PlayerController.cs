@@ -22,7 +22,8 @@ namespace BucketsGame
 
         //public bool dead { get => m_dead; }
         //private bool m_dead = false;
-        private Vector2 lastPosition;
+        protected Vector2 lastPosition;
+        protected Vector2 lastVelocity;
 
         //public float moveSpeed = 6;
 
@@ -54,6 +55,7 @@ namespace BucketsGame
         private void OnEnable()
         {
             lastPosition = rb.position;
+            lastVelocity = rb.velocity;
         }
         private void Start()
         {
@@ -76,6 +78,7 @@ namespace BucketsGame
         {
             AssignDeadMaterial();
             lastPosition = rb.position;
+            IgnoreOneWayCheck();
             GroundCheck();
             WallCheck();
             InputCheck();
@@ -85,56 +88,101 @@ namespace BucketsGame
             input.jumpDown = false;
             input.dashDown = false;
             input.shootDown = false;
+            lastVelocity = rb.velocity;
         }
         protected override void GroundCheck()
         {
             if (m_dead) return;
+            LayerMask layers = groundLayers;
+            if (!ignoreOneWay) layers = layers | oneWayGroundLayers;
+
             //Vertical Collision
             float sizeMult = 0.1f;
             float boxSizeX = col.bounds.size.x;
             Vector2 collisionBoxSize = new Vector2(boxSizeX, Physics2D.defaultContactOffset * sizeMult);
-            float collisionBoxDistance = collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);
-            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+            float collisionBoxDistance = collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);   
+
+            RaycastHit2D solidGroundHit = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+            RaycastHit2D oneWayHit = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, oneWayGroundLayers);
+            if (oneWayHit && ignoreOneWay)
+            {
+                var collider = oneWayHit.collider;
+                if (!ignoredOneWays.Contains(collider))
+                {
+                    ignoredOneWays.Add(collider);
+                    Physics2D.IgnoreCollision(col, collider, true);
+                }
+            }
+            
+
+            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
+            bool nextGroundIsOneWay = oneWayHit && (collision.collider == oneWayHit.collider);
+            if (groundCollider != null && collision)
+            {
+                if (solidGroundHit && solidGroundHit.collider == groundCollider)
+                {
+                    collision = solidGroundHit;
+                    layers = groundLayers;
+                }
+            }
+
 
             Color boxColor = Color.red;
+            
 
             // This is a fix used when reaching the top of a slope
             // Added dashing alongside IsOnSlope as sometimes moving too fast would put you airborne if you tried to slide down a slope
             if (!collision && (IsOnSlope || dashing) && grounded) // If was on slope climbing up, attempt to find expected ground
             {
                 var distance = collisionBoxDistance * 100f;
-                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, layers);
                 if (snapAttempt)
                 {
                     collision = snapAttempt;
                     rb.velocity = Vector2.zero; // Important!
                     SnapToGround(sizeMult, collision, instant: true); // The instant is important so it doesn't cancel the speed in MoveHandler (rb.MovePosition is the issue)
-                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
                 }
             }
             if (collision)
             {
                 var collider = collision.collider;
+
+                //if (groundCollider != null && collider != groundCollider)
+                //{
+                //    Debug.Log($"Collider change! One Way: {nextGroundIsOneWay}");
+                //    // If current ground is not one way, it takes priority over normal checks
+                //    if (!groundIsOneWay)
+                //    {
+                //        layers = groundLayers;
+                //    }
+                //    //if (nextGroundIsOneWay && !groundIsOneWay)
+                //    //{
+                //    //    layers = groundLayers;
+                //    //}
+                //    //else layers = oneWayGroundLayers;
+                //}
+
+
                 Vector2 normal = collision.normal;
                 float distance = col.size.y;
-                //if (dashing) distance *= 1.5f;
-                //RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
-                //RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
-                RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, groundLayers);
-                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, layers);
+                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, layers);
                 Vector2 offset = new Vector2((dashing ? dashSpeed : moveSpeed) * Time.fixedDeltaTime, 0);
                 Vector2 rightOrigin = closestContactPointD + offset;
-                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
                 Vector2 leftOrigin = closestContactPointD - offset;
-                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, groundLayers);
+                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
+
+                
 
                 if (normalRight)
                 {
-                    Debug.DrawRay(normalRight.point, normalRight.normal, Color.red); //
+                    Debug.DrawRay(normalRight.point, normalRight.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
                 }
                 if (normalLeft)
                 {
-                    Debug.DrawRay(normalLeft.point, normalLeft.normal, Color.red); //
+                    Debug.DrawRay(normalLeft.point, normalLeft.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
                 }
                 if (normalHitV)
                 {
@@ -157,19 +205,36 @@ namespace BucketsGame
                 {
                     boxColor = Color.yellow;
                 }
-                if (!grounded) // If mid-air before, touch land
+                // Using lastVelocity here because otherwise the player never hits the ground
+                // if falling on a slide while velX is more than 0.
+                if (!grounded && lastVelocity.y <= 0) // If mid-air before, touch land
                 {
-                    SnapToGround(sizeMult, collision);
+                    var snapHit = collision;
+                    if (nextGroundIsOneWay)
+                    {
+                        var origin = new Vector2(collision.point.x, rb.position.y);
+                        var dist = Mathf.Abs(collision.point.y - rb.position.y);
+                        LayerMask correctionLayer = 1 << collision.collider.gameObject.layer;
+                        RaycastHit2D correction = Physics2D.Raycast(origin, Vector2.down, dist, correctionLayer);
+                        Debug.DrawRay(origin, Vector2.down * dist, (correction ? Color.green : Color.blue));
+                        if (correction) { Debug.Log("Corrected"); snapHit = correction; }
+                    }
+                    SnapToGround(sizeMult, snapHit);
                     TouchLand();
                     boxColor = Color.green;
                 }
+                
                 UpdateGroundData(collider, collision.point, normal);
-                Debug.DrawRay(collision.point, normal, Color.green);
+                Debug.DrawRay(collision.point, normal, new Color32(255, 165, 0, 255));
             }
             else // OnCollisionExit
             {
                 SetAirborne();
             }
+
+
+            this.groundIsOneWay = nextGroundIsOneWay; // !!!
+
 
             float displayTime = 0f;
             Vector2 boxCenter = closestContactPointD;
@@ -183,6 +248,34 @@ namespace BucketsGame
             Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y),
                new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
         }
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            //var layer = collision.gameObject.layer;
+            //if (layer == 14)
+            //{
+            //    if (ignoreOneWay)
+            //    {
+
+            //    }
+            //    Debug.Log("que pedo");
+            //}
+        }
+        private void IgnoreOneWayCheck()
+        {
+            if (input.inputV < 0)
+            {
+                ignoreOneWay = true;
+            }
+            else { 
+                ignoreOneWay = false;
+                for (int i = 0; i < ignoredOneWays.Count; i++)
+                {
+                    if (ignoredOneWays[i] == null) continue;
+                    Physics2D.IgnoreCollision(col, ignoredOneWays[i], false);
+                }
+                ignoredOneWays.Clear();                
+            }
+        }
         private void AssignDeadMaterial()
         {
             if (!m_dead) rb.sharedMaterial = GameManager.instance.aliveMat;
@@ -191,6 +284,7 @@ namespace BucketsGame
 
         private void InputCheck()
         {
+            if (m_dead) return;
             DashHandler();
             ShootHandler();
         }
@@ -314,7 +408,7 @@ namespace BucketsGame
         }
         private void DashHandler()
         {
-            if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb && !m_dead) // Dash Input
+            if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb) // Dash Input
             {
                 Dash(!grounded);
             }

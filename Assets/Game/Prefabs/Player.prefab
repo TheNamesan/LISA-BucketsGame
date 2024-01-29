@@ -138,6 +138,9 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 8256
+  oneWayGroundLayers:
+    serializedVersion: 2
+    m_Bits: 16384
   grounded: 0
   groundCollider: {fileID: 0}
   groundPoint: {x: 0, y: 0}
@@ -608,3 +611,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 3711834660284266072}
   rateOverTime: 20
+  targetColor: {r: 0, g: 1, b: 1, a: 0.5}
