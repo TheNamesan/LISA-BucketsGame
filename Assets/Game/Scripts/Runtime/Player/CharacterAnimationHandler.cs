@@ -53,10 +53,10 @@ namespace BucketsGame
                 case CharacterStates.Walk:
                     return $"WalkRight";
                 case CharacterStates.Airborne:
-                    if (controller.lastState == CharacterStates.Airborne)
+                    if (controller.doubleJumping)
                     {
                         return $"DoubleJumpRight";
-                    }    
+                    }
                     return $"FallRight";
                 case CharacterStates.Dashing:
                     return $"DashRight";

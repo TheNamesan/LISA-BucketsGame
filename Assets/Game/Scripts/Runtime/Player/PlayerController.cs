@@ -32,6 +32,7 @@ namespace BucketsGame
         //public float gravityScale = 2;
         public int extraJumps = 1;
         public int midairDashes = 1;
+        public bool doubleJumping = false;
         [SerializeField] private int m_jumps = 0;
         [SerializeField] private int m_midairDashes = 0;
 
@@ -59,8 +60,7 @@ namespace BucketsGame
         }
         private void Start()
         {
-            m_jumps = extraJumps;
-            m_midairDashes = midairDashes;
+            ResetMidairMoves();
         }
         private void Update()
         {
@@ -296,7 +296,7 @@ namespace BucketsGame
         protected override void SetAirborne()
         {
             //Debug.Log("Going airborne");
-            if (grounded && !dashing) ChangeState(CharacterStates.Airborne);
+            if (!dashing) ChangeState(CharacterStates.Airborne);
             grounded = false;
             UpdateGroundData(null);
             EnableGravity(true);
@@ -313,8 +313,7 @@ namespace BucketsGame
         protected override void TouchLand()
         {
             grounded = true;
-            m_jumps = extraJumps; // Restore mid-air jumps
-            m_midairDashes = midairDashes; // Restore mid-air jumps
+            ResetMidairMoves();
             wallClimb = false;
             StopWallJump();
             EnableGravity(false);
@@ -418,7 +417,10 @@ namespace BucketsGame
             if (useMidairDashes)
             {
                 if (m_midairDashes <= 0) return;
-                else m_midairDashes--;
+                else {  
+                    m_midairDashes--;
+                    doubleJumping = false;
+                }
             }
             m_dashTicks = dashTicksDuration;
             m_dashDirection = FacingToInt(facing);
@@ -427,12 +429,20 @@ namespace BucketsGame
             ChangeState(CharacterStates.Dashing, true);
             GameManager.instance.OnDash();
         }
+        
         private void WallJump()
         {
             m_wallJumpTicks = wallJumpTicksDuration;
             m_wallJumpDirection = -FaceToInt();
             wallJumping = true;
+            ResetMidairMoves();
             hurtbox?.SetInvulnerable(true);
+        }
+        private void ResetMidairMoves()
+        {
+            doubleJumping = false;
+            m_jumps = extraJumps; // Restore mid-air jumps
+            m_midairDashes = midairDashes; // Restore mid-air dashes
         }
         private void DashTimer()
         {
@@ -476,13 +486,18 @@ namespace BucketsGame
                 if (useExtraJumps)
                 {
                     if (m_jumps <= 0) return false;
-                    else m_jumps--;
-                    if (!dashing) ChangeState(CharacterStates.Airborne);
+                    else
+                    {
+                        doubleJumping = true;
+                        m_jumps--;
+                        if (!dashing) ChangeState(CharacterStates.Airborne, true);
+                    }
                 }
+                SetAirborne(); //Setting this here so slope fixes get ignored
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
                 wallClimb = false;
-                SetAirborne(); //Setting this here so slope fixes get ignored
+                
                 return true;
             }
             return false;
