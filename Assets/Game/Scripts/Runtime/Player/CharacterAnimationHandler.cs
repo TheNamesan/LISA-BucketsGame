@@ -4,17 +4,9 @@ using UnityEngine;
 
 namespace BucketsGame
 {
-    public class CharacterAnimationHandler : MonoBehaviour
+    public class CharacterAnimationHandler : AnimationHandler
     {
-        [Header("References")]
-        public Animator anim;
-        public SpriteRenderer spriteRenderer;
-
-        [Header("Animator")]
-        public string lastStateName = "";
-        protected IEnumerator stopHardLandingCDCoroutine;
-        protected IEnumerator animWaitCoroutine;
-        [SerializeField] bool animationInWait = false;
+        
 
         public void FlipSprite(Facing facing)
         {

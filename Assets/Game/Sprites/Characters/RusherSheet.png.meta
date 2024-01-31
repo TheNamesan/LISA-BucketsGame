@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6191afbff0df2594f9ef894acc40eeec
+guid: 308df4fabe5ee774d87d980ae220402b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WalkCycle_0
+      name: RusherSheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 46
+        width: 50
+        height: 50
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4da6cd7d17313604297c83e69ec4886b
-      internalID: -281058130
+      spriteID: 0d46a31f4165c6d44878748e0d2726b0
+      internalID: -1670386784
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkCycle_1
+      name: RusherSheet_1
       rect:
         serializedVersion: 2
-        x: 48
+        x: 50
         y: 0
-        width: 48
-        height: 46
+        width: 50
+        height: 50
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41ecd04b90343be4abffb78ca1945844
-      internalID: -814266899
+      spriteID: 0321e3ce91dee9940898b820ada4691b
+      internalID: 773460747
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkCycle_2
+      name: RusherSheet_2
       rect:
         serializedVersion: 2
-        x: 96
+        x: 100
         y: 0
-        width: 48
-        height: 46
+        width: 50
+        height: 50
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d01e6c571156ea408a20f4bb1613d4c
-      internalID: -1653742847
+      spriteID: 2dd11b4e9e30448408d15dfb32900e0f
+      internalID: -75984488
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: WalkCycle_3
+      name: RusherSheet_3
       rect:
         serializedVersion: 2
-        x: 144
+        x: 150
         y: 0
-        width: 48
-        height: 46
+        width: 50
+        height: 50
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +182,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6c017617e9cd13543aec9bf922a46ddb
-      internalID: -495284491
+      spriteID: 5db654846a20d6b41b9701bbd52e4b98
+      internalID: -1592813265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RusherSheet_4
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 0
+        width: 50
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 259fe8fcb4d40bf49b7199fd30ed1479
+      internalID: 1131530951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RusherSheet_5
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 0
+        width: 50
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c2226a3ed440d44dac97442e3755cdf
+      internalID: -679561463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RusherSheet_6
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 0
+        width: 50
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0593bb0e390d2e74a8bc7069de03ee3c
+      internalID: 89752484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RusherSheet_7
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 0
+        width: 50
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 304007d5baf34f4429a79ea71fec50f0
+      internalID: -493449657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RusherSheet_8
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 50
+        height: 50
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a051d75932865d41b562eadff39c426
+      internalID: -2094925552
       vertices: []
       indices: 
       edges: []
@@ -199,10 +304,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      WalkCycle_0: -281058130
-      WalkCycle_1: -814266899
-      WalkCycle_2: -1653742847
-      WalkCycle_3: -495284491
+      RusherSheet_0: -1670386784
+      RusherSheet_1: 773460747
+      RusherSheet_2: -75984488
+      RusherSheet_3: -1592813265
+      RusherSheet_4: 1131530951
+      RusherSheet_5: -679561463
+      RusherSheet_6: 89752484
+      RusherSheet_7: -493449657
+      RusherSheet_8: -2094925552
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec57779f6cafe5140a36c92f003d5bf3, type: 3}
+  m_Sprite: {fileID: -1592813265, guid: 308df4fabe5ee774d87d980ae220402b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -170,6 +170,8 @@ GameObject:
   - component: {fileID: 7740060643212712047}
   - component: {fileID: 7740060643212712035}
   - component: {fileID: 7740060643212712034}
+  - component: {fileID: 5250226330865186458}
+  - component: {fileID: 4555135002695359585}
   - component: {fileID: 7740060643212712044}
   - component: {fileID: 7740060643212712045}
   m_Layer: 8
@@ -231,10 +233,16 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  oneWayGroundLayers:
+    serializedVersion: 2
+    m_Bits: 0
   grounded: 0
+  ignoreOneWay: 0
   groundCollider: {fileID: 0}
+  ignoredOneWays: []
   groundPoint: {x: 0, y: 0}
   groundNormal: {x: 0, y: 0}
+  groundIsOneWay: 0
   gravityScale: 2
   maxFallSpeed: -15
   m_dead: 0
@@ -247,6 +255,41 @@ MonoBehaviour:
   attackingAnimTicks: 30
   attackTick: 10
   m_attackingTicks: 0
+--- !u!114 &5250226330865186458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7740060643212712040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899ece0e0d76b6d44bde7951b80b6870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rusher: {fileID: 7740060643212712034}
+  anim: {fileID: 4555135002695359585}
+--- !u!95 &4555135002695359585
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7740060643212712040}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8dcc9212c1cfe043898daae5d53ff68, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!50 &7740060643212712044
 Rigidbody2D:
   serializedVersion: 4
