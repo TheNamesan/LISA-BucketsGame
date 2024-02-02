@@ -7,6 +7,10 @@ namespace BucketsGame
 {
     public class UIManager : MonoBehaviour
     {
+        [Header("Cursor")]
+        [SerializeField] private Texture2D cursorTexture;
+        private Vector2 cursorHotspot;
+        
         [Header("Bar")]
         public Image focusFill;
         public ImageAnimator focusAnim;
@@ -20,6 +24,8 @@ namespace BucketsGame
                 focusFill.material = Instantiate(focusFill.material); // Copy of material
             }
             ScrollBarEffect(0);
+            if (cursorTexture) cursorHotspot = new Vector2(cursorTexture.width / 2, cursorTexture.height / 2);
+            Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
         }
         private void OnDisable()
         {
