@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace BucketsGame
 {
-    public class Rusher : Enemy
+    public class Shielder : Enemy
     {
         public bool attacking { get => m_attacking; }
-        [Header("Rusher Properties")]
+        [Header("Shielder Properties")]
         public float roamSpeed = 4f;
         [SerializeField] private bool m_attacking = false;
         public int attackingAnimTicks = 30;
@@ -23,7 +23,8 @@ namespace BucketsGame
                     sprite.color = Color.red;
                     rb.constraints = RigidbodyConstraints2D.None;
                 }
-                else {
+                else
+                {
                     if (m_attacking)
                     {
                         if (m_attackingTicks == attackTick) sprite.color = new Color(255, 127, 0, 255);
@@ -90,7 +91,7 @@ namespace BucketsGame
                 }
             }
         }
-        
+
         private void MoveHandler()
         {
             if (m_dead) return;
@@ -122,7 +123,7 @@ namespace BucketsGame
                         {
                             moveH *= -1;
                         }
-                            
+
                     }
                     float velX = moveH * speed;
                     Vector2 velocity = new Vector2(velX, 0);

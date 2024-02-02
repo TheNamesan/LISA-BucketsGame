@@ -17,9 +17,10 @@ namespace BucketsGame
         public Facing facing = Facing.Right;
         public float moveSpeed = 6;
 
+        
+        public LayerMask groundLayers { get => GameManager.instance.groundLayers; }
+        public LayerMask oneWayGroundLayers { get => GameManager.instance.oneWayLayers; }
         [Header("Ground Collision")]
-        public LayerMask groundLayers;
-        public LayerMask oneWayGroundLayers;
         public bool grounded = false;
         public bool ignoreOneWay = false;
         public Collider2D groundCollider = null;

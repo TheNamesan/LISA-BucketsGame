@@ -14,8 +14,10 @@ namespace BucketsGame
         public EnemyAIState enemyState = EnemyAIState.Roaming;
         [Header("Line Of Sight")]
         public float coneAngle = 45f;
+        public float coneAngleOffset = 0f;
         public float coneDistance = 8.5f;
         public int coneAccuracy = 12;
+        
         private void Update()
         {
             if (sprite)
@@ -67,6 +69,38 @@ namespace BucketsGame
             rb.velocity = (launch);
             GameManager.instance.OnEnemyKill();
             return true;
+        }
+        protected virtual void EnemyLineOfSight()
+        {
+            LayerMask layers = GameManager.instance.groundLayers | (1 << GameManager.instance.playerLayer);
+
+            int max = coneAccuracy + 1;
+            for (int i = 0; i < max; i++)
+            {
+                float a = -coneAngle * 0.5f;
+                float angle = -coneAngleOffset + Mathf.Lerp(-a, a, Mathf.InverseLerp(0, max, i));
+                float rad = Mathf.Deg2Rad * angle;
+                Vector2 normal = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+                Vector2 dir = (normal * FaceToInt());
+                float distance = coneDistance;
+                RaycastHit2D los = Physics2D.Raycast(rb.position, dir, distance, layers);
+                Color color = Color.white;
+                if (los)
+                {
+                    if (los.collider.gameObject.layer == GameManager.instance.playerLayer)
+                    {
+                        color = Color.green;
+                        OnEnemyLineOfSight();
+                        Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
+                        break;
+                    }
+                }
+                Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
+            }
+        }
+        protected virtual void OnEnemyLineOfSight()
+        {
+            enemyState = EnemyAIState.Alert;
         }
     }
 }

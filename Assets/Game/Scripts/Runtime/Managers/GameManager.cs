@@ -13,6 +13,7 @@ namespace BucketsGame
         public int hitFocusTicksRegain = 30;
         public bool focusMode = false;
         public LayerMask groundLayers;
+        public LayerMask oneWayLayers;
         public LayerMask hurtboxLayers;
         public int playerLayer = 7;
         public PhysicsMaterial2D aliveMat;
