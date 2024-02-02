@@ -73,6 +73,7 @@ namespace BucketsGame
         {
             GameUtility.KillTween(ref m_hitstunTween);
             focusTicks = maxFocusTicks;
+            BulletsPool.instance.ResetPool();
             SceneProperties.instance.ResetLevel();
             EntityResetCaller.onResetLevel.Invoke();
         }

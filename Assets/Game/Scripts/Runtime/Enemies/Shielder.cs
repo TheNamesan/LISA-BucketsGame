@@ -6,10 +6,15 @@ namespace BucketsGame
 {
     public class Shielder : Enemy
     {
-        public bool attacking { get => m_attacking; }
+        
         [Header("Shielder Properties")]
-        public float roamSpeed = 4f;
+        public float roamSpeed = 3f;
+        public float approachSpeed = 4f;
+        public float approachDistance = 9f;
+        public bool attacking { get => m_attacking; }
+        public bool vulnerable { get => m_attacking; }
         [SerializeField] private bool m_attacking = false;
+        [SerializeField] private bool m_vulnerable = false;
         public int attackingAnimTicks = 30;
         public int attackTick = 10;
         [SerializeField] private int m_attackingTicks = 0;
@@ -61,35 +66,35 @@ namespace BucketsGame
             else enemyState = EnemyAIState.Roaming;
 
             if (enemyState != EnemyAIState.Alert) return;
-            if (m_attacking) // Run Tick
-            {
-                m_attackingTicks--;
-                if (m_attackingTicks <= 0) m_attacking = false;
-                else if (m_attackingTicks == attackTick) // Attack Raycast
-                {
-                    var hitboxLayers = GameManager.instance.hurtboxLayers;
-                    Vector2 dir = transform.right * FaceToInt();
-                    RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.25f, hitboxLayers);
-                    for (int i = 0; i < hits.Length; i++)
-                    {
-                        if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
-                        {
-                            if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
-                            {
-                                bool hitTarget = hurtbox.Collision(dir);
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if (Mathf.Abs(distanceToPlayer) <= 0.65f) // Attack
-                {
-                    m_attacking = true;
-                    m_attackingTicks = attackingAnimTicks;
-                }
-            }
+            //if (m_attacking) // Run Tick
+            //{
+            //    m_attackingTicks--;
+            //    if (m_attackingTicks <= 0) m_attacking = false;
+            //    else if (m_attackingTicks == attackTick) // Attack Raycast
+            //    {
+            //        var hitboxLayers = GameManager.instance.hurtboxLayers;
+            //        Vector2 dir = transform.right * FaceToInt();
+            //        RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.25f, hitboxLayers);
+            //        for (int i = 0; i < hits.Length; i++)
+            //        {
+            //            if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
+            //            {
+            //                if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
+            //                {
+            //                    bool hitTarget = hurtbox.Collision(dir);
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    if (Mathf.Abs(distanceToPlayer) <= 0.65f) // Attack
+            //    {
+            //        m_attacking = true;
+            //        m_attackingTicks = attackingAnimTicks;
+            //    }
+            //}
         }
 
         private void MoveHandler()
@@ -106,6 +111,8 @@ namespace BucketsGame
                     if (enemyState == EnemyAIState.Alert)
                     {
                         speed = moveSpeed;
+                        if (Mathf.Abs(distanceToPlayer) <= approachDistance)
+                            speed = approachSpeed;
                         moveH = (int)Mathf.Sign(distanceToPlayer);
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH = 0;

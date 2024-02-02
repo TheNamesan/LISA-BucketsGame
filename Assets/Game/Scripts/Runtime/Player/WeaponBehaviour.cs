@@ -12,7 +12,6 @@ namespace BucketsGame
     public class WeaponBehaviour : MonoBehaviour
     {
         [Header("Shoot")]
-        public Bullet bulletPrefab;
         public WeaponMode weaponMode = WeaponMode.Pistols;
         public int ticksFireRate = 10;
         private int m_ticks = 0;
@@ -24,14 +23,13 @@ namespace BucketsGame
         }
         public void Shoot(Vector2 normal)
         {
-            if (!bulletPrefab) return;
             if (m_ticks > 0) return;
-            
+            Vector2 position = transform.position;
             if (weaponMode == WeaponMode.Pistols)
             {
                 Vector3 offset = new Vector3(0, 0.1f, 0);
-                // Change this to a pool
-                SpawnBullet(normal);
+                
+                BulletsPool.instance.SpawnBullet(position, normal);
             }
             else if (weaponMode == WeaponMode.Shotgun)
             {
@@ -46,18 +44,12 @@ namespace BucketsGame
                     Vector2 dir = (nor).normalized;
                     Debug.DrawRay(transform.position, dir, Color.white, 1f);
                     
-                    SpawnBullet(dir);
+                    BulletsPool.instance.SpawnBullet(position, dir);
                 }
                 SceneProperties.instance.camManager.ShakeCamera(10, 0.5f);
             }
             m_ticks = GetFireRate();
             Debug.Log("Pew");
-        }
-
-        private void SpawnBullet(Vector2 dir) // Change this to a pool
-        {
-            var newBullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            newBullet.Fire(dir);
         }
 
         public int GetFireRate()

@@ -17,11 +17,16 @@ namespace BucketsGame
         public Team team = Team.Player;
         private const int m_maxTicksLife = 250;
         private int m_ticks = 0;
+
+        public bool inUse { get => m_inUse; }
+        private bool m_inUse;
         public void Fire(Vector2 normal, Team team = Team.Player)
         {
+            gameObject.SetActive(true);
             this.team = team;
             transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
             m_ticks = 0; // Reset Ticks
+            m_inUse = true;
         }
         private void FixedUpdate()
         {
@@ -66,9 +71,12 @@ namespace BucketsGame
             }
         }
 
-        private void ReturnToPool()
+        public void ReturnToPool()
         {
-            Destroy(gameObject); // Return to pool
+            m_inUse = false;
+            transform.parent = BulletsPool.instance.transform;
+            gameObject.SetActive(false);
+            //Destroy(gameObject); // Return to pool
         }
         private void OnTriggerEnter2D(Collider2D other)
         {
