@@ -42,6 +42,8 @@ namespace BucketsGame
         public int dashTicksDuration = 25;
         public bool dashing = false;
         [SerializeField] private int m_dashTicks = 0;
+        public int dashCooldownTicksDuration = 25;
+        [SerializeField] private int m_dashCooldownTicks = 0;
         public int dashDirection { get => m_dashDirection; }
         [SerializeField] private int m_dashDirection = 0;
 
@@ -391,7 +393,7 @@ namespace BucketsGame
 
         private void DashCancelCheck(int moveH)
         {
-            if (dashing && moveH != 0 && m_dashDirection != moveH) { StopDash(); } // Cancel Dash
+            if (dashing && moveH != 0 && m_dashDirection != moveH) { StopDash(true); } // Cancel Dash
         }
 
         private void TimerHandler()
@@ -449,9 +451,14 @@ namespace BucketsGame
         }
         private void DashTimer()
         {
+            if (!dashing && m_dashCooldownTicks > 0) 
+            {
+                m_dashCooldownTicks--;
+                return; 
+            }
             if (!dashing) return;
             m_dashTicks--;
-            if (m_dashTicks < 0) StopDash();
+            if (m_dashTicks < 0) StopDash(true);
         }
         private void WallJumpTimer()
         {
@@ -463,10 +470,11 @@ namespace BucketsGame
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
         }
-        private void StopDash()
+        private void StopDash(bool setCooldown = false)
         {
             m_dashTicks = 0;
             m_dashDirection = 0;
+            if (setCooldown) m_dashCooldownTicks = dashCooldownTicksDuration;
             dashing = false;
             hurtbox?.SetInvulnerable(false);
             if (!grounded) ChangeState(CharacterStates.Airborne);
