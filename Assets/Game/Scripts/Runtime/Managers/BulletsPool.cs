@@ -18,10 +18,22 @@ namespace BucketsGame
         public void SpawnBullet(Vector2 position, Vector2 dir, Team team = Team.Player)
         {
             Initialize();
+            Bullet available = GetBullet(position);
+            available.Fire(dir, team);
+        }
+        public void SpawnBullet(Vector2 position, Sprite sprite, Vector2 size, Vector2 dir, Team team = Team.Player)
+        {
+            Initialize();
+            Bullet available = GetBullet(position);
+            available.Fire(dir, sprite, size, team);
+        }
+
+        private Bullet GetBullet(Vector2 position)
+        {
             var available = pool.Find(o => !o.inUse);
             if (available == null) available = AddNew();
             available.transform.position = position;
-            available.Fire(dir, team);
+            return available;
         }
     }
 }

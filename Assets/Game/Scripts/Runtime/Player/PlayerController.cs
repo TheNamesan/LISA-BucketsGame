@@ -253,15 +253,6 @@ namespace BucketsGame
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            //var layer = collision.gameObject.layer;
-            //if (layer == 14)
-            //{
-            //    if (ignoreOneWay)
-            //    {
-
-            //    }
-            //    Debug.Log("que pedo");
-            //}
         }
         private void IgnoreOneWayCheck()
         {

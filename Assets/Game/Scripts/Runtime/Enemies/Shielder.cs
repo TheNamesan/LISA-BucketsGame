@@ -6,18 +6,37 @@ namespace BucketsGame
 {
     public class Shielder : Enemy
     {
-        
+
         [Header("Shielder Properties")]
+        public Sprite bulletSprite;
         public float roamSpeed = 3f;
-        public float approachSpeed = 4f;
-        public float approachDistance = 9f;
+        public float approachSpeed = 2f;
+        public float approachDistance = 10f;
         public bool attacking { get => m_attacking; }
-        public bool vulnerable { get => m_attacking; }
+        public bool vulnerable { get => m_vulnerable; }
+
+        [Header("Attack")]
         [SerializeField] private bool m_attacking = false;
         [SerializeField] private bool m_vulnerable = false;
         public int attackingAnimTicks = 30;
         public int attackTick = 10;
         [SerializeField] private int m_attackingTicks = 0;
+
+        [Header("Fire")]
+        public int fireAnimDuration = 35;
+        public int fireTick = 15;
+        public int fireRate = 50;
+        public bool firing { get => m_firing; }
+        [SerializeField] private bool m_firing = false;
+        [SerializeField] private int m_fireAnimTicks = 0;
+        [SerializeField] private int m_fireCooldownTicks = 0;
+
+        [Header("Stun")]
+        public float stunPushbackSpeed = 12f;
+        public int stunnedDuration = 30;
+        public int stunnedTicks { get => m_stunnedTicks; }
+        [SerializeField] private int m_stunnedTicks = 0;
+        [SerializeField] private int m_stunDirection = 0;
 
         private void Update()
         {
@@ -49,13 +68,14 @@ namespace BucketsGame
             WallCheck();
             CheckPlayerDistance();
             MoveHandler();
+            TimerHandler();
         }
         private void CheckPlayerDistance()
         {
             if (m_dead) return;
             var player = SceneProperties.mainPlayer;
             if (player == null) return;
-            float distanceToPlayer = (player.rb.position - rb.position).sqrMagnitude;
+            float distanceToPlayer = Vector2.Distance(player.rb.position, rb.position);//(player.rb.position - rb.position).sqrMagnitude;
             if (!player.dead)
             {
                 if (enemyState != EnemyAIState.Alert)
@@ -66,6 +86,12 @@ namespace BucketsGame
             else enemyState = EnemyAIState.Roaming;
 
             if (enemyState != EnemyAIState.Alert) return;
+            if (Mathf.Abs(distanceToPlayer) <= approachDistance && m_stunnedTicks <= 0)
+            {
+                RaycastHit2D hasWallInWay = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
+                Debug.DrawLine(rb.position, player.rb.position, (hasWallInWay ? Color.red : Color.green), Time.fixedDeltaTime);
+                if (!hasWallInWay) Fire();
+            }
             //if (m_attacking) // Run Tick
             //{
             //    m_attackingTicks--;
@@ -130,13 +156,22 @@ namespace BucketsGame
                         {
                             moveH *= -1;
                         }
-
                     }
                     float velX = moveH * speed;
                     Vector2 velocity = new Vector2(velX, 0);
                     Vector2 normal = groundNormal;
                     velocity = GetSlopeVelocity(moveH, velX, velocity, normal);
-                    if (m_attacking)
+
+                    if (m_stunnedTicks > 0)
+                    {
+                        // Plus 0.2 few frames where shielder is stopped.
+                        float x = Mathf.Lerp(0, stunPushbackSpeed * m_stunDirection, ((float)m_stunnedTicks / stunnedDuration) * 2f);
+                        if ((x > 0 && !normalRight) || (x < 0 && !normalLeft))
+                            x = 0;
+                        Debug.Log(x);
+                        velocity.Set(x, 0);
+                    }
+                    else if (m_attacking || m_firing)
                     {
                         velocity = Vector2.zero;
                     }
@@ -145,6 +180,84 @@ namespace BucketsGame
                 }
             }
             CapVelocity();
+        }
+        private void Stun(Vector2 direction)
+        {
+            if (m_dead) return;
+            m_stunnedTicks = stunnedDuration;
+            m_stunDirection = (int)Mathf.Sign(direction.normalized.x);
+            ChangeFacing((m_stunDirection > 0 ? Facing.Left : Facing.Right));
+            StopFire();
+            if (!SceneProperties.mainPlayer.dead)
+            {
+                AlertEnemy();
+            }
+        }
+        private void Fire()
+        {
+            if (m_firing || m_fireCooldownTicks > 0) return;
+            m_vulnerable = true;
+            m_fireAnimTicks = fireAnimDuration;
+            m_firing = true;
+        }
+        private void StopFire(bool useCooldown = false)
+        {
+            if (useCooldown) m_fireCooldownTicks = fireRate;
+            m_vulnerable = false;
+            m_fireAnimTicks = 0;
+            m_firing = false;
+        }
+        private void ShootProjectile()
+        {
+            var player = SceneProperties.mainPlayer;
+            if (!player) return;
+            Vector2 dir = player.rb.position - rb.position;
+            Vector2 size = Vector2.one;
+            // If player is behind enemy, rotate direction in X
+            if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
+            BulletsPool.instance.SpawnBullet(rb.position, bulletSprite, size, dir, Team.Enemy);
+        }
+        private void StunTimer()
+        {
+            if (m_stunnedTicks > 0) m_stunnedTicks--;
+        }
+        private void FireTimer()
+        {
+            if (m_fireCooldownTicks > 0)
+            {
+                m_fireCooldownTicks--;
+            }
+            if (m_firing && m_fireAnimTicks > 0)
+            {
+                m_fireAnimTicks--;
+                if (m_fireAnimTicks == fireTick) // Shoot Projectile
+                {
+                    ShootProjectile();
+                }
+                if (m_fireAnimTicks <= 0) StopFire(true);
+            }
+        }
+        private void TimerHandler()
+        {
+            if (m_dead) return;
+            StunTimer();
+            FireTimer();
+        }
+        public override bool Hurt(Vector2 launch)
+        {
+            if (!m_vulnerable)
+            {
+                Stun(launch.normalized);
+                return true;
+            }
+            if (m_dead) return false;
+            m_dead = true;
+            StopFire();
+            SetAirborne();
+            launch *= 40f;
+            rb.velocity = (launch);
+            GameManager.instance.OnEnemyKill();
+            return true;
         }
     }
 }
