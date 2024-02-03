@@ -18,18 +18,32 @@ namespace BucketsGame
         public int playerLayer = 7;
         public PhysicsMaterial2D aliveMat;
         public PhysicsMaterial2D deadMat;
-        public static GameManager instance;
+        public static GameManager instance { 
+            get
+            {
+                if (!m_instance)
+                {
+                    AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
+                }
+                return m_instance;
+            }
+        }
+        private static GameManager m_instance;
         [SerializeField] private Tween m_hitstunTween;
         private const float SLOWTIME = 0.25f;
         private void Awake()
         {
-            if (instance == null)
+            if (m_instance == null)
             {
-                instance = this;
-                DOTween.Init();
-                DontDestroyOnLoad(gameObject);
+                AssignInstance(this);
             }
             else Destroy(gameObject);
+        }
+        private static void AssignInstance(GameManager go)
+        {
+            m_instance = go;
+            DOTween.Init();
+            DontDestroyOnLoad(go);
         }
         private void Start()
         {
