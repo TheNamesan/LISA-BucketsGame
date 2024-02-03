@@ -9,7 +9,7 @@ namespace BucketsGame
         Player = 0,
         Enemy = 1
     }
-    public class Bullet : MonoBehaviour
+    public class Bullet : PoolObject
     {
         public Rigidbody2D rb;
         public float velocity = 27;
@@ -18,8 +18,6 @@ namespace BucketsGame
         private const int m_maxTicksLife = 250;
         private int m_ticks = 0;
 
-        public bool inUse { get => m_inUse; }
-        private bool m_inUse;
         public void Fire(Vector2 normal, Team team = Team.Player)
         {
             gameObject.SetActive(true);
@@ -69,14 +67,6 @@ namespace BucketsGame
                     }
                 }
             }
-        }
-
-        public void ReturnToPool()
-        {
-            m_inUse = false;
-            transform.parent = BulletsPool.instance.transform;
-            gameObject.SetActive(false);
-            //Destroy(gameObject); // Return to pool
         }
         private void OnTriggerEnter2D(Collider2D other)
         {

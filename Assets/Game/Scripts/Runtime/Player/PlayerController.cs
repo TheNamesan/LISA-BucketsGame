@@ -433,6 +433,7 @@ namespace BucketsGame
             dashing = true;
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
+            VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position);
             GameManager.instance.OnDash();
         }
         
@@ -503,6 +504,7 @@ namespace BucketsGame
                         doubleJumping = true;
                         m_jumps--;
                         if (!dashing) ChangeState(CharacterStates.Airborne, true);
+                        VFXPool.instance.PlayVFX("DoubleJumpVFX", sprite.transform.position);
                     }
                 }
                 SetAirborne(); //Setting this here so slope fixes get ignored
@@ -546,7 +548,6 @@ namespace BucketsGame
 
             if (Mathf.Abs(rb.velocity.x) >= 0.0001f && input.inputH != 0)
             {
-                if (lastState == CharacterStates.Idle) Debug.Log("Changing to walk");
                 ChangeState(CharacterStates.Walk);
             }
             else { ChangeState(CharacterStates.Idle); }

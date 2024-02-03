@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace BucketsGame
 {
-    public class BulletsPool : PoolManager<Bullet>
+    public class VFXPool : PoolManager<VFXObject>
     {
-        public static BulletsPool instance;
+        public static VFXPool instance;
         private void Awake()
         {
             if (!instance) instance = this;
@@ -15,13 +15,12 @@ namespace BucketsGame
         {
             Initialize();
         }
-        public void SpawnBullet(Vector2 position, Vector2 dir, Team team = Team.Player)
+        public void PlayVFX(string animName, Vector2 position)
         {
-            Initialize();
             var available = pool.Find(o => !o.inUse);
             if (available == null) available = AddNew();
             available.transform.position = position;
-            available.Fire(dir, team);
+            available.Play(animName);
         }
     }
 }
