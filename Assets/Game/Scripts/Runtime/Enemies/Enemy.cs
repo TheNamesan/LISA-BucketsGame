@@ -90,7 +90,7 @@ namespace BucketsGame
                     if (los.collider.gameObject.layer == GameManager.instance.playerLayer)
                     {
                         color = Color.green;
-                        OnEnemyLineOfSight();
+                        AlertEnemy();
                         Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
                         break;
                     }
@@ -98,7 +98,7 @@ namespace BucketsGame
                 Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
             }
         }
-        protected virtual void OnEnemyLineOfSight()
+        protected virtual void AlertEnemy()
         {
             enemyState = EnemyAIState.Alert;
         }

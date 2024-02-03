@@ -5,13 +5,11 @@ using DG.Tweening;
 
 namespace BucketsGame
 {
-    public class AfterImage : MonoBehaviour
+    public class AfterImage : PoolObject
     {
         private Tween tween;
         public SpriteRenderer sprite;
-        public bool inUse { get => m_inUse; }
-        private bool m_inUse;
-        
+
         public void Invoke(Vector3 position, Sprite sprite, bool flip, Color color, float duration)
         {
             gameObject.SetActive(true);

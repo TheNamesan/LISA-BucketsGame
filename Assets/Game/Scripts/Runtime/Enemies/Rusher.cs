@@ -66,31 +66,41 @@ namespace BucketsGame
                 if (m_attackingTicks <= 0) m_attacking = false;
                 else if (m_attackingTicks == attackTick) // Attack Raycast
                 {
-                    var hitboxLayers = GameManager.instance.hurtboxLayers;
-                    Vector2 dir = transform.right * FaceToInt();
-                    RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.25f, hitboxLayers);
-                    for (int i = 0; i < hits.Length; i++)
-                    {
-                        if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
-                        {
-                            if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
-                            {
-                                bool hitTarget = hurtbox.Collision(dir);
-                            }
-                        }
-                    }
+                    AttackRaycast();
                 }
             }
             else
             {
                 if (Mathf.Abs(distanceToPlayer) <= 0.65f) // Attack
                 {
-                    m_attacking = true;
-                    m_attackingTicks = attackingAnimTicks;
+                    Attack();
                 }
             }
         }
-        
+
+        private void AttackRaycast()
+        {
+            var hitboxLayers = GameManager.instance.hurtboxLayers;
+            Vector2 dir = transform.right * FaceToInt();
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.25f, hitboxLayers);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
+                {
+                    if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
+                    {
+                        bool hitTarget = hurtbox.Collision(dir);
+                    }
+                }
+            }
+        }
+
+        private void Attack()
+        {
+            m_attacking = true;
+            m_attackingTicks = attackingAnimTicks;
+        }
+
         private void MoveHandler()
         {
             if (m_dead) return;

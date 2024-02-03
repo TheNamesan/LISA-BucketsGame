@@ -9,20 +9,29 @@ namespace BucketsGame
         Player = 0,
         Enemy = 1
     }
-    public class Bullet : MonoBehaviour
+    public class Bullet : PoolObject
     {
+        public Sprite defaultSprite;
+        public Vector2 defaultSpriteSize = new Vector2(0.3f, 0.3f);
+        
         public Rigidbody2D rb;
+        public CircleCollider2D col;
+        public SpriteRenderer spriteRenderer;
         public float velocity = 27;
         public LayerMask groundLayers;
         public Team team = Team.Player;
         private const int m_maxTicksLife = 250;
         private int m_ticks = 0;
 
-        public bool inUse { get => m_inUse; }
-        private bool m_inUse;
         public void Fire(Vector2 normal, Team team = Team.Player)
         {
+            Fire(normal, defaultSprite, defaultSpriteSize, team);
+        }
+        public void Fire(Vector2 normal, Sprite sprite, Vector2 size, Team team = Team.Player)
+        {
             gameObject.SetActive(true);
+            spriteRenderer.sprite = sprite;
+            spriteRenderer.transform.localScale = new Vector3(size.x, size.y, spriteRenderer.transform.localScale.z);
             this.team = team;
             transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
             m_ticks = 0; // Reset Ticks
@@ -51,13 +60,14 @@ namespace BucketsGame
 
         private void CollisionCheck()
         {
-            RaycastHit2D hitGround = Physics2D.CircleCast(rb.position, transform.localScale.x, rb.transform.up, 0, groundLayers);
+            float radius = col.radius * transform.localScale.x;
+            RaycastHit2D hitGround = Physics2D.CircleCast(rb.position, radius, rb.transform.up, 0, groundLayers);
             if (hitGround)
             {
                 ReturnToPool();
             }
             var hitboxLayers = GameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
-            RaycastHit2D hit = Physics2D.CircleCast(rb.position, transform.localScale.x, rb.transform.up, 0, hitboxLayers);
+            RaycastHit2D hit = Physics2D.CircleCast(rb.position, radius, rb.transform.up, 0, hitboxLayers);
             if (hit)
             {
                 if (hit.collider.TryGetComponent(out Hurtbox hurtbox))
@@ -69,14 +79,6 @@ namespace BucketsGame
                     }
                 }
             }
-        }
-
-        public void ReturnToPool()
-        {
-            m_inUse = false;
-            transform.parent = BulletsPool.instance.transform;
-            gameObject.SetActive(false);
-            //Destroy(gameObject); // Return to pool
         }
         private void OnTriggerEnter2D(Collider2D other)
         {

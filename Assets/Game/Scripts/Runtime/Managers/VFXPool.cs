@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace BucketsGame
-{   
-    public class AfterImagesPool : PoolManager<AfterImage>
+{
+    public class VFXPool : PoolManager<VFXObject>
     {
-        public static AfterImagesPool instance;
+        public static VFXPool instance;
         private void Awake()
         {
             if (!instance) instance = this;
@@ -15,11 +15,12 @@ namespace BucketsGame
         {
             Initialize();
         }
-        public void CallAfterImage(Vector3 position, Sprite sprite, bool flip, Color color, float duration)
+        public void PlayVFX(string animName, Vector2 position)
         {
             var available = pool.Find(o => !o.inUse);
             if (available == null) available = AddNew();
-            available.Invoke(position, sprite, flip, color, duration);
+            available.transform.position = position;
+            available.Play(animName);
         }
     }
 }

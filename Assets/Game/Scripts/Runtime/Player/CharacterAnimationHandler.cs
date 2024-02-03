@@ -48,8 +48,14 @@ namespace BucketsGame
                     if (animationInWait) return lastStateName;
                     return $"IdleRight";
                 case CharacterStates.Walk:
+                    if (lastStateName.StartsWith("Dash"))
+                    {
+                        SetAnimationWait();
+                        return $"RecoverDash";
+                    }
+                    if (animationInWait) return lastStateName;
                     return $"WalkRight";
-                case CharacterStates.Airborne:
+                case CharacterStates.Airborne:                    
                     if (controller.doubleJumping)
                     {
                         return $"DoubleJumpRight";

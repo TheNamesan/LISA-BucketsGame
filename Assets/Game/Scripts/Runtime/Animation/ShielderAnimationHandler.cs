@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace BucketsGame
 {
-    public class RusherAnimationHandler : AnimationHandler
+    public class ShielderAnimationHandler : AnimationHandler
     {
-        public Rusher rusher;
+        public Shielder target;
 
         private void Update()
         {
@@ -14,7 +14,7 @@ namespace BucketsGame
         }
         public void ChangeAnimationState(bool forcePlaySameState = false)
         {
-            if (rusher == null) return;
+            if (target == null) return;
             if (!anim) return;
 
             string stateName = GetAnimationStateName();
@@ -25,15 +25,21 @@ namespace BucketsGame
         }
         public string GetAnimationStateName()
         {
-            if (Mathf.Abs(rusher.rb.velocity.x) >= 0.001f)
+            if (target.firing)
             {
-                return "RusherWalk";
+                return "ShielderFire";
             }
-            if (rusher.attacking)
+            if (Mathf.Abs(target.rb.velocity.x) >= 0.001f)
+            {
+                return "ShielderWalk";
+            }
+            
+            if (target.attacking)
             {
                 return "RusherAttack";
             }
-            return "RusherIdle";
+            return "ShielderIdle";
         }
     }
+
 }

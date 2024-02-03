@@ -43,6 +43,7 @@ namespace BucketsGame
         public bool dashing = false;
         [SerializeField] private int m_dashTicks = 0;
         public int dashCooldownTicksDuration = 25;
+        public int dashCooldownTicks { get => m_dashCooldownTicks; }
         [SerializeField] private int m_dashCooldownTicks = 0;
         public int dashDirection { get => m_dashDirection; }
         [SerializeField] private int m_dashDirection = 0;
@@ -252,15 +253,6 @@ namespace BucketsGame
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            //var layer = collision.gameObject.layer;
-            //if (layer == 14)
-            //{
-            //    if (ignoreOneWay)
-            //    {
-
-            //    }
-            //    Debug.Log("que pedo");
-            //}
         }
         private void IgnoreOneWayCheck()
         {
@@ -432,6 +424,7 @@ namespace BucketsGame
             dashing = true;
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
+            VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position);
             GameManager.instance.OnDash();
         }
         
@@ -502,6 +495,7 @@ namespace BucketsGame
                         doubleJumping = true;
                         m_jumps--;
                         if (!dashing) ChangeState(CharacterStates.Airborne, true);
+                        VFXPool.instance.PlayVFX("DoubleJumpVFX", sprite.transform.position);
                     }
                 }
                 SetAirborne(); //Setting this here so slope fixes get ignored
@@ -529,7 +523,7 @@ namespace BucketsGame
         {
             facing = newFacing;
             animHandler?.FlipSprite(facing);
-            GroundedAnimationStateCheck();
+            //GroundedAnimationStateCheck();
         }
 
 
@@ -543,7 +537,7 @@ namespace BucketsGame
             //if (!grounded || jumping || hardLanded || climbing || falling) return;
             if (!grounded || dashing) return;
 
-            if (Mathf.Abs(rb.velocity.x) > 0.000001f && input.inputH != 0)
+            if (Mathf.Abs(rb.velocity.x) >= 0.0001f && input.inputH != 0)
             {
                 ChangeState(CharacterStates.Walk);
             }
