@@ -135,16 +135,13 @@ MonoBehaviour:
   hurtbox: {fileID: 3711834661885002634}
   facing: 0
   moveSpeed: 7
-  groundLayers:
-    serializedVersion: 2
-    m_Bits: 8256
-  oneWayGroundLayers:
-    serializedVersion: 2
-    m_Bits: 16384
   grounded: 0
+  ignoreOneWay: 0
   groundCollider: {fileID: 0}
+  ignoredOneWays: []
   groundPoint: {x: 0, y: 0}
   groundNormal: {x: 0, y: 0}
+  groundIsOneWay: 0
   gravityScale: 2
   maxFallSpeed: -15
   m_dead: 0
@@ -162,9 +159,10 @@ MonoBehaviour:
   jumpForce: 12
   extraJumps: 1
   midairDashes: 1
+  doubleJumping: 0
   m_jumps: 0
   m_midairDashes: 0
-  dashSpeed: 15
+  dashSpeed: 25
   dashTicksDuration: 20
   dashing: 0
   m_dashTicks: 0
@@ -187,7 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dd23473676b2d143ad67e63f2b270a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 7651473218300279274, guid: 828e4795e14d84c4194db5f936f336ca, type: 3}
   weaponMode: 0
   ticksFireRate: 10
 --- !u!114 &3711834660284266069
@@ -430,7 +427,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 200933865
-  m_SortingLayer: -4
+  m_SortingLayer: -3
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

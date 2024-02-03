@@ -64,14 +64,14 @@ namespace BucketsGame
         }
         private void Update()
         {
-            if (sprite)
-            {
-                if (grounded) sprite.color = Color.white; // Tmp
-                else sprite.color = Color.green;
-                if (hurtbox && hurtbox.invulnerable) sprite.color = Color.blue;
-                if (m_dead) rb.constraints = RigidbodyConstraints2D.None;
-                else rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            }
+            //if (sprite)
+            //{
+            //    if (grounded) sprite.color = Color.white; // Tmp
+            //    else sprite.color = Color.green;
+            //    if (hurtbox && hurtbox.invulnerable) sprite.color = Color.blue;
+            //    if (m_dead) rb.constraints = RigidbodyConstraints2D.None;
+            //    else rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            //}
             GroundedAnimationStateCheck();
         }
         private void FixedUpdate()
@@ -402,7 +402,10 @@ namespace BucketsGame
         private float GetVelX(int moveH)
         {
             float velocity = moveH * moveSpeed; // Walk Speed
-            if (dashing) velocity = dashSpeed * m_dashDirection; // Dash Speed
+            if (dashing) // Dash Speed
+            { 
+                velocity = Mathf.Lerp(moveSpeed, dashSpeed,(float)m_dashTicks / dashTicksDuration) * m_dashDirection; 
+            } 
             return velocity;
         }
         private void DashHandler()

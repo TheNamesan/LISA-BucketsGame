@@ -35,6 +35,11 @@ namespace BucketsGame
             switch (state)
             {
                 case CharacterStates.Idle:
+                    if (lastStateName.StartsWith("Dash"))
+                    {
+                        SetAnimationWait();
+                        return $"RecoverDash";
+                    }
                     if (controller.lastState == CharacterStates.Airborne)
                     {
                         SetAnimationWait();
