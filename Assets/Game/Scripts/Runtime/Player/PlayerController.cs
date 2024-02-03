@@ -43,6 +43,7 @@ namespace BucketsGame
         public bool dashing = false;
         [SerializeField] private int m_dashTicks = 0;
         public int dashCooldownTicksDuration = 25;
+        public int dashCooldownTicks { get => m_dashCooldownTicks; }
         [SerializeField] private int m_dashCooldownTicks = 0;
         public int dashDirection { get => m_dashDirection; }
         [SerializeField] private int m_dashDirection = 0;
@@ -529,7 +530,7 @@ namespace BucketsGame
         {
             facing = newFacing;
             animHandler?.FlipSprite(facing);
-            GroundedAnimationStateCheck();
+            //GroundedAnimationStateCheck();
         }
 
 
@@ -543,8 +544,9 @@ namespace BucketsGame
             //if (!grounded || jumping || hardLanded || climbing || falling) return;
             if (!grounded || dashing) return;
 
-            if (Mathf.Abs(rb.velocity.x) > 0.000001f && input.inputH != 0)
+            if (Mathf.Abs(rb.velocity.x) >= 0.0001f && input.inputH != 0)
             {
+                if (lastState == CharacterStates.Idle) Debug.Log("Changing to walk");
                 ChangeState(CharacterStates.Walk);
             }
             else { ChangeState(CharacterStates.Idle); }
