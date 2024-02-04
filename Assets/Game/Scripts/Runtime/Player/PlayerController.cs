@@ -424,7 +424,7 @@ namespace BucketsGame
             dashing = true;
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
-            VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position);
+            if (grounded) VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position, facing == Facing.Left);
             GameManager.instance.OnDash();
         }
         

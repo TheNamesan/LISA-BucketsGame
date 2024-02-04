@@ -7,10 +7,12 @@ namespace BucketsGame
     public class VFXObject : PoolObject
     {
         public Animator anim;
+        public SpriteRenderer spriteRenderer;
         private IEnumerator durationCoroutine = null;
-        public void Play(string animName)
+        public void Play(string animName, bool flipX = false)
         {
             gameObject.SetActive(true);
+            if (spriteRenderer) spriteRenderer.flipX = flipX;
             if (!anim) return;
             if (durationCoroutine != null) StopCoroutine(durationCoroutine);
             anim.Play(animName, -1, 0f);

@@ -15,12 +15,12 @@ namespace BucketsGame
         {
             Initialize();
         }
-        public void PlayVFX(string animName, Vector2 position)
+        public void PlayVFX(string animName, Vector2 position, bool flipX = false)
         {
             var available = pool.Find(o => !o.inUse);
             if (available == null) available = AddNew();
             available.transform.position = position;
-            available.Play(animName);
+            available.Play(animName, flipX);
         }
     }
 }
