@@ -13,6 +13,7 @@ namespace TUFF
         public TMP_Text levelText;
         public override void UpdateInfo(PartyMember member, bool displayMaxValues = false)
         {
+            if (member == null) return;
             base.UpdateInfo(member, displayMaxValues);
             portraitImage.sprite = member.GetPortraitSprite();
             jobNameText.text = member.job.GetName();

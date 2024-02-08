@@ -7,13 +7,14 @@ namespace BucketsGame
 {
     public class PlayerInputHandler : MonoBehaviour
     {
+        public GamePlayerInput gameInput = new();
         public PlayerController player { get => SceneProperties.mainPlayer; }
-        
+
         public void Move(InputAction.CallbackContext context)
         {
             if (!player) return;
             if (context.performed || context.canceled)
-                player.input.inputH = context.ReadValue<float>();
+                gameInput.inputH = context.ReadValue<float>();
         }
         public void Vertical(InputAction.CallbackContext context)
         {
@@ -21,38 +22,38 @@ namespace BucketsGame
             if (context.performed || context.canceled)
             {
                 float value = context.ReadValue<float>();
-                player.input.inputV = value;
-                if (value > 0) player.input.jumpDown = true;
+                gameInput.inputV = value;
+                if (value > 0) gameInput.jumpDown = true;
             }
         }
         public void Pointer(InputAction.CallbackContext context)
         {
             if (!player) return;
-            player.input.mousePoint = context.ReadValue<Vector2>();
+            gameInput.mousePoint = context.ReadValue<Vector2>();
         }
         public void Shoot(InputAction.CallbackContext context)
         {
             if (!player) return;
             if (context.performed)
-                player.input.shootDown = true;
+                gameInput.shootDown = true;
             if (context.canceled)
-                player.input.shootDown = false;
+                gameInput.shootDown = false;
         }
         public void Dash(InputAction.CallbackContext context)
         {
             if (!player) return;
             if (context.performed)
-                player.input.dashDown = true;
+                gameInput.dashDown = true;
             if (context.canceled)
-                player.input.dashDown = false;
+                gameInput.dashDown = false;
         }
         public void Focus(InputAction.CallbackContext context)
         {
             if (!player) return;
             if (context.performed)
-                player.input.focus = true;
+                gameInput.focus = true;
             if (context.canceled)
-                player.input.focus = false;
+                gameInput.focus = false;
         }
         public void ResetLevel(InputAction.CallbackContext context)
         {
@@ -60,6 +61,32 @@ namespace BucketsGame
             if (context.performed)
                 BucketsGameManager.instance.ResetLevel();
         }
+
+        public void OnEnable()
+        {
+            StartCoroutine(LateFixedUpdate());
+        }
+        public void FixedUpdate()
+        {
+            if (player)
+            {
+                if (TUFF.GameManager.disablePlayerInput) player.input = new GamePlayerInput();
+                else
+                    player.input = gameInput;
+            }
+                
+        }
+        public IEnumerator LateFixedUpdate()
+        {
+            while (true)
+            {
+                yield return new WaitForFixedUpdate();
+                gameInput.jumpDown = false;
+                gameInput.dashDown = false;
+                gameInput.shootDown = false;
+            }
+        }
+        
     }
     [System.Serializable]
     public struct GamePlayerInput

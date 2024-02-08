@@ -7,6 +7,7 @@ namespace BucketsGame
 {
     public class UIManager : MonoBehaviour
     {
+        public GameObject eventSystem;
         [Header("Cursor")]
         [SerializeField] private Texture2D cursorTexture;
         private Vector2 cursorHotspot;
@@ -19,6 +20,7 @@ namespace BucketsGame
         private float m_timePassed = 0;
         private void OnEnable()
         {
+            if (eventSystem) eventSystem.SetActive(true);
             if (focusFill && focusFill.material != null)
             {
                 focusFill.material = Instantiate(focusFill.material); // Copy of material

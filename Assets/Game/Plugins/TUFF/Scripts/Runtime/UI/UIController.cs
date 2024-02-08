@@ -81,7 +81,7 @@ namespace TUFF
             else
             {
                 instance = this;
-                eventSystem.SetActive(true);
+                //eventSystem.SetActive(true);
                 SceneLoaderManager.onSceneLoad.AddListener(GetCanvasCamera);
                 DontDestroyOnLoad(gameObject);
             }

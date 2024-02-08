@@ -88,9 +88,7 @@ namespace BucketsGame
             MoveHandler();
             TimerHandler();
             ExpectedPosition();
-            input.jumpDown = false;
-            input.dashDown = false;
-            input.shootDown = false;
+            
             lastVelocity = rb.velocity;
         }
         protected override void GroundCheck()

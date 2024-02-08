@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &4839283001538814395
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4839283001538814390}
   - component: {fileID: 4839283001538814389}
   - component: {fileID: 4839283001538814388}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Interactable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,14 +137,16 @@ MonoBehaviour:
     triggerType: 0
     conditions:
       elements:
-      - conditionType: 0
+      - not: 0
+        conditionType: 0
         targetSwitch: 0
-        targetVariableIndex: 0
-        targetVariableValueType: 0
-        variableBool: 0
-        variableNumber: 0
-        variableString: 
-        variableVector: {x: 0, y: 0}
+        variableComparator:
+          targetVariableIndex: 0
+          targetVariableValueType: 0
+          variableBool: 0
+          variableNumber: 0
+          variableString: 
+          variableVector: {x: 0, y: 0}
         targetItem: {fileID: 0}
         targetUnit: {fileID: 0}
     spriteRef: {fileID: 0}

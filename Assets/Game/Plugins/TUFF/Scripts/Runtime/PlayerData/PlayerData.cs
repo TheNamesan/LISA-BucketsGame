@@ -306,7 +306,8 @@ namespace TUFF
         public PartyMember GetActivePartyMember(int index)
         {
             if (index >= activePartyMaxSize) return party[partyOrder[activePartyMaxSize - 1]];
-            if (index >= partyOrder.Count) return null;
+            if (index >= partyOrder.Count || index < 0) return null;
+            if (index >= party.Length) return null;
             return party[partyOrder[index]];
         }
         public PartyMember GetRandomActivePartyMember()
