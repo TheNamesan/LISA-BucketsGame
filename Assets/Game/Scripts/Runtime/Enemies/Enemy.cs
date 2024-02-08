@@ -32,8 +32,8 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
-            if (!m_dead) rb.sharedMaterial = GameManager.instance.aliveMat;
-            else rb.sharedMaterial = GameManager.instance.deadMat;
+            if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
+            else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
             GroundCheck();
             MoveHandler();
         }
@@ -67,12 +67,12 @@ namespace BucketsGame
             SetAirborne();
             launch *= 40f;
             rb.velocity = (launch);
-            GameManager.instance.OnEnemyKill();
+            BucketsGameManager.instance.OnEnemyKill();
             return true;
         }
         protected virtual void EnemyLineOfSight()
         {
-            LayerMask layers = GameManager.instance.groundLayers | (1 << GameManager.instance.playerLayer);
+            LayerMask layers = BucketsGameManager.instance.groundLayers | (1 << BucketsGameManager.instance.playerLayer);
 
             int max = coneAccuracy + 1;
             for (int i = 0; i < max; i++)
@@ -87,7 +87,7 @@ namespace BucketsGame
                 Color color = Color.white;
                 if (los)
                 {
-                    if (los.collider.gameObject.layer == GameManager.instance.playerLayer)
+                    if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
                     {
                         color = Color.green;
                         AlertEnemy();

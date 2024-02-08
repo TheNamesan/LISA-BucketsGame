@@ -272,8 +272,8 @@ namespace BucketsGame
         }
         private void AssignDeadMaterial()
         {
-            if (!m_dead) rb.sharedMaterial = GameManager.instance.aliveMat;
-            else rb.sharedMaterial = GameManager.instance.deadMat;
+            if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
+            else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
         }
 
         private void InputCheck()
@@ -425,7 +425,7 @@ namespace BucketsGame
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
             if (grounded) VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position, facing == Facing.Left);
-            GameManager.instance.OnDash();
+            BucketsGameManager.instance.OnDash();
         }
         
         private void WallJump()
@@ -516,7 +516,7 @@ namespace BucketsGame
             StopDash();
             launch *= 40f;
             rb.velocity = (launch);
-            GameManager.instance.OnPlayerDead();
+            BucketsGameManager.instance.OnPlayerDead();
             return true;
         }
         public override void ChangeFacing(Facing newFacing)

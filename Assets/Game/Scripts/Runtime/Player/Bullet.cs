@@ -66,7 +66,7 @@ namespace BucketsGame
             {
                 ReturnToPool();
             }
-            var hitboxLayers = GameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
             RaycastHit2D hit = Physics2D.CircleCast(rb.position, radius, rb.transform.up, 0, hitboxLayers);
             if (hit)
             {

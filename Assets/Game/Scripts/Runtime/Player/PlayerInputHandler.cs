@@ -58,7 +58,7 @@ namespace BucketsGame
         {
             if (!player) return;
             if (context.performed)
-                GameManager.instance.ResetLevel();
+                BucketsGameManager.instance.ResetLevel();
         }
     }
     [System.Serializable]

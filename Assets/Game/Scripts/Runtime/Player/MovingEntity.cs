@@ -18,8 +18,8 @@ namespace BucketsGame
         public float moveSpeed = 6;
 
         
-        public LayerMask groundLayers { get => GameManager.instance.groundLayers; }
-        public LayerMask oneWayGroundLayers { get => GameManager.instance.oneWayLayers; }
+        public LayerMask groundLayers { get => BucketsGameManager.instance.groundLayers; }
+        public LayerMask oneWayGroundLayers { get => BucketsGameManager.instance.oneWayLayers; }
         [Header("Ground Collision")]
         public bool grounded = false;
         public bool ignoreOneWay = false;

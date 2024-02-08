@@ -62,8 +62,8 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
-            if (!m_dead) rb.sharedMaterial = GameManager.instance.aliveMat;
-            else rb.sharedMaterial = GameManager.instance.deadMat;
+            if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
+            else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
             GroundCheck();
             WallCheck();
             CheckPlayerDistance();
@@ -256,7 +256,7 @@ namespace BucketsGame
             SetAirborne();
             launch *= 40f;
             rb.velocity = (launch);
-            GameManager.instance.OnEnemyKill();
+            BucketsGameManager.instance.OnEnemyKill();
             return true;
         }
     }

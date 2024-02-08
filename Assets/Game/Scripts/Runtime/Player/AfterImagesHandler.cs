@@ -20,7 +20,7 @@ namespace BucketsGame
             if (m_time <= 0)
             {
                 
-                if (player && (player.dashing || player.wallJumping ||GameManager.instance.focusMode))
+                if (player && (player.dashing || player.wallJumping ||BucketsGameManager.instance.focusMode))
                 {
                     var pos = player.sprite.transform.position;
                     var sprite = player.sprite.sprite;

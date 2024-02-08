@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be12c8c5255dc941a2551823649aa2d, type: 3}
+  m_Name: TUFFSettings
+  m_EditorClassIdentifier: 
+  m_interactableGizmoFilename: Interactable.png
+  m_interactablePrefab: {fileID: 4839283001538814395, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+  m_enemyGraphicPrefab: {fileID: 0}
+  m_defaultTextbox: {fileID: 5973830192642023603, guid: 5cca84c1fa2dc20419ac96bc0f22bab8, type: 3}
+  m_systemTextbox: {fileID: 843030366551667578, guid: 3ab4a0f96b316f34f874fc7f76d7d877, type: 3}
+  m_startWithMaxItems: 0
+  m_skillsCostNoResources: 0
+  m_ignoreLearnedSkills: 0
+  m_overrideUnitInitLevel: 0
+  m_overrideUnitInitLevelValue: 1
+  m_critMultiplier: 3
+  m_TPRecoveryByDamageType: 0
+  m_TPRecoveryByDamageRatio: 1
+  m_baseGuardDmgReduction: 50
+  m_HPDangerThreshold: 25
+  m_showEnemyStatsByDefault: 0
+  m_baseMaxUP: 300
+  m_elements: []
+  m_weaponTypes: []
+  m_armorTypes: []
+  m_HPColor: {r: 0, g: 0, b: 0, a: 0}
+  m_SPColor: {r: 0, g: 0, b: 0, a: 0}
+  m_TPColor: {r: 0, g: 0, b: 0, a: 0}
+  m_UPColor: {r: 0, g: 0, b: 0, a: 0}
+  m_HPNormalColor: {r: 1, g: 1, b: 1, a: 1}
+  m_HPDangerColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_HPKOColor: {r: 1, g: 0, b: 0, a: 1}
+  m_aliveGraphicColor: {r: 1, g: 1, b: 1, a: 1}
+  m_KOGraphicColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_HPDamageTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_HPDamageSpecialTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_SPDamageTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_HPRecoverTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_SPRecoverTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_TPRecoverTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_stateApplyTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_stateRemovalTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_permanentStateApplyTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_weakpointTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_resistTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_immuneTextColor: {r: 0, g: 0, b: 0, a: 0}
+  m_positiveColor: {r: 0, g: 0, b: 0, a: 0}
+  m_negativeColor: {r: 0, g: 0, b: 0, a: 0}
+  m_magsIcon: {fileID: 0}
+  m_hitDisplayGroup: {fileID: 0}
+  m_enemyHPBar: {fileID: 0}
+  m_critPauseTimer: 0.5
+  m_enemyKOAnimation: {fileID: 0}
+  m_defaultVoicebank: {fileID: 0}
+  m_gameOverBGM:
+    bgm: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 1
+  m_highlightSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_selectSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_cancelSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_disabledSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_saveSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_loadSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_battleStartSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_battleVictorySFX: {fileID: 0}
+  m_unitDamageSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_unitKOSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_enemyDamageSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_enemyKOSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_critDamageSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_recoverySFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_missSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_EXPTickSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_levelUpSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_shopSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_useItemSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_equipSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_startingSceneName: 
+  m_startingScenePosition: {x: 0, y: 0}
+  m_startingSceneFacing: 0
+  m_unitTable: Unit
+  m_jobTable: Job
+  m_skillTable: Skill
+  m_commandTable: Command
+  m_itemTable: Item
+  m_keyitemTable: KeyItem
+  m_weaponTable: Weapon
+  m_armorTable: Armor
+  m_enemyTable: Enemy
+  m_stateTable: State
+  m_termsTable: Terms
+  m_dialogueTable: Dialogue
+  m_itemsTermKey: 
+  m_weaponsTermKey: 
+  m_armorsTermKey: 
+  m_keyItemsTermKey: 
+  m_buyTermKey: 
+  m_sellTermKey: 
+  m_possessionTermKey: Possession
+  m_quantityTermKey: Quantity
+  m_acceptTermKey: 
+  m_cancelTermKey: 
+  m_levelTermKey: 
+  m_levelShortTermKey: 
+  m_HPTermKey: 
+  m_HPShortTermKey: 
+  m_SPTermKey: 
+  m_SPShortTermKey: 
+  m_TPTermKey: 
+  m_TPShortTermKey: 
+  m_MaxHPShortTermKey: 
+  m_MaxSPShortTermKey: 
+  m_MaxTPShortTermKey: 
+  m_ATKShortTermKey: 
+  m_DEFShortTermKey: 
+  m_SATKShortTermKey: 
+  m_SDEFShortTermKey: 
+  m_AGIShortTermKey: 
+  m_LUKShortTermKey: 
+  m_currencyTermKey: Magazines
+  m_currencyShortTermKey: Mags
+  m_weaponTermKey: 
+  m_headTermKey: 
+  m_bodyTermKey: 
+  m_accessoryTermKey: 
+  m_missTermKey: 
+  m_weakpointTermKey: 
+  m_resistTermKey: 
+  m_immuneTermKey: 
+  m_levelUpTermKey: 
+  m_expTermKey: 
+  m_victoryMessageTermKey: 
+  m_levelUpMessageTermKey: 
+  m_newSkillsTermKey: 

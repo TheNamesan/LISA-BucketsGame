@@ -37,8 +37,8 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
-            if (!m_dead) rb.sharedMaterial = GameManager.instance.aliveMat;
-            else rb.sharedMaterial = GameManager.instance.deadMat;
+            if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
+            else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
             GroundCheck();
             WallCheck();
             CheckPlayerDistance();
@@ -80,7 +80,7 @@ namespace BucketsGame
 
         private void AttackRaycast()
         {
-            var hitboxLayers = GameManager.instance.hurtboxLayers;
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
             Vector2 dir = transform.right * FaceToInt();
             RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.25f, hitboxLayers);
             for (int i = 0; i < hits.Length; i++)

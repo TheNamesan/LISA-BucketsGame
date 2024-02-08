@@ -43,10 +43,10 @@ namespace BucketsGame
         }
         private void UpdateBar()
         {
-            var focus = GameManager.instance.focusMode;
+            var focus = BucketsGameManager.instance.focusMode;
             if (focusFill)
             {
-                focusFill.fillAmount = GameManager.instance.FocusFill();
+                focusFill.fillAmount = BucketsGameManager.instance.FocusFill();
                 if (focus && focusFill.material != null)
                 {
                     ScrollBarEffect(m_timePassed + Time.unscaledDeltaTime);

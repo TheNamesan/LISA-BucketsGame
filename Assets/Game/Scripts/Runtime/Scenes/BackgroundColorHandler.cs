@@ -28,7 +28,7 @@ namespace BucketsGame
         }
         private void ColorUpdate()
         {
-            if (GameManager.instance.focusMode)
+            if (BucketsGameManager.instance.focusMode)
             {
                 PlayTween();
             }
