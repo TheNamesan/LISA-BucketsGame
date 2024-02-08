@@ -41,8 +41,25 @@ namespace BucketsGame
         }
         private void Awake()
         {
-            instance = this;
+            if (!instance) instance = this;
+            TUFF.SceneLoaderManager.onSceneLoad.AddListener(MakeThisInstance);
         }
+        private void Start()
+        {
+            
+        }
+        private void OnDestroy()
+        {
+            TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(MakeThisInstance);
+        }
+        private void MakeThisInstance()
+        {
+            if (gameObject.activeInHierarchy)
+            {
+                instance = this;
+            }
+        }
+        
         private void OnEnable()
         {
             //string text = "";
@@ -68,7 +85,8 @@ namespace BucketsGame
         }
         private T GetObject<T>(ref T variable) where T : Object
         {
-            var obj = FindObjectOfType<T>();
+            var obj = GetComponentInChildren<T>();
+            //var obj = FindObjectOfType<T>();
             if (obj) variable = obj;
             return obj;
         }

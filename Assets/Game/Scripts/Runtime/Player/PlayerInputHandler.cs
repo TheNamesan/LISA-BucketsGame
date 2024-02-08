@@ -70,11 +70,18 @@ namespace BucketsGame
         {
             if (player)
             {
-                if (TUFF.GameManager.disablePlayerInput) player.input = new GamePlayerInput();
+                if (TUFF.GameManager.disablePlayerInput)
+                {
+                    
+                    player.input = new GamePlayerInput(); 
+                }
                 else
+                {
+                    //Debug.Log(player, player);
                     player.input = gameInput;
+                }
+                    
             }
-                
         }
         public IEnumerator LateFixedUpdate()
         {

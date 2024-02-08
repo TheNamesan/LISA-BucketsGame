@@ -102,7 +102,7 @@ namespace BucketsGame
                     var rayDiff = Vector2.Distance(normalHitVRay.normal, Vector2.up);
                     if (boxDiff < rayDiff) // Keep this!!!!
                     {
-                        Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
+                        //Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
                         normal = normalHitVRay.normal; // If this takes priority, it allows climbing down normally
                     }
                 }

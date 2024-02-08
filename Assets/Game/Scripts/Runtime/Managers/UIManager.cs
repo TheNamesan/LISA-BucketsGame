@@ -11,13 +11,29 @@ namespace BucketsGame
         [Header("Cursor")]
         [SerializeField] private Texture2D cursorTexture;
         private Vector2 cursorHotspot;
-        
+
         [Header("Bar")]
         public Image focusFill;
         public ImageAnimator focusAnim;
         public ImageAnimator eyeAnim;
         private PlayerController Player { get => SceneProperties.mainPlayer; }
         private float m_timePassed = 0;
+
+        public static UIManager instance { get { if (m_instance == null) AssignInstance(null); return m_instance; } }
+        private static UIManager m_instance;
+
+        private void Awake()
+        {
+            if (m_instance == null) AssignInstance(this);
+            else Destroy(gameObject);
+        }
+        public static void AssignInstance(UIManager target)
+        {
+            if (target == null) return;
+            m_instance = target;
+            Instantiate(m_instance.eventSystem, m_instance.transform);
+            DontDestroyOnLoad(m_instance);
+        }
         private void OnEnable()
         {
             if (eventSystem) eventSystem.SetActive(true);
