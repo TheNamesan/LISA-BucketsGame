@@ -41,6 +41,7 @@ namespace BucketsGame
         }
         private void Awake()
         {
+            BucketsGameManager.CheckInstance();
             if (!instance) instance = this;
             TUFF.SceneLoaderManager.onSceneLoad.AddListener(MakeThisInstance);
         }

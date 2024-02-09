@@ -67,22 +67,36 @@ namespace TUFF
         public static UnityEvent onSceneLoad = new();
 
         #region Singleton
-        public static SceneLoaderManager instance;
+        public static SceneLoaderManager instance { get { 
+                if (m_instance == null)
+                {
+                    if (GameManager.instance == null) return null;
+                    AssignInstance(GameManager.instance.GetComponentInChildren<SceneLoaderManager>());
+                }
+                return m_instance; 
+            } 
+        }
+        protected static SceneLoaderManager m_instance;
         
         private void Awake()
         {
-            if (instance != null)
+            if (m_instance != null)
             {
                 Destroy(gameObject);
             }
             else
             {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-                UpdateCurrentScene(SceneManager.GetActiveScene());
-                AddToLoadedScenes(currentScene);
-                UpdateNodes(currentScene);
+                AssignInstance(this);
             }
+        }
+        public static void AssignInstance(SceneLoaderManager target)
+        {
+            if (target == null) return;
+            m_instance = target;
+            DontDestroyOnLoad(m_instance.gameObject);
+            m_instance.UpdateCurrentScene(SceneManager.GetActiveScene());
+            AddToLoadedScenes(currentScene);
+            UpdateNodes(currentScene);
         }
         #endregion
         private void Start()
