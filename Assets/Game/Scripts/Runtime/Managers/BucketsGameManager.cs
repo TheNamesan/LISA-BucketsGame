@@ -23,7 +23,10 @@ namespace BucketsGame
             {
                 if (!m_instance)
                 {
-                    AssignInstance(Instantiate(Resources.Load<BucketsGameManager>("GameManager")));
+                    TUFF.GameManager.CheckInstance();
+                    if (TUFF.GameManager.instance == null) return null;
+                    AssignInstance(TUFF.GameManager.instance.GetComponentInChildren<BucketsGameManager>());
+                    //AssignInstance(Instantiate(Resources.Load<BucketsGameManager>("GameManager")));
                 }
                 return m_instance;
             }
@@ -37,14 +40,18 @@ namespace BucketsGame
         }
         private void Awake()
         {
-            if (m_instance == null)
+            if (m_instance != null)
+            {
+                if (instance != this) Destroy(gameObject);
+            }
+            else
             {
                 AssignInstance(this);
             }
-            else Destroy(gameObject);
         }
         private static void AssignInstance(BucketsGameManager go)
         {
+            if (go == null) return;
             m_instance = go;
             DOTween.Init();
             DontDestroyOnLoad(go);

@@ -28,9 +28,7 @@ namespace TUFF
 
         public PartyMember()
         {
-            Debug.Log("bRUH");
-            if (DatabaseLoader.instance != null)
-                learnedSkills = new bool[DatabaseLoader.instance.skills.Length];
+
         }
         public override void TakeHit(BattleAnimationEvent hitInfo, int targetIndex)
         {
@@ -48,6 +46,11 @@ namespace TUFF
                 Debug.Log(value);
                 SetTP(value);
             }
+        }
+        public void AllocateLearnedSkillsSize()
+        {
+            if (DatabaseLoader.instance != null)
+                learnedSkills = new bool[DatabaseLoader.instance.skills.Length];
         }
         public override void CapHP()
         {

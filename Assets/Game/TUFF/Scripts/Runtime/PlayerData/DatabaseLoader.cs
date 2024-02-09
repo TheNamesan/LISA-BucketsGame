@@ -22,6 +22,7 @@ namespace TUFF
         public static DatabaseLoader instance { get { 
                 if (m_instance == null)
                 {
+                    //GameManager.CheckInstance();
                     if (GameManager.instance == null) return null;
                     AssignInstance(GameManager.instance.GetComponentInChildren<DatabaseLoader>());
                 }
@@ -33,7 +34,7 @@ namespace TUFF
         {
             if (m_instance != null)
             {
-                Destroy(gameObject);
+                if (instance != this) Destroy(gameObject);
             }
             else
             {

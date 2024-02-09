@@ -277,6 +277,7 @@ namespace TUFF
         {
             Unit unit = DatabaseLoader.instance.units[index];
             PartyMember initMember = new PartyMember();
+            initMember.AllocateLearnedSkillsSize();
             initMember.unitRef = unit;
             initMember.AssignJob(unit.initialJob);
             initMember.level = unit.initialLevel;

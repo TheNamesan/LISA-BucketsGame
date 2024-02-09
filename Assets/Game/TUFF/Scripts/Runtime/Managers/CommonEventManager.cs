@@ -20,7 +20,10 @@ namespace TUFF
         public static CommonEventManager instance;
         private void Awake()
         {
-            if (instance != null) Destroy(gameObject);
+            if (instance != null)
+            {
+                if (instance != this) Destroy(gameObject);
+            }
             else
             {
                 instance = this;

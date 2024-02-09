@@ -53,16 +53,17 @@ namespace TUFF
         private static GameManager m_instance;
         private void Awake()
         {
+            Debug.Log("Awake!");
             if (m_instance != null)
             {
-                Destroy(gameObject);
+                if (instance != this) Destroy(gameObject);
             }
             else
             {
                 AssignInstance(this);
             }
         }
-        private static void AssignInstance(GameManager target)
+        public static void AssignInstance(GameManager target)
         {
             if (target == null) return;
             m_instance = target;
@@ -80,7 +81,7 @@ namespace TUFF
             {
                 AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
             }
-            return instance;
+            return m_instance;
         }
         #endregion
 
