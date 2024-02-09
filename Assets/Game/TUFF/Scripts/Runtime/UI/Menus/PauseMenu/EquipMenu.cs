@@ -36,7 +36,7 @@ namespace TUFF
         [Header("Selection")]
         public InventoryItem selectedEquipment = null;
         public EquipmentSlotType selectedSlot = EquipmentSlotType.PrimaryWeapon;
-        [HideInInspector] public PartyMember selectedMember;
+        [System.NonSerialized] public PartyMember selectedMember;
         public void InitializeMenu()
         {
             detailedUnitsMenu.uiMenu = uiMenu;

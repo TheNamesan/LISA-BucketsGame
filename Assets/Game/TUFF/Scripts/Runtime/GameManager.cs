@@ -39,24 +39,48 @@ namespace TUFF
         public static bool gameOver = false;
 
         #region Singleton
-        public static GameManager instance;
+        public static GameManager instance
+        {
+            get
+            {
+                if (!m_instance && Application.isPlaying)
+                {
+                    //AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
+                }
+                return m_instance;
+            }
+        }
+        private static GameManager m_instance;
         private void Awake()
         {
-            if (instance != null)
+            if (m_instance != null)
             {
                 Destroy(gameObject);
             }
             else
             {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-                Instantiate(gameCanvasPrefab);
-                LocalizationSettings.Instance.GetInitializationOperation();
-                LoadInitialData();
-                //LocalizationSettings.Instance.GetInitializationOperation(); //Start Localization
-                StartCoroutine(Dialogue.PreloadTextboxes());
-                DOTween.Init();
+                AssignInstance(this);
             }
+        }
+        private static void AssignInstance(GameManager target)
+        {
+            if (target == null) return;
+            m_instance = target;
+            DontDestroyOnLoad(m_instance.gameObject);
+            Instantiate(m_instance.gameCanvasPrefab);
+            LocalizationSettings.Instance.GetInitializationOperation();
+            m_instance.LoadInitialData();
+            //LocalizationSettings.Instance.GetInitializationOperation(); //Start Localization
+            m_instance.StartCoroutine(Dialogue.PreloadTextboxes());
+            DOTween.Init();
+        }
+        public static bool CheckInstance()
+        {
+            if (!m_instance && Application.isPlaying)
+            {
+                AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
+            }
+            return instance;
         }
         #endregion
 

@@ -17,8 +17,7 @@ namespace TUFF
         [SerializeField] BarHandler TPBar;
         [SerializeField] ActiveStatesHUD activeStatesHUD;
         [SerializeField] Image commandIcon;
-        public PartyMember memberRef;
-
+        [System.NonSerialized] public PartyMember memberRef;
         public void InitializeUnitHUD()
         {
             activeStatesHUD.InitializeHUD();

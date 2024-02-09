@@ -16,7 +16,7 @@ namespace TUFF
         public GeneralInfoDisplay secondaryAccessoryInfo;
         public UIMenu uiMenu;
 
-        [HideInInspector] public PartyMember memberRef;
+        [System.NonSerialized] public PartyMember memberRef;
 
         public virtual void UpdateInfo(PartyMember member)
         {

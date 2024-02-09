@@ -104,8 +104,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6547701444824546337}
   - component: {fileID: 6547701444824546336}
-  - component: {fileID: 7760827275875051410}
   - component: {fileID: 6027942369721299551}
+  - component: {fileID: 7760827275875051410}
   - component: {fileID: 323278663624473589}
   - component: {fileID: 2409095652909637868}
   - component: {fileID: 6547701444824546338}
@@ -165,28 +165,6 @@ MonoBehaviour:
   playerLayer: 7
   aliveMat: {fileID: 6200000, guid: 51af410f3cebe764db8e9ada212179e3, type: 2}
   deadMat: {fileID: 6200000, guid: 407de3b61d51842468f31788c3347a8b, type: 2}
---- !u!114 &7760827275875051410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6547701444824546350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e583a6bd23221245b9d1ca95d237fd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  units: []
-  jobs: []
-  skills: []
-  commands: []
-  items: []
-  keyItems: []
-  weapons: []
-  armors: []
-  states: []
-  animations: []
 --- !u!114 &6027942369721299551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +215,28 @@ MonoBehaviour:
   DPAM: 0
   DUIAM: 0
   frameRates: 3c0000004b0000007800000090000000f00000002c010000
+--- !u!114 &7760827275875051410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6547701444824546350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e583a6bd23221245b9d1ca95d237fd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  units: []
+  jobs: []
+  skills: []
+  commands: []
+  items: []
+  keyItems: []
+  weapons: []
+  armors: []
+  states: []
+  animations: []
 --- !u!114 &323278663624473589
 MonoBehaviour:
   m_ObjectHideFlags: 0

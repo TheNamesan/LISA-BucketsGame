@@ -70,6 +70,7 @@ namespace TUFF
         public static SceneLoaderManager instance { get { 
                 if (m_instance == null)
                 {
+                    GameManager.CheckInstance();
                     if (GameManager.instance == null) return null;
                     AssignInstance(GameManager.instance.GetComponentInChildren<SceneLoaderManager>());
                 }

@@ -28,6 +28,7 @@ namespace TUFF
 
         public PartyMember()
         {
+            Debug.Log("bRUH");
             if (DatabaseLoader.instance != null)
                 learnedSkills = new bool[DatabaseLoader.instance.skills.Length];
         }

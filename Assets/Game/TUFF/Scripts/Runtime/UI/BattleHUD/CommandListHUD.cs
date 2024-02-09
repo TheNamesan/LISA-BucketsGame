@@ -15,7 +15,7 @@ namespace TUFF
         [HideInInspector] public BattleHUD battleHUD;
         public List<Command> defaultCommands;
         public List<CommandElement> commandElements = new List<CommandElement>();
-        [HideInInspector] public PartyMember memberRef;
+        [System.NonSerialized] public PartyMember memberRef;
         private int commandListIndex;
 
         public void InitializeCommandListHUD(BattleHUD battleHUD)
