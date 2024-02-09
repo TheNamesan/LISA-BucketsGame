@@ -14,6 +14,9 @@ namespace TUFF
         [Header("References")]
         public GameObject gameCanvasPrefab;
         public InputManager inputManager;
+        public DatabaseLoader databaseLoader;
+        public SceneLoaderManager sceneLoaderManager;
+        public CommonEventManager commonEventManager;
 
         private static bool m_disablePlayerInput = false;
         public static bool disablePlayerInput
@@ -43,11 +46,13 @@ namespace TUFF
         {
             get
             {
-                if (!m_instance && Application.isPlaying)
-                {
-                    //AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
-                }
-                return m_instance;
+                return CheckInstance();
+                //if (!m_instance && Application.isPlaying)
+                //{
+                //    //Debug.Log("No instance!");
+                //    AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
+                //}
+                //return m_instance;
             }
         }
         private static GameManager m_instance;
@@ -75,7 +80,7 @@ namespace TUFF
             m_instance.StartCoroutine(Dialogue.PreloadTextboxes());
             DOTween.Init();
         }
-        public static bool CheckInstance()
+        public static GameManager CheckInstance()
         {
             if (!m_instance && Application.isPlaying)
             {

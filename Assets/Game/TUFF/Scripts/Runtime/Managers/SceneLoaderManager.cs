@@ -67,38 +67,43 @@ namespace TUFF
         public static UnityEvent onSceneLoad = new();
 
         #region Singleton
-        public static SceneLoaderManager instance { get { 
-                if (m_instance == null)
-                {
-                    GameManager.CheckInstance();
-                    if (GameManager.instance == null) return null;
-                    AssignInstance(GameManager.instance.GetComponentInChildren<SceneLoaderManager>());
-                }
-                return m_instance; 
+        public static SceneLoaderManager instance { get {
+                if (!GameManager.instance) return null;
+                return GameManager.instance.sceneLoaderManager;
+                //if (m_instance == null)
+                //{
+                //    GameManager.CheckInstance();
+                //    if (GameManager.instance == null) return null;
+                //    AssignInstance(GameManager.instance.GetComponentInChildren<SceneLoaderManager>());
+                //}
+                //return m_instance; 
             } 
         }
-        protected static SceneLoaderManager m_instance;
+        //protected static SceneLoaderManager m_instance;
         
         private void Awake()
         {
-            if (m_instance != null)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                AssignInstance(this);
-            }
-        }
-        public static void AssignInstance(SceneLoaderManager target)
-        {
-            if (target == null) return;
-            m_instance = target;
-            DontDestroyOnLoad(m_instance.gameObject);
-            m_instance.UpdateCurrentScene(SceneManager.GetActiveScene());
+            //if (m_instance != null)
+            //{
+            //    Destroy(gameObject);
+            //}
+            //else
+            //{
+            //    AssignInstance(this);
+            //}
+            UpdateCurrentScene(SceneManager.GetActiveScene());
             AddToLoadedScenes(currentScene);
             UpdateNodes(currentScene);
         }
+        //public static void AssignInstance(SceneLoaderManager target)
+        //{
+        //    if (target == null) return;
+        //    //m_instance = target;
+        //    //DontDestroyOnLoad(m_instance.gameObject);
+        //    //m_instance.UpdateCurrentScene(SceneManager.GetActiveScene());
+        //    AddToLoadedScenes(currentScene);
+        //    UpdateNodes(currentScene);
+        //}
         #endregion
         private void Start()
         {

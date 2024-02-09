@@ -30,7 +30,6 @@ namespace TUFF
         }
         public override void OnStart()
         {
-            
             SceneLoaderManager.instance.LoadNeighbourScene(sceneToLoad);
         }
     }
