@@ -9,6 +9,8 @@ namespace BucketsGame
         public bool showArms;
         public SpriteRenderer leftArm;
         public SpriteRenderer rightArm;
+        public Vector2 pivotLeft = new Vector2(-0.58f, 0.5f);
+        public Vector2 pivotRight = new Vector2(0.03f, 0.5f);
 
         public void FlipSprite(Facing facing)
         {
@@ -22,6 +24,27 @@ namespace BucketsGame
             if (leftArm) leftArm.gameObject.SetActive(show);
             if (rightArm) rightArm.gameObject.SetActive(show);
         }
+        public void AngleArms(Vector2 normal, int facingSign)
+        {
+            normal *= facingSign;
+
+            // Adjust pivots to flipped sprite
+            Vector2 leftArmPivot = pivotLeft;
+            Vector2 rightArmPivot = pivotRight;
+            if (facingSign < 0) { leftArmPivot.x *= -1; rightArmPivot.x *= -1; }
+            if (leftArm) leftArm.transform.parent.localPosition = leftArmPivot;
+            if (rightArm) rightArm.transform.parent.localPosition = rightArmPivot;
+
+            // Adjust arm positions to flipped parent position
+            if (leftArm) leftArm.transform.localPosition = new Vector3(-leftArmPivot.x, -leftArmPivot.y, leftArm.transform.localPosition.z);
+            if (rightArm) rightArm.transform.localPosition = new Vector3(-rightArmPivot.x, -rightArmPivot.y, rightArm.transform.localPosition.z);
+
+            // Rotate from pivot
+            if (leftArm) leftArm.transform.parent.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
+            if (rightArm) rightArm.transform.parent.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
+            //if (leftArm) leftArm.transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
+            //if (rightArm) rightArm.transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
+        }
         public void ChangeAnimationState(PlayerController controller, CharacterStates state, bool forcePlaySameState = false)
         {
             if (controller == null) return;
@@ -34,11 +57,16 @@ namespace BucketsGame
             }
             string stateName = GetAnimationStateName(controller, state, out bool showArm);
             showArms = showArm;
+            //ShowArms(true);
             ShowArms(showArms);
             if (lastStateName == stateName && !forcePlaySameState) { return; }
+            if (lastStateName == stateName && forcePlaySameState && animationInWait)
+            {
+                CancelAnimationWait();
+                SetAnimationWait();
+            }
             anim.enabled = true;
             anim.Play(stateName, -1, 0);
-            //controller.lastState = state;
             lastStateName = stateName;
         }
         private string GetAnimationStateName(PlayerController controller, CharacterStates state, out bool showArm)
@@ -49,17 +77,21 @@ namespace BucketsGame
             switch (state)
             {
                 case CharacterStates.Idle:
+                    if (controller.weapon.animTicks > 0)
+                    {
+                        if (lastStateName.StartsWith("ShootIdleRight") || lastStateName.StartsWith("RecoverDash")) 
+                            CancelAnimationWait();
+                        if (animationInWait) { showArm = showArms; return lastStateName; }
+                        showArm = true;
+                        AngleArms(controller.weapon.shootNormal, controller.FaceToInt());
+                        //CancelAnimationWait();
+                        SetAnimationWait();
+                        return $"ShootIdleRight";
+                    }
                     if (lastStateName.StartsWith("Dash"))
                     {
                         SetAnimationWait();
                         return $"RecoverDash";
-                    }
-                    if (controller.weapon.animTicks > 0)
-                    {
-                        if (animationInWait) { showArm = showArms; return lastStateName; }
-                        showArm = true;
-                        SetAnimationWait();
-                        return $"ShootIdleRight";
                     }
                     if (controller.lastState == CharacterStates.Airborne)
                     {

@@ -13,6 +13,7 @@ namespace BucketsGame
     {
         [Header("Shoot")]
         public WeaponMode weaponMode = WeaponMode.Pistols;
+        public Vector2 shootNormal;
         
         [Header("Pistol")]
         public int ticksFireRate = 15;
@@ -42,6 +43,7 @@ namespace BucketsGame
         {
             if (m_ticks > 0) return false;
             Vector2 position = transform.position;
+            shootNormal = normal;
             if (weaponMode == WeaponMode.Pistols)
             {
                 Vector3 offset = new Vector3(0, 0.1f, 0);
@@ -60,7 +62,7 @@ namespace BucketsGame
                     Vector2 nor = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
                     Vector2 dir = (nor).normalized;
                     Debug.DrawRay(transform.position, dir, Color.white, 1f);
-                    
+
                     BulletsPool.instance.SpawnBullet(position, dir);
                 }
                 SceneProperties.instance.camManager.ShakeCamera(10, 0.5f);
