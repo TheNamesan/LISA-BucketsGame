@@ -6,12 +6,22 @@ namespace BucketsGame
 {
     public class CharacterAnimationHandler : AnimationHandler
     {
-        
+        public bool showArms;
+        public SpriteRenderer leftArm;
+        public SpriteRenderer rightArm;
 
         public void FlipSprite(Facing facing)
         {
-            spriteRenderer.flipX = (facing == Facing.Left);
+            bool flip = (facing == Facing.Left);
+            spriteRenderer.flipX = flip;
+            if (leftArm) leftArm.flipX = flip;
+            if (rightArm) rightArm.flipX = flip;
         }    
+        public void ShowArms(bool show)
+        {
+            if (leftArm) leftArm.gameObject.SetActive(show);
+            if (rightArm) rightArm.gameObject.SetActive(show);
+        }
         public void ChangeAnimationState(PlayerController controller, CharacterStates state, bool forcePlaySameState = false)
         {
             if (controller == null) return;
@@ -19,18 +29,22 @@ namespace BucketsGame
 
             if (state != controller.lastState)
             {
+                showArms = false;
                 CancelAnimationWait();
             }
-            string stateName = GetAnimationStateName(controller, state);
+            string stateName = GetAnimationStateName(controller, state, out bool showArm);
+            showArms = showArm;
+            ShowArms(showArms);
             if (lastStateName == stateName && !forcePlaySameState) { return; }
             anim.enabled = true;
             anim.Play(stateName, -1, 0);
             //controller.lastState = state;
             lastStateName = stateName;
         }
-        private string GetAnimationStateName(PlayerController controller, CharacterStates state)
+        private string GetAnimationStateName(PlayerController controller, CharacterStates state, out bool showArm)
         {
             string dir = (controller.facing == Facing.Right ? "Right" : "Left");
+            showArm = false;
             FlipSprite(controller.facing);
             switch (state)
             {
@@ -40,12 +54,19 @@ namespace BucketsGame
                         SetAnimationWait();
                         return $"RecoverDash";
                     }
+                    if (controller.weapon.animTicks > 0)
+                    {
+                        if (animationInWait) { showArm = showArms; return lastStateName; }
+                        showArm = true;
+                        SetAnimationWait();
+                        return $"ShootIdleRight";
+                    }
                     if (controller.lastState == CharacterStates.Airborne)
                     {
                         SetAnimationWait();
                         return $"LandRight";
                     }
-                    if (animationInWait) return lastStateName;
+                    if (animationInWait) { showArm = showArms; return lastStateName; }
                     return $"IdleRight";
                 case CharacterStates.Walk:
                     if (lastStateName.StartsWith("Dash"))
@@ -90,6 +111,7 @@ namespace BucketsGame
         {
             if (animWaitCoroutine != null) StopCoroutine(animWaitCoroutine);
             animationInWait = false;
+            
         }
     }
 }

@@ -297,9 +297,13 @@ namespace BucketsGame
         private void ShootHandler()
         {
             if (m_dead) return;
-            if (input.shootDown)
+            if (weapon && input.shootDown && !dashing)
             {
-                weapon?.Shoot(DistanceToMouse().normalized);
+                bool shot = weapon.Shoot(DistanceToMouse().normalized);
+                if (shot)
+                {
+                    ChangeState(lastState, true);
+                }
             }
         }
         protected override void TouchLand()
@@ -519,13 +523,13 @@ namespace BucketsGame
         }
         public override void ChangeFacing(Facing newFacing)
         {
+            if (newFacing != facing) weapon.CancelAnim();
             facing = newFacing;
             animHandler?.FlipSprite(facing);
             //GroundedAnimationStateCheck();
         }
 
-
-        private void ChangeState(CharacterStates state, bool forcePlaySameAnim = false)
+        public void ChangeState(CharacterStates state, bool forcePlaySameAnim = false)
         {
             animHandler.ChangeAnimationState(this, state, forcePlaySameAnim);
             lastState = state;
@@ -537,9 +541,12 @@ namespace BucketsGame
 
             if (Mathf.Abs(rb.velocity.x) >= 0.0001f && input.inputH != 0)
             {
+                if (lastState != CharacterStates.Walk) weapon.CancelAnim();
                 ChangeState(CharacterStates.Walk);
             }
-            else { ChangeState(CharacterStates.Idle); }
+            else { 
+                if (lastState != CharacterStates.Idle) weapon.CancelAnim(); 
+                ChangeState(CharacterStates.Idle); }
         }
         public int FacingToInt(Facing faceDir)
         {

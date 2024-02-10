@@ -13,17 +13,34 @@ namespace BucketsGame
     {
         [Header("Shoot")]
         public WeaponMode weaponMode = WeaponMode.Pistols;
-        public int ticksFireRate = 10;
+        
+        [Header("Pistol")]
+        public int ticksFireRate = 15;
+        public int pistolAnimDuration = 22;
+        public int ticks { get => m_ticks; }
         private int m_ticks = 0;
+        public int animTicks { get => m_animTicks; }
+        private int m_animTicks = 0;
 
+        public void CancelAnim()
+        {
+            m_animTicks = 0;
+        }
         private void FixedUpdate()
         {
             if (m_ticks > 0)
                 m_ticks--;
+            if (m_animTicks > 0)
+                m_animTicks--;
         }
-        public void Shoot(Vector2 normal)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="normal"></param>
+        /// <returns>Returns true if bullet was shot.</returns>
+        public bool Shoot(Vector2 normal)
         {
-            if (m_ticks > 0) return;
+            if (m_ticks > 0) return false;
             Vector2 position = transform.position;
             if (weaponMode == WeaponMode.Pistols)
             {
@@ -49,12 +66,18 @@ namespace BucketsGame
                 SceneProperties.instance.camManager.ShakeCamera(10, 0.5f);
             }
             m_ticks = GetFireRate();
+            m_animTicks = GetAnimDuration();
             Debug.Log("Pew");
+            return true;
         }
 
         public int GetFireRate()
         {
             return ticksFireRate;
+        }
+        public int GetAnimDuration()
+        {
+            return pistolAnimDuration;
         }
     }
 }
