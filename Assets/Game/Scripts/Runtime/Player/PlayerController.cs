@@ -299,9 +299,16 @@ namespace BucketsGame
             if (m_dead) return;
             if (weapon && input.shootDown && !dashing)
             {
-                bool shot = weapon.Shoot(DistanceToMouse().normalized);
+                Vector2 aimNormal = DistanceToMouse().normalized;
+                bool shot = weapon.Shoot(aimNormal);
                 if (shot)
                 {
+                    // Change character's facing if shooting backwards and idle
+                    if (lastState == CharacterStates.Idle && Mathf.Abs(aimNormal.x) > 0 && Mathf.Sign(aimNormal.x) != FaceToInt())
+                    {
+                        ChangeFacing(FaceToInt() > 0 ? Facing.Left : Facing.Right);
+                    }
+                    // Shoot Animation
                     ChangeState(lastState, true);
                 }
             }
@@ -523,7 +530,6 @@ namespace BucketsGame
         }
         public override void ChangeFacing(Facing newFacing)
         {
-            if (newFacing != facing) weapon.CancelAnim();
             facing = newFacing;
             animHandler?.FlipSprite(facing);
             //GroundedAnimationStateCheck();
@@ -546,7 +552,7 @@ namespace BucketsGame
             }
             else { 
                 if (lastState != CharacterStates.Idle) weapon.CancelAnim(); 
-                ChangeState(CharacterStates.Idle); }
+                ChangeState(CharacterStates.Idle); }  
         }
         public int FacingToInt(Facing faceDir)
         {
