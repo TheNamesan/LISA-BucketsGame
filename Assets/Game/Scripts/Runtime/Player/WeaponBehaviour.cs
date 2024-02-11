@@ -46,8 +46,16 @@ namespace BucketsGame
             shootNormal = normal;
             if (weaponMode == WeaponMode.Pistols)
             {
-                Vector3 offset = new Vector3(0, 0.1f, 0);
-                
+                Vector2 offset = normal * 1f;
+
+                // Adjust so it doesn't shoot out of bounds
+                RaycastHit2D hit = Physics2D.Linecast(position, position + offset, BucketsGameManager.instance.groundLayers);
+                if (hit)
+                {
+                    offset = hit.point - position;
+                    //Debug.Log("Using hit offset");
+                }
+                position += offset;
                 BulletsPool.instance.SpawnBullet(position, normal);
             }
             else if (weaponMode == WeaponMode.Shotgun)
