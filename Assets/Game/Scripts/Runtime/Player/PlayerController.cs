@@ -547,11 +547,11 @@ namespace BucketsGame
 
             if (Mathf.Abs(rb.velocity.x) >= 0.0001f && input.inputH != 0)
             {
-                if (lastState != CharacterStates.Walk) weapon.CancelAnim();
+                //if (lastState != CharacterStates.Walk) weapon.CancelAnim();
                 ChangeState(CharacterStates.Walk);
             }
             else { 
-                if (lastState != CharacterStates.Idle) weapon.CancelAnim(); 
+                //if (lastState != CharacterStates.Idle) weapon.CancelAnim(); 
                 ChangeState(CharacterStates.Idle); }  
         }
         public int FacingToInt(Facing faceDir)

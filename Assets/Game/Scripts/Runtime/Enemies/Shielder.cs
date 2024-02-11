@@ -168,7 +168,7 @@ namespace BucketsGame
                         float x = Mathf.Lerp(0, stunPushbackSpeed * m_stunDirection, ((float)m_stunnedTicks / stunnedDuration) * 2f);
                         if ((x > 0 && !normalRight) || (x < 0 && !normalLeft))
                             x = 0;
-                        Debug.Log(x);
+                        //Debug.Log(x);
                         velocity.Set(x, 0);
                     }
                     else if (m_attacking || m_firing)
@@ -245,12 +245,12 @@ namespace BucketsGame
         }
         public override bool Hurt(Vector2 launch)
         {
+            if (m_dead) return false;
             if (!m_vulnerable)
             {
                 Stun(launch.normalized);
                 return true;
             }
-            if (m_dead) return false;
             m_dead = true;
             StopFire();
             SetAirborne();
