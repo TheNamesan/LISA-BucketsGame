@@ -330,7 +330,9 @@ MonoBehaviour:
   rightArm: {fileID: 8848599386185273915}
   legs: {fileID: 4684327248341401095}
   pivotLeft: {x: -0.58, y: 0.5}
-  pivotRight: {x: 0.03, y: 0.5}
+  pivotRight: {x: 0.03125, y: 0.5}
+  walkPivotLeft: {x: -0.54875, y: 0.59375}
+  walkPivotRight: {x: 0.0625, y: 0.625}
 --- !u!95 &3711834660284266068
 Animator:
   serializedVersion: 5
@@ -718,7 +720,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4910718791046587026}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.58, y: -0.5, z: -0.01}
+  m_LocalPosition: {x: -0.03125, y: -0.5, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -885,7 +887,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5337899193654120343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.58, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0.03125, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -14,6 +14,9 @@ namespace BucketsGame
         public SpriteRenderer legs;
         public Vector2 pivotLeft = new Vector2(-0.58f, 0.5f);
         public Vector2 pivotRight = new Vector2(0.03f, 0.5f);
+        public Vector2 walkPivotLeft = new Vector2(-0.58f, 0.625f);
+        public Vector2 walkPivotRight = new Vector2(0.03f, 0.625f);
+        //public Vector2 walkHeightOffset = new Vector2(0, 0.125f);
         private float m_startNormalizedTime = 0;
         private float m_armsStartNormalizedTime = 0;
         private bool m_playArms;
@@ -37,20 +40,22 @@ namespace BucketsGame
             showLegs = show;
             if (legs) legs.gameObject.SetActive(show);
         }
-        public void AngleArms(Vector2 normal, int facingSign)
+        public void AngleArms(Vector2 normal, int facingSign, bool walking)
         {
             normal *= facingSign;
 
+            Vector2 offset = Vector2.zero;
             // Adjust pivots to flipped sprite
-            Vector2 leftArmPivot = pivotLeft;
-            Vector2 rightArmPivot = pivotRight;
+            Vector2 leftArmPivot = (walking ? walkPivotLeft : pivotLeft);
+            Vector2 rightArmPivot = (walking ? walkPivotRight : pivotRight);
+            if (walking) offset = walkPivotLeft - pivotLeft;
             if (facingSign < 0) { leftArmPivot.x *= -1; rightArmPivot.x *= -1; }
             if (leftArm) leftArm.transform.parent.localPosition = leftArmPivot;
             if (rightArm) rightArm.transform.parent.localPosition = rightArmPivot;
 
             // Adjust arm positions to flipped parent position
-            if (leftArm) leftArm.transform.localPosition = new Vector3(-leftArmPivot.x, -leftArmPivot.y, leftArm.transform.localPosition.z);
-            if (rightArm) rightArm.transform.localPosition = new Vector3(-rightArmPivot.x, -rightArmPivot.y, rightArm.transform.localPosition.z);
+            if (leftArm) leftArm.transform.localPosition = new Vector3(-leftArmPivot.x + offset.x, -leftArmPivot.y + offset.y, leftArm.transform.localPosition.z);
+            if (rightArm) rightArm.transform.localPosition = new Vector3(-rightArmPivot.x + offset.x, -rightArmPivot.y + offset.y, rightArm.transform.localPosition.z);
 
             // Rotate from pivot
             if (leftArm) leftArm.transform.parent.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
@@ -72,8 +77,7 @@ namespace BucketsGame
             m_armsStartNormalizedTime = 0;
             string stateName = GetAnimationStateName(controller, state, out bool showArm, out bool showLeg);
             //ShowArms(true);
-            ShowArms(showArm);
-            ShowLegs(false);
+            
             if (lastStateName == stateName && !forcePlaySameState) { return; }
             if (lastStateName == stateName && forcePlaySameState && animationInWait)
             {
@@ -81,8 +85,11 @@ namespace BucketsGame
                 SetAnimationWait();
             }
             anim.enabled = true;
+            ShowArms(showArm);
+            ShowLegs(false);
             anim.Play(stateName, 0, m_startNormalizedTime);
             if (m_playArms) anim.Play("ArmsShoot", 1, m_armsStartNormalizedTime);
+            
             lastStateName = stateName;
             m_playArms = false;
         }
@@ -104,7 +111,7 @@ namespace BucketsGame
                         // Continue arms animation seemlessly from walk
                         if (lastStateName.StartsWith("ShootWalk"))
                             m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
-                        AngleArms(controller.weapon.shootNormal, controller.FaceToInt());
+                        AngleArms(controller.weapon.shootNormal, controller.FaceToInt(), false);
                         m_playArms = true;
                         //CancelAnimationWait();
                         SetAnimationWait();
@@ -136,7 +143,7 @@ namespace BucketsGame
                         // Continue animation seemlessly from normal walk
                         if (lastStateName.StartsWith("Walk"))
                             m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
-                        AngleArms(controller.weapon.shootNormal, controller.FaceToInt());
+                        AngleArms(controller.weapon.shootNormal, controller.FaceToInt(), true);
                         m_playArms = true;
                         //CancelAnimationWait();
                         SetAnimationWait();
