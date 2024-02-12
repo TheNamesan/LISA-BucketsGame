@@ -817,6 +817,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1502514553}
+  - component: {fileID: 1502514559}
   - component: {fileID: 1502514557}
   - component: {fileID: 1502514556}
   - component: {fileID: 1502514554}
@@ -851,7 +852,7 @@ CompositeCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502514552}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -903,10 +904,6 @@ CompositeCollider2D:
       - X: -130000000
         Y: 110000000
       - X: -130000000
-        Y: -10000000
-      - X: -120000000
-        Y: -10000000
-      - X: -120000000
         Y: 0
       - X: -100000000
         Y: 0
@@ -974,9 +971,7 @@ CompositeCollider2D:
       - {x: -10, y: 7.0000296}
       - {x: -10.00003, y: 11}
       - {x: -13, y: 10.99997}
-      - {x: -12.99997, y: -1}
-      - {x: -12, y: -0.99997073}
-      - {x: -11.99997, y: 0}
+      - {x: -12.99997, y: 0}
       - {x: -10, y: 0.000029300001}
       - {x: -9.99997, y: 6.9687505}
       - {x: 6, y: 6.968721}
@@ -5342,7 +5337,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.057760775, g: 0.20754719, b: 0.13887899, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -45, y: -4, z: 0}
   m_Size: {x: 100, y: 19, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -5380,6 +5375,24 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
+--- !u!114 &1502514559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502514552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df27540a2d685948ba7f466156fbb87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
+  onStepEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  tilemap: {fileID: 1502514557}
+  stepEffect: {fileID: 0}
 --- !u!1 &1677795733
 GameObject:
   m_ObjectHideFlags: 0

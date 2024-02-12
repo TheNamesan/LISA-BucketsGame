@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TUFF;
 
 namespace BucketsGame
 {
@@ -14,7 +15,7 @@ namespace BucketsGame
         [Header("Shoot")]
         public WeaponMode weaponMode = WeaponMode.Pistols;
         public Vector2 shootNormal;
-        
+
         [Header("Pistol")]
         public int ticksFireRate = 15;
         public int pistolAnimDuration = 22;
@@ -57,6 +58,7 @@ namespace BucketsGame
                 }
                 position += offset;
                 BulletsPool.instance.SpawnBullet(position, normal);
+                AudioManager.instance.PlaySFX(SFXList.instance.pistolShotSFX);
             }
             else if (weaponMode == WeaponMode.Shotgun)
             {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TUFF;
 
 namespace BucketsGame
 {
@@ -24,6 +25,7 @@ namespace BucketsGame
         public bool grounded = false;
         public bool ignoreOneWay = false;
         public Collider2D groundCollider = null;
+        public TerrainProperties groundProperties = null;
         [SerializeField] protected List<Collider2D> ignoredOneWays = new();
         public Vector2 groundPoint;
         public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
@@ -193,10 +195,16 @@ namespace BucketsGame
         protected virtual void UpdateGroundData(Collider2D collider, Vector2 point = new Vector2(), Vector2 normal = new Vector2())
         {
             groundCollider = collider;
+            // If collider has Terrain Properties component
+            if (collider && collider.TryGetComponent(out TerrainProperties props))
+            {
+                groundProperties = props;
+            }
             if (!groundCollider) //If no collider, set default normal
             {
                 groundPoint = Vector2.zero;
                 groundNormal = Vector2.up;
+                groundProperties = null;
             }
             else
             {
@@ -262,6 +270,13 @@ namespace BucketsGame
         public virtual int FaceToInt()
         {
             return (facing == Facing.Right ? 1 : -1);
+        }
+        public virtual void A_StepEffect()
+        {
+            if (groundProperties)
+            {
+                groundProperties.Step(transform.position, new Vector3Int(0, -1, 0));
+            }
         }
     }
 }

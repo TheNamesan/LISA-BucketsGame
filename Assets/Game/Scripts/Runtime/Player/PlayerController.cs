@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TUFF;
 
 namespace BucketsGame
 {
@@ -434,6 +435,7 @@ namespace BucketsGame
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
             if (grounded) VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position, facing == Facing.Left);
+            AudioManager.instance.PlaySFX(SFXList.instance.dashSFX);
             BucketsGameManager.instance.OnDash();
         }
         

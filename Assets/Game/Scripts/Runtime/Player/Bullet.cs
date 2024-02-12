@@ -64,6 +64,7 @@ namespace BucketsGame
 
         private void CollisionCheck()
         {
+            if (!isActiveAndEnabled) return;
             float radius = col.radius * transform.localScale.x * 0.75f;
             float rad = Mathf.Deg2Rad * transform.eulerAngles.z;
             Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
@@ -77,9 +78,8 @@ namespace BucketsGame
                 // Adjust hit normal
                 //RaycastHit2D adjustHit = Physics2D.Linecast(m_lastPosition, rb.position, groundLayers);
                 //if (adjustHit) { Debug.Log("Using adjust hit"); normal = adjustHit.normal; }
-                //float rotation = Vector2.SignedAngle(Vector2.right, -Vector2.Perpendicular(hitGround.normal));
                 
-                OnWallHit(hitGround.point, normal);
+                OnWallHit(hitGround, hitGround.point, normal);
             }
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
             RaycastHit2D hit = Physics2D.CircleCast(rb.position, radius, rb.transform.up, 0, hitboxLayers);
@@ -96,13 +96,17 @@ namespace BucketsGame
             }
         }
 
-        private void OnWallHit(Vector2 point, Vector2 normal)
+        private void OnWallHit(RaycastHit2D hitGround, Vector2 point, Vector2 normal)
         {
-            Debug.Log(normal);
+            //Debug.Log(normal);
             // I'm flipping the normal to align with the sprite
             float rotation = Vector2.SignedAngle(Vector2.right, -normal);
-            Debug.Log(rotation);
+            //Debug.Log(rotation);
             VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
+            if (hitGround && hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
+            {
+                props.WallHit();
+            }
             ReturnToPool();
         }
 

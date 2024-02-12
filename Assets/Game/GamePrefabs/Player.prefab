@@ -285,6 +285,16 @@ MonoBehaviour:
   dashCooldownTicksDuration: 25
   m_dashCooldownTicks: 0
   m_dashDirection: 0
+  dashSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 2860f7185237c4d4986d273611bcaf0a, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   wallClimb: 0
   wallJumping: 0
   wallJumpSpeed: {x: 25, y: 14}
@@ -305,6 +315,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponMode: 0
   shootNormal: {x: 0, y: 0}
+  pistolShotSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: c90bca33fd5dcfc418a82fe587ee352e, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   ticksFireRate: 15
   pistolAnimDuration: 22
 --- !u!114 &3711834660284266069

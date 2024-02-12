@@ -1294,6 +1294,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1502514553}
+  - component: {fileID: 1502514559}
   - component: {fileID: 1502514557}
   - component: {fileID: 1502514556}
   - component: {fileID: 1502514554}
@@ -4456,6 +4457,24 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
+--- !u!114 &1502514559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1502514552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5df27540a2d685948ba7f466156fbb87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
+  onStepEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  tilemap: {fileID: 1502514557}
+  stepEffect: {fileID: 0}
 --- !u!1 &1508817558
 GameObject:
   m_ObjectHideFlags: 0
@@ -4877,6 +4896,7 @@ MonoBehaviour:
   grounded: 0
   ignoreOneWay: 0
   groundCollider: {fileID: 0}
+  groundProperties: {fileID: 0}
   ignoredOneWays: []
   groundPoint: {x: 0, y: 0}
   groundNormal: {x: 0, y: 0}

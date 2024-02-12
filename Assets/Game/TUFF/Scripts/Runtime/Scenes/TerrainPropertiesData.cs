@@ -9,6 +9,8 @@ namespace TUFF
     {
         public List<SFX> stepSFXs = new List<SFX>();
         public float stepPitchVariation = 0.4f;
+        public List<SFX> wallHitSFXs = new List<SFX>();
+        public float wallHitVariation = 0.4f;
         public ParticleSystem stepEffectPrefab = null;
 
         [Header("Character")]

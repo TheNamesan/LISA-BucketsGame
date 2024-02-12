@@ -7,6 +7,7 @@ namespace BucketsGame
 {
     public class BucketsGameManager : MonoBehaviour
     {
+        public SFXList sfxs;
         public bool hitstun = true;
         public int maxFocusTicks = 150;
         public int focusTicks = 0;
@@ -18,6 +19,7 @@ namespace BucketsGame
         public int playerLayer = 7;
         public PhysicsMaterial2D aliveMat;
         public PhysicsMaterial2D deadMat;
+
         public static BucketsGameManager instance { 
             get
             {

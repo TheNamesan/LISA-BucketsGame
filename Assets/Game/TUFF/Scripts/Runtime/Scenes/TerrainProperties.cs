@@ -65,6 +65,19 @@ namespace TUFF
                 onStepEvent?.Invoke();
             }
         }
+        public void WallHit()
+        {
+            if (propertiesData)
+            {
+                if (propertiesData.wallHitSFXs.Count > 0)
+                {
+                    int index = Random.Range(0, propertiesData.wallHitSFXs.Count);
+                    var sfx = propertiesData.wallHitSFXs[index];
+                    var pitchVar = propertiesData.wallHitVariation;
+                    AudioManager.instance.PlaySFX(sfx.audioClip, sfx.volume, sfx.pitch + Random.Range(-pitchVar, pitchVar));
+                }
+            }
+        }
         public TerrainPropertiesData GetPropertiesDataFromPosition(Vector3 position, Vector3Int coordinatesOffset)
         {
             if (tilemap == null) return null;
