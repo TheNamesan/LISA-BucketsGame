@@ -15,6 +15,8 @@ namespace BucketsGame
         public Vector2 pivotLeft = new Vector2(-0.58f, 0.5f);
         public Vector2 pivotRight = new Vector2(0.03f, 0.5f);
         private float m_startNormalizedTime = 0;
+        private float m_armsStartNormalizedTime = 0;
+        private bool m_playArms;
 
         public void FlipSprite(Facing facing)
         {
@@ -67,10 +69,11 @@ namespace BucketsGame
                 CancelAnimationWait();
             }
             m_startNormalizedTime = fromNormalizedTime;
+            m_armsStartNormalizedTime = 0;
             string stateName = GetAnimationStateName(controller, state, out bool showArm, out bool showLeg);
             //ShowArms(true);
             ShowArms(showArm);
-            ShowLegs(showLeg);
+            ShowLegs(false);
             if (lastStateName == stateName && !forcePlaySameState) { return; }
             if (lastStateName == stateName && forcePlaySameState && animationInWait)
             {
@@ -78,8 +81,10 @@ namespace BucketsGame
                 SetAnimationWait();
             }
             anim.enabled = true;
-            anim.Play(stateName, -1, m_startNormalizedTime);
+            anim.Play(stateName, 0, m_startNormalizedTime);
+            if (m_playArms) anim.Play("ArmsShoot", 1, m_armsStartNormalizedTime);
             lastStateName = stateName;
+            m_playArms = false;
         }
         private string GetAnimationStateName(PlayerController controller, CharacterStates state, out bool showArm, out bool showLeg)
         {
@@ -92,14 +97,15 @@ namespace BucketsGame
                 case CharacterStates.Idle:
                     if (controller.weapon.animTicks > 0)
                     {
-                        if (lastStateName.StartsWith("ShootIdle") || lastStateName.StartsWith("RecoverDash")) 
+                        if (lastStateName.StartsWith("ShootIdle") || lastStateName.StartsWith("RecoverDash"))
                             CancelAnimationWait();
                         if (animationInWait) { showArm = showArms; return lastStateName; }
                         showArm = true;
-                        // Continue animation seemlessly from walk
+                        // Continue arms animation seemlessly from walk
                         if (lastStateName.StartsWith("ShootWalk"))
-                            m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
+                            m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
                         AngleArms(controller.weapon.shootNormal, controller.FaceToInt());
+                        m_playArms = true;
                         //CancelAnimationWait();
                         SetAnimationWait();
                         return $"ShootIdle";
@@ -124,10 +130,14 @@ namespace BucketsGame
                         if (animationInWait) { showArm = showArms; showLeg = showLegs; return lastStateName; }
                         showArm = true;
                         showLeg = true;
-                        // Continue animation seemlessly from idle
-                        if (lastStateName.StartsWith("ShootIdle")) 
+                        // Continue arms animation seemlessly from idle
+                        if (lastStateName.StartsWith("ShootIdle"))
+                            m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
+                        // Continue animation seemlessly from normal walk
+                        if (lastStateName.StartsWith("Walk"))
                             m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                         AngleArms(controller.weapon.shootNormal, controller.FaceToInt());
+                        m_playArms = true;
                         //CancelAnimationWait();
                         SetAnimationWait();
                         return $"ShootWalk";
@@ -138,6 +148,9 @@ namespace BucketsGame
                         return $"RecoverDash";
                     }
                     if (animationInWait) { showArm = showArms; showLeg = showLegs; return lastStateName; }
+                    // Continue body animation seemlessly from ShootWalk
+                    if (lastStateName.StartsWith("ShootWalk"))
+                        m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                     return $"WalkRight";
                 case CharacterStates.Airborne:                    
                     if (controller.doubleJumping)

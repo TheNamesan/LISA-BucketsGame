@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 561110a0815b3a542b9a709682c6e7ab
+guid: 66bc5e029bee5264aac210a3bfc77e94
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,76 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ShootArmL_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 96
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 44b72a16b80271f409e676afa608f6bc
-      internalID: 1124555117
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ShootArmL_1
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 64
-        width: 96
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a6593bd9836dbc45be81f465072f8cb
-      internalID: 1827901119
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ShootArmL_2
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 64
-        width: 96
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 72b7bfc6957ced84dae5bb7f93d72552
-      internalID: 957600914
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ShootArmL_3
+      name: WalkShoot_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 64
+        width: 70
+        height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a23c705d623ed57429f0ae4f6917b02c
-      internalID: -574758152
+      spriteID: 001eca4861945b544beeb3cc8408d7d1
+      internalID: 1178943466
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ShootArmL_4
+      name: WalkShoot_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 70
         y: 0
-        width: 96
-        height: 64
+        width: 70
+        height: 70
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +140,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbff8985aa114954e81ccd465ea225c0
-      internalID: 2011740714
+      spriteID: 46c10c5f33c02704d81bf4c8524a05d6
+      internalID: -173175973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkShoot_2
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 0
+        width: 70
+        height: 70
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62d1bad92ec72cc49baec86572ae5ca0
+      internalID: -1499150778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WalkShoot_3
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 0
+        width: 70
+        height: 70
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a9afd44e9147a747b094bdb7fba7692
+      internalID: 1103493591
       vertices: []
       indices: 
       edges: []
@@ -220,11 +199,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ShootArmL_0: 1124555117
-      ShootArmL_1: 1827901119
-      ShootArmL_2: 957600914
-      ShootArmL_3: -574758152
-      ShootArmL_4: 2011740714
+      WalkShoot_0: 1178943466
+      WalkShoot_1: -173175973
+      WalkShoot_2: -1499150778
+      WalkShoot_3: 1103493591
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
