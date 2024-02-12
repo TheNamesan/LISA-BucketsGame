@@ -15,11 +15,12 @@ namespace BucketsGame
         {
             Initialize();
         }
-        public void PlayVFX(string animName, Vector2 position, bool flipX = false)
+        public void PlayVFX(string animName, Vector2 position, bool flipX = false, float rotation = 0)
         {
             var available = pool.Find(o => !o.inUse);
             if (available == null) available = AddNew();
             available.transform.position = position;
+            available.transform.rotation = Quaternion.Euler(available.transform.eulerAngles.x, available.transform.eulerAngles.y, rotation);
             available.Play(animName, flipX);
         }
     }

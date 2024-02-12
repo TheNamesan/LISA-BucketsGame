@@ -11,6 +11,7 @@ namespace BucketsGame
         private IEnumerator durationCoroutine = null;
         public void Play(string animName, bool flipX = false)
         {
+            m_inUse = true;
             gameObject.SetActive(true);
             if (spriteRenderer) spriteRenderer.flipX = flipX;
             if (!anim) return;
