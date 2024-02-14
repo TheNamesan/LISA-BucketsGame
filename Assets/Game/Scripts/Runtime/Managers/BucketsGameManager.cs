@@ -13,12 +13,15 @@ namespace BucketsGame
         public int focusTicks = 0;
         public int hitFocusTicksRegain = 30;
         public bool focusMode = false;
+        public int adrenalineCooldown = 20;
+        private int m_cooldownTicks = 0;
         public LayerMask groundLayers;
         public LayerMask oneWayLayers;
         public LayerMask hurtboxLayers;
         public int playerLayer = 7;
         public PhysicsMaterial2D aliveMat;
         public PhysicsMaterial2D deadMat;
+        
 
         public static BucketsGameManager instance { 
             get
@@ -60,7 +63,7 @@ namespace BucketsGame
         }
         private void Start()
         {
-            focusTicks = maxFocusTicks;
+            ResetGameManager();
         }
         private void FixedUpdate()
         {
@@ -69,6 +72,8 @@ namespace BucketsGame
         public void ToggleFocus(bool enable)
         {
             if (focusMode == enable) return;
+            if (focusMode && !enable)
+                m_cooldownTicks = adrenalineCooldown;
             focusMode = enable;
             if (enable) TUFF.AudioManager.instance.PlaySFX(SFXList.instance.adrenalineActiveSFX);
             ToggleTimeScale();
@@ -85,13 +90,15 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (player != null)
             {
-                if (player.input.focus && focusTicks > 0 && !player.dead)
+                if (player.input.focus && focusTicks > 0 && !player.dead && m_cooldownTicks <= 0)
                 {
                     ToggleFocus(true);
                     focusTicks--;
                 }
                 else ToggleFocus(false);
             }
+            if (m_cooldownTicks > 0)
+                m_cooldownTicks--;
         }
         public float FocusFill()
         {
@@ -100,10 +107,16 @@ namespace BucketsGame
         public void ResetLevel()
         {
             GameUtility.KillTween(ref m_hitstunTween);
-            focusTicks = maxFocusTicks;
+            ResetGameManager();
             BulletsPool.instance.ResetPool();
             SceneProperties.instance.ResetLevel();
             EntityResetCaller.onResetLevel.Invoke();
+        }
+        private void ResetGameManager()
+        {
+            ToggleFocus(false);
+            focusTicks = maxFocusTicks;
+            m_cooldownTicks = 0;
         }
         private void AddTicks(int value)
         {
