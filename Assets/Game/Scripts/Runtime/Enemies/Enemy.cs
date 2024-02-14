@@ -12,6 +12,7 @@ namespace BucketsGame
     public class Enemy : MovingEntity
     {
         public EnemyAIState enemyState = EnemyAIState.Roaming;
+        public int hp = 1;
         [Header("Line Of Sight")]
         public float coneAngle = 45f;
         public float coneAngleOffset = 0f;
@@ -63,6 +64,8 @@ namespace BucketsGame
         public override bool Hurt(Vector2 launch)
         {
             if (m_dead) return false;
+            hp--;
+            if (hp > 0) return true;
             m_dead = true;
             SetAirborne();
             launch *= 40f;

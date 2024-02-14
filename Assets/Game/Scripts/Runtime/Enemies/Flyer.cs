@@ -210,6 +210,8 @@ namespace BucketsGame
         public override bool Hurt(Vector2 launch)
         {
             if (m_dead) return false;
+            hp--;
+            if (hp > 0) return true;
             m_dead = true;
             StopFire();
             SetAirborne();

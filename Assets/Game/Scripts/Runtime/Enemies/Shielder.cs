@@ -252,6 +252,8 @@ namespace BucketsGame
                 Stun(launch.normalized);
                 return true;
             }
+            hp--;
+            if (hp > 0) return true;
             m_dead = true;
             StopFire();
             SetAirborne();

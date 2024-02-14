@@ -215,6 +215,7 @@ MonoBehaviour:
   maxFallSpeed: -15
   m_dead: 0
   enemyState: 0
+  hp: 2
   coneAngle: 65
   coneAngleOffset: 0
   coneDistance: 999
@@ -259,6 +260,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  m_crosshairPosition: {x: 0, y: 0}
   hitTarget: 0
 --- !u!114 &5785496182741936485
 MonoBehaviour:
