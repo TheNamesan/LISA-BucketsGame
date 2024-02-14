@@ -218,6 +218,10 @@ namespace BucketsGame
             BucketsGameManager.instance.OnEnemyKill();
             return true;
         }
+        public void OnDrawGizmos()
+        {
+            DrawLineOfSightGizmos();
+        }
     }
 }
 

@@ -149,5 +149,9 @@ namespace BucketsGame
             }
             CapVelocity();
         }
+        public void OnDrawGizmos()
+        {
+            DrawLineOfSightGizmos();
+        }
     }
 }

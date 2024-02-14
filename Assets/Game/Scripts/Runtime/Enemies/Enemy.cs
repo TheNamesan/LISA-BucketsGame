@@ -118,5 +118,20 @@ namespace BucketsGame
             }
             if (targetDoor) targetDoor.Open(openDir);
         }
+        protected virtual void DrawLineOfSightGizmos()
+        {
+            int max = coneAccuracy + 1;
+            for (int i = 0; i < max; i++)
+            {
+                float a = -coneAngle * 0.5f;
+                float angle = -coneAngleOffset + Mathf.Lerp(-a, a, Mathf.InverseLerp(0, max, i));
+                float rad = Mathf.Deg2Rad * angle;
+                Vector2 normal = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+
+                Vector2 dir = (normal * FaceToInt());
+                float distance = coneDistance;
+                Gizmos.DrawRay(rb.position, dir.normalized * distance);
+            }
+        }
     }
 }

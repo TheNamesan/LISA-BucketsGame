@@ -76,6 +76,7 @@ namespace BucketsGame
         {
             Vector2 posA = new();
             Vector2 posB = new();
+            Vector2 linePoint = new();
             float widthMultiplier = 0f;
             Color chargeColor = Color.white;
             float alpha = 0.5f;
@@ -84,14 +85,19 @@ namespace BucketsGame
             if (player && !m_dead && !player.dead && enemyState == (EnemyAIState.Alert))
             {
                 hasWallInWay = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
-                Debug.DrawLine(rb.position, player.rb.position, (hasWallInWay ? Color.red : Color.green), Time.fixedDeltaTime);
+                //Debug.DrawLine(rb.position, player.rb.position, (hasWallInWay ? Color.red : Color.green), Time.fixedDeltaTime);
                 if (!hasWallInWay)
                 {
                     Fire();
                     if (m_firing || m_fired)
                     {
+                        m_crosshairPosition = Vector2.Lerp(m_crosshairPosition, player.rb.position, Time.fixedDeltaTime * 5f);
                         posA = rb.position;
-                        posB = player.rb.position;
+                        posB = m_crosshairPosition;
+                        linePoint = posB;
+                        Vector2 dir = posB - m_shotOrigin;
+                        RaycastHit2D expectedHit = Physics2D.Raycast(m_shotOrigin, dir, Mathf.Infinity, groundLayers);
+                        if (expectedHit) linePoint = expectedHit.point;
                         float time = (float)m_chargeTimeTicks / chargeTime;
                         
                         chargeColor = Color.Lerp(Color.red, Color.yellow, time);
@@ -107,11 +113,11 @@ namespace BucketsGame
                             chargeColor = Color.white;
                             widthMultiplier = 0.5f;
                             alpha = 1;
-                            UpdateLine(posA, posB, widthMultiplier, chargeColor, alpha);
-                            AttackRaycast();
+                            UpdateLine(posA, linePoint, widthMultiplier, chargeColor, alpha);
+                            AttackRaycast(posB);
                             if (m_fired)
                             {
-                                if (!hitTarget && hitGround) posB = hitGround.point + (player.rb.position + m_shotOrigin).normalized;
+                                if (!hitTarget && hitGround) linePoint = hitGround.point + (m_shotOrigin - posB).normalized;
                                 m_fired = false;
                             }
                         }
@@ -129,7 +135,7 @@ namespace BucketsGame
                 }
             }
 
-            UpdateLine(posA, posB, widthMultiplier, chargeColor, alpha);
+            UpdateLine(posA, linePoint, widthMultiplier, chargeColor, alpha);
         }
 
         private void UpdateLine(Vector2 posA, Vector2 posB, float widthMultiplier, Color chargeColor, float alpha)
@@ -226,13 +232,13 @@ namespace BucketsGame
             //if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
             //BulletsPool.instance.SpawnBullet(rb.position, dir, Team.Enemy);
         }
-        private void AttackRaycast()
+        private void AttackRaycast(Vector2 playerPos)
         {
             var player = SceneProperties.mainPlayer;
             if (!player || player.dead) return;
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
             var groundLayers = BucketsGameManager.instance.groundLayers;
-            Vector2 dir = player.rb.position - rb.position;
+            Vector2 dir = playerPos - rb.position;
             // RaycastAll so it doesn't hit its own hurtbox
             RaycastHit2D[] hitPlayer = Physics2D.RaycastAll(m_shotOrigin, dir, Mathf.Infinity, hitboxLayers);
             hitGround = Physics2D.Raycast(m_shotOrigin, dir, Mathf.Infinity, groundLayers);
@@ -294,5 +300,11 @@ namespace BucketsGame
             BucketsGameManager.instance.OnEnemyKill();
             return true;
         }
+        public void OnDrawGizmos()
+        {
+            DrawLineOfSightGizmos();
+        }
+
+        
     }
 }
