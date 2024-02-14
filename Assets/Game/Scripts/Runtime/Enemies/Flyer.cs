@@ -6,7 +6,7 @@ namespace BucketsGame
 {
     public class Flyer : Enemy
     {
-        [Header("Shielder Properties")]
+        [Header("Flyer Properties")]
         public Sprite bulletSprite;
         public float roamSpeed = 3f;
         public float approachDistance = 10f;

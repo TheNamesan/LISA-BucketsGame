@@ -14,6 +14,7 @@ namespace BucketsGame
         public bool Collision(Vector2 launchDir)
         {
             if (!callback) return false;
+            launchDir.Normalize();
             return callback.Hurt(launchDir);
         }
         public void SetInvulnerable(bool value)
