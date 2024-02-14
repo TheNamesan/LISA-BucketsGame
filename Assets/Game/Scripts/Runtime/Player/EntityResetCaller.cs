@@ -89,6 +89,7 @@ namespace BucketsGame
         {
             for (int i = 0; i < components.Length; i++)
             {
+                Debug.Log(components[i], this);
                 if (components[i] is not MonoBehaviour)
                 {
                     if (components[i] is Transform trs)
@@ -97,6 +98,11 @@ namespace BucketsGame
                         {
                             values.AssignToTransform(trs);
                         }
+                    }
+                    if (components[i] is Rigidbody2D rb)
+                    {
+                        Debug.Log("Restarting velocity");
+                        rb.velocity = new Vector2(0, 0);
                     }
                     continue;
                 }
