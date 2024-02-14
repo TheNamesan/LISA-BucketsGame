@@ -321,6 +321,7 @@ namespace BucketsGame
             wallClimb = false;
             StopWallJump();
             EnableGravity(false);
+            AudioManager.instance.PlaySFX(SFXList.instance.landSFX);
         }
         private void MoveHandler()
         {
@@ -461,6 +462,7 @@ namespace BucketsGame
             m_wallJumpDirection = -FaceToInt();
             wallJumping = true;
             ResetMidairMoves();
+            AudioManager.instance.PlaySFX(SFXList.instance.wallJumpSFX);
             hurtbox?.SetInvulnerable(true);
         }
         private void ResetMidairMoves()
@@ -529,7 +531,7 @@ namespace BucketsGame
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
                 wallClimb = false;
-                
+                AudioManager.instance.PlaySFX(SFXList.instance.jumpSFX);
                 return true;
             }
             return false;
@@ -543,6 +545,7 @@ namespace BucketsGame
             StopDash();
             launch *= 40f;
             rb.velocity = (launch);
+            AudioManager.instance.PlaySFX(SFXList.instance.playerDeadSFX);
             BucketsGameManager.instance.OnPlayerDead();
             return true;
         }

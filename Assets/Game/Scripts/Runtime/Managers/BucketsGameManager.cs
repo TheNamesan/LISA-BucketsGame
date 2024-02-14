@@ -70,6 +70,7 @@ namespace BucketsGame
         {
             if (focusMode == enable) return;
             focusMode = enable;
+            if (enable) TUFF.AudioManager.instance.PlaySFX(SFXList.instance.adrenalineActiveSFX);
             ToggleTimeScale();
         }
 
