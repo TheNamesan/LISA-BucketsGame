@@ -197,7 +197,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -205,6 +205,174 @@ TextureImporter:
       bones: []
       spriteID: c662a37412960d7418ba6b5ef8f5bad5
       internalID: 1500870615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 544
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38f1acf4a0737ec4da0d2621d2bb37d1
+      internalID: -1160190407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_7
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 544
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb9c71229b2850e45b752c14ecae0adb
+      internalID: 1441403296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 512
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d58a58bcb6d5464da968957d8aa6b3b
+      internalID: -1237875120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 512
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ef4a1648ee55e84dbee8714387b5d89
+      internalID: 816723348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_13
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 309f5ad01ce625b459c2e5d017de7412
+      internalID: 1449058190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_14
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a60c375c9208a624d9764dd547dd5c2c
+      internalID: 78362078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_15
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e8318a3af4de91478389bd7bbb26b7f
+      internalID: -2080510830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_17
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daf7c851c9f845744a7afb2af8ea8412
+      internalID: -1162274178
       vertices: []
       indices: 
       edges: []
@@ -222,9 +390,22 @@ TextureImporter:
     nameFileIdTable:
       Facility Tiles 2_0: -714355587
       Facility Tiles 2_1: -702335105
+      Facility Tiles 2_10: -2120522225
+      Facility Tiles 2_11: 291797687
+      Facility Tiles 2_12: -1722817560
+      Facility Tiles 2_13: 1449058190
+      Facility Tiles 2_14: 78362078
+      Facility Tiles 2_15: -2080510830
+      Facility Tiles 2_16: 1555312605
+      Facility Tiles 2_17: -1162274178
       Facility Tiles 2_2: -1579986387
       Facility Tiles 2_3: -2075222911
       Facility Tiles 2_4: 1500870615
+      Facility Tiles 2_5: -1160190407
+      Facility Tiles 2_6: 2146076167
+      Facility Tiles 2_7: 1441403296
+      Facility Tiles 2_8: -1237875120
+      Facility Tiles 2_9: 816723348
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
