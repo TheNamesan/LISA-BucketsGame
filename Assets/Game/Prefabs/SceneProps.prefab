@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6423423899683277878}
   - component: {fileID: 6423423899683277879}
   - component: {fileID: 4488901525268016715}
+  - component: {fileID: 6030289221685050753}
   m_Layer: 0
   m_Name: SceneProps
   m_TagString: SceneProperties
@@ -60,3 +61,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundColliders: []
+--- !u!114 &6030289221685050753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6423423899683277877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be551d31ce407b84581017f981b35228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camFollow: {fileID: 0}
+  min: {x: 0, y: 0}
+  max: {x: 0, y: 0}
+  autoPlayBGM: 1
+  sceneBGM:
+    bgm: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 1
+  autoPlayAMBS: 0
+  sceneAMBS:
+    clip: {fileID: 0}
+    volume: 1
+    pitch: 1
+    loop: 1

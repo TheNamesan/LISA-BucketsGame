@@ -21,6 +21,7 @@ namespace BucketsGame
         [SerializeField] private int m_chargeTimeTicks;
         [SerializeField] private Vector3[] m_linePoints = new Vector3[2];
         [SerializeField] private Gradient m_gradient = new();
+        [SerializeField] private Vector2 m_crosshairPosition;
         private Vector2 m_shotOrigin { get => rb.position; }
         public RaycastHit2D hasWallInWay;
         public RaycastHit2D hitGround;
@@ -92,7 +93,13 @@ namespace BucketsGame
                         posA = rb.position;
                         posB = player.rb.position;
                         float time = (float)m_chargeTimeTicks / chargeTime;
+                        
                         chargeColor = Color.Lerp(Color.red, Color.yellow, time);
+                        if (m_chargeTimeTicks == 2 || m_chargeTimeTicks == 3 
+                            || m_chargeTimeTicks == 6 || m_chargeTimeTicks == 7
+                            || m_chargeTimeTicks == 10 || m_chargeTimeTicks == 11
+                            || m_chargeTimeTicks == 14 || m_chargeTimeTicks == 15)
+                            chargeColor = Color.yellow;
                         widthMultiplier = Mathf.SmoothStep(0.1f, 0.75f, time);
                         alpha = Mathf.SmoothStep(0.75f, 0.5f, time);
                         if (m_fired)
@@ -201,6 +208,8 @@ namespace BucketsGame
             if (m_firing || m_fireCooldownTicks > 0) return;
             m_chargeTimeTicks = chargeTime;
             m_firing = true;
+            if (SceneProperties.mainPlayer)
+                m_crosshairPosition = SceneProperties.mainPlayer.rb.position;
         }
         private void StopFire(bool useCooldown = false)
         {
