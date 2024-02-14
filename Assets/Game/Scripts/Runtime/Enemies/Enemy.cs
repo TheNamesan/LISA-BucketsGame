@@ -133,7 +133,7 @@ namespace BucketsGame
 
                 Vector2 dir = (normal * FaceToInt());
                 float distance = coneDistance;
-                Gizmos.DrawRay(rb.position, dir.normalized * distance);
+                if (rb) Gizmos.DrawRay(rb.position, dir.normalized * distance);
             }
         }
     }

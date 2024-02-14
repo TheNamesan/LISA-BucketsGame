@@ -15,5 +15,6 @@ namespace BucketsGame
         public SFX wallJumpSFX = new();
         public SFX playerDeadSFX = new();
         public SFX adrenalineActiveSFX = new();
+        public SFX barrelBroWallHit = new();
     }
 }

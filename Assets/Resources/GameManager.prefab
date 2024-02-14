@@ -161,6 +161,16 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
+  barrelBroWallHit:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 6443c8326a8240047a00d94632d87a3b, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 0.8
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1.5
+    minPitch: 1
 --- !u!1 &5935450050737164437
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +279,7 @@ MonoBehaviour:
   focusTicks: 0
   hitFocusTicksRegain: 30
   focusMode: 0
+  adrenalineCooldown: 20
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
