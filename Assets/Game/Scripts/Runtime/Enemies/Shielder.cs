@@ -140,6 +140,7 @@ namespace BucketsGame
                         if (Mathf.Abs(distanceToPlayer) <= approachDistance)
                             speed = approachSpeed;
                         moveH = (int)Mathf.Sign(distanceToPlayer);
+                        CheckDoorOpening(moveH);
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH = 0;
                     }

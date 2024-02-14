@@ -28,6 +28,7 @@ namespace BucketsGame
         public static UnityEvent onResetLevel = new();
         private Dictionary<Component, string> componentData = new();
         private Dictionary<Transform, TransformValues> transformData = new();
+        private bool colliderEnabled = false;
 
         private void Start()
         {
@@ -65,6 +66,10 @@ namespace BucketsGame
                     {
                         transformData.Add(trs, new TransformValues(trs));
                     }
+                    if (components[i] is Collider2D collider)
+                    {
+                        colliderEnabled = collider.enabled;
+                    }
                     continue;
                 }
                 componentData.Add(components[i], JsonUtility.ToJson(components[i], true));
@@ -101,8 +106,12 @@ namespace BucketsGame
                     }
                     if (components[i] is Rigidbody2D rb)
                     {
-                        Debug.Log("Restarting velocity");
-                        rb.velocity = new Vector2(0, 0);
+                        // Restart velocity
+                        if (rb.bodyType != RigidbodyType2D.Static) rb.velocity = new Vector2(0, 0);
+                    }
+                    if (components[i] is Collider2D collider)
+                    {
+                        collider.enabled = colliderEnabled;
                     }
                     continue;
                 }

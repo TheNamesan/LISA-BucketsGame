@@ -103,9 +103,16 @@ namespace BucketsGame
             float rotation = Vector2.SignedAngle(Vector2.right, -normal);
             //Debug.Log(rotation);
             VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
-            if (hitGround && hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
+            if (hitGround)
             {
-                props.WallHit();
+                if (hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                {
+                    props.WallHit();
+                }
+                if (hitGround.collider.TryGetComponent(out Door door))
+                {
+                    door.Open(rb.velocity.normalized.x, team == Team.Player);
+                }
             }
             ReturnToPool();
         }

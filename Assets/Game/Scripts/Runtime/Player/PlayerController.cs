@@ -381,6 +381,8 @@ namespace BucketsGame
                 DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
+                // Check door opening
+                CheckDoorOpening(moveH);
                 Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
                 Vector2 normal = groundNormal;
                 finalVel = GetSlopeVelocity(moveH, velX, finalVel, normal);
@@ -391,7 +393,21 @@ namespace BucketsGame
             CapVelocity();
         }
 
-        
+        private void CheckDoorOpening(int moveH)
+        {
+            Door targetDoor = null;
+            int openDir = 0;
+            if ((moveH > 0 || dashing) && (IsVerticalWall(wallRightHit)))
+            {
+                if (wallRightHit.collider.TryGetComponent(out Door door)) { openDir = 1; targetDoor = door; }
+                    
+            }
+            else if ((moveH < 0 || dashing) && IsVerticalWall(wallLeftHit))
+            {
+                if (wallLeftHit.collider.TryGetComponent(out Door door)) { openDir = -1; targetDoor = door; }
+            }
+            if (targetDoor) targetDoor.Open(openDir, true);
+        }
 
         private void DashCancelCheck(int moveH)
         {

@@ -102,5 +102,21 @@ namespace BucketsGame
         {
             enemyState = EnemyAIState.Alert;
         }
+        protected virtual void CheckDoorOpening(int moveH)
+        {
+            if (enemyState != EnemyAIState.Alert) return;
+            Door targetDoor = null;
+            int openDir = 0;
+            if ((moveH > 0) && (IsVerticalWall(wallRightHit)))
+            {
+                if (wallRightHit.collider.TryGetComponent(out Door door)) { openDir = 1; targetDoor = door; }
+
+            }
+            else if ((moveH < 0) && IsVerticalWall(wallLeftHit))
+            {
+                if (wallLeftHit.collider.TryGetComponent(out Door door)) { openDir = -1; targetDoor = door; }
+            }
+            if (targetDoor) targetDoor.Open(openDir);
+        }
     }
 }

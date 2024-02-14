@@ -118,6 +118,7 @@ namespace BucketsGame
                         moveH = (int)Mathf.Sign(distanceToPlayer);
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH = 0;
+                        CheckDoorOpening(moveH);
                     }
                     if (enemyState == EnemyAIState.Roaming)
                     {

@@ -171,7 +171,7 @@ namespace BucketsGame
             float distance = Vector2.Distance(closestContactPointD, rb.position) * 1.25f;
             RaycastHit2D hitW = Physics2D.Raycast(rb.position, Vector2.down, distance, layerMask);
             Vector2 landingPosition = (hitW ? hitW.point : collision.point);
-            if (landingPosition == collision.point) Debug.Log("Using collision point");
+            //if (landingPosition == collision.point) Debug.Log("Using collision point");
             float offset = Physics2D.defaultContactOffset * sizeMult * offsetForce;
             float moveToY = landingPosition.y + Vector2.Distance(closestContactPointD, rb.position) + offset;
             if (!instant)
