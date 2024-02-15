@@ -23,7 +23,12 @@ namespace BucketsGame
         [SerializeField] private Gradient m_gradient = new();
         [SerializeField] private Vector2 m_crosshairPosition;
         private Vector2 m_shotOrigin { get => rb.position; }
-        public RaycastHit2D hasWallInWay;
+        public RaycastHit2D hasWallInWayHit;
+        public bool hasWallInWay { get { if (!hasWallInWayHit) return false;
+                if (hasWallInWayHit.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                    return !props.enemyBulletsGoThrough;
+                return false;
+            } }
         public RaycastHit2D hitGround;
         public bool hitTarget;
 
@@ -84,7 +89,7 @@ namespace BucketsGame
 
             if (player && !m_dead && !player.dead && enemyState == (EnemyAIState.Alert))
             {
-                hasWallInWay = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
+                hasWallInWayHit = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
                 //Debug.DrawLine(rb.position, player.rb.position, (hasWallInWay ? Color.red : Color.green), Time.fixedDeltaTime);
                 if (!hasWallInWay)
                 {
@@ -96,8 +101,17 @@ namespace BucketsGame
                         posB = m_crosshairPosition;
                         linePoint = posB;
                         Vector2 dir = posB - m_shotOrigin;
-                        RaycastHit2D expectedHit = Physics2D.Raycast(m_shotOrigin, dir, Mathf.Infinity, groundLayers);
-                        if (expectedHit) linePoint = expectedHit.point;
+                        // Adjust beam line to hit wall
+                        RaycastHit2D[] expectedHits = Physics2D.RaycastAll(m_shotOrigin, dir, Mathf.Infinity, groundLayers);
+                        for (int i = 0; i < expectedHits.Length; i++)
+                        { 
+                            if (expectedHits[i].collider.TryGetComponent(out TUFF.TerrainProperties props))
+                            {
+                                if (props.enemyBulletsGoThrough) continue;
+                            }
+                            linePoint = expectedHits[i].point;
+                            break;
+                        }
                         float time = (float)m_chargeTimeTicks / chargeTime;
                         
                         chargeColor = Color.Lerp(Color.red, Color.yellow, time);
@@ -256,12 +270,13 @@ namespace BucketsGame
             }
             if (!hitTarget && hitGround)
             {
-                float rotation = Vector2.SignedAngle(Vector2.right, -hitGround.normal);
-                VFXPool.instance.PlayVFX("WallHitVFX", hitGround.point, false, rotation);
                 if (hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
                 {
+                    if (props.enemyBulletsGoThrough) { hitGround = new(); return; }
                     props.WallHit();
                 }
+                float rotation = Vector2.SignedAngle(Vector2.right, -hitGround.normal);
+                VFXPool.instance.PlayVFX("WallHitVFX", hitGround.point, false, rotation);
             }
         }
         private void FireTimer()

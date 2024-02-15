@@ -74,9 +74,11 @@ namespace BucketsGame
             if (enemyState != EnemyAIState.Alert) return;
             if (Mathf.Abs(distanceToPlayer) <= approachDistance)
             {
-                RaycastHit2D hasWallInWay = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
-                Debug.DrawLine(rb.position, player.rb.position, (hasWallInWay ? Color.red : Color.green), Time.fixedDeltaTime);
-                if (!hasWallInWay) Fire();
+                RaycastHit2D hasWallInWayHit = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
+                Debug.DrawLine(rb.position, player.rb.position, (hasWallInWayHit ? Color.red : Color.green), Time.fixedDeltaTime);
+                if (!hasWallInWayHit) Fire();
+                if (hasWallInWayHit && hasWallInWayHit.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                    if (props.enemyBulletsGoThrough) Fire();
             }
             //if (m_attacking) // Run Tick
             //{

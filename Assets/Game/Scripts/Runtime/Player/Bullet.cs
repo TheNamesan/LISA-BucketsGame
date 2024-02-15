@@ -102,11 +102,13 @@ namespace BucketsGame
             // I'm flipping the normal to align with the sprite
             float rotation = Vector2.SignedAngle(Vector2.right, -normal);
             //Debug.Log(rotation);
-            VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
+            
             if (hitGround)
             {
                 if (hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
                 {
+                    if (props.playerBulletsGoThrough && team == Team.Player) return;
+                    if (props.enemyBulletsGoThrough && team == Team.Enemy) return;
                     props.WallHit();
                 }
                 if (hitGround.collider.TryGetComponent(out Door door))
@@ -114,6 +116,7 @@ namespace BucketsGame
                     door.Open(rb.velocity.normalized.x, team == Team.Player);
                 }
             }
+            VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
             ReturnToPool();
         }
 

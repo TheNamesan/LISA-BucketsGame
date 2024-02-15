@@ -8,8 +8,9 @@ namespace TUFF
 {
     public class TerrainProperties : MonoBehaviour
     {
-        
         public TerrainPropertiesData propertiesData = null;
+        public bool playerBulletsGoThrough = false;
+        public bool enemyBulletsGoThrough = false;
         public UnityEvent onStepEvent = new UnityEvent();
         public Tilemap tilemap;
         [HideInInspector] public ParticleSystem stepEffect;
