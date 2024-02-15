@@ -96,7 +96,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 9f12b499f948b1247871982b767ee4c4, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 1.1
+    volume: 0.6
     minVolume: 1
     pitchMode: 1
     pitch: 1.45
@@ -106,40 +106,40 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 4bc688451942f3c4aa1bdbfe842cf804, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 1
+    volume: 0.4
     minVolume: 1
     pitchMode: 0
-    pitch: 1.45
+    pitch: 1.5
     minPitch: 1
   landSFX:
     audioClipMode: 0
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: a1a6336cb562ba94985a26ac9e51c356, type: 3}
     randomClips: []
     volumeMode: 0
     volume: 1
     minVolume: 1
     pitchMode: 0
-    pitch: 1
+    pitch: 1.4
     minPitch: 1
   jumpSFX:
     audioClipMode: 0
-    audioClip: {fileID: 0}
+    audioClip: {fileID: 8300000, guid: 0629098ab735a6d479614557cf0f7df2, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 1
+    volume: 2
     minVolume: 1
     pitchMode: 0
     pitch: 1
     minPitch: 1
   wallJumpSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: 76a1c1c910d4ca74a88dcf7ef1621357, type: 3}
+    audioClip: {fileID: 8300000, guid: 0629098ab735a6d479614557cf0f7df2, type: 3}
     randomClips: []
     volumeMode: 0
     volume: 1
     minVolume: 1
     pitchMode: 0
-    pitch: 0.6
+    pitch: 1.7
     minPitch: 1
   playerDeadSFX:
     audioClipMode: 0
