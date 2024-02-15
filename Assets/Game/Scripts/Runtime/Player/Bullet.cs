@@ -72,6 +72,7 @@ namespace BucketsGame
             //RaycastHit2D hitGround = Physics2D.CircleCast(rb.position, radius, dir, 0, groundLayers);
             Debug.DrawLine(m_lastPosition, rb.position, Color.magenta, Time.fixedDeltaTime);
             RaycastHit2D hitGround = Physics2D.CircleCast(m_lastPosition, radius, distance, distance.magnitude, groundLayers);
+            bool hitWall = false;
             if (hitGround)
             {
                 Vector2 normal = hitGround.normal;
@@ -79,8 +80,9 @@ namespace BucketsGame
                 //RaycastHit2D adjustHit = Physics2D.Linecast(m_lastPosition, rb.position, groundLayers);
                 //if (adjustHit) { Debug.Log("Using adjust hit"); normal = adjustHit.normal; }
                 
-                OnWallHit(hitGround, hitGround.point, normal);
+                hitWall = OnWallHit(hitGround, hitGround.point, normal);
             }
+            if (hitWall) return;
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
             RaycastHit2D hit = Physics2D.CircleCast(rb.position, radius, rb.transform.up, 0, hitboxLayers);
             if (hit)
@@ -96,7 +98,7 @@ namespace BucketsGame
             }
         }
 
-        private void OnWallHit(RaycastHit2D hitGround, Vector2 point, Vector2 normal)
+        private bool OnWallHit(RaycastHit2D hitGround, Vector2 point, Vector2 normal)
         {
             //Debug.Log(normal);
             // I'm flipping the normal to align with the sprite
@@ -107,8 +109,8 @@ namespace BucketsGame
             {
                 if (hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
                 {
-                    if (props.playerBulletsGoThrough && team == Team.Player) return;
-                    if (props.enemyBulletsGoThrough && team == Team.Enemy) return;
+                    if (props.playerBulletsGoThrough && team == Team.Player) return false;
+                    if (props.enemyBulletsGoThrough && team == Team.Enemy) return false;
                     props.WallHit();
                 }
                 if (hitGround.collider.TryGetComponent(out Door door))
@@ -118,6 +120,7 @@ namespace BucketsGame
             }
             VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
             ReturnToPool();
+            return true;
         }
 
         private void OnTriggerEnter2D(Collider2D other)

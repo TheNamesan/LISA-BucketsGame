@@ -84,21 +84,27 @@ namespace BucketsGame
                 float angle = -coneAngleOffset + Mathf.Lerp(-a, a, Mathf.InverseLerp(0, max, i));
                 float rad = Mathf.Deg2Rad * angle;
                 Vector2 normal = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
-                Vector2 dir = (normal * FaceToInt());
+                Vector2 dir = new Vector2(normal.x * FaceToInt(), normal.y);
                 float distance = coneDistance;
-                RaycastHit2D los = Physics2D.Raycast(rb.position, dir, distance, layers);
+                RaycastHit2D[] losHits = Physics2D.RaycastAll(rb.position, dir, distance, layers);
                 Color color = Color.white;
-                if (los)
+                for (int j = 0; j < losHits.Length; j++)
                 {
+                    var los = losHits[j];
+                    if (los.collider.gameObject.layer == 6)
+                    {
+                        if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                            if (props.enemyBulletsGoThrough) continue;
+                        return;
+                    }
                     if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
                     {
                         color = Color.green;
                         AlertEnemy();
-                        Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
                         break;
                     }
                 }
-                Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
+                //Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
             }
         }
         protected virtual void AlertEnemy()
@@ -131,7 +137,7 @@ namespace BucketsGame
                 float rad = Mathf.Deg2Rad * angle;
                 Vector2 normal = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
-                Vector2 dir = (normal * FaceToInt());
+                Vector2 dir = new Vector2(normal.x * FaceToInt(), normal.y);
                 float distance = coneDistance;
                 if (rb) Gizmos.DrawRay(rb.position, dir.normalized * distance);
             }
