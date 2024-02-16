@@ -26,8 +26,16 @@ namespace BucketsGame
         protected Vector2 lastPosition;
         protected Vector2 lastVelocity;
 
-        //public float moveSpeed = 6;
-
+        public bool flipLock = false;
+        public int flipLockDir = 0;
+        public bool walkingBackwards { get {
+                int moveH = (int)input.inputH;
+                if (flipLock && moveH != 0 && moveH != Mathf.Sign(weapon.shootNormal.x))
+                {
+                    return true;
+                }
+                return false;
+        }}
         [Header("Jump")]
         public float jumpForce = 12;
         //public float gravityScale = 2;
@@ -304,16 +312,31 @@ namespace BucketsGame
                 bool shot = weapon.Shoot(aimNormal);
                 if (shot)
                 {
-                    // Change character's facing if shooting backwards and idle
-                    if (lastState == CharacterStates.Idle && Mathf.Abs(aimNormal.x) > 0 && Mathf.Sign(aimNormal.x) != FaceToInt())
-                    {
-                        ChangeFacing(FaceToInt() > 0 ? Facing.Left : Facing.Right);
-                    }
-                    // Shoot Animation
-                    ChangeState(lastState, true);
+                    
+                    
+                    ChangeFacingToShootDirection(aimNormal);
                 }
             }
         }
+
+        private void ChangeFacingToShootDirection(Vector2 aimNormal)
+        {
+            // Change character's facing if shooting backwards and idle
+            flipLockDir = (aimNormal.x > 0 ? 1 : -1);
+            //if ((lastState == CharacterStates.Idle) && Mathf.Abs(aimNormal.x) > 0 && Mathf.Sign(aimNormal.x) != FaceToInt())
+            if (true)
+            {
+                flipLock = false;
+                //ChangeFacing(FaceToInt() > 0 ? Facing.Left : Facing.Right);
+                ChangeFacing(flipLockDir > 0 ? Facing.Right : Facing.Left);
+            }
+            flipLock = true;
+            //flipLockDir = (aimNormal.x > 0 ? 1 : -1);
+            // Shoot Animation
+            animHandler?.PlayArmsAnimation();
+            ChangeState(lastState, true);
+        }
+
         protected override void TouchLand()
         {
             grounded = true;
@@ -321,6 +344,7 @@ namespace BucketsGame
             wallClimb = false;
             StopWallJump();
             EnableGravity(false);
+            if (weapon.animTicks > 0) ChangeFacingToShootDirection(weapon.shootNormal);
             AudioManager.instance.PlaySFX(SFXList.instance.landSFX);
         }
         private void MoveHandler()
@@ -389,6 +413,7 @@ namespace BucketsGame
                 finalVel = GetSlopeVelocity(moveH, velX, finalVel, normal);
                 rb.velocity = finalVel;
                 Jump(velY);
+                
                 ChangeFacingOnMove(moveH);
             }
             CapVelocity();
@@ -419,6 +444,12 @@ namespace BucketsGame
         {
             DashTimer();
             WallJumpTimer();
+            
+            // Set to 1 so the walking forwards anim is not visible for 1 frame
+            if (weapon.animTicks <= 1)
+            {
+                flipLock = false;
+            }
         }
         private float GetVelX(int moveH)
         {
@@ -433,6 +464,7 @@ namespace BucketsGame
         {
             if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb) // Dash Input
             {
+                
                 Dash(!grounded);
             }
         }
@@ -441,11 +473,14 @@ namespace BucketsGame
             if (useMidairDashes)
             {
                 if (m_midairDashes <= 0) return;
-                else {  
+                else
+                {
                     m_midairDashes--;
                     doubleJumping = false;
                 }
             }
+            // Cancel facing lock
+            CancelFacingLock();
             m_dashTicks = dashTicksDuration;
             m_dashDirection = FacingToInt(facing);
             dashing = true;
@@ -455,7 +490,18 @@ namespace BucketsGame
             AudioManager.instance.PlaySFX(SFXList.instance.dashSFX);
             BucketsGameManager.instance.OnDash();
         }
-        
+
+        private void CancelFacingLock()
+        {
+            flipLock = false;
+            if (weapon.animTicks > 0)
+            {
+                int moveH = (int)input.inputH;
+                weapon?.CancelAnim();
+                //ChangeFacingOnMove(moveH);
+            }
+        }
+
         private void WallJump()
         {
             m_wallJumpTicks = wallJumpTicksDuration;
@@ -552,7 +598,7 @@ namespace BucketsGame
         public override void ChangeFacing(Facing newFacing)
         {
             facing = newFacing;
-            animHandler?.FlipSprite(facing);
+            if (!flipLock) animHandler?.FlipSprite(facing);
             //GroundedAnimationStateCheck();
         }
 

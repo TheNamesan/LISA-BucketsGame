@@ -19,7 +19,6 @@ namespace BucketsGame
         //public Vector2 walkHeightOffset = new Vector2(0, 0.125f);
         private float m_startNormalizedTime = 0;
         private float m_armsStartNormalizedTime = 0;
-        private bool m_playArms;
 
         public void FlipSprite(Facing facing)
         {
@@ -88,22 +87,25 @@ namespace BucketsGame
             ShowArms(showArm);
             ShowLegs(false);
             anim.Play(stateName, 0, m_startNormalizedTime);
-            if (m_playArms) anim.Play("ArmsShoot", 1, m_armsStartNormalizedTime);
             
             lastStateName = stateName;
-            m_playArms = false;
+        }
+        public void PlayArmsAnimation(float from = 0)
+        {
+            anim.Play("ArmsShoot", 1, from);
         }
         private string GetAnimationStateName(PlayerController controller, CharacterStates state, out bool showArm, out bool showLeg)
         {
             string dir = (controller.facing == Facing.Right ? "Right" : "Left");
             showArm = false;
             showLeg = false;
-            FlipSprite(controller.facing);
+            if (!controller.flipLock) FlipSprite(controller.facing);
             switch (state)
             {
                 case CharacterStates.Idle:
                     if (controller.weapon.animTicks > 0)
                     {
+                        // the ShootSomething is necessary so it repeats the animation when shooting again
                         if (lastStateName.StartsWith("ShootIdle") || lastStateName.StartsWith("RecoverDash"))
                             CancelAnimationWait();
                         if (animationInWait) { showArm = showArms; return lastStateName; }
@@ -111,12 +113,12 @@ namespace BucketsGame
                         // Continue arms animation seemlessly from walk
                         if (lastStateName.StartsWith("ShootWalk"))
                             m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
-                        AngleArms(controller.weapon.shootNormal, controller.FaceToInt(), false);
-                        m_playArms = true;
-                        //CancelAnimationWait();
-                        SetAnimationWait();
+                        int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir) ;
+                        AngleArms(controller.weapon.shootNormal, faceDir, false);
+                        SetAnimationWait(0.44f);
                         return $"ShootIdle";
                     }
+                    else if (lastStateName.StartsWith("Shoot")) CancelAnimationWait(); // Failsafe
                     if (lastStateName.StartsWith("Dash"))
                     {
                         SetAnimationWait();
@@ -132,23 +134,28 @@ namespace BucketsGame
                 case CharacterStates.Walk:
                     if (controller.weapon.animTicks > 0)
                     {
-                        if (lastStateName.StartsWith("ShootWalk") || lastStateName.StartsWith("RecoverDash"))
+                        bool changedWalking = ((lastStateName == ("ShootWalk") && controller.walkingBackwards)
+                            || (lastStateName == ("ShootWalkBack") && !controller.walkingBackwards));
+                        // the ShootSomething is necessary so it repeats the animation when shooting again
+                        if (lastStateName.StartsWith("ShootWalk") || lastStateName.StartsWith("RecoverDash") || changedWalking)
                             CancelAnimationWait();
                         if (animationInWait) { showArm = showArms; showLeg = showLegs; return lastStateName; }
+                        if (changedWalking) { Debug.Log("Changed Walking!"); }
                         showArm = true;
                         showLeg = true;
                         // Continue arms animation seemlessly from idle
                         if (lastStateName.StartsWith("ShootIdle"))
                             m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
                         // Continue animation seemlessly from normal walk
-                        if (lastStateName.StartsWith("Walk"))
+                        if (lastStateName.StartsWith("Walk") || changedWalking)
                             m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
-                        AngleArms(controller.weapon.shootNormal, controller.FaceToInt(), true);
-                        m_playArms = true;
-                        //CancelAnimationWait();
-                        SetAnimationWait();
+                        int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir);
+                        AngleArms(controller.weapon.shootNormal, faceDir, false);
+                        SetAnimationWait(0.44f);
+                        if (controller.walkingBackwards) { Debug.Log("Walkbackwardsw!"); return $"ShootWalkBack"; }
                         return $"ShootWalk";
                     }
+                    else if (lastStateName.StartsWith("Shoot")) CancelAnimationWait(); // Failsafe
                     if (lastStateName.StartsWith("Dash"))
                     {
                         SetAnimationWait();
@@ -179,12 +186,30 @@ namespace BucketsGame
             StartCoroutine(animWaitCoroutine);
             animationInWait = true;
         }
+        private void SetAnimationWait(float duration)
+        {
+            if (animWaitCoroutine != null) StopCoroutine(animWaitCoroutine);
+            animationInWait = false;
+            animWaitCoroutine = WaitForAnimationEnd(duration);
+            StartCoroutine(animWaitCoroutine);
+            animationInWait = true;
+        }
         private IEnumerator WaitForAnimationEnd()
         {
             if (animationInWait) { yield break; };
 
             yield return new WaitForEndOfFrame();
             float duration = anim.GetCurrentAnimatorStateInfo(0).length;
+            //Debug.Log($"time to wait: {duration}");
+            yield return new WaitForSeconds(duration);
+            animationInWait = false;
+            //Debug.Log($"done: {duration}");
+        }
+        private IEnumerator WaitForAnimationEnd(float duration)
+        {
+            if (animationInWait) { yield break; };
+
+            yield return new WaitForEndOfFrame();
             //Debug.Log($"time to wait: {duration}");
             yield return new WaitForSeconds(duration);
             animationInWait = false;
