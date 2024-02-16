@@ -273,6 +273,8 @@ MonoBehaviour:
     jumpDown: 0
     focus: 0
   lastState: 0
+  flipLock: 0
+  flipLockDir: 0
   jumpForce: 12
   extraJumps: 1
   midairDashes: 1
@@ -307,7 +309,7 @@ MonoBehaviour:
   weaponMode: 0
   shootNormal: {x: 0, y: 0}
   ticksFireRate: 15
-  pistolAnimDuration: 22
+  pistolAnimDuration: 50
 --- !u!114 &3711834660284266069
 MonoBehaviour:
   m_ObjectHideFlags: 0
