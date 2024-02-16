@@ -7,6 +7,7 @@ namespace BucketsGame
 {
     public class BucketsGameManager : MonoBehaviour
     {
+        public GameObject eventSystem;
         public SFXList sfxs;
         public bool hitstun = true;
         public int maxFocusTicks = 150;
@@ -30,7 +31,7 @@ namespace BucketsGame
                 {
                     TUFF.GameManager.CheckInstance();
                     if (TUFF.GameManager.instance == null) return null;
-                    AssignInstance(TUFF.GameManager.instance.GetComponentInChildren<BucketsGameManager>());
+                    if (!m_instance) AssignInstance(TUFF.GameManager.instance.GetComponentInChildren<BucketsGameManager>());
                     //AssignInstance(Instantiate(Resources.Load<BucketsGameManager>("GameManager")));
                 }
                 return m_instance;
@@ -47,7 +48,10 @@ namespace BucketsGame
         {
             if (m_instance != null)
             {
-                if (instance != this) Destroy(gameObject);
+                if (m_instance != this) {
+                    Debug.Log($"Instance is: {m_instance}");
+                    Destroy(gameObject); 
+                }
             }
             else
             {
@@ -59,6 +63,7 @@ namespace BucketsGame
             if (go == null) return;
             m_instance = go;
             DOTween.Init();
+            Debug.Log("Creating Event System"); if (m_instance.eventSystem) Instantiate(m_instance.eventSystem, m_instance.transform);
             DontDestroyOnLoad(go);
         }
         private void Start()
@@ -158,6 +163,10 @@ namespace BucketsGame
             m_hitstunTween = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0f, duration).From(0f)
                 .OnKill(ToggleTimeScale)
                 .SetUpdate(true);
+        }
+        private void OnDestroy()
+        {
+            Debug.Log("Manager destroyed!");
         }
     }
 }

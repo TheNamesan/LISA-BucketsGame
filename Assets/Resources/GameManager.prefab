@@ -255,7 +255,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4086972601702996618}
+  - {fileID: 1165132247655937000}
   - {fileID: 6863682101127422214}
   - {fileID: 7019296624731009941}
   m_Father: {fileID: 0}
@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbd4535d13ea27346892dd8f4cbd7b4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 6687297557868781654, guid: a161fd64c5e97704fb4623218f74cac5, type: 3}
   sfxs: {fileID: 3812152892053159506}
   hitstun: 1
   maxFocusTicks: 150
@@ -879,7 +880,7 @@ MonoBehaviour:
   startingObjects: 40
   prefab: {fileID: 9096477691981108290, guid: bb64c647294e82440b3d31ee453bac19, type: 3}
   pool: []
---- !u!1001 &3273273957071905702
+--- !u!1001 &428324805317380804
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -936,8 +937,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a3065a2d4887cf459b40e6228653eb4, type: 3}
---- !u!4 &4086972601702996618 stripped
+--- !u!4 &1165132247655937000 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1574807136428112172, guid: 2a3065a2d4887cf459b40e6228653eb4, type: 3}
-  m_PrefabInstance: {fileID: 3273273957071905702}
+  m_PrefabInstance: {fileID: 428324805317380804}
   m_PrefabAsset: {fileID: 0}

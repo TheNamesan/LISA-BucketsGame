@@ -10,8 +10,13 @@ namespace BucketsGame
         public GamePlayerInput gameInput = new();
         public PlayerController player { get => SceneProperties.mainPlayer; }
 
+        public void Test(InputAction.CallbackContext context)
+        {
+            Debug.Log("Test: " + context);
+        }
         public void Move(InputAction.CallbackContext context)
         {
+            
             if (!player) return;
             if (context.performed || context.canceled)
                 gameInput.inputH = context.ReadValue<float>();

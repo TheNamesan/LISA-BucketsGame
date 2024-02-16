@@ -61,7 +61,7 @@ namespace TUFF
             Debug.Log("Awake!");
             if (m_instance != null)
             {
-                if (instance != this) Destroy(gameObject);
+                if (m_instance != this) Destroy(gameObject);
             }
             else
             {
@@ -84,7 +84,17 @@ namespace TUFF
         {
             if (!m_instance && Application.isPlaying)
             {
-                AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
+                GameManager sceneGameManager = FindAnyObjectByType<GameManager>(); 
+                if (sceneGameManager)
+                {
+                    Debug.Log("Found Instance in scene!");
+                    AssignInstance(sceneGameManager);
+                }
+                else
+                {
+                    Debug.Log("Creating Instance!");
+                    AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
+                }
             }
             return m_instance;
         }
