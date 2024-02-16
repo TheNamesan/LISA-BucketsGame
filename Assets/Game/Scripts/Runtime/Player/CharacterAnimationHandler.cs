@@ -140,7 +140,6 @@ namespace BucketsGame
                         if (lastStateName.StartsWith("ShootWalk") || lastStateName.StartsWith("RecoverDash") || changedWalking)
                             CancelAnimationWait();
                         if (animationInWait) { showArm = showArms; showLeg = showLegs; return lastStateName; }
-                        if (changedWalking) { Debug.Log("Changed Walking!"); }
                         showArm = true;
                         showLeg = true;
                         // Continue arms animation seemlessly from idle
@@ -150,9 +149,9 @@ namespace BucketsGame
                         if (lastStateName.StartsWith("Walk") || changedWalking)
                             m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir);
-                        AngleArms(controller.weapon.shootNormal, faceDir, false);
+                        AngleArms(controller.weapon.shootNormal, faceDir, true);
                         SetAnimationWait(0.44f);
-                        if (controller.walkingBackwards) { Debug.Log("Walkbackwardsw!"); return $"ShootWalkBack"; }
+                        if (controller.walkingBackwards) { return $"ShootWalkBack"; }
                         return $"ShootWalk";
                     }
                     else if (lastStateName.StartsWith("Shoot")) CancelAnimationWait(); // Failsafe
