@@ -7,7 +7,8 @@ namespace BucketsGame
     public enum EnemyAIState
     {
         Roaming = 0,
-        Alert = 1
+        Alert = 1,
+        StandBy = 2
     }
     public class Enemy : MovingEntity
     {
@@ -95,7 +96,6 @@ namespace BucketsGame
                     {
                         if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
                             if (props.enemyBulletsGoThrough) continue;
-                        return;
                     }
                     if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
                     {
