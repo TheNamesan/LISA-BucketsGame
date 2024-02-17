@@ -258,6 +258,7 @@ Transform:
   - {fileID: 1165132247655937000}
   - {fileID: 6863682101127422214}
   - {fileID: 7019296624731009941}
+  - {fileID: 7450075511373325521}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -275,6 +276,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eventSystem: {fileID: 6687297557868781654, guid: a161fd64c5e97704fb4623218f74cac5, type: 3}
   sfxs: {fileID: 3812152892053159506}
+  prefabList: {fileID: 1638748199791322427}
   hitstun: 1
   maxFocusTicks: 150
   focusTicks: 0
@@ -880,6 +882,54 @@ MonoBehaviour:
   startingObjects: 40
   prefab: {fileID: 9096477691981108290, guid: bb64c647294e82440b3d31ee453bac19, type: 3}
   pool: []
+--- !u!1 &8347630301122601396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7450075511373325521}
+  - component: {fileID: 1638748199791322427}
+  m_Layer: 0
+  m_Name: PrefabsList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7450075511373325521
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347630301122601396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6547701444824546337}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1638748199791322427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8347630301122601396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ebe93f8e659a742b6cfaf432c04fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rusherPrefab: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+  shielderPrefab: {fileID: 5115521999454662446, guid: 18c2ea9af86a0234cafa2024ff27c818, type: 3}
+  flyerPrefab: {fileID: 4401135276738112578, guid: fcef546f76e98264884f37bb0b94f3c0, type: 3}
+  sniperPrefab: {fileID: 5785496182741936484, guid: 4ab2810b316fdf546b8911f726b19dce, type: 3}
 --- !u!1001 &428324805317380804
 PrefabInstance:
   m_ObjectHideFlags: 0

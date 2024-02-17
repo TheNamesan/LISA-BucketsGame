@@ -9,6 +9,7 @@ namespace BucketsGame
     {
         public GameObject eventSystem;
         public SFXList sfxs;
+        public PrefabList prefabList;
         public bool hitstun = true;
         public int maxFocusTicks = 150;
         public int focusTicks = 0;
