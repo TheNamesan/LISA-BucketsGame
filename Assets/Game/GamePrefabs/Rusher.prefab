@@ -229,7 +229,7 @@ MonoBehaviour:
   sprite: {fileID: 7740060641241979796}
   hurtbox: {fileID: 7740060641428632434}
   facing: 0
-  moveSpeed: 6
+  moveSpeed: 8
   grounded: 0
   ignoreOneWay: 0
   groundCollider: {fileID: 0}
@@ -247,9 +247,9 @@ MonoBehaviour:
   coneAngleOffset: 0
   coneDistance: 8.5
   coneAccuracy: 12
-  roamSpeed: 3
+  roamSpeed: 30
   m_attacking: 0
-  attackingAnimTicks: 30
+  attackingAnimTicks: 25
   attackTick: 10
   m_attackingTicks: 0
 --- !u!114 &5250226330865186458
