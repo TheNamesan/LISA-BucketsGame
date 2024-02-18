@@ -355,7 +355,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -388,7 +388,7 @@ MonoBehaviour:
   camOffset: {fileID: 6007828927435111045}
   dashOffsetIntensity: 0.5
   m_minOffset: {x: 0, y: 0}
-  m_maxOffset: {x: 2, y: 2}
+  m_maxOffset: {x: 3, y: 3}
   m_minDistance: {x: 2, y: 2}
   m_maxDistance: {x: 6, y: 4}
   m_dashOffset: {x: 0, y: 0}
@@ -569,7 +569,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 6
+    OrthographicSize: 6.5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
