@@ -102,7 +102,7 @@ namespace BucketsGame
         }
         protected override void GroundCheck()
         {
-            if (m_dead) return;
+            //if (m_dead) return;
             LayerMask layers = groundLayers;
             if (!ignoreOneWay) layers = layers | oneWayGroundLayers;
 
@@ -351,7 +351,11 @@ namespace BucketsGame
         {
             int moveH = (int)input.inputH;
             int moveV = (int)input.inputV;
-            if (m_dead) return;
+            if (m_dead)
+            {
+                if (grounded) rb.velocity *= 0.99f;
+                return; 
+            }
             if (!grounded) // Mid-air
             {
                 DashCancelCheck(moveH);

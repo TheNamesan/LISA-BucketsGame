@@ -100,6 +100,11 @@ namespace BucketsGame
             showArm = false;
             showLeg = false;
             if (!controller.flipLock) FlipSprite(controller.facing);
+            if (controller.dead)
+            {
+                if (!controller.grounded) return "Dead";
+                return "Dead";
+            }
             switch (state)
             {
                 case CharacterStates.Idle:
