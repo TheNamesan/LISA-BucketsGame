@@ -43,6 +43,16 @@ namespace BucketsGame
         [SerializeField] protected bool m_dead = false;
         protected readonly Vector2 NORMAL_LIMIT = new Vector2(1, 0);
 
+        public bool OnScreen 
+        { get 
+            {
+                var screenPos = SceneProperties.instance.camManager.GetWorldToScreenPoint(rb.position);
+                return gameObject.activeInHierarchy && 
+                    screenPos.x > 0f && screenPos.x < Screen.width && 
+                    screenPos.y > 0f && screenPos.y < Screen.height;
+            }
+        }
+
         protected virtual void GroundCheck()
         {
             if (m_dead) return;

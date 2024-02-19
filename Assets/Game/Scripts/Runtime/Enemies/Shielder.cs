@@ -198,7 +198,7 @@ namespace BucketsGame
         }
         private void Fire()
         {
-            if (m_firing || m_fireCooldownTicks > 0) return;
+            if (m_firing || m_fireCooldownTicks > 0 || !OnScreen) return;
             m_vulnerable = true;
             m_fireAnimTicks = fireAnimDuration;
             m_firing = true;

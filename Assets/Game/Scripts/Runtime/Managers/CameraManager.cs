@@ -96,6 +96,11 @@ namespace BucketsGame
         {
             noise.m_AmplitudeGain = value;
         }
+        public Vector3 GetWorldToScreenPoint(Vector3 position)
+        {
+            if (!cam) return Vector2.zero;
+            return cam.WorldToScreenPoint(position);
+        }
     }
 }
 
