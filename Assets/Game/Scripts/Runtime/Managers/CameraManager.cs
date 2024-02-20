@@ -8,8 +8,10 @@ namespace BucketsGame
 {
     public class CameraManager : MonoBehaviour
     {
+        public bool disableFollow = false;
         public Camera cam;
         public CinemachineVirtualCamera virtualCam;
+        public TUFF.CameraFollow followCam;
         public CinemachineCameraOffset camOffset;
         public float dashOffsetIntensity = 0.5f;
         [SerializeField] private Vector2 m_minOffset = Vector2.zero;
@@ -24,11 +26,36 @@ namespace BucketsGame
 
         private void LateUpdate()
         {
+            FollowUpdate();
+        }
+        private void OnEnable()
+        {
+            if (followCam) followCam.onCameraFollowingToggle.AddListener(ToggleFollow);
+        }
+        private void OnDisable()
+        {
+            if (followCam) followCam.onCameraFollowingToggle.RemoveListener(ToggleFollow);
+        }
+        private void ToggleFollow(bool follow)
+        {
+            disableFollow = !follow;
+            Debug.Log("SET DISABLE TO: " + disableFollow);
+        }
+
+        private void FollowUpdate()
+        {
+            if (disableFollow)
+            {
+                virtualCam.enabled = false;
+                return; 
+            }
+            virtualCam.enabled = true;
             Vector2 result = new Vector2();
             result += FollowPointer();
             result += FollowPlayer();
             ApplyOffset(result);
         }
+
         private Vector2 FollowPointer()
         {
             if (!virtualCam) return Vector2.zero;
@@ -100,6 +127,10 @@ namespace BucketsGame
         {
             if (!cam) return Vector2.zero;
             return cam.WorldToScreenPoint(position);
+        }
+        private void OnDestroy()
+        {
+            if (followCam && Application.isPlaying) followCam.onCameraFollowingToggle.RemoveListener(ToggleFollow);
         }
     }
 }

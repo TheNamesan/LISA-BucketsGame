@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using DG.Tweening;
 
 namespace TUFF
@@ -40,18 +41,23 @@ namespace TUFF
         public List<Vector3> originalParallaxPos = new List<Vector3>();
         
         SpriteRenderer backgroundSpr;
+
+        public UnityEvent<bool> onCameraFollowingToggle = new();
     
         [HideInInspector] public bool disableCameraFollow;
         [HideInInspector] public Vector3 orgPosition;
         private Vector2 min;
         private Vector2 max;
         Tween tween;
-    
+
+        private void Awake()
+        {
+            if (!cam) cam = GetComponent<Camera>();
+            if (background && !backgroundSpr) backgroundSpr = background.GetComponent<SpriteRenderer>();
+        }
         void Start()
         {
-            cam = GetComponent<Camera>();
             previousPosition = transform.position;
-            if (background != null) backgroundSpr = background.GetComponent<SpriteRenderer>();
             GetParallaxOriginalPosition();
             UpdateCamera();
         }
@@ -78,7 +84,8 @@ namespace TUFF
         private void UpdateCamera()
         {
             Vector3 startpos = transform.position;
-            if (FollowerInstance.player.controller == null) return;
+            if (!FollowerInstance.player) return;
+            if (!FollowerInstance.player.controller) return;
             Vector3 endpos = FollowerInstance.player.controller.transform.position;
             endpos.z = transform.position.z;
             camHalfHeight = (2f * cam.orthographicSize) / 2;
@@ -175,10 +182,11 @@ namespace TUFF
             }
             previousPosition = transform.position;
         }
-    
+
         public void DisableCameraFollow(bool input)
         {
             disableCameraFollow = input;
+            onCameraFollowingToggle.Invoke(!input);
         }
     
         public void MoveCamera(CameraMove cameraMove)
@@ -252,6 +260,7 @@ namespace TUFF
         }
         Vector3 ClampVector(Vector3 vector)
         {
+            if (!si) return vector;
             vector = new Vector3
                 (
                     Mathf.Clamp(vector.x, si.min.x + camHalfWidth, si.max.x - camHalfWidth),

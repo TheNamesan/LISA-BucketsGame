@@ -299,6 +299,7 @@ GameObject:
   - component: {fileID: 8554847308507395929}
   - component: {fileID: 8554847308507395930}
   - component: {fileID: 8554847308507395934}
+  - component: {fileID: 8963224288354636984}
   - component: {fileID: 8554847308507395931}
   - component: {fileID: 8554847308507395928}
   - component: {fileID: 8554847308507395935}
@@ -355,7 +356,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7
+  orthographic size: 6.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -383,8 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654e187f9515f0a499828c27c0ce7156, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableFollow: 0
   cam: {fileID: 8554847308507395930}
   virtualCam: {fileID: 8554847309708343404}
+  followCam: {fileID: 8963224288354636984}
   camOffset: {fileID: 6007828927435111045}
   dashOffsetIntensity: 0.5
   m_minOffset: {x: 0, y: 0}
@@ -394,6 +397,33 @@ MonoBehaviour:
   m_dashOffset: {x: 0, y: 0}
   framing: {fileID: 0}
   noise: {fileID: 0}
+--- !u!114 &8963224288354636984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554847308507395924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998b779b35d2ae047b10574f41cda850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 8554847308507395930}
+  si: {fileID: 0}
+  parallaxHorizontalBaseSpeed: 100
+  parallaxVerticalBaseSpeed: 35
+  background: {fileID: 0}
+  parallaxOffset: {x: 0, y: 0}
+  individualParallaxOffset: []
+  parallaxElements: []
+  fixedParallaxElements: []
+  originalParallaxPos: []
+  onCameraFollowingToggle:
+    m_PersistentCalls:
+      m_Calls: []
+  disableCameraFollow: 0
+  orgPosition: {x: 0, y: 0, z: 0}
 --- !u!81 &8554847308507395931
 AudioListener:
   m_ObjectHideFlags: 0
