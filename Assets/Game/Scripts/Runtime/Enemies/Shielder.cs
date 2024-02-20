@@ -255,7 +255,8 @@ namespace BucketsGame
                 return true;
             }
             hp--;
-            if (hp > 0) return true;
+            AlertEnemy();
+            if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
             m_dead = true;
             StopFire();
             SetAirborne();

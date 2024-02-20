@@ -136,7 +136,15 @@ namespace BucketsGame
                 SceneProperties.instance.camManager.PlayDashOffset();
             }
         }
-
+        public void OnEnemyHit()
+        {
+            if (SceneProperties.instance)
+            {
+                float amplitude = 4f;
+                SceneProperties.instance.camManager.ShakeCamera(amplitude);
+                PlayHitstun(0.06f);
+            }
+        }
         public void OnEnemyKill()
         {
             if (SceneProperties.instance)

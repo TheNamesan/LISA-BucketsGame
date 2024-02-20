@@ -39,7 +39,6 @@ namespace BucketsGame
         private void ToggleFollow(bool follow)
         {
             disableFollow = !follow;
-            Debug.Log("SET DISABLE TO: " + disableFollow);
         }
 
         private void FollowUpdate()
