@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8577316997457750191}
   - component: {fileID: 3997074415020085540}
-  - component: {fileID: 3719047218802369439}
   m_Layer: 7
   m_Name: LightSource
   m_TagString: Untagged
@@ -112,22 +111,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &3719047218802369439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819656249851853432}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 699ae613fdf91f249a8b7ec2e8f3ebf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightReference: {fileID: 3997074415020085540}
-  intensityRange: 0.05
-  intensityMinTime: 0.05
-  intensityMaxTime: 0.125
 --- !u!1 &4089372520755699050
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +122,6 @@ GameObject:
   - component: {fileID: 4089372520755699045}
   - component: {fileID: 4089372520755699044}
   - component: {fileID: 7715499492148171737}
-  - component: {fileID: 4364558444554258888}
   m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
@@ -211,7 +193,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7715499492148171737
@@ -240,25 +222,10 @@ MonoBehaviour:
   - {x: 0.78125, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 156392
+  m_InstanceId: 73244
   m_LocalBounds:
     m_Center: {x: 0, y: 0.78125, z: 0}
     m_Extent: {x: 0.78125, y: 0.78125, z: 0}
---- !u!114 &4364558444554258888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4089372520755699050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd8155c16890e304ca501903659e3415, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  render: {fileID: 0}
-  caster: {fileID: 0}
-  currentSprite: {fileID: 0}
 --- !u!1 &4089372521618083614
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,10 +339,10 @@ MonoBehaviour:
   lastVelocity: {x: 0, y: 0}
   walkableLayers:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 64
   wallLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 64
   ignoredLayersAtJumpCheck:
     serializedVersion: 2
     m_Bits: 452
@@ -392,7 +359,7 @@ MonoBehaviour:
   climbMode: 0
   climbableLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   climbing: 0
   disableClimbableCollision: 0
   fellAfterClimbing: 0
@@ -490,6 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4089372521618083604}
+  spriteRenderer: {fileID: 0}
   pack: {fileID: 11400000, guid: 0ce7e72b86aa90246a939bb187bd2c65, type: 2}
   alt: -1
   lastStateName: 
@@ -610,7 +578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbableLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   col: {fileID: 0}
   climbable: {fileID: 0}
   currentBounds:
