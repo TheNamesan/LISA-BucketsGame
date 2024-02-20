@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7588237943867467855}
   - component: {fileID: 7588237943867467843}
   - component: {fileID: 4401135276738112578}
-  - component: {fileID: 5402176699715520186}
   - component: {fileID: 4401135276738112577}
   - component: {fileID: 7588237943867467852}
   - component: {fileID: 7588237943867467853}
@@ -98,23 +97,6 @@ MonoBehaviour:
   m_firing: 0
   m_fireAnimTicks: 0
   m_fireCooldownTicks: 0
---- !u!114 &5402176699715520186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588237943867467848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899ece0e0d76b6d44bde7951b80b6870, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 4401135276738112577}
-  spriteRenderer: {fileID: 0}
-  lastStateName: 
-  animationInWait: 0
-  rusher: {fileID: 0}
 --- !u!95 &4401135276738112577
 Animator:
   serializedVersion: 5
@@ -125,7 +107,7 @@ Animator:
   m_GameObject: {fileID: 7588237943867467848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e8dcc9212c1cfe043898daae5d53ff68, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -331,7 +313,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1592813265, guid: 308df4fabe5ee774d87d980ae220402b, type: 3}
+  m_Sprite: {fileID: -511925773, guid: ce6b7b952aa56894e88341beeb2a69b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
