@@ -284,7 +284,7 @@ namespace BucketsGame
         }
         private void AssignDeadMaterial()
         {
-            if (!m_dead && !stunned) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
+            if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
             else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
         }
 
@@ -356,13 +356,14 @@ namespace BucketsGame
         {
             int moveH = (int)input.inputH;
             int moveV = (int)input.inputV;
-            if (m_dead || stunned)
+            if (m_dead)
             {
                 if (grounded) rb.velocity *= 0.95f;
                 return; 
             }
             if (!grounded) // Mid-air
             {
+                if (m_dead || stunned) return;
                 DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
@@ -419,8 +420,16 @@ namespace BucketsGame
                 CheckDoorOpening(moveH);
                 Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
                 Vector2 normal = groundNormal;
+                if (m_dead || stunned)
+                {
+                    velX = rb.velocity.x;
+                    moveH = (int)Mathf.Sign(rb.velocity.x);
+                    finalVel = rb.velocity;
+                    Debug.Log(rb.velocity.x);
+                }
                 finalVel = GetSlopeVelocity(moveH, velX, finalVel, normal);
                 rb.velocity = finalVel;
+                if (stunned) rb.velocity *= 0.95f;
                 Jump(velY);
                 
                 ChangeFacingOnMove(moveH);
@@ -463,6 +472,7 @@ namespace BucketsGame
         }
         private float GetVelX(int moveH)
         {
+            if (m_dead || stunned) return rb.velocity.x;
             float velocity = moveH * moveSpeed; // Walk Speed
             if (dashing) // Dash Speed
             { 
@@ -474,7 +484,6 @@ namespace BucketsGame
         {
             if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb) // Dash Input
             {
-                
                 Dash(!grounded);
             }
         }
@@ -574,6 +583,7 @@ namespace BucketsGame
         /// </summary>
         private bool Jump(float velY, bool useExtraJumps = false)
         {
+            if (m_dead || stunned) return false;
             if (input.jumpDown) // Jump
             {
                 // If jumping mid-air and not enough extra jumps, abort

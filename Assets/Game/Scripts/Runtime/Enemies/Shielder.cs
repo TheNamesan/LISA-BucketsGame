@@ -23,6 +23,7 @@ namespace BucketsGame
         [SerializeField] private int m_attackingTicks = 0;
 
         [Header("Fire")]
+        public float bulletVelocity = 30;
         public int fireAnimDuration = 35;
         public int fireTick = 15;
         public int fireRate = 50;
@@ -49,7 +50,11 @@ namespace BucketsGame
                 }
                 else
                 {
-                    if (m_attacking)
+                    if (m_vulnerable)
+                    {
+                        sprite.color = Color.blue;
+                    }
+                    else if (m_attacking)
                     {
                         if (m_attackingTicks == attackTick) sprite.color = new Color(255, 127, 0, 255);
                         else sprite.color = Color.green;
@@ -121,7 +126,7 @@ namespace BucketsGame
             {
                 if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
                 {
-                    if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
+                    if (hurtbox.team == Team.Player)
                     {
                         if (hurtbox.callback is PlayerController player)
                         {
@@ -145,15 +150,17 @@ namespace BucketsGame
                 var player = SceneProperties.mainPlayer;
                 if (player != null)
                 {
-                    float distanceToPlayer = player.rb.position.x - rb.position.x;
+                    float distanceToPlayerX = player.rb.position.x - rb.position.x;
+                    float distanceToPlayer = Vector2.Distance(player.rb.position, rb.position);
                     int moveH = 0;
                     float speed = 0f;
                     if (enemyState == EnemyAIState.Alert)
                     {
                         speed = moveSpeed;
-                        if (Mathf.Abs(distanceToPlayer) <= approachDistance)
+                        if (Mathf.Abs(distanceToPlayerX) <= approachDistance)
                             speed = approachSpeed;
-                        moveH = (int)Mathf.Sign(distanceToPlayer);
+                        if (distanceToPlayer <= 0.3f) speed = 0;
+                        moveH = (int)Mathf.Sign(distanceToPlayerX);
                         CheckDoorOpening(moveH);
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH = 0;
@@ -211,7 +218,6 @@ namespace BucketsGame
         private void Fire()
         {
             if (m_firing || m_fireCooldownTicks > 0 || !OnScreen) return;
-            m_vulnerable = true;
             m_fireAnimTicks = fireAnimDuration;
             m_firing = true;
         }
@@ -230,7 +236,8 @@ namespace BucketsGame
             Vector2 size = Vector2.one;
             // If player is behind enemy, rotate direction in X
             if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
-            BulletsPool.instance.SpawnBullet(rb.position, bulletSprite, size, dir, Team.Enemy);
+            Vector2 position = rb.position + dir.normalized;
+            BulletsPool.instance.SpawnBullet(position, bulletSprite, size, dir, bulletVelocity, Team.Enemy);
         }
         private void StunTimer()
         {
@@ -248,6 +255,7 @@ namespace BucketsGame
                 if (m_fireAnimTicks == fireTick) // Shoot Projectile
                 {
                     ShootProjectile();
+                    m_vulnerable = true;
                 }
                 if (m_fireAnimTicks <= 0) StopFire(true);
             }

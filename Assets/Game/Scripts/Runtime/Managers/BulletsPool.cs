@@ -27,6 +27,12 @@ namespace BucketsGame
             Bullet available = GetBullet(position);
             available.Fire(dir, sprite, size, team);
         }
+        public void SpawnBullet(Vector2 position, Sprite sprite, Vector2 size, Vector2 dir, float velocity, Team team = Team.Player)
+        {
+            Initialize();
+            Bullet available = GetBullet(position);
+            available.Fire(dir, sprite, size, velocity, team);
+        }
 
         private Bullet GetBullet(Vector2 position)
         {

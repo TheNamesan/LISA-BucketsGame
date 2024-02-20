@@ -233,6 +233,7 @@ MonoBehaviour:
   grounded: 0
   ignoreOneWay: 0
   groundCollider: {fileID: 0}
+  groundProperties: {fileID: 0}
   ignoredOneWays: []
   groundPoint: {x: 0, y: 0}
   groundNormal: {x: 0, y: 0}
@@ -241,6 +242,7 @@ MonoBehaviour:
   maxFallSpeed: -15
   m_dead: 0
   enemyState: 0
+  hp: 1
   coneAngle: 45
   coneAngleOffset: 0
   coneDistance: 8.5
@@ -252,11 +254,12 @@ MonoBehaviour:
   m_attacking: 0
   m_vulnerable: 0
   attackingAnimTicks: 30
-  attackTick: 10
+  attackTick: 25
   m_attackingTicks: 0
-  fireAnimDuration: 35
-  fireTick: 12
-  fireRate: 50
+  bulletVelocity: 30
+  fireAnimDuration: 45
+  fireTick: 22
+  fireRate: 25
   m_firing: 0
   m_fireAnimTicks: 0
   m_fireCooldownTicks: 0

@@ -80,7 +80,7 @@ namespace BucketsGame
         }
         public override bool Hurt(Vector2 launch)
         {
-            return true;
+            return false;
         }
         public void OnDrawGizmos()
         {

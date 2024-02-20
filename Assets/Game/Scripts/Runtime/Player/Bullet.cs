@@ -13,6 +13,7 @@ namespace BucketsGame
     {
         public Sprite defaultSprite;
         public Vector2 defaultSpriteSize = new Vector2(0.3f, 0.3f);
+        public float defaultVelocity = 27f;
         
         public Rigidbody2D rb;
         public CircleCollider2D col;
@@ -24,15 +25,20 @@ namespace BucketsGame
         private int m_ticks = 0;
         private Vector2 m_lastPosition;
 
+        public void Fire(Vector2 normal, Sprite sprite, Vector2 size, Team team = Team.Player)
+        {
+            Fire(normal, defaultSprite, defaultSpriteSize, defaultVelocity, team);
+        }
         public void Fire(Vector2 normal, Team team = Team.Player)
         {
             Fire(normal, defaultSprite, defaultSpriteSize, team);
         }
-        public void Fire(Vector2 normal, Sprite sprite, Vector2 size, Team team = Team.Player)
+        public void Fire(Vector2 normal, Sprite sprite, Vector2 size, float velocity, Team team = Team.Player)
         {
             gameObject.SetActive(true);
             spriteRenderer.sprite = sprite;
             spriteRenderer.transform.localScale = new Vector3(size.x, size.y, spriteRenderer.transform.localScale.z);
+            this.velocity = velocity;
             this.team = team;
             transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
             m_ticks = 0; // Reset Ticks
