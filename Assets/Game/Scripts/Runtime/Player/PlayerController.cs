@@ -65,6 +65,11 @@ namespace BucketsGame
         [SerializeField] private int m_wallJumpTicks = 0;
         [SerializeField] private int m_wallJumpDirection = 0;
 
+        [Header("Stun")]
+        public int stunDuration = 62;
+        public bool stunned { get => m_stunTicks > 0; }
+        [SerializeField] private int m_stunTicks = 0;
+
         private void OnEnable()
         {
             lastPosition = rb.position;
@@ -279,13 +284,13 @@ namespace BucketsGame
         }
         private void AssignDeadMaterial()
         {
-            if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
+            if (!m_dead && !stunned) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
             else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
         }
 
         private void InputCheck()
         {
-            if (m_dead) return;
+            if (m_dead || stunned) return;
             DashHandler();
             ShootHandler();
         }
@@ -305,7 +310,7 @@ namespace BucketsGame
 
         private void ShootHandler()
         {
-            if (m_dead) return;
+            if (m_dead || stunned) return;
             if (weapon && input.shootDown && !dashing)
             {
                 Vector2 aimNormal = DistanceToMouse().normalized;
@@ -351,9 +356,9 @@ namespace BucketsGame
         {
             int moveH = (int)input.inputH;
             int moveV = (int)input.inputV;
-            if (m_dead)
+            if (m_dead || stunned)
             {
-                if (grounded) rb.velocity *= 0.99f;
+                if (grounded) rb.velocity *= 0.95f;
                 return; 
             }
             if (!grounded) // Mid-air
@@ -448,6 +453,7 @@ namespace BucketsGame
         {
             DashTimer();
             WallJumpTimer();
+            StunTimer();
             
             // Set to 1 so the walking forwards anim is not visible for 1 frame
             if (weapon.animTicks <= 1)
@@ -542,6 +548,11 @@ namespace BucketsGame
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
         }
+        private void StunTimer()
+        {
+            if (m_stunTicks > 0)
+                m_stunTicks--;
+        }
         private void StopDash(bool setCooldown = false)
         {
             m_dashTicks = 0;
@@ -598,6 +609,21 @@ namespace BucketsGame
             AudioManager.instance.PlaySFX(SFXList.instance.playerDeadSFX);
             BucketsGameManager.instance.OnPlayerDead();
             return true;
+        }
+        public bool Stun(Vector2 launch)
+        {
+            if (m_dead) return false;
+            if (stunned) return true;
+            //SetAirborne();
+            SetStunned();
+            StopDash();
+            launch *= 20f;
+            rb.velocity = (launch);
+            return true;
+        }
+        public void SetStunned()
+        {
+            m_stunTicks = stunDuration;
         }
         public override void ChangeFacing(Facing newFacing)
         {

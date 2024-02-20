@@ -86,7 +86,24 @@ namespace BucketsGame
             else enemyState = EnemyAIState.Roaming;
 
             if (enemyState != EnemyAIState.Alert) return;
-            if (Mathf.Abs(distanceToPlayer) <= approachDistance && m_stunnedTicks <= 0)
+            if (m_attacking) // Run Tick
+            {
+                m_attackingTicks--;
+                if (m_attackingTicks <= 0)
+                {
+                    StopFire(true);
+                    m_attacking = false; 
+                }
+                else if (m_attackingTicks == attackTick) // Attack Raycast
+                {
+                    AttackRaycast();
+                }
+            }
+            else if (Mathf.Abs(distanceToPlayer) <= 1f && !player.stunned) // Attack
+            {
+                Attack();
+            }
+            else if (Mathf.Abs(distanceToPlayer) <= approachDistance && m_stunnedTicks <= 0) // Prepare to shoot
             {
                 RaycastHit2D hasWallInWayHit = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
                 Debug.DrawLine(rb.position, player.rb.position, (hasWallInWayHit ? Color.red : Color.green), Time.fixedDeltaTime);
@@ -94,35 +111,30 @@ namespace BucketsGame
                 if (hasWallInWayHit && hasWallInWayHit.collider.TryGetComponent(out TUFF.TerrainProperties props))
                     if (props.enemyBulletsGoThrough) Fire();
             }
-            //if (m_attacking) // Run Tick
-            //{
-            //    m_attackingTicks--;
-            //    if (m_attackingTicks <= 0) m_attacking = false;
-            //    else if (m_attackingTicks == attackTick) // Attack Raycast
-            //    {
-            //        var hitboxLayers = GameManager.instance.hurtboxLayers;
-            //        Vector2 dir = transform.right * FaceToInt();
-            //        RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.25f, hitboxLayers);
-            //        for (int i = 0; i < hits.Length; i++)
-            //        {
-            //            if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
-            //            {
-            //                if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
-            //                {
-            //                    bool hitTarget = hurtbox.Collision(dir);
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    if (Mathf.Abs(distanceToPlayer) <= 0.65f) // Attack
-            //    {
-            //        m_attacking = true;
-            //        m_attackingTicks = attackingAnimTicks;
-            //    }
-            //}
+        }
+        private void AttackRaycast()
+        {
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
+            Vector2 dir = transform.right * FaceToInt();
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.35f, hitboxLayers);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
+                {
+                    if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
+                    {
+                        if (hurtbox.callback is PlayerController player)
+                        {
+                            bool hitTarget = player.Stun(dir);
+                        }
+                    }
+                }
+            }
+        }
+        private void Attack()
+        {
+            m_attacking = true;
+            m_attackingTicks = attackingAnimTicks;
         }
 
         private void MoveHandler()

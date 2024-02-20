@@ -100,7 +100,7 @@ namespace BucketsGame
             showArm = false;
             showLeg = false;
             if (!controller.flipLock) FlipSprite(controller.facing);
-            if (controller.dead)
+            if (controller.dead || controller.stunned)
             {
                 if (!controller.grounded) return "Dead";
                 return "Dead";

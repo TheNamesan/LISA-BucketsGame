@@ -36,7 +36,7 @@ namespace BucketsGame
             
             if (target.attacking)
             {
-                return "RusherAttack";
+                return "ShielderAttack";
             }
             return "ShielderIdle";
         }
