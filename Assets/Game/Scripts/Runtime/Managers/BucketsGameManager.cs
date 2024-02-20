@@ -142,6 +142,7 @@ namespace BucketsGame
             {
                 float amplitude = 4f;
                 SceneProperties.instance.camManager.ShakeCamera(amplitude);
+                TUFF.AudioManager.instance.PlaySFX(SFXList.instance.enemyHitSFX);
                 PlayHitstun(0.06f);
             }
         }
@@ -151,7 +152,8 @@ namespace BucketsGame
             {
                 float amplitude = 8f;
                 SceneProperties.instance.camManager.ShakeCamera(amplitude);
-                PlayHitstun(0.1f);
+                TUFF.AudioManager.instance.PlaySFX(SFXList.instance.enemyDeadSFX);
+                PlayHitstun(0.15f);
             }
             AddTicks(hitFocusTicksRegain);
         }
