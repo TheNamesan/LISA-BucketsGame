@@ -223,6 +223,11 @@ namespace BucketsGame
             BucketsGameManager.instance.OnEnemyKill();
             return true;
         }
+        protected override void AlertEnemy()
+        {
+            if (enemyState != EnemyAIState.Alert) StopFire(true);
+            base.AlertEnemy();
+        }
         public void OnDrawGizmos()
         {
             DrawLineOfSightGizmos();

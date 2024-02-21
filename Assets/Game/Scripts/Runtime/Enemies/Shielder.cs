@@ -215,6 +215,11 @@ namespace BucketsGame
                 AlertEnemy();
             }
         }
+        protected override void AlertEnemy()
+        {
+            if (enemyState != EnemyAIState.Alert) StopFire(true);
+            base.AlertEnemy();
+        }
         private void Fire()
         {
             if (m_firing || m_fireCooldownTicks > 0 || !OnScreen) return;
