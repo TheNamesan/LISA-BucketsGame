@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -42,12 +42,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,7 +103,259 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: bobstiles_7
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf40a0664ae4f2743a921ded951b0af7
+      internalID: 1072923029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_21
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 448
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f329adaaffd39ee4c82579c2f85a13b6
+      internalID: 316050591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_33
+      rect:
+        serializedVersion: 2
+        x: 352
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b968e441e3ebd6842b51d90edca52101
+      internalID: 918870558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_34
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 416
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37943f308c552394194ca7f35aabedfb
+      internalID: -1542042177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_220
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20f6796e31bc69b41b6c3df3296aba94
+      internalID: -457908250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_221
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0acc4a254c6836a409b377a0fe6cbfe8
+      internalID: -620515109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_222
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3e79764ec61b1347b136a4f560e4fef
+      internalID: -815994726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_236
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0565fe947b458364d897fd07c0b1c906
+      internalID: 1689491698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_237
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca9dc5ec3937db74bb885e883a1b7113
+      internalID: -1027881509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_238
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e11adf6057f33ba42a79e2ea756fbd19
+      internalID: -124984794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_0
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e13499b75ebfbb49b5d4d94381705ef
+      internalID: -102227132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bobstiles_1
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 352
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2d28d317a7f0974cbd7f31a1c70c138
+      internalID: 986926307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -114,7 +366,246 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bobstiles_0: -102227132
+      bobstiles_1: 986926307
+      bobstiles_10: 1170880189
+      bobstiles_100: 217824907
+      bobstiles_101: 1142178246
+      bobstiles_102: 1276904586
+      bobstiles_103: -1519960912
+      bobstiles_104: 1694227208
+      bobstiles_105: -1812497545
+      bobstiles_106: 885434274
+      bobstiles_107: -488747258
+      bobstiles_108: 408201769
+      bobstiles_109: -1146781442
+      bobstiles_11: 1674324514
+      bobstiles_110: -526966439
+      bobstiles_111: -1850007678
+      bobstiles_112: 235340740
+      bobstiles_113: -7292537
+      bobstiles_114: 1189090785
+      bobstiles_115: -1950102656
+      bobstiles_116: 495410015
+      bobstiles_117: -1354560133
+      bobstiles_118: 893878790
+      bobstiles_119: -1573530516
+      bobstiles_12: -1613015302
+      bobstiles_120: -487364194
+      bobstiles_121: 900076889
+      bobstiles_122: 1159055103
+      bobstiles_123: -554728163
+      bobstiles_124: 566557417
+      bobstiles_125: -1085518691
+      bobstiles_126: 316668370
+      bobstiles_127: -959209380
+      bobstiles_128: 261995004
+      bobstiles_129: -893157999
+      bobstiles_13: 982002555
+      bobstiles_130: -1414813708
+      bobstiles_131: -2040888561
+      bobstiles_132: -994540936
+      bobstiles_133: 1097079622
+      bobstiles_134: -395660569
+      bobstiles_135: 1479530858
+      bobstiles_136: 1254212913
+      bobstiles_137: 1071458297
+      bobstiles_138: -234677345
+      bobstiles_139: 1387448095
+      bobstiles_14: -1192226568
+      bobstiles_140: 1660004178
+      bobstiles_141: -467835435
+      bobstiles_142: -1332790549
+      bobstiles_143: 1745437122
+      bobstiles_144: 1685875116
+      bobstiles_145: -169680882
+      bobstiles_146: -500472869
+      bobstiles_147: -1532462660
+      bobstiles_148: 490198749
+      bobstiles_149: 1289868258
+      bobstiles_15: -31039858
+      bobstiles_150: -1733196237
+      bobstiles_151: -328977343
+      bobstiles_152: 856555171
+      bobstiles_153: 308211060
+      bobstiles_154: -1396312495
+      bobstiles_155: 1463371347
+      bobstiles_156: 1228004511
+      bobstiles_157: -1703555129
+      bobstiles_158: 458891724
+      bobstiles_159: 159169360
+      bobstiles_16: -1105835920
+      bobstiles_160: -958032275
+      bobstiles_161: 1952748454
+      bobstiles_162: -1371478823
+      bobstiles_163: 557986867
+      bobstiles_164: -559683940
+      bobstiles_165: 1059562303
+      bobstiles_166: -1726340541
+      bobstiles_167: 280940725
+      bobstiles_168: 2103011266
+      bobstiles_169: 389453871
+      bobstiles_17: 9018911
+      bobstiles_170: -1377953748
+      bobstiles_171: -521926137
+      bobstiles_172: 999070333
+      bobstiles_173: -392996227
+      bobstiles_174: -1075202584
+      bobstiles_175: 1340614766
+      bobstiles_176: -697701572
+      bobstiles_177: 1360621254
+      bobstiles_178: 286017518
+      bobstiles_179: 116099663
+      bobstiles_18: 251147182
+      bobstiles_180: -142965797
+      bobstiles_181: 2014279386
+      bobstiles_182: 370601271
+      bobstiles_183: -1112977626
+      bobstiles_184: 280726273
+      bobstiles_185: 33404309
+      bobstiles_186: -757603898
+      bobstiles_187: -1839433280
+      bobstiles_188: 995843831
+      bobstiles_189: 1219632544
+      bobstiles_19: -27771614
+      bobstiles_190: 155029237
+      bobstiles_191: -57449022
+      bobstiles_192: 387167827
+      bobstiles_193: 983707752
+      bobstiles_194: 1866326299
+      bobstiles_195: 1664489268
+      bobstiles_196: 284769196
+      bobstiles_197: 1130251024
+      bobstiles_198: -1419490848
+      bobstiles_199: 364011264
+      bobstiles_2: -143454858
+      bobstiles_20: 1413534432
+      bobstiles_200: -1761180671
+      bobstiles_201: 1677891987
+      bobstiles_202: 1839624809
+      bobstiles_203: -2004513266
+      bobstiles_204: -1044972091
+      bobstiles_205: 495886146
+      bobstiles_206: 1159107905
+      bobstiles_207: -504584659
+      bobstiles_208: -458680993
+      bobstiles_209: -833799931
+      bobstiles_21: 316050591
+      bobstiles_210: -745810679
+      bobstiles_211: -1702134887
+      bobstiles_212: 814879184
+      bobstiles_213: 1442028576
+      bobstiles_214: -1383845540
+      bobstiles_215: 603261653
+      bobstiles_216: -961340400
+      bobstiles_217: 1757881541
+      bobstiles_218: 46616265
+      bobstiles_219: -221832328
+      bobstiles_22: -826077442
+      bobstiles_220: -457908250
+      bobstiles_221: -620515109
+      bobstiles_222: -815994726
+      bobstiles_223: 346982390
+      bobstiles_224: -2105829608
+      bobstiles_225: 2011858993
+      bobstiles_226: -1261247047
+      bobstiles_227: -1675942350
+      bobstiles_228: -521866327
+      bobstiles_229: 1458550915
+      bobstiles_23: 852150393
+      bobstiles_230: -1911542597
+      bobstiles_231: 2112177015
+      bobstiles_232: 109568390
+      bobstiles_233: -732340680
+      bobstiles_234: -1162312761
+      bobstiles_235: -912004769
+      bobstiles_236: 1689491698
+      bobstiles_237: -1027881509
+      bobstiles_238: -124984794
+      bobstiles_24: -1353692775
+      bobstiles_25: -1917246032
+      bobstiles_26: -1112838466
+      bobstiles_27: 1017019962
+      bobstiles_28: -1251603728
+      bobstiles_29: 606441576
+      bobstiles_3: -1259027350
+      bobstiles_30: 754914434
+      bobstiles_31: -978744898
+      bobstiles_32: 2121282976
+      bobstiles_33: 918870558
+      bobstiles_34: -1542042177
+      bobstiles_35: 723493024
+      bobstiles_36: -851984613
+      bobstiles_37: 1298646325
+      bobstiles_38: -910545143
+      bobstiles_39: -924865267
+      bobstiles_4: 1051275642
+      bobstiles_40: -779244284
+      bobstiles_41: 120141960
+      bobstiles_42: -801231064
+      bobstiles_43: 1473071549
+      bobstiles_44: -2029706479
+      bobstiles_45: 420187191
+      bobstiles_46: 82845666
+      bobstiles_47: 698772321
+      bobstiles_48: 1727031117
+      bobstiles_49: -1554177886
+      bobstiles_5: 1759757660
+      bobstiles_50: -1216262651
+      bobstiles_51: -1766783505
+      bobstiles_52: 233794961
+      bobstiles_53: -1869347572
+      bobstiles_54: 870616388
+      bobstiles_55: 272790056
+      bobstiles_56: -741617483
+      bobstiles_57: 1601295252
+      bobstiles_58: 1692644179
+      bobstiles_59: -1733510964
+      bobstiles_6: -560655921
+      bobstiles_60: -1790313059
+      bobstiles_61: 1555536341
+      bobstiles_62: 89304185
+      bobstiles_63: 1776129805
+      bobstiles_64: 140661468
+      bobstiles_65: 2085247166
+      bobstiles_66: 1032471446
+      bobstiles_67: 1130748709
+      bobstiles_68: 1566494540
+      bobstiles_69: 1359172755
+      bobstiles_7: 1072923029
+      bobstiles_70: -1496025348
+      bobstiles_71: -1091380358
+      bobstiles_72: -1765204465
+      bobstiles_73: 15869503
+      bobstiles_74: 52173442
+      bobstiles_75: 1806644231
+      bobstiles_76: -527778200
+      bobstiles_77: -857162828
+      bobstiles_78: -463891835
+      bobstiles_79: -510013267
+      bobstiles_8: 1428046781
+      bobstiles_80: 1431908283
+      bobstiles_81: 717200776
+      bobstiles_82: 1138169402
+      bobstiles_83: -4000178
+      bobstiles_84: -2056782623
+      bobstiles_85: 1284598620
+      bobstiles_86: -1184958299
+      bobstiles_87: -2053353510
+      bobstiles_88: -1159955452
+      bobstiles_89: -1996731022
+      bobstiles_9: 591396750
+      bobstiles_90: -1685202540
+      bobstiles_91: -608928019
+      bobstiles_92: -1636607483
+      bobstiles_93: 1722411671
+      bobstiles_94: 1955115078
+      bobstiles_95: -1003960176
+      bobstiles_96: 1266414440
+      bobstiles_97: 338415088
+      bobstiles_98: 1506083651
+      bobstiles_99: -285978396
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
