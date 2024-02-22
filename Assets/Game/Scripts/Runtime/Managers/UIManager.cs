@@ -9,6 +9,7 @@ namespace BucketsGame
     {
         [Header("Cursor")]
         [SerializeField] private Texture2D cursorTexture;
+        [SerializeField] private GameObject content;
         private Vector2 cursorHotspot;
 
         [Header("Bar")]
@@ -34,7 +35,6 @@ namespace BucketsGame
         }
         private void OnEnable()
         {
-            
             if (focusFill && focusFill.material != null)
             {
                 focusFill.material = Instantiate(focusFill.material); // Copy of material
@@ -56,6 +56,10 @@ namespace BucketsGame
         private void Update()
         {
             UpdateBar();
+        }
+        private void LateUpdate()
+        {
+            if (content) content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying);
         }
         private void UpdateBar()
         {

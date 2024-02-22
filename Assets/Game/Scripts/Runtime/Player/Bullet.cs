@@ -46,6 +46,10 @@ namespace BucketsGame
             // Place last position a little behind
             m_lastPosition = (transform.position - (transform.right * velocity * Time.fixedDeltaTime));
         }
+        private void OnEnable()
+        {
+            m_lastPosition = rb.position;
+        }
         private void FixedUpdate()
         {
             Movement();

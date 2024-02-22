@@ -607,10 +607,9 @@ namespace BucketsGame
             }
             return false;
         }
-        public override bool Hurt(Vector2 launch)
+        public override bool Kill(Vector2 launch)
         {
             if (m_dead) return false;
-            Debug.Log("Ouch");
             m_dead = true;
             SetAirborne();
             StopDash();

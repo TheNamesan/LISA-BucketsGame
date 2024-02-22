@@ -9,6 +9,7 @@ namespace BucketsGame
     public class CameraManager : MonoBehaviour
     {
         public bool disableFollow = false;
+        public Transform disableFollowTransform;
         public Camera cam;
         public CinemachineVirtualCamera virtualCam;
         public TUFF.CameraFollow followCam;
@@ -45,10 +46,10 @@ namespace BucketsGame
         {
             if (disableFollow)
             {
-                virtualCam.enabled = false;
+                virtualCam.Follow = disableFollowTransform;
                 return; 
             }
-            virtualCam.enabled = true;
+            virtualCam.Follow = SceneProperties.mainPlayer.transform;
             Vector2 result = new Vector2();
             result += FollowPointer();
             result += FollowPlayer();

@@ -39,6 +39,7 @@ namespace BucketsGame
         public float gravityScale = 2;
         public float maxFallSpeed = -15;
 
+        public int hp = 1;
         public bool dead { get => m_dead; }
         [SerializeField] protected bool m_dead = false;
         protected readonly Vector2 NORMAL_LIMIT = new Vector2(1, 0);
@@ -223,6 +224,10 @@ namespace BucketsGame
             }
         }
         public virtual bool Hurt(Vector2 launch)
+        {
+            return Kill(launch);
+        }
+        public virtual bool Kill(Vector2 launch)
         {
             if (m_dead) return false;
             m_dead = true;

@@ -282,6 +282,11 @@ namespace BucketsGame
             hp--;
             AlertEnemy();
             if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
+            return Kill(launch);
+        }
+        public override bool Kill(Vector2 launch)
+        {
+            if (m_dead) return false;
             m_dead = true;
             StopFire();
             SetAirborne();

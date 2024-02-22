@@ -8,6 +8,19 @@ namespace BucketsGame
     {
         public bool open { get => m_open; }
         [SerializeField] private bool m_open;
+        
+        public void OpenRight()
+        {
+            Open(1, true);
+        }
+        public void OpenLeft()
+        {
+            Open(-1, true);
+        }
+        public bool Open(float dir)
+        {
+            return Open(dir, false);
+        }
         public bool Open(float dir, bool killEnemy = false)
         {
             if (m_open) return false;
@@ -43,11 +56,11 @@ namespace BucketsGame
                 if (hits[i].collider == this.hurtbox.col) continue;
                 if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
                 {
-                    Debug.Log($"FOUND HURTBOX: {hurtbox.gameObject.name}!!");
+                    //Debug.Log($"FOUND HURTBOX: {hurtbox.gameObject.name}!!");
                     if (hurtbox.team == Team.Enemy && !hurtbox.invulnerable)
                     {
-                        Debug.Log("FOUND ENEMY!!");
-                        bool hitTarget = hurtbox.Collision(dir);
+                        //Debug.Log("FOUND ENEMY!!");
+                        bool hitTarget = hurtbox.Kill(dir);
                     }
                 }
             }

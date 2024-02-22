@@ -304,12 +304,17 @@ namespace BucketsGame
             if (m_dead) return;
             FireTimer();
         }
-        public override bool Hurt(Vector2 launch)
+        //public override bool Hurt(Vector2 launch)
+        //{
+        //    if (m_dead) return false;
+        //    hp--;
+        //    AlertEnemy();
+        //    if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
+            
+        //}
+        public override bool Kill(Vector2 launch)
         {
             if (m_dead) return false;
-            hp--;
-            AlertEnemy();
-            if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
             m_dead = true;
             StopFire();
             SetAirborne();
