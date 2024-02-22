@@ -102,10 +102,12 @@ namespace BucketsGame
                     {
                         if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
                             if (props.enemyBulletsGoThrough) continue;
+                        break;
                     }
-                    if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
+                    else if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
                     {
                         color = Color.green;
+                        Debug.Log("Found enemy on it: " + i);
                         AlertEnemy();
                         break;
                     }
