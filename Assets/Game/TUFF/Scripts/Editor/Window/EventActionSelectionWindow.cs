@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.Reflection;
 
 namespace TUFF.TUFFEditor
 {
@@ -10,6 +11,9 @@ namespace TUFF.TUFFEditor
         
         public static List<EventAction> eventList;
         public static List<EventActionPD> eventListPDs;
+
+        public static bool includeTUFFEvents = false;
+        public static List<System.Type> otherEvents = new();
 
         public static void ShowPanelContent(List<EventAction> evt, List<EventActionPD> evtPDs, string title)
         {
@@ -361,8 +365,44 @@ namespace TUFF.TUFFEditor
         }
         private static void OtherOptions()
         {
-            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(1400));
             GUILayout.Label("Other", EditorStyles.boldLabel);
+
+            System.Type parent = typeof(EventAction);
+            GUILayout.Label("Find Other Events From Assembly", EditorStyles.boldLabel);
+            EditorGUILayout.BeginHorizontal("box");
+            if (GUILayout.Button(new GUIContent("Find", "Updates the events list."), GUILayout.MaxWidth(200)))
+            {
+                otherEvents.Clear();
+
+                Assembly TUFFAssembly = Assembly.GetAssembly(typeof(EventAction));
+                Assembly[] allAssemblies = System.AppDomain.CurrentDomain.GetAssemblies();
+                List<System.Type> allEvents = new();
+                for (int i = 0; i < allAssemblies.Length; i++)
+                {
+                    if (!includeTUFFEvents && allAssemblies[i] == TUFFAssembly) continue;
+                    System.Type[] assemblyTypes = allAssemblies[i].GetTypes();
+                    allEvents.AddRange(System.Array.FindAll(assemblyTypes, t => parent.IsAssignableFrom(t)));
+                }
+                otherEvents.AddRange(allEvents);
+                Debug.Log($"Events Found: {otherEvents.Count}");
+            }
+            var orgLabelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = 140F;
+            includeTUFFEvents = EditorGUILayout.Toggle(new GUIContent("Include TUFF Events"), includeTUFFEvents, GUILayout.MaxWidth(160f));
+            EditorGUIUtility.labelWidth = orgLabelWidth;
+            EditorGUILayout.EndHorizontal();
+            GUILayout.Label($"Events Found: {otherEvents.Count}");
+            EditorGUILayout.Space();//
+            for (int i = 0; i < otherEvents.Count; i++)
+            {
+                if (GUILayout.Button(new GUIContent($"{otherEvents[i]}")))
+                {
+                    var instance = (EventAction)System.Activator.CreateInstance(otherEvents[i]);
+                    AddEvent(instance, eventList, eventListPDs);
+                }
+            }
+
             //customCommand = (EventCommand)EditorGUILayout.ObjectField("Prefab/Custom Command", customCommand, typeof(EventCommand), false);
             //var customGUIContent = new GUIContent("Add Prefab/Custom Command", "Add a command from a Scriptable Object of type EventCommand.");
             //if (GUILayout.Button(customGUIContent))
