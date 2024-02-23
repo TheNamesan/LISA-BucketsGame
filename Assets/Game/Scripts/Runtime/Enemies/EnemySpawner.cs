@@ -13,6 +13,9 @@ namespace BucketsGame
     {
         public bool spawnOnProximity = false;
         public bool spawnOnEnemiesKilled = false;
+        public bool spawnInfintely = false;
+        public int spawnIntervals = 0;
+        [SerializeField] private int m_intervalTicks = 0;
         [Header("Spawn Location")]
         public SpawnLocationType spawnLocationType;
         public Vector2 spawnPosition = Vector2.zero;
@@ -27,9 +30,14 @@ namespace BucketsGame
         public int spawnShieldersCount = 0;
         public int spawnFlyersCount = 0;
         public int spawnSnipersCount = 0;
+        public int spawnBarrelBrosCount = 0;
         [Header("Spawn Properties")]
         public EnemyAIState spawnState = EnemyAIState.Roaming;
         public Facing spawnFacing = Facing.Right;
+        public bool overrideMoveSpeed = false;
+        public float overrideMoveSpeedValue = 1f;
+        public bool overrideGravity = false;
+        public float overrideGravityValue = 1f;
         [SerializeField] private bool m_spawned = false;
         
         private void Awake()
@@ -42,7 +50,7 @@ namespace BucketsGame
         }
         private void SpawnCheck()
         {
-            if (m_spawned) return;
+            if (m_spawned && !spawnInfintely) return;
             bool inProximity = false;
             bool enemiesKilled = false;
             if (spawnOnProximity) inProximity = ProximityCheck();
@@ -51,8 +59,13 @@ namespace BucketsGame
             else enemiesKilled = true;
             if (inProximity && enemiesKilled)
             {
-                SpawnEnemies();
-                m_spawned = true;
+                if (m_intervalTicks <= 0)
+                {
+                    SpawnEnemies();
+                    m_spawned = true;
+                    m_intervalTicks = spawnIntervals;
+                }
+                else m_intervalTicks--;
             }
         }
         private bool ProximityCheck()
@@ -77,25 +90,42 @@ namespace BucketsGame
             {
                 var enemy = Instantiate(PrefabList.instance.rusherPrefab, transform);
                 enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
             }
             for (int i = 0; i < spawnShieldersCount; i++)
             {
                 var enemy = Instantiate(PrefabList.instance.shielderPrefab, transform);
                 enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
             }
             for (int i = 0; i < spawnFlyersCount; i++)
             {
                 var enemy = Instantiate(PrefabList.instance.flyerPrefab, transform);
                 enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
             }
             for (int i = 0; i < spawnSnipersCount; i++)
             {
                 var enemy = Instantiate(PrefabList.instance.sniperPrefab, transform);
                 enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
+            }
+            for (int i = 0; i < spawnBarrelBrosCount; i++)
+            {
+                var enemy = Instantiate(PrefabList.instance.barrelBroPrefab, transform);
+                enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
             }
             if (Application.isPlaying)
                 EntityResetCaller.onResetLevel.AddListener(HideEnemies);
         }
+
+        private void CheckGeneralEnemyOverrides(Enemy enemy)
+        {
+            if (overrideMoveSpeed) enemy.moveSpeed = overrideMoveSpeedValue;
+            if (overrideGravity) enemy.gravityScale = overrideGravityValue;
+        }
+
         private void SpawnEnemies()
         {
             foreach(Transform child in transform)
@@ -103,6 +133,7 @@ namespace BucketsGame
                 child.position = GetSpawnLocation();
                 if (child.TryGetComponent(out Enemy enemy))
                 {
+                    enemy.rb.velocity = Vector2.zero;
                     enemy.enemyState = spawnState;
                     enemy.ChangeFacing(spawnFacing);
                 }

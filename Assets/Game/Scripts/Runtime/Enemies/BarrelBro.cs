@@ -52,13 +52,14 @@ namespace BucketsGame
                         TUFF.AudioManager.instance.PlaySFX(SFXList.instance.barrelBroWallHit);
                     }
                     float velX = moveH * speed;
-                    Vector2 velocity = new Vector2(velX, 0);
+                    Vector2 velocity = new Vector2(velX, rb.velocity.y);
                     Vector2 normal = groundNormal;
                     velocity = GetSlopeVelocity(moveH, velX, velocity, normal);
                     ChangeFacingOnMove(moveH);
                     rb.velocity = velocity;
                 }
             }
+            else rb.velocity = new Vector2(0, rb.velocity.y);
             CapVelocity();
         }
         private void AttackRaycast()

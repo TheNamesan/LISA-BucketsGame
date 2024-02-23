@@ -11,5 +11,6 @@ namespace BucketsGame
         public Shielder shielderPrefab;
         public Flyer flyerPrefab;
         public Sniper sniperPrefab;
+        public BarrelBro barrelBroPrefab;
     }
 }
