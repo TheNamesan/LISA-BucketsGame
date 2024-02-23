@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization.Settings;
 using DG.Tweening;
@@ -38,6 +39,8 @@ namespace TUFF
         private Resolution m_highestResolution;
 
         public int[] frameRates = new int[] { 60, 75, 120, 144, 240, 300 };
+
+        public UnityEvent<bool> onPlayerInputToggle = new();
 
         public static bool gameOver = false;
 
@@ -165,6 +168,7 @@ namespace TUFF
                 if (input) PlayerInputHandler.instance?.StopInput();
                 else PlayerInputHandler.instance?.ResumeInput();
             }
+            onPlayerInputToggle.Invoke(!input);
         }
 
         public void DisableActionMaps(bool input)

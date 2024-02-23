@@ -7,13 +7,10 @@ namespace BucketsGame
 {
     public class PlayerInputHandler : MonoBehaviour
     {
+        public static PlayerInputHandler instance { get => BucketsGameManager.instance.inputHandler; }
         public GamePlayerInput gameInput = new();
         public PlayerController player { get => SceneProperties.mainPlayer; }
 
-        public void Test(InputAction.CallbackContext context)
-        {
-            Debug.Log("Test: " + context);
-        }
         public void Move(InputAction.CallbackContext context)
         {
             
@@ -69,23 +66,34 @@ namespace BucketsGame
 
         public void OnEnable()
         {
+            TUFF.GameManager.instance.onPlayerInputToggle.AddListener(ToggleInput);
             StartCoroutine(LateFixedUpdate());
+        }
+        public void OnDisable()
+        {
+            TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(ToggleInput);
+        }
+        public void OnDestroy()
+        {
+            if (Application.isPlaying)
+                TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(ToggleInput);
         }
         public void FixedUpdate()
         {
             if (player)
             {
-                if (TUFF.GameManager.disablePlayerInput)
+                if (!TUFF.GameManager.disablePlayerInput)
                 {
-                    
-                    player.input = new GamePlayerInput(); 
-                }
-                else
-                {
-                    //Debug.Log(player, player);
                     player.input = gameInput;
                 }
-                    
+            }
+        }
+        public void ToggleInput(bool enabled)
+        {
+            if (!enabled)
+            {
+                // Stop Input
+                player.input = new GamePlayerInput();
             }
         }
         public IEnumerator LateFixedUpdate()

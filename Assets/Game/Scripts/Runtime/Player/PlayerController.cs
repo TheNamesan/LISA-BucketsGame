@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TUFF;
+using DG.Tweening;
 
 namespace BucketsGame
 {
@@ -9,6 +10,7 @@ namespace BucketsGame
     public enum CharacterStates { Idle = 0, Walk = 1, Falling = 2, Airborne = 3, Dashing = 4 };
     public class PlayerController : MovingEntity
     {
+        public Tween movementTween;
         //public Rigidbody2D rb;
         //public BoxCollider2D col;
         public WeaponBehaviour weapon;
@@ -671,6 +673,13 @@ namespace BucketsGame
         public float AngleToMouse()
         {
             return Vector2.SignedAngle(rb.position, input.MousePointWorld);
+        }
+        public void ForceMovementRight()
+        {
+            GameUtility.KillTween(ref movementTween);
+            float duration = 1.5f;
+            movementTween = DOTween.To(() => input.inputH, value => input.inputH = 1f, 0f, duration)
+                .OnComplete(() => input.inputH = 0);
         }
     }
 }
