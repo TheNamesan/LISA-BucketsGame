@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 namespace BucketsGame
 {
@@ -12,6 +14,7 @@ namespace BucketsGame
         [SerializeField] private GameObject content;
         private Vector2 cursorHotspot;
 
+        [SerializeField] private GameObject retryText;
         [Header("Bar")]
         public Image focusFill;
         public ImageAnimator focusAnim;
@@ -56,6 +59,8 @@ namespace BucketsGame
         private void Update()
         {
             UpdateBar();
+            if (SceneProperties.mainPlayer)
+                retryText?.SetActive(SceneProperties.mainPlayer.dead);
         }
         private void LateUpdate()
         {
