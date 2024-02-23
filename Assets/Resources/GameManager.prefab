@@ -163,7 +163,7 @@ MonoBehaviour:
     minPitch: 1
   enemyDeadSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: d9f8d6b091e90be42adc0f809d5cee0d, type: 3}
+    audioClip: {fileID: 8300000, guid: e8a3da406f3bb9443bd4afe729a27832, type: 3}
     randomClips: []
     volumeMode: 0
     volume: 0.8
@@ -369,6 +369,9 @@ MonoBehaviour:
   DPAM: 0
   DUIAM: 0
   frameRates: 3c0000004b0000007800000090000000f00000002c010000
+  onPlayerInputToggle:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7760827275875051410
 MonoBehaviour:
   m_ObjectHideFlags: 0
