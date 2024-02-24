@@ -14,6 +14,7 @@ namespace BucketsGame
         public CinemachineVirtualCamera virtualCam;
         public TUFF.CameraFollow followCam;
         public CinemachineCameraOffset camOffset;
+        public CinemachineConfiner camConfiner;
         public float dashOffsetIntensity = 0.5f;
         [SerializeField] private Vector2 m_minOffset = Vector2.zero;
         [SerializeField] private Vector2 m_maxOffset = Vector2.one;
@@ -40,6 +41,10 @@ namespace BucketsGame
         private void ToggleFollow(bool follow)
         {
             disableFollow = !follow;
+        }
+        public void SetBounds(Collider2D worldBoundCol)
+        {
+            camConfiner.m_BoundingShape2D = worldBoundCol;
         }
 
         private void FollowUpdate()

@@ -17,6 +17,8 @@ namespace BucketsGame
             set { m_camManager = value; }
         }
         [SerializeField] private PlayerController m_player;
+        [SerializeField] private TUFF.SceneProperties TUFFSceneProperties;
+        [SerializeField] private PolygonCollider2D worldBoundsCol;
         public PlayerController player
         {
             get
@@ -48,6 +50,21 @@ namespace BucketsGame
             if (!instance) instance = this;
             if (!nextRoomCheck) nextRoomCheck = GetComponentInChildren<NextRoomCheck>();
             TUFF.SceneLoaderManager.onSceneLoad.AddListener(MakeThisInstance);
+            if (TUFFSceneProperties)
+            {
+                Vector2 min = Vector2.Min(TUFFSceneProperties.max, TUFFSceneProperties.min);
+                Vector2 max = Vector2.Max(TUFFSceneProperties.max, TUFFSceneProperties.min);
+                //Vector2 center = Vector2.Lerp(min, max, 0.5f);
+                //Vector2 size = new Vector2(Mathf.Abs(max.x - min.x), Mathf.Abs(max.y - min.y));
+                if (worldBoundsCol)
+                {
+                    Vector2[] points = new Vector2[] { 
+                        new Vector2(min.x, max.y), new Vector2(max.x, max.y),
+                        new Vector2(max.x, min.y), new Vector2(min.x, min.y)};
+                    worldBoundsCol.SetPath(0, points);
+                }
+                m_camManager?.SetBounds(worldBoundsCol);
+            }
         }
         private void OnDestroy()
         {

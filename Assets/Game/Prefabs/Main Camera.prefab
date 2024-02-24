@@ -385,10 +385,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableFollow: 0
+  disableFollowTransform: {fileID: 0}
   cam: {fileID: 8554847308507395930}
   virtualCam: {fileID: 8554847309708343404}
   followCam: {fileID: 8963224288354636984}
   camOffset: {fileID: 6007828927435111045}
+  camConfiner: {fileID: 8560046703084248617}
   dashOffsetIntensity: 0.5
   m_minOffset: {x: 0, y: 0}
   m_maxOffset: {x: 3, y: 3}
@@ -554,6 +556,7 @@ GameObject:
   - component: {fileID: 8554847309708343405}
   - component: {fileID: 8554847309708343404}
   - component: {fileID: 6007828927435111045}
+  - component: {fileID: 8560046703084248617}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -630,6 +633,23 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 0, z: 0}
   m_ApplyAfter: 1
   m_PreserveComposition: 0
+--- !u!114 &8560046703084248617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8554847309708343406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ConfineMode: 0
+  m_BoundingVolume: {fileID: 0}
+  m_BoundingShape2D: {fileID: 0}
+  m_ConfineScreenEdges: 1
+  m_Damping: 0
 --- !u!1 &8554847309772667502
 GameObject:
   m_ObjectHideFlags: 0

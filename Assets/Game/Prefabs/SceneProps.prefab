@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6423423899683277879}
   - component: {fileID: 4488901525268016715}
   - component: {fileID: 6030289221685050753}
-  m_Layer: 0
+  - component: {fileID: 2621288225453036077}
+  m_Layer: 2
   m_Name: SceneProps
   m_TagString: SceneProperties
   m_Icon: {fileID: 0}
@@ -47,7 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_camManager: {fileID: 0}
+  nextRoomCheck: {fileID: 0}
   m_player: {fileID: 0}
+  TUFFSceneProperties: {fileID: 6030289221685050753}
+  worldBoundsCol: {fileID: 2621288225453036077}
+  roomEnemies: []
 --- !u!114 &4488901525268016715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camFollow: {fileID: 0}
   min: {x: 0, y: 0}
-  max: {x: 0, y: 0}
+  max: {x: 21, y: 7}
   autoPlayBGM: 1
   sceneBGM:
     bgm: {fileID: 0}
@@ -88,3 +93,32 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     loop: 1
+--- !u!60 &2621288225453036077
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6423423899683277877}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0, y: 1}
+      - {x: 1, y: 1}
+      - {x: 1, y: 0}
+      - {x: 0, y: 0}

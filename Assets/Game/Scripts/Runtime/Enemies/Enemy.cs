@@ -22,7 +22,7 @@ namespace BucketsGame
         
         private void Start()
         {
-            AddAsRoomEnemy();
+            //AddAsRoomEnemy();
         }
         protected void AddAsRoomEnemy()
         {
