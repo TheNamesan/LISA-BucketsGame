@@ -28,12 +28,12 @@ namespace BucketsGame
                     rb.constraints = RigidbodyConstraints2D.None;
                 }
                 else {
-                    if (m_attacking)
-                    {
-                        if (m_attackingTicks == attackTick) sprite.color = new Color(255, 127, 0, 255);
-                        else sprite.color = Color.green;
-                    }
-                    else sprite.color = Color.white;
+                    //if (m_attacking)
+                    //{
+                    //    if (m_attackingTicks == attackTick) sprite.color = new Color(255, 127, 0, 255);
+                    //    else sprite.color = Color.green;
+                    //}
+                    //else sprite.color = Color.white;
                     rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 }
                 sprite.flipX = facing == Facing.Left;

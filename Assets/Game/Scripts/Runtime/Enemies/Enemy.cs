@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 namespace BucketsGame
 {
@@ -13,6 +14,7 @@ namespace BucketsGame
     public class Enemy : MovingEntity
     {
         public EnemyAIState enemyState = EnemyAIState.Roaming;
+        public Tween hurtTween;
         
         [Header("Line Of Sight")]
         public float coneAngle = 45f;
@@ -78,8 +80,13 @@ namespace BucketsGame
             if (m_dead) return false;
             hp--;
             AlertEnemy();
-            if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
+            if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit(); return true; }
             return Kill(launch);
+        }
+        protected void HurtTween()
+        {
+            GameUtility.KillTween(ref hurtTween);
+            hurtTween = sprite.DOColor(Color.white, 0.25f).From(Color.red);
         }
         public override bool Kill(Vector2 launch)
         {

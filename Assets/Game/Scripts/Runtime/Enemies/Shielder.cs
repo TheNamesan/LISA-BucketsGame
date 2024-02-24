@@ -285,7 +285,7 @@ namespace BucketsGame
             }
             hp--;
             AlertEnemy();
-            if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
+            if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit(); return true; }
             return Kill(launch);
         }
         public override bool Kill(Vector2 launch)
