@@ -6,7 +6,6 @@ namespace BucketsGame
 {
     public class CharacterAnimationHandler : AnimationHandler
     {
-        
         public bool showArms;
         public bool showLegs;
         public SpriteRenderer leftArm;
@@ -129,7 +128,7 @@ namespace BucketsGame
                         SetAnimationWait();
                         return $"RecoverDash";
                     }
-                    if (controller.lastState == CharacterStates.Airborne)
+                    if (controller.lastState == CharacterStates.Airborne && !controller.ignoreLandAnim)
                     {
                         SetAnimationWait();
                         return $"LandRight";

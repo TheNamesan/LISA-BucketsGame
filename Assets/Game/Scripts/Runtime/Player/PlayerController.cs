@@ -72,6 +72,8 @@ namespace BucketsGame
         public bool stunned { get => m_stunTicks > 0; }
         [SerializeField] private int m_stunTicks = 0;
 
+        public bool ignoreLandAnim = false;
+
         private void OnEnable()
         {
             lastPosition = rb.position;
@@ -80,6 +82,8 @@ namespace BucketsGame
         private void Start()
         {
             ResetMidairMoves();
+            ignoreLandAnim = true;
+            GroundCheck();
         }
         private void Update()
         {
@@ -110,16 +114,18 @@ namespace BucketsGame
         protected override void GroundCheck()
         {
             //if (m_dead) return;
+            if (ignoreLandAnim) Debug.Log("HI");
             LayerMask layers = groundLayers;
             if (!ignoreOneWay) layers = layers | oneWayGroundLayers;
 
             //Vertical Collision
             float sizeMult = 0.1f;
-            float boxSizeX = col.bounds.size.x;
-            Vector2 collisionBoxSize = new Vector2(boxSizeX, Physics2D.defaultContactOffset * sizeMult);
-            float collisionBoxDistance = collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);   
+            Vector2 collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset);
+            float collisionBoxDistance = Physics2D.defaultContactOffset;//collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);   
+            Vector2 hitOrigin = closestContactPointD;//+ (ignoreLandAnim ? new Vector2(0f, 0.01f) : Vector2.zero);
 
             RaycastHit2D solidGroundHit = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, groundLayers);
+            if (ignoreLandAnim) Debug.Log(solidGroundHit.collider);
             RaycastHit2D oneWayHit = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, oneWayGroundLayers);
             if (oneWayHit && ignoreOneWay)
             {
@@ -130,8 +136,8 @@ namespace BucketsGame
                     Physics2D.IgnoreCollision(col, collider, true);
                 }
             }
-            
 
+            if (ignoreLandAnim) Debug.Log(closestContactPointD);
             RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
             bool nextGroundIsOneWay = oneWayHit && (collision.collider == oneWayHit.collider);
             if (groundCollider != null && collision)
@@ -246,6 +252,7 @@ namespace BucketsGame
             }
             else // OnCollisionExit
             {
+                if (ignoreLandAnim) Debug.Log("no collision :(");
                 SetAirborne();
             }
 
@@ -264,6 +271,8 @@ namespace BucketsGame
                new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
             Debug.DrawLine(new Vector2(boxCenter.x - boxExtents.x, boxCenter.y - boxExtents.y),
                new Vector2(boxCenter.x + boxExtents.x, boxCenter.y - boxExtents.y), boxColor, displayTime);
+
+            ignoreLandAnim = false;
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -352,7 +361,7 @@ namespace BucketsGame
             StopWallJump();
             EnableGravity(false);
             if (weapon.animTicks > 0) ChangeFacingToShootDirection(weapon.shootNormal);
-            AudioManager.instance.PlaySFX(SFXList.instance.landSFX);
+            if (!ignoreLandAnim) AudioManager.instance.PlaySFX(SFXList.instance.landSFX);
         }
         private void MoveHandler()
         {
