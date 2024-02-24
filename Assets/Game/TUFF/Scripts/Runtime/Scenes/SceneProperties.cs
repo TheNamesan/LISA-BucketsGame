@@ -35,21 +35,21 @@ namespace TUFF
         }
         public void AwakeScene()
         {
-            gameObject.SetActive(false);
-            if (gameObject.scene == SceneManager.GetActiveScene())
-            {
-                clone = Instantiate(this).GetComponent<SceneProperties>();
-                gameObject.SetActive(true);
-            }
+            //gameObject.SetActive(false);
+            //if (gameObject.scene == SceneManager.GetActiveScene())
+            //{
+                //clone = Instantiate(this).GetComponent<SceneProperties>();
+                //gameObject.SetActive(true);
+            //}
         }
         private void OnEnable()
         {
-            if (clone == null)
-            {
-                gameObject.SetActive(false);
-                clone = Instantiate(this).GetComponent<SceneProperties>();
-                gameObject.SetActive(true);
-            }
+            //if (clone == null)
+            //{
+                //gameObject.SetActive(false);
+                //clone = Instantiate(this).GetComponent<SceneProperties>();
+                //gameObject.SetActive(true);
+            //}
         }
         private void OnDisable()
         {
