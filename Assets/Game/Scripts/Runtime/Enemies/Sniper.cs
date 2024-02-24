@@ -32,6 +32,10 @@ namespace BucketsGame
         public RaycastHit2D hitGround;
         public bool hitTarget;
 
+        private void Start()
+        {
+            AddAsRoomEnemy();
+        }
         private void Update()
         {
             if (sprite)

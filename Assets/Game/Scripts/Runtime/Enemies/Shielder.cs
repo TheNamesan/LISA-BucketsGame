@@ -39,6 +39,10 @@ namespace BucketsGame
         [SerializeField] private int m_stunnedTicks = 0;
         [SerializeField] private int m_stunDirection = 0;
 
+        private void Start()
+        {
+            AddAsRoomEnemy();
+        }
         private void Update()
         {
             if (sprite)

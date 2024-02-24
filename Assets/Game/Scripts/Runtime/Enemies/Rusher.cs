@@ -14,6 +14,10 @@ namespace BucketsGame
         public int attackTick = 10;
         [SerializeField] private int m_attackingTicks = 0;
 
+        private void Start()
+        {
+            AddAsRoomEnemy();
+        }
         private void Update()
         {
             if (sprite)

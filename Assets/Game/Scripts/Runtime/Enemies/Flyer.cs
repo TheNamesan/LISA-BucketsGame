@@ -21,6 +21,10 @@ namespace BucketsGame
         [SerializeField] private int m_fireAnimTicks = 0;
         [SerializeField] private int m_fireCooldownTicks = 0;
 
+        private void Start()
+        {
+            AddAsRoomEnemy();
+        }
         private void Update()
         {
             if (sprite)

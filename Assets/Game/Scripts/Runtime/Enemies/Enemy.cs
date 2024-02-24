@@ -20,6 +20,17 @@ namespace BucketsGame
         public float coneDistance = 8.5f;
         public int coneAccuracy = 12;
         
+        private void Start()
+        {
+            AddAsRoomEnemy();
+        }
+        protected void AddAsRoomEnemy()
+        {
+            if (SceneProperties.instance)
+            {
+                SceneProperties.instance.AddRoomEnemy(this);
+            }
+        }
         private void Update()
         {
             if (sprite)

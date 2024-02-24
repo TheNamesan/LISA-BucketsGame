@@ -8,6 +8,7 @@ namespace BucketsGame
     {
         [Header("References")]
         [SerializeField] private CameraManager m_camManager;
+        public NextRoomCheck nextRoomCheck;
         public CameraManager camManager {
             get {
                 if (m_camManager) return m_camManager;
@@ -39,15 +40,14 @@ namespace BucketsGame
                 return instance.player;
             }
         }
+        public bool nextRoomAvailable { get => roomEnemies.FindIndex(e => !e.dead) < 0; }
+        [SerializeField] private List<Enemy> roomEnemies = new();
         private void Awake()
         {
             //BucketsGameManager.CheckInstance();
             if (!instance) instance = this;
+            if (!nextRoomCheck) nextRoomCheck = GetComponentInChildren<NextRoomCheck>();
             TUFF.SceneLoaderManager.onSceneLoad.AddListener(MakeThisInstance);
-        }
-        private void Start()
-        {
-            
         }
         private void OnDestroy()
         {
@@ -59,6 +59,11 @@ namespace BucketsGame
             {
                 instance = this;
             }
+        }
+        public void AddRoomEnemy(Enemy enemy)
+        {
+            if (roomEnemies.Contains(enemy)) return;
+            roomEnemies.Add(enemy);
         }
         
         private void OnEnable()
