@@ -63,6 +63,12 @@ namespace BucketsGame
             if (context.performed)
                 BucketsGameManager.instance.ResetLevel();
         }
+        public void Pause(InputAction.CallbackContext context)
+        {
+            if (!player || TUFF.GameManager.disablePlayerInput) return;
+            if (context.performed)
+                BucketsGameManager.instance.Pause(true);
+        }
 
         public void OnEnable()
         {

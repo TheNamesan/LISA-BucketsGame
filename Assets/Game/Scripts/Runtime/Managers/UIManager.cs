@@ -9,6 +9,9 @@ namespace BucketsGame
 {
     public class UIManager : MonoBehaviour
     {
+        [Header("Pause")]
+        [SerializeField] private TUFF.UIMenu pauseMenu;
+
         [Header("Cursor")]
         [SerializeField] private Texture2D cursorTexture;
         [SerializeField] private GameObject content;
@@ -82,6 +85,10 @@ namespace BucketsGame
                 focusAnim.Play(focus);
             }
             if (eyeAnim) eyeAnim.Play(focus);
+        }
+        public void ShowPauseMenu()
+        {
+            if (pauseMenu) pauseMenu.OpenMenu();
         }
     }
 }

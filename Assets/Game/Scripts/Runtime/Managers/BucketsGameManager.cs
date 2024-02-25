@@ -41,6 +41,7 @@ namespace BucketsGame
         }
         private static BucketsGameManager m_instance;
         [SerializeField] private Tween m_hitstunTween;
+        private bool m_paused = false;
         private const float SLOWTIME = 0.25f;
         public static bool CheckInstance()
         {
@@ -75,6 +76,12 @@ namespace BucketsGame
         private void FixedUpdate()
         {
             FocusTimer();
+        }
+        public void Pause(bool pause)
+        {
+            if (m_paused == pause) return;
+            m_paused = pause;
+            if (m_paused) UIManager.instance.ShowPauseMenu();
         }
         public void ToggleFocus(bool enable)
         {
