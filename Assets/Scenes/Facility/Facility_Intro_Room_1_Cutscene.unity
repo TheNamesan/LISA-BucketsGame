@@ -474,11 +474,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8554847308507395929, guid: 257de0a64db6b0145844e8e4a4886aab, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.5
+      value: -12
       objectReference: {fileID: 0}
     - target: {fileID: 8554847308507395929, guid: 257de0a64db6b0145844e8e4a4886aab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8554847308507395929, guid: 257de0a64db6b0145844e8e4a4886aab, type: 3}
       propertyPath: m_LocalPosition.z
@@ -519,7 +519,7 @@ PrefabInstance:
     - target: {fileID: 8554847309708343404, guid: 257de0a64db6b0145844e8e4a4886aab, type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 874328469}
+      objectReference: {fileID: 0}
     - target: {fileID: 8554847309708343405, guid: 257de0a64db6b0145844e8e4a4886aab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7012,11 +7012,6 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7651473218300279271, guid: 828e4795e14d84c4194db5f936f336ca, type: 3}
   m_PrefabInstance: {fileID: 1072430512}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &874328469 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3711834660284266073, guid: 37532a4b7aa528149b825501ed221534, type: 3}
-  m_PrefabInstance: {fileID: 204929414}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1072430512
 PrefabInstance:
@@ -58993,7 +58988,7 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414147].dialogue.baseVoicebank
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 1df9fbeb4562db04590c586e8327b107, type: 2}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414147].dialogue.customTextbox
       value: 
@@ -59013,7 +59008,7 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.baseVoicebank
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 1df9fbeb4562db04590c586e8327b107, type: 2}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.customTextbox
       value: 
@@ -59033,7 +59028,7 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.baseVoicebank
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 1df9fbeb4562db04590c586e8327b107, type: 2}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.customTextbox
       value: 
@@ -59045,7 +59040,7 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689224].dialogue.baseVoicebank
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 1df9fbeb4562db04590c586e8327b107, type: 2}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689224].dialogue.customTextbox
       value: 
@@ -59057,7 +59052,7 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689227].dialogue.baseVoicebank
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: 1df9fbeb4562db04590c586e8327b107, type: 2}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689227].dialogue.customTextbox
       value: 
@@ -60284,7 +60279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689224].dialogue.sentences.Array.data[1].text
-      value: Sounded like gunshots to me.
+      value: "Sounded like \ngunshots to me."
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689227].dialogue.sentences.Array.data[0].text
