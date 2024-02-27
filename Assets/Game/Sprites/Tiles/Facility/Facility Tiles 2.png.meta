@@ -953,7 +953,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -961,6 +961,27 @@ TextureImporter:
       bones: []
       spriteID: 101041cdfe3ed4e41a4d33bff1def197
       internalID: -1548641280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Tiles 2_41
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9a2195802830dd42b0f157ebc697c4e
+      internalID: 649637034
       vertices: []
       indices: 
       edges: []
@@ -1012,6 +1033,7 @@ TextureImporter:
       Facility Tiles 2_39: -66789849
       Facility Tiles 2_4: 1500870615
       Facility Tiles 2_40: -1548641280
+      Facility Tiles 2_41: 649637034
       Facility Tiles 2_5: -1160190407
       Facility Tiles 2_6: 2146076167
       Facility Tiles 2_7: 1441403296
