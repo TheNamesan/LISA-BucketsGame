@@ -18,7 +18,7 @@ namespace BucketsGame
         public Facing facing = Facing.Right;
         public float moveSpeed = 6;
 
-        
+
         public LayerMask groundLayers { get => BucketsGameManager.instance.groundLayers; }
         public LayerMask oneWayGroundLayers { get => BucketsGameManager.instance.oneWayLayers; }
         [Header("Ground Collision")]
@@ -27,6 +27,7 @@ namespace BucketsGame
         public Collider2D groundCollider = null;
         public TerrainProperties groundProperties = null;
         [SerializeField] protected List<Collider2D> ignoredOneWays = new();
+        public Vector2 usedNormal;
         public Vector2 groundPoint;
         public Vector2 GroundNormalPerpendicular { get => Vector2.Perpendicular(groundNormal).normalized; }
         public RaycastHit2D normalRight;
@@ -255,6 +256,7 @@ namespace BucketsGame
                     velocity = new Vector2(velX, velX) * -perp;
                 }
             }
+            usedNormal = normal.normalized;
             return velocity;
         }
         protected Vector2 GetNormalFrom(Vector2 normal, RaycastHit2D ray)
