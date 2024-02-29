@@ -10,6 +10,7 @@ namespace BucketsGame
         public bool attacking { get => m_attacking; }
         [Header("Digger Properties")]
         public SpriteRenderer burrowSprite;
+        public float jumpForce = 6;
         public float decelerationRate = 3f;
         public float roamSpeed = 4f;
         [SerializeField] private bool m_attacking = false;
@@ -23,6 +24,8 @@ namespace BucketsGame
         [SerializeField] private int m_buriedTicks = 0;
         public int buryCooldown = 50;
         [SerializeField] private int m_buryCooldownTicks = 0;
+        public int jumpPrepTime = 10;
+        [SerializeField] private int m_jumpPrepTicks = 0;
 
         private void Start()
         {
@@ -43,6 +46,7 @@ namespace BucketsGame
                     sprite.enabled = !m_buried;
                     if (burrowSprite)
                     {
+                        burrowSprite.color = (m_jumpPrepTicks > 0 ? Color.red : Color.white);
                         burrowSprite.enabled = m_buried;
                         burrowSprite.transform.localRotation = 
                             Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, usedNormal));
@@ -81,19 +85,33 @@ namespace BucketsGame
             if (m_buried)
             {
                 //float distanceToPlayerX = player.rb.position.x - rb.position.x;
-                // Close To Player
-                if (Mathf.Abs(distanceToPlayer) <= 0.5f)
+                // If locking on to player
+                if (m_jumpPrepTicks <= 0)
                 {
-                    m_buriedTicks++;
-                    if (m_buriedTicks >= buriedDuration)
+                    var layer = 1 << BucketsGameManager.instance.playerLayer;
+                    RaycastHit2D collisionWithPlayer = Physics2D.BoxCast(rb.position, col.size, 0f, Vector2.up, 0f, layer);
+                    if (collisionWithPlayer)
                     {
-                        Unbury();
-                        burrowSprite.enabled = true;
+                        m_buriedTicks++;
+                        if (m_buriedTicks >= buriedDuration)
+                        {
+                            PrepareJump();
+                            //burrowSprite.enabled = true;
+                            
+                        }
+
+                    }
+                    else m_buriedTicks = 0;
+                }
+                else // Locked on
+                {
+                    m_jumpPrepTicks--;
+                    if (m_jumpPrepTicks <= 0)
+                    {
+                        Jump();
                         AttackRaycast();
                     }
-                        
                 }
-                else m_buriedTicks = 0;
             }
             else
             {
@@ -102,24 +120,6 @@ namespace BucketsGame
                     Bury();
                 }
             }
-            
-            //if (m_attacking) // Run Tick
-            //{
-            //    m_attackingTicks--;
-            //    if (m_attackingTicks <= 0) m_attacking = false;
-            //    else if (m_attackingTicks == attackTick) // Attack Raycast
-            //    {
-            //        AttackRaycast();
-            //    }
-            //}
-            //else
-            //{
-
-                //if (Mathf.Abs(distanceToPlayer) <= 0.65f) // Attack
-                //{
-                //    Attack();
-                //}
-            //}
         }
         private void TimerHandler()
         {
@@ -131,11 +131,19 @@ namespace BucketsGame
             m_buried = true;
             m_buriedTicks = 0;
         }
-        private void Unbury()
+        private void PrepareJump()
+        {
+            m_jumpPrepTicks = jumpPrepTime;
+        }
+
+        private void Jump()
         {
             m_buried = false;
             m_buryCooldownTicks = buryCooldown;
+            rb.velocity = new Vector2(0, jumpForce);
+            SetAirborne();
         }
+
         private void AttackRaycast()
         {
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
@@ -211,6 +219,11 @@ namespace BucketsGame
                         // If velocity.x normal is going in the wrong direction of the player, decelerate.
                         if (Mathf.Sign(rb.velocity.x) != Mathf.Sign(distanceToPlayerX)) velocity *= decelerationRate;
                         rb.velocity += velocity * Time.fixedDeltaTime;
+                        rb.velocity = new Vector2(Mathf.Sign(rb.velocity.x) * Mathf.Min(Mathf.Abs(rb.velocity.x), moveSpeed), rb.velocity.y);
+                        if (m_jumpPrepTicks > 0) rb.velocity = Vector2.zero;
+                        //var t = Time.fixedDeltaTime * Mathf.Abs(distanceToPlayerX) * 10f;
+                        //var minVelocity = velocity * 0.6f;
+                        //rb.velocity = Vector2.Lerp(minVelocity, velocity, t);
                     }
                     else rb.velocity = velocity;
                 }

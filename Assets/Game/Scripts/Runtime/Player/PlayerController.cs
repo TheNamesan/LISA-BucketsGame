@@ -425,22 +425,24 @@ namespace BucketsGame
             else // In Ground
             {
                 DashCancelCheck(moveH);
+                if (stunned) moveH = (int)Mathf.Sign(rb.velocity.x);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce;
                 // Check door opening
                 CheckDoorOpening(moveH);
                 Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
                 Vector2 normal = groundNormal;
-                if (m_dead || stunned)
+                if (stunned)
                 {
-                    velX = rb.velocity.x;
-                    moveH = (int)Mathf.Sign(rb.velocity.x);
-                    finalVel = rb.velocity;
-                    Debug.Log(rb.velocity.x);
+                    //velX = rb.velocity.x;
+                    
+                    //finalVel = velX;
+                    Debug.Log(moveH);
                 }
                 finalVel = GetSlopeVelocity(moveH, velX, finalVel, normal);
+                if (stunned) Debug.Log(finalVel);
                 rb.velocity = finalVel;
-                if (stunned) rb.velocity *= 0.95f;
+                //if (stunned) rb.velocity = new Vector2(rb.velocity.x * 0.95f, rb.velocity.y);
                 Jump(velY);
                 
                 ChangeFacingOnMove(moveH);

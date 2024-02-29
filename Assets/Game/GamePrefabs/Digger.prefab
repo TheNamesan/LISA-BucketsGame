@@ -76,6 +76,7 @@ MonoBehaviour:
   coneDistance: 8.5
   coneAccuracy: 12
   burrowSprite: {fileID: 6728792236865751752}
+  jumpForce: 10
   decelerationRate: 3
   roamSpeed: 4
   m_attacking: 0
@@ -83,10 +84,12 @@ MonoBehaviour:
   attackTick: 10
   m_attackingTicks: 0
   m_buried: 0
-  buriedDuration: 2
+  buriedDuration: 6
   m_buriedTicks: 0
   buryCooldown: 50
   m_buryCooldownTicks: 0
+  jumpPrepTime: 20
+  m_jumpPrepTicks: 0
 --- !u!114 &6623389631878210771
 MonoBehaviour:
   m_ObjectHideFlags: 0
