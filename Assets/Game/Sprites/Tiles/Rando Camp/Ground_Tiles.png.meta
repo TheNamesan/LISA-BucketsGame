@@ -171,7 +171,7 @@ TextureImporter:
       name: Ground_Tiles_3
       rect:
         serializedVersion: 2
-        x: 224
+        x: 320
         y: 64
         width: 32
         height: 32
@@ -192,7 +192,7 @@ TextureImporter:
       name: Ground_Tiles_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 352
         y: 64
         width: 32
         height: 32
@@ -213,7 +213,7 @@ TextureImporter:
       name: Ground_Tiles_5
       rect:
         serializedVersion: 2
-        x: 288
+        x: 384
         y: 64
         width: 32
         height: 32
@@ -318,7 +318,7 @@ TextureImporter:
       name: Ground_Tiles_10
       rect:
         serializedVersion: 2
-        x: 224
+        x: 320
         y: 32
         width: 32
         height: 32
@@ -339,7 +339,7 @@ TextureImporter:
       name: Ground_Tiles_11
       rect:
         serializedVersion: 2
-        x: 256
+        x: 352
         y: 32
         width: 32
         height: 32
@@ -360,7 +360,7 @@ TextureImporter:
       name: Ground_Tiles_12
       rect:
         serializedVersion: 2
-        x: 288
+        x: 384
         y: 32
         width: 32
         height: 32
@@ -381,7 +381,7 @@ TextureImporter:
       name: Ground_Tiles_13
       rect:
         serializedVersion: 2
-        x: 320
+        x: 416
         y: 32
         width: 32
         height: 32
@@ -533,7 +533,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -554,7 +554,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -575,7 +575,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -583,6 +583,48 @@ TextureImporter:
       bones: []
       spriteID: 13838c8bbe0c19147bb444906a916408
       internalID: 442833331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_Tiles_23
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58e6438a5fcb787468c42b38472d7e8f
+      internalID: 659370062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Ground_Tiles_24
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99657792bc34fca4c92fa2602324cd78
+      internalID: 958138256
       vertices: []
       indices: 
       edges: []
@@ -614,6 +656,8 @@ TextureImporter:
       Ground_Tiles_20: 1658127271
       Ground_Tiles_21: 213157717
       Ground_Tiles_22: 442833331
+      Ground_Tiles_23: 659370062
+      Ground_Tiles_24: 958138256
       Ground_Tiles_3: -33376817
       Ground_Tiles_4: 347347989
       Ground_Tiles_5: -89913459
