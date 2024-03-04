@@ -82,6 +82,7 @@ namespace BucketsGame
             if (m_paused == pause) return;
             m_paused = pause;
             if (m_paused) UIManager.instance.ShowPauseMenu();
+            TUFF.GameManager.instance.DisablePlayerInput(pause);
         }
         public void ToggleFocus(bool enable)
         {

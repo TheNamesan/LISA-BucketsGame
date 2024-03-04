@@ -151,7 +151,7 @@ namespace BucketsGame
 
 
             Color boxColor = Color.red;
-            
+
 
             // This is a fix used when reaching the top of a slope
             // Added dashing alongside IsOnSlope as sometimes moving too fast would put you airborne if you tried to slide down a slope
@@ -162,7 +162,8 @@ namespace BucketsGame
                 if (snapAttempt)
                 {
                     collision = snapAttempt;
-                    rb.velocity = Vector2.zero; // Important!
+                    //rb.velocity = Vector2.zero; // Important!
+                    rb.velocity = new Vector2(rb.velocity.x, 0f); // Important!
                     SnapToGround(sizeMult, collision, instant: true); // The instant is important so it doesn't cancel the speed in MoveHandler (rb.MovePosition is the issue)
                     collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
                 }
@@ -215,9 +216,10 @@ namespace BucketsGame
                 {
                     //var boxDiff = new Vector2(Mathf.Abs(normalHitV.normal.x), Mathf.Abs(normalHitV.normal.y)) - Vector2.up;
                     //var rayDiff = new Vector2(Mathf.Abs(normalHitVRay.normal.x), Mathf.Abs(normalHitVRay.normal.y)) - Vector2.up;
-                    var boxDiff = Vector2.Distance(normalHitV.normal, Vector2.up);
-                    var rayDiff = Vector2.Distance(normalHitVRay.normal, Vector2.up);
-                    if (boxDiff < rayDiff) // Keep this!!!!
+                    float boxDiff = Vector2.Distance(normalHitV.normal, Vector2.up);
+                    float rayDiff = Vector2.Distance(normalHitVRay.normal, Vector2.up);
+                    //if (boxDiff < rayDiff) 
+                    if (Mathf.Abs(boxDiff - rayDiff) >= 0.001f) // Keep this!!!!
                     {
                         Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
                         normal = normalHitVRay.normal; // If this takes priority, it allows climbing down normally
