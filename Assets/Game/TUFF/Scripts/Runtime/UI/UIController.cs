@@ -26,6 +26,7 @@ namespace TUFF
         [SerializeField]
         int DisplaySlots;
         [SerializeField] protected PauseMenuHUD pauseMenu;
+        [SerializeField] protected OptionsMenuManager optionsMenu;
         [SerializeField] protected ChoicesMenu choicesMenu;
         [SerializeField] protected ShopMenu shopMenu;
         [SerializeField] protected RectTransform loadingIcon;
@@ -204,7 +205,10 @@ namespace TUFF
         {
             return activeMenus[0];
         }
-
+        public void OpenOptionsMenu()
+        {
+            optionsMenu.OpenOptionsMenu();
+        }
         public void OpenShop(ShopData shopData, EventAction actionCallback = null)
         {
             shopMenu.OpenShop(shopData, actionCallback);

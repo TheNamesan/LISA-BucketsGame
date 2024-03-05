@@ -23,10 +23,13 @@ namespace BucketsGame
             uiMenu.CloseMenu();
             SceneManager.LoadScene(mainMenuScene);
         }
+        public void A_Options()
+        {
+            UIController.instance.OpenOptionsMenu();
+        }
         public void OnClose()
         {
             BucketsGameManager.instance.Pause(false);
-            
         }
     }
 }

@@ -7,6 +7,7 @@ namespace TUFF
     public class OptionsMenuManager : MonoBehaviour
     {
         [Header("References")]
+        public UIMenu uiMenu;
         public UIPicker refreshRate;
         public UIPicker windowMode;
         public UIPicker windowRes;
@@ -15,6 +16,10 @@ namespace TUFF
         public UISlider ambienceSlider;
         public UIPicker textSpeed;
 
+        public void OpenOptionsMenu()
+        {
+            uiMenu.OpenMenu();
+        }
         public void SetOptionsValues() // Called from OptionsMenu OnOpenMenu
         {
             if (GameManager.instance == null) return;
