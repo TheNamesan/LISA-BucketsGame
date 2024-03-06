@@ -17,6 +17,8 @@ namespace BucketsGame
         [SerializeField] private GameObject content;
         private Vector2 cursorHotspot;
 
+        [SerializeField] private Image m_nextRoomIndicator;
+
         [SerializeField] private GameObject retryText;
         [Header("Bar")]
         public Image focusFill;
@@ -62,12 +64,30 @@ namespace BucketsGame
         private void Update()
         {
             UpdateBar();
+            UpdateIndicator();
             if (SceneProperties.mainPlayer)
                 retryText?.SetActive(SceneProperties.mainPlayer.dead);
         }
         private void LateUpdate()
         {
             if (content) content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying);
+        }
+        private void UpdateIndicator()
+        {
+            m_nextRoomIndicator.gameObject.SetActive(SceneProperties.instance.nextRoomAvailable);
+            if (!m_nextRoomIndicator) return;
+            var nextRoomDoor = SceneProperties.instance.nextRoomCheck;
+            if (!nextRoomDoor) return;
+            var worldPosition = nextRoomDoor.transform.position;
+            var canvasPosition = SceneProperties.cam.WorldToScreenPoint(worldPosition);
+            // Clamp Position to be on the screen
+            Vector2 padding = new Vector2(100f, 100f) + m_nextRoomIndicator.rectTransform.sizeDelta;
+            //Debug.Log(padding);
+            Vector2 min = new Vector2(0, 0) + padding;
+            Vector2 max = new Vector2(Screen.width, Screen.height) - padding;
+            
+            canvasPosition = new Vector2(Mathf.Clamp(canvasPosition.x, min.x, max.x), Mathf.Clamp(canvasPosition.y, min.y, max.y));
+            m_nextRoomIndicator.rectTransform.position = canvasPosition;
         }
         private void UpdateBar()
         {
