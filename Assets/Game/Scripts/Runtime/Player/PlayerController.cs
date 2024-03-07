@@ -47,8 +47,8 @@ namespace BucketsGame
         [SerializeField] private int m_jumps = 0;
         [SerializeField] private int m_midairDashes = 0;
 
-
         [Header("Dash")]
+        public float adrenalineSpeedScale = 1.4f;
         public float dashSpeed = 15;
         public int dashTicksDuration = 25;
         public bool dashing = false;
@@ -218,8 +218,8 @@ namespace BucketsGame
                     //var rayDiff = new Vector2(Mathf.Abs(normalHitVRay.normal.x), Mathf.Abs(normalHitVRay.normal.y)) - Vector2.up;
                     float boxDiff = Vector2.Distance(normalHitV.normal, Vector2.up);
                     float rayDiff = Vector2.Distance(normalHitVRay.normal, Vector2.up);
-                    //if (boxDiff < rayDiff) 
-                    if (Mathf.Abs(boxDiff - rayDiff) >= 0.001f) // Keep this!!!!
+                    if (boxDiff < rayDiff) 
+                    // (Mathf.Abs(boxDiff - rayDiff) >= 0.001f) // Keep this!!!!
                     {
                         Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
                         normal = normalHitVRay.normal; // If this takes priority, it allows climbing down normally
@@ -330,8 +330,6 @@ namespace BucketsGame
                 bool shot = weapon.Shoot(aimNormal);
                 if (shot)
                 {
-                    
-                    
                     ChangeFacingToShootDirection(aimNormal);
                 }
             }
@@ -437,7 +435,6 @@ namespace BucketsGame
                 if (stunned)
                 {
                     //velX = rb.velocity.x;
-                    
                     //finalVel = velX;
                     Debug.Log(moveH);
                 }
@@ -488,11 +485,14 @@ namespace BucketsGame
         private float GetVelX(int moveH)
         {
             if (m_dead || stunned) return rb.velocity.x;
-            float velocity = moveH * moveSpeed; // Walk Speed
+            float speed = moveSpeed;
+            if (BucketsGameManager.instance.focusMode) speed *= adrenalineSpeedScale;
+            float velocity = moveH * speed; // Walk Speed
             if (dashing) // Dash Speed
-            { 
-                velocity = Mathf.Lerp(moveSpeed, dashSpeed,(float)m_dashTicks / dashTicksDuration) * m_dashDirection; 
-            } 
+            {
+                velocity = Mathf.Lerp(speed, dashSpeed, (float)m_dashTicks / dashTicksDuration) * m_dashDirection;
+            }
+            
             return velocity;
         }
         private void DashHandler()

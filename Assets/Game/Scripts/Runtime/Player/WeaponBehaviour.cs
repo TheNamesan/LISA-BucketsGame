@@ -15,6 +15,11 @@ namespace BucketsGame
         [Header("Shoot")]
         public WeaponMode weaponMode = WeaponMode.Pistols;
         public Vector2 shootNormal;
+        public int adrenalineFireRateIterations = 4;
+
+        [Header("Velocity")]
+        public float normalVelocity = 30;
+        public float adrenalineVelocityScale = 1.4f;
 
         [Header("Pistol")]
         public int ticksFireRate = 15;
@@ -31,9 +36,15 @@ namespace BucketsGame
         private void FixedUpdate()
         {
             if (m_ticks > 0)
-                m_ticks--;
+            {
+                int iterations = (BucketsGameManager.instance.focusMode ? adrenalineFireRateIterations : 1);
+                m_ticks -= iterations;
+                if (m_ticks < 0) m_ticks = 0;
+            }
             if (m_animTicks > 0)
+            {
                 m_animTicks--;
+            }
         }
         /// <summary>
         /// 
@@ -57,7 +68,7 @@ namespace BucketsGame
                     //Debug.Log("Using hit offset");
                 }
                 position += offset;
-                BulletsPool.instance.SpawnBullet(position, normal);
+                BulletsPool.instance.SpawnBullet(position, normal, GetVelocity());
                 AudioManager.instance.PlaySFX(SFXList.instance.pistolShotSFX);
             }
             else if (weaponMode == WeaponMode.Shotgun)
@@ -73,7 +84,7 @@ namespace BucketsGame
                     Vector2 dir = (nor).normalized;
                     Debug.DrawRay(transform.position, dir, Color.white, 1f);
 
-                    BulletsPool.instance.SpawnBullet(position, dir);
+                    BulletsPool.instance.SpawnBullet(position, normal, GetVelocity());
                 }
                 SceneProperties.instance.camManager.ShakeCamera(10, 0.5f);
             }
@@ -82,7 +93,11 @@ namespace BucketsGame
             Debug.Log("Pew");
             return true;
         }
-
+        public float GetVelocity()
+        {
+            float vel = normalVelocity * (BucketsGameManager.instance.focusMode ? adrenalineVelocityScale : 1f );
+            return vel;
+        }
         public int GetFireRate()
         {
             return ticksFireRate;

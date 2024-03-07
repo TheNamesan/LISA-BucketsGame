@@ -256,11 +256,13 @@ MonoBehaviour:
   groundCollider: {fileID: 0}
   groundProperties: {fileID: 0}
   ignoredOneWays: []
+  usedNormal: {x: 0, y: 0}
   groundPoint: {x: 0, y: 0}
   groundNormal: {x: 0, y: 0}
   groundIsOneWay: 0
   gravityScale: 2
   maxFallSpeed: -15
+  hp: 1
   m_dead: 0
   weapon: {fileID: 3711834660284266070}
   animHandler: {fileID: 3711834660284266069}
@@ -281,6 +283,7 @@ MonoBehaviour:
   doubleJumping: 0
   m_jumps: 0
   m_midairDashes: 0
+  adrenalineSpeedScale: 1.4
   dashSpeed: 25
   dashTicksDuration: 20
   dashing: 0
@@ -294,6 +297,9 @@ MonoBehaviour:
   wallJumpTicksDuration: 5
   m_wallJumpTicks: 0
   m_wallJumpDirection: 0
+  stunDuration: 62
+  m_stunTicks: 0
+  ignoreLandAnim: 0
 --- !u!114 &3711834660284266070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +314,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponMode: 0
   shootNormal: {x: 0, y: 0}
+  adrenalineFireRateIterations: 3
+  normalVelocity: 30
+  adrenalineVelocityScale: 1.4
   ticksFireRate: 15
   pistolAnimDuration: 50
 --- !u!114 &3711834660284266069
@@ -562,7 +571,7 @@ LineRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 200933865
-  m_SortingLayer: -2
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}

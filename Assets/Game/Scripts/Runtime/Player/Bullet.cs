@@ -33,6 +33,10 @@ namespace BucketsGame
         {
             Fire(normal, defaultSprite, defaultSpriteSize, team);
         }
+        public void Fire(Vector2 normal, float velocity, Team team = Team.Player)
+        {
+            Fire(normal, defaultSprite, defaultSpriteSize, velocity, team);
+        }
         public void Fire(Vector2 normal, Sprite sprite, Vector2 size, float velocity, Team team = Team.Player)
         {
             gameObject.SetActive(true);
