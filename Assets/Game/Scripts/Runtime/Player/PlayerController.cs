@@ -324,7 +324,7 @@ namespace BucketsGame
         private void ShootHandler()
         {
             if (m_dead || stunned) return;
-            if (weapon && input.shootDown && !dashing)
+            if (weapon && input.shootDown && !wallClimb && !wallJumping && !dashing)
             {
                 Vector2 aimNormal = DistanceToMouse().normalized;
                 bool shot = weapon.Shoot(aimNormal);
