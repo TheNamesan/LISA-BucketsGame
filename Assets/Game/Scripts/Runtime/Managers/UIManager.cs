@@ -74,6 +74,12 @@ namespace BucketsGame
         }
         private void UpdateIndicator()
         {
+            if (!m_nextRoomIndicator) return;
+            if (!SceneProperties.instance.nextRoomCheck)
+            {
+                m_nextRoomIndicator.gameObject.SetActive(false);
+                return;
+            }
             m_nextRoomIndicator.gameObject.SetActive(SceneProperties.instance.nextRoomAvailable);
             if (!m_nextRoomIndicator) return;
             var nextRoomDoor = SceneProperties.instance.nextRoomCheck;

@@ -78,6 +78,7 @@ namespace BucketsGame
 
         private void ResetObject()
         {
+            Debug.Log($"Resetting Object: {gameObject.name}");
             Component[] components = new Component[0];
             if (includeChildren)
             {
@@ -88,13 +89,14 @@ namespace BucketsGame
                 components = GetComponents<Component>();
             }
             LoadComponents(components);
+            Debug.Log($"Reseted Object: {gameObject.name}");
         }
 
         private void LoadComponents(Component[] components)
         {
             for (int i = 0; i < components.Length; i++)
             {
-                Debug.Log(components[i], this);
+                //Debug.Log(components[i], this);
                 if (components[i] is not MonoBehaviour)
                 {
                     if (components[i] is Transform trs)

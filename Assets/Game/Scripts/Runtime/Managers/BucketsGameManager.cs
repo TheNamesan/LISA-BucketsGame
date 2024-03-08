@@ -24,7 +24,7 @@ namespace BucketsGame
         public int playerLayer = 7;
         public PhysicsMaterial2D aliveMat;
         public PhysicsMaterial2D deadMat;
-        
+        private bool m_queuedReset = false;
 
         public static BucketsGameManager instance { 
             get
@@ -75,7 +75,16 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
+            CheckResetQueue();
             FocusTimer();
+        }
+        private void CheckResetQueue()
+        {
+            if (m_queuedReset)
+            {
+                ResetLevel();
+            }
+            m_queuedReset = false;
         }
         public void Pause(bool pause)
         {
@@ -118,6 +127,10 @@ namespace BucketsGame
         public float FocusFill()
         {
             return (float)focusTicks / (float)maxFocusTicks;
+        }
+        public void QueueReset()
+        {
+            m_queuedReset = true;
         }
         public void ResetLevel()
         {

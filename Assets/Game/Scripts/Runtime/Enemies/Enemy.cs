@@ -125,9 +125,9 @@ namespace BucketsGame
                     else if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
                     {
                         color = Color.green;
-                        Debug.Log("Found enemy on it: " + i);
+                        Debug.Log($"[{gameObject.name}] Found enemy on it: " + i + $". Pos: {SceneProperties.mainPlayer.transform.position}");
                         AlertEnemy();
-                        break;
+                        return;
                     }
                 }
                 //Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
