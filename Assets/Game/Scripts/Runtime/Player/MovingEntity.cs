@@ -57,14 +57,14 @@ namespace BucketsGame
 
         protected virtual void GroundCheck()
         {
-            if (m_dead) return;
+            //if (m_dead) return;
             LayerMask layers = groundLayers;
             if (!ignoreOneWay) layers = layers | oneWayGroundLayers;
 
             //Vertical Collision
             float sizeMult = 0.1f;
-            Vector2 collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset * sizeMult);
-            float collisionBoxDistance = collisionBoxSize.y * 10f;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);
+            Vector2 collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset);
+            float collisionBoxDistance = Physics2D.defaultContactOffset;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);
             RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
 
             Color boxColor = Color.red;

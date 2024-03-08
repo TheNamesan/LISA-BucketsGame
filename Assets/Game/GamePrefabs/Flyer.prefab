@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7588237943867467855}
   - component: {fileID: 7588237943867467843}
   - component: {fileID: 4401135276738112578}
+  - component: {fileID: 8093598276816715337}
   - component: {fileID: 4401135276738112577}
   - component: {fileID: 7588237943867467852}
   - component: {fileID: 7588237943867467853}
@@ -75,14 +76,15 @@ MonoBehaviour:
   groundCollider: {fileID: 0}
   groundProperties: {fileID: 0}
   ignoredOneWays: []
+  usedNormal: {x: 0, y: 0}
   groundPoint: {x: 0, y: 0}
   groundNormal: {x: 0, y: 0}
   groundIsOneWay: 0
   gravityScale: 0
   maxFallSpeed: -15
+  hp: 2
   m_dead: 0
   enemyState: 0
-  hp: 2
   coneAngle: 90
   coneAngleOffset: 45
   coneDistance: 16
@@ -91,12 +93,29 @@ MonoBehaviour:
   roamSpeed: 1
   approachDistance: 10
   deadGravity: 2
-  fireAnimDuration: 35
+  fireAnimDuration: 40
   fireTick: 15
   fireRate: 50
   m_firing: 0
   m_fireAnimTicks: 0
   m_fireCooldownTicks: 0
+--- !u!114 &8093598276816715337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588237943867467848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4c66448d3426144faace8f7925a5bc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 4401135276738112577}
+  spriteRenderer: {fileID: 7588237944562215860}
+  lastStateName: 
+  animationInWait: 0
+  target: {fileID: 4401135276738112578}
 --- !u!95 &4401135276738112577
 Animator:
   serializedVersion: 5
@@ -107,7 +126,7 @@ Animator:
   m_GameObject: {fileID: 7588237943867467848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a078558aa3edaa24a8ddf0db339402ed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
