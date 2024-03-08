@@ -31,8 +31,8 @@ namespace BucketsGame
             {
                 if (m_dead)
                 {
-                    sprite.color = Color.red;
-                    rb.constraints = RigidbodyConstraints2D.None;
+                    //sprite.color = Color.red;
+                    //rb.constraints = RigidbodyConstraints2D.None;
                 }
                 else
                 {
@@ -51,9 +51,10 @@ namespace BucketsGame
         {
             if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
             else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
+            
+            GroundCheck();
             if (m_dead) rb.gravityScale = deadGravity;
             else rb.gravityScale = gravityScale;
-            GroundCheck();
             WallCheck();
             CheckPlayerDistance();
             MoveHandler();
@@ -201,7 +202,7 @@ namespace BucketsGame
             if (m_firing && m_fireAnimTicks > 0)
             {
                 m_fireAnimTicks--;
-                if (m_fireAnimTicks == fireTick) // Shoot Projectile
+                if ((fireAnimDuration - m_fireAnimTicks) == fireTick) // Shoot Projectile
                 {
                     ShootProjectile();
                 }
@@ -227,7 +228,7 @@ namespace BucketsGame
             m_dead = true;
             StopFire();
             SetAirborne();
-            launch *= 40f;
+            launch *= 0f;
             rb.velocity = (launch);
             BucketsGameManager.instance.OnEnemyKill();
             return true;
