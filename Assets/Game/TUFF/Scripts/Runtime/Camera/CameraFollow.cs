@@ -54,6 +54,11 @@ namespace TUFF
         {
             if (!cam) cam = GetComponent<Camera>();
             if (background && !backgroundSpr) backgroundSpr = background.GetComponent<SpriteRenderer>();
+            if (!si && transform.parent)
+            {
+                si = transform.parent.GetComponentInChildren<SceneProperties>();
+            }
+            if (!si) Debug.LogWarning("No Scene Properties found!");
         }
         void Start()
         {
@@ -84,13 +89,17 @@ namespace TUFF
         private void UpdateCamera()
         {
             Vector3 startpos = transform.position;
-            if (!FollowerInstance.player) return;
-            if (!FollowerInstance.player.controller) return;
-            Vector3 endpos = FollowerInstance.player.controller.transform.position;
-            endpos.z = transform.position.z;
+            if (FollowerInstance.player && FollowerInstance.player.controller)
+            {
+                Vector3 endpos = FollowerInstance.player.controller.transform.position;
+                endpos.z = transform.position.z;
+                if (!disableCameraFollow) transform.position = endpos;
+            }
+            
             camHalfHeight = (2f * cam.orthographicSize) / 2;
             camHalfWidth = camHalfHeight * cam.aspect;
             //Debug.Log($"W: {camHalfWidth}, H: {camHalfHeight}");
+            if (!si) return;
             min = new Vector2(Mathf.Min(si.min.x, si.max.x), Mathf.Min(si.min.y, si.max.y));
             max = new Vector2(Mathf.Max(si.min.x, si.max.x), Mathf.Max(si.min.y, si.max.y));
             float minPosX = min.x + camHalfWidth;
@@ -98,7 +107,7 @@ namespace TUFF
             float minPosY = min.y + camHalfHeight;
             float maxPosY = max.y - camHalfHeight;
             
-            if (!disableCameraFollow) transform.position = endpos;
+            
 
             // Clamp Position
             Vector2 clampMinPos = new Vector2(minPosX + pixelPerfectOffsetX, minPosY + pixelPerfectOffsetY);

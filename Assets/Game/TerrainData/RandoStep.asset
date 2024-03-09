@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b84086d428402045bd94e2c14575de2, type: 3}
+  m_Name: RandoStep
+  m_EditorClassIdentifier: 
+  stepSFXs:
+  - audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 4fa38c80ea90d924cac16f733c944d93, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 0.8
+    minVolume: 0
+    pitchMode: 0
+    pitch: 1
+    minPitch: 0
+  stepPitchVariation: 0.4
+  wallHitSFXs:
+  - audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: c101579e3cc7aff4c86105bfe725eefd, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 0
+    pitchMode: 0
+    pitch: 1
+    minPitch: 0
+  wallHitVariation: 0.4
+  stepEffectPrefab: {fileID: 0}
+  changeAnimationPackAlt: 0
+  animationPackAltIndex: 0
+  overrideClimbMode: 0
+  climbMode: 0
