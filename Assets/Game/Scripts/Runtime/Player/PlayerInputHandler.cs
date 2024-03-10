@@ -36,10 +36,17 @@ namespace BucketsGame
         public void Shoot(InputAction.CallbackContext context)
         {
             if (!player) return;
+            
             if (context.performed)
+            {
+                gameInput.shoot = true;
                 gameInput.shootDown = true;
+            }
             if (context.canceled)
+            {
+                gameInput.shoot = false;
                 gameInput.shootDown = false;
+            }
         }
         public void Dash(InputAction.CallbackContext context)
         {
@@ -112,7 +119,6 @@ namespace BucketsGame
                 gameInput.shootDown = false;
             }
         }
-        
     }
     [System.Serializable]
     public struct GamePlayerInput
@@ -125,6 +131,7 @@ namespace BucketsGame
                 if (!cam) return Vector2.zero;
                 return cam.ScreenToWorldPoint(mousePoint);
         }}
+        public bool shoot;
         public bool shootDown;
         public bool dashDown;
         public bool jumpDown;

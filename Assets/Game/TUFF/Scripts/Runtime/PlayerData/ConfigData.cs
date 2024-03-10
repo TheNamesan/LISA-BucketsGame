@@ -16,6 +16,7 @@ namespace TUFF
         [Range(0f, 1f)] public float globalAmbienceVolume = 1f;
         public int textSpeed = 0;
         public bool lost = false;
+        public bool bucketsAutoFire = false;
 
         public void SaveData()
         {
@@ -35,6 +36,7 @@ namespace TUFF
             globalAmbienceVolume = load.globalAmbienceVolume;
             textSpeed = load.textSpeed;
             lost = load.lost;
+            bucketsAutoFire = load.bucketsAutoFire;
         }
         public static ConfigData GetDefaultData() // Set Best Settings for current device on first load here
         {
@@ -50,6 +52,7 @@ namespace TUFF
             configData.globalAmbienceVolume = 1f;
             configData.textSpeed = 0;
             configData.lost = false;
+            configData.bucketsAutoFire = false;
             return configData;
         }
     }

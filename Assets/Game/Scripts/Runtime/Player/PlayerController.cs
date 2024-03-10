@@ -324,7 +324,9 @@ namespace BucketsGame
         private void ShootHandler()
         {
             if (m_dead || stunned) return;
-            if (weapon && input.shootDown && !wallClimb && !wallJumping && !dashing)
+            bool disabledByAction = wallClimb || wallJumping || dashing;
+            bool shoot = input.shootDown || (input.shoot && TUFF.GameManager.instance.configData.bucketsAutoFire);
+            if (weapon && shoot && !disabledByAction)
             {
                 Vector2 aimNormal = DistanceToMouse().normalized;
                 bool shot = weapon.Shoot(aimNormal);

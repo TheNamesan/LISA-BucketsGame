@@ -15,6 +15,7 @@ namespace TUFF
         public UISlider sfxSlider;
         public UISlider ambienceSlider;
         public UIPicker textSpeed;
+        public UIPicker autoFire;
 
         public void OpenOptionsMenu()
         {
@@ -69,6 +70,9 @@ namespace TUFF
             // Text Speed
             textSpeed.highlightedOption = GameManager.instance.configData.textSpeed;
             textSpeed.UpdateText();
+
+            autoFire.highlightedOption = GameManager.instance.configData.bucketsAutoFire ? 1 : 0;
+            autoFire.UpdateText();
         }
 
         public void UpdateGlobalMusicVolume(float volume)
@@ -91,6 +95,7 @@ namespace TUFF
 
         public void SetFullscreen()
         {
+            //Debug.Log("Updated Fullscreen:" + System.Convert.ToBoolean(windowMode.highlightedOption));
             GameManager.instance.configData.fullscreen = System.Convert.ToBoolean(windowMode.highlightedOption);
             GameManager.instance.SetGameFullscreen(GameManager.instance.configData.fullscreen);
             SaveOptionsData();
@@ -110,6 +115,12 @@ namespace TUFF
         public void SetTextSpeed()
         {
             GameManager.instance.configData.textSpeed = textSpeed.highlightedOption;
+            SaveOptionsData();
+        }
+        public void SetBucketsAutoFire()
+        {
+            Debug.Log("Updated Auto Fire: " + autoFire.highlightedOption);
+            GameManager.instance.configData.bucketsAutoFire = System.Convert.ToBoolean(autoFire.highlightedOption);
             SaveOptionsData();
         }
 
