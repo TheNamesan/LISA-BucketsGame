@@ -26,6 +26,12 @@ namespace BucketsGame
         [SerializeField] private int m_buryCooldownTicks = 0;
         public int jumpPrepTime = 10;
         [SerializeField] private int m_jumpPrepTicks = 0;
+        public int buriedMaxShield = 3;
+        [SerializeField] private int m_shield = 0;
+        [SerializeField] private Vector2 m_defaultHurtboxOffset = Vector2.zero;
+        [SerializeField] private Vector2 m_defaultHurtboxSize = new Vector2(0.45f, 1f);
+        [SerializeField] private Vector2 m_buriedHurtboxOffset = new Vector2(0f, -0.275f);
+        [SerializeField] private Vector2 m_buriedHurtboxSize = new Vector2(0.45f, 0.45f);
 
         private void Start()
         {
@@ -59,12 +65,23 @@ namespace BucketsGame
         {
             if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;
             else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
+
+            AdjustHurtbox();
             GroundCheck();
             WallCheck();
             CheckPlayerDistance();
             MoveHandler();
             TimerHandler();
         }
+
+        private void AdjustHurtbox()
+        {
+            var offset = (m_buried ? m_buriedHurtboxOffset : m_defaultHurtboxOffset);
+            var size = (m_buried ? m_buriedHurtboxSize : m_defaultHurtboxSize);
+            hurtbox.col.offset = offset;
+            hurtbox.col.size = size;
+        }
+
         private void CheckPlayerDistance()
         {
             if (m_dead) return;
@@ -90,7 +107,7 @@ namespace BucketsGame
                 {
                     var layer = 1 << BucketsGameManager.instance.playerLayer;
                     RaycastHit2D collisionWithPlayer = Physics2D.BoxCast(rb.position, col.size, 0f, Vector2.up, 0f, layer);
-                    if (collisionWithPlayer)
+                    if (collisionWithPlayer || m_shield <= 0)
                     {
                         m_buriedTicks++;
                         if (m_buriedTicks >= buriedDuration)
@@ -130,6 +147,7 @@ namespace BucketsGame
         {
             m_buried = true;
             m_buriedTicks = 0;
+            m_shield = buriedMaxShield;
         }
         private void PrepareJump()
         {
@@ -233,7 +251,16 @@ namespace BucketsGame
         public override bool Hurt(Vector2 launch)
         {
             if (m_dead) return false;
-            if (m_buried) return false;
+            
+            if (m_buried)
+            {
+                if (m_shield > 0)
+                {
+                    m_shield--;
+                    return true;
+                }
+                return false;
+            }
             hp--;
             AlertEnemy();
             if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit(); return true; }
