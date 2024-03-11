@@ -270,6 +270,7 @@ MonoBehaviour:
     inputH: 0
     inputV: 0
     mousePoint: {x: 0, y: 0}
+    shoot: 0
     shootDown: 0
     dashDown: 0
     jumpDown: 0
@@ -284,6 +285,10 @@ MonoBehaviour:
   m_jumps: 0
   m_midairDashes: 0
   adrenalineSpeedScale: 1.4
+  slowDownSpeedScale: 0.65
+  slowDownJumpScale: 0.5
+  slowDownDuration: 50
+  m_slowDownTicks: 0
   dashSpeed: 25
   dashTicksDuration: 20
   dashing: 0

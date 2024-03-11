@@ -47,8 +47,14 @@ namespace BucketsGame
         [SerializeField] private int m_jumps = 0;
         [SerializeField] private int m_midairDashes = 0;
 
-        [Header("Dash")]
+        [Header("Speed")]
         public float adrenalineSpeedScale = 1.4f;
+        public float slowDownSpeedScale = 0.65f;
+        public float slowDownJumpScale = 0.5f;
+        public int slowDownDuration = 50;
+        [SerializeField] private int m_slowDownTicks = 0;
+
+        [Header("Dash")]
         public float dashSpeed = 15;
         public int dashTicksDuration = 25;
         public bool dashing = false;
@@ -379,7 +385,7 @@ namespace BucketsGame
                 if (m_dead || stunned) return;
                 DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
-                float velY = moveV * jumpForce;
+                float velY = moveV * jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
                 if (((moveH > 0 || wallJumping) && (IsVerticalWall(wallRightHit)) ||
                     ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) && !dashing) // Wall Climb
                 {
@@ -429,7 +435,7 @@ namespace BucketsGame
                 DashCancelCheck(moveH);
                 if (stunned) moveH = (int)Mathf.Sign(rb.velocity.x);
                 float velX = GetVelX(moveH);
-                float velY = moveV * jumpForce;
+                float velY = moveV * jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
                 // Check door opening
                 CheckDoorOpening(moveH);
                 Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
@@ -477,7 +483,12 @@ namespace BucketsGame
             DashTimer();
             WallJumpTimer();
             StunTimer();
-            
+            if (m_slowDownTicks > 0)
+            {
+                //int value = (grounded ? 2 : 1);
+                m_slowDownTicks--;
+                if (m_slowDownTicks < 0) m_slowDownTicks = 0;
+            }
             // Set to 1 so the walking forwards anim is not visible for 1 frame
             if (weapon.animTicks <= 1)
             {
@@ -488,6 +499,7 @@ namespace BucketsGame
         {
             if (m_dead || stunned) return rb.velocity.x;
             float speed = moveSpeed;
+            if (m_slowDownTicks > 0) speed *= slowDownSpeedScale;
             if (BucketsGameManager.instance.focusMode) speed *= adrenalineSpeedScale;
             float velocity = moveH * speed; // Walk Speed
             if (dashing) // Dash Speed
@@ -635,6 +647,11 @@ namespace BucketsGame
             AudioManager.instance.PlaySFX(SFXList.instance.playerDeadSFX);
             BucketsGameManager.instance.OnPlayerDead();
             return true;
+        }
+        public void Slowdown()
+        {
+            if (m_dead) return;
+            m_slowDownTicks = slowDownDuration;
         }
         public bool Stun(Vector2 launch)
         {

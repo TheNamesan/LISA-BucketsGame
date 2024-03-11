@@ -109,6 +109,10 @@ namespace BucketsGame
                     RaycastHit2D collisionWithPlayer = Physics2D.BoxCast(rb.position, col.size, 0f, Vector2.up, 0f, layer);
                     if (collisionWithPlayer || m_shield <= 0)
                     {
+                        if (collisionWithPlayer && collisionWithPlayer.collider.TryGetComponent(out PlayerController touchedPlayer))
+                        {
+                            touchedPlayer.Slowdown();
+                        }
                         m_buriedTicks++;
                         if (m_buriedTicks >= buriedDuration)
                         {
