@@ -17,7 +17,7 @@ namespace BucketsGame
             set { m_camManager = value; }
         }
         [SerializeField] private PlayerController m_player;
-        [SerializeField] private TUFF.SceneProperties TUFFSceneProperties;
+        public TUFF.SceneProperties TUFFSceneProperties;
         [SerializeField] private PolygonCollider2D worldBoundsCol;
         public PlayerController player
         {
