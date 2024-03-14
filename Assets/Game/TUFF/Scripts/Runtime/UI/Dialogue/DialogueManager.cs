@@ -136,6 +136,13 @@ namespace TUFF
                     rect.anchorMax = new Vector2(0.5f, 1);
                     rect.localPosition = new Vector2(0, parentRT.rect.height * 0.5f);
                 }
+                else if (dialogue.fixedTextboxPosition == FixedTextboxPosition.Center)
+                {
+                    rect.pivot = new Vector2(0.5f, 0.5f);
+                    rect.anchorMin = new Vector2(0.5f, 0.5f);
+                    rect.anchorMax = new Vector2(0.5f, 0.5f);
+                    rect.localPosition = new Vector2(0, 0f);
+                }
                 //ForceRebuild();
             }
         }

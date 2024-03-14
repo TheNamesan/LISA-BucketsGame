@@ -13,7 +13,8 @@ namespace TUFF
     public enum FixedTextboxPosition
     {
         Bottom = 0,
-        Top = 1
+        Top = 1,
+        Center = 2
     }
     [System.Serializable]
     public class Dialogue
