@@ -85,7 +85,8 @@ namespace BucketsGame
             var nextRoomDoor = SceneProperties.instance.nextRoomCheck;
             if (!nextRoomDoor) return;
             var worldPosition = nextRoomDoor.transform.position;
-            var canvasPosition = SceneProperties.cam.WorldToScreenPoint(worldPosition);
+            Vector2 canvasPosition = SceneProperties.cam.WorldToScreenPoint(worldPosition);
+            Vector2 screenCenter = new Vector2(Screen.width, Screen.height) * 0.5f;
             // Clamp Position to be on the screen
             Vector2 padding = new Vector2(100f, 100f) + m_nextRoomIndicator.rectTransform.sizeDelta;
             //Debug.Log(padding);
@@ -93,6 +94,14 @@ namespace BucketsGame
             Vector2 max = new Vector2(Screen.width, Screen.height) - padding;
             
             canvasPosition = new Vector2(Mathf.Clamp(canvasPosition.x, min.x, max.x), Mathf.Clamp(canvasPosition.y, min.y, max.y));
+            Debug.DrawLine(screenCenter, canvasPosition, Color.white);
+            if (true)
+            {
+                Vector2 normal = (canvasPosition - screenCenter).normalized;
+                float angle = Vector2.SignedAngle(normal, Vector2.right);
+                var rotation = Quaternion.Euler(0, 0, -angle);
+                m_nextRoomIndicator.rectTransform.rotation = rotation;
+            }
             m_nextRoomIndicator.rectTransform.position = canvasPosition;
         }
         private void UpdateBar()
