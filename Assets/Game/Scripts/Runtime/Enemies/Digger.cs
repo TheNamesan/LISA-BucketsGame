@@ -53,7 +53,7 @@ namespace BucketsGame
                     if (burrowSprite)
                     {
                         burrowSprite.color = (m_jumpPrepTicks > 0 ? Color.red : Color.white);
-                        burrowSprite.enabled = m_buried;
+                        burrowSprite.gameObject.SetActive(m_buried);
                         burrowSprite.transform.localRotation = 
                             Quaternion.Euler(0, 0, Vector2.SignedAngle(Vector2.up, usedNormal));
                     }
