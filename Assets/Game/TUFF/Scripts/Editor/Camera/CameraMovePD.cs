@@ -54,18 +54,18 @@ namespace TUFF.TUFFEditor
                     AddLine(ref rect);
                     var targetTransform = prop.FindPropertyRelative("targetTransform");
                     EditorGUI.PropertyField(rect, targetTransform);
-                    if (LISAUtility.IsPersistentInstance(target.targetTransform))
-                    {
-                        if(LISAUtility.GetPersistentOriginType(target.targetTransform) == PersistentType.AvatarController)
-                        {
-                            target.moveCameraType = MoveCameraType.ReturnToPlayer;
-                        }
-                        else
-                        {
-                            Debug.LogWarning("Target Transform is a Persistent Instance. Use a scene GameObject instead.");
-                        }
-                        target.targetTransform = null;
-                    }
+                    //if (LISAUtility.IsPersistentInstance(target.targetTransform))
+                    //{
+                    //    if(LISAUtility.GetPersistentOriginType(target.targetTransform) == PersistentType.AvatarController)
+                    //    {
+                    //        target.moveCameraType = MoveCameraType.ReturnToPlayer;
+                    //    }
+                    //    else
+                    //    {
+                    //        Debug.LogWarning("Target Transform is a Persistent Instance. Use a scene GameObject instead.");
+                    //    }
+                    //    target.targetTransform = null;
+                    //}
                 }
                 AddLine(ref rect);
                 var onMovementEnd = prop.FindPropertyRelative("onMovementEnd");
