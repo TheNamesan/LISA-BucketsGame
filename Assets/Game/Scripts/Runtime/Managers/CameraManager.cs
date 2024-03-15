@@ -51,7 +51,10 @@ namespace BucketsGame
         {
             if (disableFollow)
             {
-                virtualCam.Follow = disableFollowTransform;
+                if (virtualCam.Follow != disableFollowTransform) virtualCam.Follow = disableFollowTransform;
+                // This will fix the camera from moving slightly to its last damping position when
+                // the camera follow is disabled.
+                virtualCam.ForceCameraPosition(cam.transform.position, cam.transform.rotation);
                 return; 
             }
             virtualCam.Follow = SceneProperties.mainPlayer.transform;
