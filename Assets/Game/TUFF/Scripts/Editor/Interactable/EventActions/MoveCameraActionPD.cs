@@ -24,21 +24,24 @@ namespace TUFF.TUFFEditor
             if (action.targetCamera == null) return "No target set";
             if (action.cameraMove == null) return "No Camera Move set";
             string targetText = "";
+            string cameraName = action.targetCamera.gameObject.name;
             if (action.cameraMove.moveCameraType == MoveCameraType.MoveDelta)
             {
-                targetText = $"Move {action.targetCamera.gameObject.name} Delta {action.cameraMove.moveDelta}";
+                targetText = $"Move {cameraName} Delta {action.cameraMove.moveDelta}";
             }
             else if (action.cameraMove.moveCameraType == MoveCameraType.MoveToWorldPosition)
             {
-                targetText = $"Move {action.targetCamera.gameObject.name} to World Position {action.cameraMove.targetWorldPosition}";
+                targetText = $"Move {cameraName} to World Position {action.cameraMove.targetWorldPosition}";
             }
             else if (action.cameraMove.moveCameraType == MoveCameraType.MoveToTransformPosition)
             {
-                targetText = $"Move {action.targetCamera.gameObject.name} to Transform position ({action.cameraMove.targetTransform.gameObject.name})";
+                string transformName = "null";
+                if (action.cameraMove.targetTransform) transformName = action.cameraMove.targetTransform.gameObject.name;
+                targetText = $"Move {cameraName} to Transform position ({transformName})";
             }
             else if (action.cameraMove.moveCameraType == MoveCameraType.ReturnToPlayer)
             {
-                targetText = $"Return {action.targetCamera.gameObject.name} to Player";
+                targetText = $"Return {cameraName} to Player";
             }
             return $"{targetText}. " +
                 $"Ease {action.cameraMove.easeType}, in {action.cameraMove.timeDuration} second{(action.cameraMove.timeDuration == 1 ? "" : "s")}";
