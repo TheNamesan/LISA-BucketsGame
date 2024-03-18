@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5361a7dfcec48b9438e9ba27b74a22a6, type: 3}
   m_Name: InteractableList
   m_EditorClassIdentifier: 
-  persistentIDs: []
+  persistentIDs:
+  - rid: 3976900992294191204
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3976900992294191204
+      type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
+      data:
+        scene: {fileID: 102900000, guid: ed0288a0efa41644a9aef0f6337ff8b9, type: 3}
+        localID: 1469834044
+        name: Interactable
