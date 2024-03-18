@@ -530,7 +530,7 @@ namespace BucketsGame
             // Cancel facing lock
             CancelFacingLock();
             m_dashTicks = dashTicksDuration;
-            m_dashDirection = FacingToInt(facing);
+            m_dashDirection = FaceToInt();
             dashing = true;
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
@@ -693,10 +693,6 @@ namespace BucketsGame
             else { 
                 //if (lastState != CharacterStates.Idle) weapon.CancelAnim(); 
                 ChangeState(CharacterStates.Idle); }  
-        }
-        public int FacingToInt(Facing faceDir)
-        {
-            return faceDir == Facing.Right ? 1 : -1;
         }
         public Vector2 DistanceToMouse()
         {
