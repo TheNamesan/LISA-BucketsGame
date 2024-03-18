@@ -15,12 +15,18 @@ namespace TUFF
         [Header("Camera Pixel Perfect Offset")]
         private const float pixelPerfectOffsetX = 0.075f;
         private const float pixelPerfectOffsetY = 0.03f;
-    
+        //private const float pixelPerfectOffsetX = 0.0f;
+        //private const float pixelPerfectOffsetY = 0.0f;
+
         float timeOffset = 1;
     
         float camHalfHeight;
         float camHalfWidth;
         Vector3 previousPosition;
+
+        [Header("Background")]
+        public bool anchorBackgroundX = false;
+        public bool anchorBackgroundY = false;
 
         [Header("Parallax")]
         [Header("Parallax Speed")]
@@ -135,12 +141,21 @@ namespace TUFF
         private void UpdateParallax(float minPosX, float maxPosX, float minPosY, float maxPosY)
         {
             
-            if(background != null)
+            if (background != null)
             {
-                float posX = Mathf.Lerp(min.x + backgroundSpr.bounds.size.x * 0.5f, max.x - backgroundSpr.bounds.size.x * 0.5f,
-                    Mathf.InverseLerp(minPosX, maxPosX, transform.position.x));
-                float posY = Mathf.Lerp(min.y + backgroundSpr.bounds.size.y * 0.5f, max.y - backgroundSpr.bounds.size.y * 0.5f,
-                    Mathf.InverseLerp(minPosY, maxPosY, transform.position.y));
+                Vector2 minimumPos = min + (Vector2)backgroundSpr.bounds.size * 0.5f;
+                Vector2 maximumPos = max - (Vector2)backgroundSpr.bounds.size * 0.5f;
+
+                float timeX = Mathf.InverseLerp(minPosX, maxPosX, transform.position.x);
+                float timeY = Mathf.InverseLerp(minPosY, maxPosY, transform.position.y);
+                float posX = Mathf.Lerp(minimumPos.x, maximumPos.x,
+                    timeX);
+                float posY = Mathf.Lerp(minimumPos.y, maximumPos.y,
+                    timeY);
+
+                if (anchorBackgroundX) posX = transform.position.x;
+                if (anchorBackgroundY) posY = transform.position.y;
+
 
                 background.position = new Vector3(
                     posX,

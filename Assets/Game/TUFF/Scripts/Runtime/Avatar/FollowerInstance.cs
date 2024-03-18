@@ -11,13 +11,14 @@ namespace TUFF
 
         private void Awake()
         {
-            if (instance != null)
-            { Destroy(gameObject); }
-            else
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
+            //if (instance != null)
+            //{ Destroy(gameObject); }
+            //else
+            //{
+            //    instance = this;
+            //    Debug.Log("Hi", this.gameObject);
+            //    DontDestroyOnLoad(gameObject);
+            //}
         }
         public void ChangeAnimationPack(AnimationPack animationPack)
         {
