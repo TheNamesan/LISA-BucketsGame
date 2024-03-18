@@ -16,6 +16,7 @@ namespace BucketsGame
         public WeaponBehaviour weapon;
         //public SpriteRenderer sprite;
         public CharacterAnimationHandler animHandler;
+        public AfterImagesHandler afterImagesHandler;
         //public Hurtbox hurtbox;
         
         //public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
@@ -101,6 +102,11 @@ namespace BucketsGame
             //    if (m_dead) rb.constraints = RigidbodyConstraints2D.None;
             //    else rb.constraints = RigidbodyConstraints2D.FreezeRotation;
             //}
+            if (afterImagesHandler)
+            {
+                bool active = dashing || wallJumping || BucketsGameManager.instance.focusMode;
+                afterImagesHandler.enabled = active;
+            }
             GroundedAnimationStateCheck();
         }
         private void FixedUpdate()
