@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace BucketsGame
 {
+    public enum MagicianPatternType
+    {
+        Idle = 0,
+        Shoot = 1,
+        Barrage = 2,
+    }
     public class Magician : Enemy
     {
         [Header("Magician Properties")]
@@ -19,6 +25,7 @@ namespace BucketsGame
                 return new Vector2(normX, normY);
             }
         }
+        public Vector2 roomMiddle { get => Vector2.Lerp(roomBoundsMin, roomBoundsMax, 0.5f); }
 
         [Header("Dash")]
         public float dashSpeed = 25;
@@ -40,9 +47,28 @@ namespace BucketsGame
         public int dashes = 7;
         [SerializeField] private int m_dashesLeft = 0;
 
+        [Header("Pattern")]
+        
+        public MagicianPatternType pattern = MagicianPatternType.Idle;
+        public bool attacking { 
+            get => 
+                (pattern != MagicianPatternType.Idle && (m_activePattern && m_activePattern.inUse) || m_shootTime > 0); 
+        }
+        public Vector2 barragePivot = new Vector2(-16.9f, 1.2f);
+        public int timeBetweenAttacks = 50;
+        [SerializeField] private int m_patternTime = 0;
+        [SerializeField] private MagicianPattern m_activePattern = null;
+
+        [Header("Shoot")]
+        public int shootPatternDuration = 70;
+        [SerializeField] public int m_shootTime = 0;
+
+        
+
         public PlayerController player { get => SceneProperties.mainPlayer; }
         private void Awake()
         {
+            m_patternTime = timeBetweenAttacks;
             ResetDashes();
         }
 
@@ -149,8 +175,59 @@ namespace BucketsGame
        
         private void TimerHandler()
         {
+            PatternTimer();
+            ShootTimer();
             DashTimer();
             InvincibleTimer();
+        }
+        private void PatternTimer()
+        {
+            if (invincible) return;
+            if (attacking) return;
+            m_patternTime--;
+            if (m_patternTime <= 0)
+            {
+                if (pattern != MagicianPatternType.Idle)
+                {
+                    pattern = MagicianPatternType.Idle;
+                    m_patternTime = timeBetweenAttacks;
+                }
+                else
+                {
+                    DoRandomAttack();
+                }
+            }
+        }
+        private void DoRandomAttack()
+        {
+            var random = (MagicianPatternType)Random.Range(1, 3);
+            switch (random)
+            {
+                case MagicianPatternType.Shoot:
+                    pattern = MagicianPatternType.Shoot;
+                    m_shootTime = shootPatternDuration;
+                    break;
+                case MagicianPatternType.Barrage:
+                    pattern = MagicianPatternType.Barrage;
+                    var barrageDir = (BarrageDirection)Random.Range(0, 2);
+                    m_activePattern = MagicianPatternPool.instance.InvokeBarrage(barragePivot, barrageDir);
+                    break;
+            }
+        }
+        private void ShootTimer()
+        {
+            if (pattern != MagicianPatternType.Shoot) return;
+            if (m_shootTime <= 0) return;
+            m_shootTime--;
+            ShootProjectile();
+        }
+        private void ShootProjectile()
+        {
+            var player = SceneProperties.mainPlayer;
+            if (!player) return;
+            Vector2 dir = player.rb.position - rb.position;
+            Vector2 size = Vector2.one;
+            BulletsPool.instance.SpawnBullet(rb.position, dir, Team.Enemy);
         }
         private void DashTimer()
         {

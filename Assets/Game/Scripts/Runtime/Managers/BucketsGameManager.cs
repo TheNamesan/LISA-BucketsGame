@@ -137,6 +137,7 @@ namespace BucketsGame
             GameUtility.KillTween(ref m_hitstunTween);
             ResetGameManager();
             BulletsPool.instance.ResetPool();
+            MagicianPatternPool.instance.ResetPool();
             SceneProperties.instance.ResetLevel();
             EntityResetCaller.onResetLevel.Invoke();
         }

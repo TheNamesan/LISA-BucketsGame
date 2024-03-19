@@ -191,6 +191,54 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1.5
     minPitch: 1
+--- !u!1 &4366076100015176235
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2111622251158414460}
+  - component: {fileID: 984294081093158812}
+  m_Layer: 0
+  m_Name: MagicianPatternPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2111622251158414460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4366076100015176235}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6863682101127422214}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &984294081093158812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4366076100015176235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45c994be827731d4a99d72b1763c7500, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingObjects: 1
+  prefab: {fileID: 0}
+  pool: []
+  barragePrefab: {fileID: 6798457310182030867, guid: 21f581a89852845488483c5a3c594056, type: 3}
 --- !u!1 &5935450050737164437
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +407,7 @@ MonoBehaviour:
     globalAmbienceVolume: 1
     textSpeed: 0
     lost: 0
+    bucketsAutoFire: 0
   gameCanvasPrefab: {fileID: 2184341498768048309, guid: f4aa33790ccdc504fa6700569f716078, type: 3}
   inputManager: {fileID: 8566072047202255938}
   databaseLoader: {fileID: 7760827275875051410}
@@ -813,6 +862,7 @@ MonoBehaviour:
     inputH: 0
     inputV: 0
     mousePoint: {x: 0, y: 0}
+    shoot: 0
     shootDown: 0
     dashDown: 0
     jumpDown: 0
@@ -872,6 +922,7 @@ Transform:
   - {fileID: 1013428546601661257}
   - {fileID: 2176787915242323425}
   - {fileID: 3634378098967702237}
+  - {fileID: 2111622251158414460}
   m_Father: {fileID: 6547701444824546337}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -11,7 +11,7 @@ namespace BucketsGame
         public T prefab;
         public List<T> pool = new();
         protected bool m_init = false;
-        protected void Initialize()
+        protected virtual void Initialize()
         {
             if (m_init) return;
             if (prefab)
