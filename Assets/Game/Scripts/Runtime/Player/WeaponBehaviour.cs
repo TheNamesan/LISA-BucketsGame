@@ -65,7 +65,6 @@ namespace BucketsGame
                 if (hit)
                 {
                     offset = hit.point - position;
-                    //Debug.Log("Using hit offset");
                 }
                 position += offset;
                 BulletsPool.instance.SpawnBullet(position, normal, GetVelocity());
@@ -78,13 +77,26 @@ namespace BucketsGame
                 for (int i = 0; i < bullets + 1; i++)
                 {
                     float a = -spreadAngle * 0.5f;
-                    float angle = -Vector2.SignedAngle(normal, Vector2.right) + Mathf.Lerp(-a, a, Mathf.InverseLerp(0, bullets + 1, i));
+
+                    float baseAngle = -Vector2.SignedAngle(normal, Vector2.right);
+                    float spread = Mathf.Lerp(-a, a, Mathf.InverseLerp(0, bullets + 1, i));
+                    //Debug.Log($"It #{i}: {spread}");
+                    float angle = baseAngle + spread;
                     float rad = Mathf.Deg2Rad * angle;
                     Vector2 nor = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
                     Vector2 dir = (nor).normalized;
-                    Debug.DrawRay(transform.position, dir, Color.white, 1f);
 
-                    BulletsPool.instance.SpawnBullet(position, normal, GetVelocity());
+                    position = transform.position;
+                    Vector2 offset = dir * 1f;
+                    // Adjust so it doesn't shoot out of bounds
+                    RaycastHit2D hit = Physics2D.Linecast(position, position + offset, BucketsGameManager.instance.groundLayers);
+                    if (hit)
+                    {
+                        offset = hit.point - position;
+                    }
+                    position += offset;
+                    Debug.DrawRay(position, dir, Color.white, 1f);
+                    BulletsPool.instance.SpawnBullet(position, dir, GetVelocity());
                 }
                 SceneProperties.instance.camManager.ShakeCamera(10, 0.5f);
             }
