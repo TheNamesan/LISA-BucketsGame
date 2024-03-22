@@ -6,9 +6,25 @@ namespace BucketsGame
 {
     public class Door : MovingEntity
     {
+        public Sprite closedOpen;
+        public Sprite rightOpen;
+        public Sprite leftOpen;
         public bool open { get => m_open; }
         [SerializeField] private bool m_open;
-        
+        [SerializeField] private int m_dir = 0;
+
+        private void Update()
+        {
+            if (!open)
+            {
+                sprite.sprite = closedOpen;
+            }
+            else
+            {
+                if (m_dir > 0) sprite.sprite = rightOpen;
+                else sprite.sprite = leftOpen;
+            }
+        }
         public void OpenRight()
         {
             Open(1, true);
@@ -24,14 +40,15 @@ namespace BucketsGame
         public bool Open(float dir, bool killEnemy = false)
         {
             if (m_open) return false;
-            int openDir = (dir > 0 ? 1 : -1);
-            Debug.Log($"Open: {openDir}");
+            m_dir = (dir > 0 ? 1 : -1);
+            //Debug.Log($"Open: {openDir}");
             // Tmp below until we have proper sprites
-            sprite.transform.localPosition = new Vector3(openDir * 0.5f, sprite.transform.localPosition.y, sprite.transform.localPosition.z);
-            sprite.transform.localScale = new Vector3(openDir * 1.5f, sprite.transform.localScale.y, sprite.transform.localScale.z);
+            //sprite.transform.localPosition = new Vector3(openDir * 0.5f, sprite.transform.localPosition.y, sprite.transform.localPosition.z);
+            //sprite.transform.localScale = new Vector3(openDir * 1.5f, sprite.transform.localScale.y, sprite.transform.localScale.z);
             m_open = true;
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.doorOpenSFX);
             
-            if (killEnemy) Hitbox(openDir);
+            if (killEnemy) Hitbox(m_dir);
             col.enabled = false;
 
             return true;
