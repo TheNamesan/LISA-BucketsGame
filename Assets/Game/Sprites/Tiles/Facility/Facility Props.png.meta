@@ -1730,7 +1730,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1751,7 +1751,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1759,6 +1759,27 @@ TextureImporter:
       bones: []
       spriteID: b8fcb6852f5c21e4e87831936273539d
       internalID: -1819079987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility Props_79
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 288
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 911acdd179f345843881cc5609de7990
+      internalID: -1077780347
       vertices: []
       indices: 
       edges: []
@@ -1851,6 +1872,7 @@ TextureImporter:
       Facility Props_76: -1258927096
       Facility Props_77: -1871859101
       Facility Props_78: -1819079987
+      Facility Props_79: -1077780347
       Facility Props_8: 1299867144
       Facility Props_9: 522018551
   spritePackingTag: 
