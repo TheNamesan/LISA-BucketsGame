@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 
@@ -70,11 +71,17 @@ namespace BucketsGame
         }
         private void LateUpdate()
         {
-            if (content) content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying);
+            if (content)
+            {
+                if (SceneManager.GetActiveScene().name == "TitleScreen")
+                { content.SetActive(false); return; }
+                content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying);
+            }
         }
         private void UpdateIndicator()
         {
             if (!m_nextRoomIndicator) return;
+            if (!SceneProperties.instance) return;
             if (!SceneProperties.instance.nextRoomCheck)
             {
                 m_nextRoomIndicator.gameObject.SetActive(false);

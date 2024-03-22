@@ -61,6 +61,10 @@ namespace BucketsGame
                 AssignInstance(this);
             }
         }
+        public void OnEnable()
+        {
+            StartCoroutine(LateFixedUpdate());
+        }
         private static void AssignInstance(BucketsGameManager go)
         {
             if (go == null) return;
@@ -75,9 +79,13 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
-            CheckResetQueue();
             FocusTimer();
         }
+        private IEnumerator LateFixedUpdate()
+        {
+            CheckResetQueue();
+            yield break;
+        }    
         private void CheckResetQueue()
         {
             if (m_queuedReset)
