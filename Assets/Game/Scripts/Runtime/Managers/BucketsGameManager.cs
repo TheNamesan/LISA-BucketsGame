@@ -79,11 +79,12 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
+            CheckResetQueue();
             FocusTimer();
         }
         private IEnumerator LateFixedUpdate()
         {
-            CheckResetQueue();
+            
             yield break;
         }    
         private void CheckResetQueue()

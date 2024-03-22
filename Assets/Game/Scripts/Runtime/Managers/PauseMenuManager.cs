@@ -21,8 +21,18 @@ namespace BucketsGame
         public void A_Exit()
         {
             uiMenu.CloseMenu();
-            SceneManager.LoadScene(mainMenuScene);
+            StartCoroutine(Exit());
+            //SceneManager.LoadScene(mainMenuScene);
         }
+        private IEnumerator Exit()
+        {
+            GameManager.instance.DisablePlayerAndUIInput(true);
+            UIController.instance.fadeScreen.TriggerFadeOut(1f);
+            AudioManager.instance.FadeOutVolume(1f);
+            yield return new WaitForSeconds(1f);
+            SceneLoaderManager.instance.LoadSceneWithFadeIn(mainMenuScene, 0.5f, TUFFSettings.startingScenePosition, TUFFSettings.startingSceneFacing, true, true);
+        }
+    
         public void A_Options()
         {
             UIController.instance.OpenOptionsMenu();
