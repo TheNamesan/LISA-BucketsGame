@@ -78,7 +78,9 @@ namespace BucketsGame
         public override bool Hurt(Vector2 launch)
         {
             if (m_dead) return false;
-            
+            hp--;
+            AlertEnemy();
+            if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit(); return true; }
             return Kill(launch);
         }
         protected void HurtTween()
