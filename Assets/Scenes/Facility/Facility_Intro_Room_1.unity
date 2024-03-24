@@ -64803,6 +64803,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1712725485}
     m_Modifications:
+    - target: {fileID: 4417389242825743458, guid: 6d0c690429080454d86716af8b091053, type: 3}
+      propertyPath: m_dir
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417389242825743458, guid: 6d0c690429080454d86716af8b091053, type: 3}
+      propertyPath: facing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417389242825743458, guid: 6d0c690429080454d86716af8b091053, type: 3}
+      propertyPath: m_dead
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417389242825743458, guid: 6d0c690429080454d86716af8b091053, type: 3}
+      propertyPath: m_open
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4417389242825743458, guid: 6d0c690429080454d86716af8b091053, type: 3}
+      propertyPath: grounded
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4417389242825743459, guid: 6d0c690429080454d86716af8b091053, type: 3}
       propertyPath: m_Name
       value: Door
