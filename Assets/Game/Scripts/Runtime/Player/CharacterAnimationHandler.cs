@@ -6,6 +6,7 @@ namespace BucketsGame
 {
     public class CharacterAnimationHandler : AnimationHandler
     {
+        public Transform scarfPivot;
         public bool showArms;
         public bool showLegs;
         public SpriteRenderer leftArm;
@@ -16,6 +17,9 @@ namespace BucketsGame
         public Vector2 walkPivotLeft = new Vector2(-0.58f, 0.625f);
         public Vector2 walkPivotRight = new Vector2(0.03f, 0.625f);
         //public Vector2 walkHeightOffset = new Vector2(0, 0.125f);
+        public Vector2 scarfNormalPosition = new Vector2(0, 0.72f);
+        public Vector2 scarfShootPosition = new Vector2(-0.27f, 0.72f);
+        public Vector2 scarfDeadPosition = new Vector2(0f, 0.18f);
         private float m_startNormalizedTime = 0;
         private float m_armsStartNormalizedTime = 0;
 
@@ -37,6 +41,16 @@ namespace BucketsGame
         {
             showLegs = show;
             if (legs) legs.gameObject.SetActive(show);
+        }
+        public void SetScarfPivot(int index, int faceDir = 1)
+        {
+            if (!scarfPivot) return;
+            Vector2 pivot = new Vector2();
+            if (index == 0) pivot = scarfNormalPosition;
+            if (index == 1) pivot = scarfShootPosition;
+            if (index == 2) pivot = scarfDeadPosition;
+            pivot.x *= faceDir;
+            scarfPivot.transform.localPosition = pivot;
         }
         public void AngleArms(Vector2 normal, int facingSign, bool walking)
         {
@@ -99,9 +113,14 @@ namespace BucketsGame
             showArm = false;
             showLeg = false;
             if (!controller.flipLock) FlipSprite(controller.facing);
+            SetScarfPivot(0);
             if (controller.dead || controller.stunned)
             {
-                if (!controller.grounded) return "Dead";
+                SetScarfPivot(2);
+                if (!controller.grounded)
+                { 
+                    return "Dead"; 
+                }
                 return "Dead";
             }
             switch (state)
@@ -118,6 +137,7 @@ namespace BucketsGame
                         if (lastStateName.StartsWith("ShootWalk"))
                             m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir) ;
+                        SetScarfPivot(1, faceDir);
                         AngleArms(controller.weapon.shootNormal, faceDir, false);
                         SetAnimationWait(0.44f);
                         return $"ShootIdle";
@@ -153,6 +173,7 @@ namespace BucketsGame
                         if (lastStateName.StartsWith("Walk") || changedWalking)
                             m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir);
+                        SetScarfPivot(1, faceDir);
                         AngleArms(controller.weapon.shootNormal, faceDir, true);
                         SetAnimationWait(0.44f);
                         if (controller.walkingBackwards) { return $"ShootWalkBack"; }
