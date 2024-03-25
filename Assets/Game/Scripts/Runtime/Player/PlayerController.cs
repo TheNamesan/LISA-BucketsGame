@@ -715,6 +715,13 @@ namespace BucketsGame
             movementTween = DOTween.To(() => input.inputH, value => input.inputH = 1f, 0f, duration)
                 .OnComplete(() => input.inputH = 0);
         }
+        public void ForceSmallMovementRight()
+        {
+            GameUtility.KillTween(ref movementTween);
+            float duration = 0.5f;
+            movementTween = DOTween.To(() => input.inputH, value => input.inputH = 1f, 0f, duration)
+                .OnComplete(() => input.inputH = 0);
+        }
     }
 }
 

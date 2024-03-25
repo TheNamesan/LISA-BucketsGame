@@ -16,7 +16,7 @@ namespace BucketsGame
         [SerializeField] private bool m_attacking = false;
         public int attackingAnimTicks = 30;
         public int attackTick = 10;
-        [SerializeField] private int m_attackingTicks = 0;
+        //[SerializeField] private int m_attackingTicks = 0;
         public bool buried { get => m_buried; }
         [SerializeField] private bool m_buried = false;
 
