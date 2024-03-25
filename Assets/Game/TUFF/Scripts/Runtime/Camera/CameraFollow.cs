@@ -232,8 +232,9 @@ namespace TUFF
                     break;
     
                 case MoveCameraType.MoveToTransformPosition:
-                    target = new Vector3(cameraMove.targetTransform.position.x,
-                        cameraMove.targetTransform.position.y, transform.position.z);
+                    Vector2 pos = new Vector2();
+                    if (cameraMove.targetTransform) pos = cameraMove.targetTransform.position;
+                    target = new Vector3(pos.x, pos.y, transform.position.z);
                     break;
     
                 case MoveCameraType.ReturnToPlayer:
@@ -242,7 +243,8 @@ namespace TUFF
                     rememberToEnableCamera = true;
                     break;
             }
-            target = ClampVector(target);
+            //target = ClampVector(target);
+            //Debug.Log("Target: " + target);
             MoveCameraToTarget(cameraMove, rememberToEnableCamera, target);
         }
     
