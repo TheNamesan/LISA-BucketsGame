@@ -259,9 +259,24 @@ namespace BucketsGame
             Vector2 dir = playerPos - rb.position;
             // RaycastAll so it doesn't hit its own hurtbox
             RaycastHit2D[] hitPlayer = Physics2D.RaycastAll(m_shotOrigin, dir, Mathf.Infinity, hitboxLayers);
-            hitGround = Physics2D.Raycast(m_shotOrigin, dir, Mathf.Infinity, groundLayers);
+            var groundHits = Physics2D.LinecastAll(m_shotOrigin, playerPos, groundLayers);
             Debug.DrawRay(m_shotOrigin, dir, Color.magenta, Time.fixedDeltaTime);
             hitTarget = false;
+            hitGround = new();
+            for (int i = 0; i < groundHits.Length; i++)
+            {
+                var ground = groundHits[i];
+                if (ground.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                {
+                    // If enemy bullets can go through, act like there's not a wall there.
+                    if (props.enemyBulletsGoThrough) { continue; }
+                    props.WallHit();
+                }
+                float rotation = Vector2.SignedAngle(Vector2.right, -ground.normal);
+                VFXPool.instance.PlayVFX("WallHitVFX", ground.point, false, rotation);
+                hitGround = ground;
+                return;
+            }
             for (int i = 0; i < hitPlayer.Length; i++)
             {
                 if (hitPlayer[i].collider.TryGetComponent(out Hurtbox hurtbox))
@@ -272,16 +287,7 @@ namespace BucketsGame
                     }
                 }
             }
-            if (!hitTarget && hitGround)
-            {
-                if (hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
-                {
-                    if (props.enemyBulletsGoThrough) { hitGround = new(); return; }
-                    props.WallHit();
-                }
-                float rotation = Vector2.SignedAngle(Vector2.right, -hitGround.normal);
-                VFXPool.instance.PlayVFX("WallHitVFX", hitGround.point, false, rotation);
-            }
+            
         }
         private void FireTimer()
         {
@@ -331,7 +337,5 @@ namespace BucketsGame
         {
             DrawLineOfSightGizmos();
         }
-
-        
     }
 }
