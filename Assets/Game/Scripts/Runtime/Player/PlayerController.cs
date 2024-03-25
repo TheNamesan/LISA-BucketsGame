@@ -704,6 +704,10 @@ namespace BucketsGame
         {
             return input.MousePointWorld - rb.position;
         }
+        public Vector2 DistanceToPoint(Vector2 mousePos)
+        {
+            return mousePos - rb.position;
+        }
         public float AngleToMouse()
         {
             return Vector2.SignedAngle(rb.position, input.MousePointWorld);

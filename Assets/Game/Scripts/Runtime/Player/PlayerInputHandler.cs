@@ -9,6 +9,8 @@ namespace BucketsGame
     {
         public static PlayerInputHandler instance { get => BucketsGameManager.instance.inputHandler; }
         public GamePlayerInput gameInput = new();
+        public Vector2 bufferedPointerWorld = new Vector2();
+        public Vector2 bufferedPointer = new Vector2();
         public PlayerController player { get => SceneProperties.mainPlayer; }
 
         public void Move(InputAction.CallbackContext context)
@@ -106,7 +108,13 @@ namespace BucketsGame
             if (!enabled)
             {
                 // Stop Input
+                bufferedPointer = player.input.mousePoint;
+                bufferedPointerWorld = player.input.MousePointWorld;
                 player.input = new GamePlayerInput();
+            }
+            else
+            {
+                player.input.mousePoint = bufferedPointer;
             }
         }
         public IEnumerator LateFixedUpdate()

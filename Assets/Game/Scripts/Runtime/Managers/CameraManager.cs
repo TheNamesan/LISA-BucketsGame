@@ -69,7 +69,12 @@ namespace BucketsGame
             if (!virtualCam) return Vector2.zero;
             var player = SceneProperties.mainPlayer;
             if (!player) return Vector2.zero;
-            Vector2 distance = player.DistanceToMouse();
+            Vector2 mousePosWorld = player.input.MousePointWorld;
+            if (TUFF.GameManager.disablePlayerInput)
+            {
+                mousePosWorld = PlayerInputHandler.instance.bufferedPointerWorld;
+            }
+            Vector2 distance = player.DistanceToPoint(mousePosWorld);
             float magnitude = distance.magnitude;
             Vector2 inverseLerp = new Vector2(Mathf.InverseLerp(m_minDistance.x, m_maxDistance.x, Mathf.Abs(distance.x)), Mathf.InverseLerp(m_minDistance.y, m_maxDistance.y, Mathf.Abs(distance.y)));
             Vector2 lerp = new Vector2(Mathf.Lerp(m_minOffset.x, m_maxOffset.x, Mathf.Abs(inverseLerp.x)), Mathf.Lerp(m_minOffset.y, m_maxOffset.y, Mathf.Abs(inverseLerp.y)));
