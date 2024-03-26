@@ -119,10 +119,8 @@ namespace BucketsGame
                         float time = (float)m_chargeTimeTicks / chargeTime;
                         
                         chargeColor = Color.Lerp(Color.red, Color.yellow, time);
-                        if (m_chargeTimeTicks == 2 || m_chargeTimeTicks == 3 
-                            || m_chargeTimeTicks == 6 || m_chargeTimeTicks == 7
-                            || m_chargeTimeTicks == 10 || m_chargeTimeTicks == 11
-                            || m_chargeTimeTicks == 14 || m_chargeTimeTicks == 15)
+                        if (m_chargeTimeTicks <= 15 && 
+                            (m_chargeTimeTicks % 4 == 2 || m_chargeTimeTicks % 4 == 3))
                             chargeColor = Color.yellow;
                         widthMultiplier = Mathf.SmoothStep(0.1f, 0.75f, time);
                         alpha = Mathf.SmoothStep(0.75f, 0.5f, time);

@@ -9,6 +9,7 @@ namespace BucketsGame
         Idle = 0,
         Shoot = 1,
         Barrage = 2,
+        Floor = 3
     }
     public class Magician : Enemy
     {
@@ -37,6 +38,7 @@ namespace BucketsGame
         public int dashDirection { get => m_dashDirection; }
         public Color maxDashesColor = new Color(0f, 1f, 0f, 0.5f);
         public Color zeroDashesColor = new Color(1f, 0f, 0f, 0.5f);
+        public Color invincibilityColor = new Color(0f, 0f, 1f, 0.5f);
 
         [Header("Invincibility")]
         public int invincibilityFrames = 150;
@@ -55,15 +57,19 @@ namespace BucketsGame
                 (pattern != MagicianPatternType.Idle && (m_activePattern && m_activePattern.inUse) || m_shootTime > 0); 
         }
         public Vector2 barragePivot = new Vector2(-16.9f, 1.2f);
+        public Vector2 floorPivot = new Vector2(-16.9f, 1.2f);
         public int timeBetweenAttacks = 50;
         [SerializeField] private int m_patternTime = 0;
         [SerializeField] private MagicianPattern m_activePattern = null;
 
         [Header("Shoot")]
+        public Color shootTelegraphColor = Color.magenta;
+        public int shootTelegraphDuration = 20;
         public int shootPatternDuration = 70;
         [SerializeField] public int m_shootTime = 0;
+        public bool InShootTelegraph { get => shootPatternDuration - m_shootTime <= shootTelegraphDuration; }
 
-        
+
 
         public PlayerController player { get => SceneProperties.mainPlayer; }
         private void Awake()
@@ -87,7 +93,17 @@ namespace BucketsGame
             {
                 float time = (dashes == 0 ? 0f : (float)m_dashesLeft / dashes);
                 var color = Color.Lerp(zeroDashesColor, maxDashesColor, time);
+                if (invincible) color = invincibilityColor;
                 afterImagesHandler.targetColor = color;
+            }
+            if (sprite)
+            {
+                if (pattern == MagicianPatternType.Shoot && InShootTelegraph)
+                {
+                    float t = Mathf.InverseLerp(shootPatternDuration, (shootPatternDuration - shootTelegraphDuration), m_shootTime);
+                    sprite.color = Color.Lerp(Color.white, shootTelegraphColor, t);
+                }
+                //else sprite.color = Color.white;
             }
         }
         private void FixedUpdate()
@@ -200,26 +216,35 @@ namespace BucketsGame
         }
         private void DoRandomAttack()
         {
-            var random = (MagicianPatternType)Random.Range(1, 3);
+            var player = SceneProperties.mainPlayer;
+            if (!player) return;
+            if (player.dead) return;
+            if (m_dead) return;
+            var random = (MagicianPatternType)Random.Range(1, 4);
+            pattern = random;
             switch (random)
             {
                 case MagicianPatternType.Shoot:
-                    pattern = MagicianPatternType.Shoot;
                     m_shootTime = shootPatternDuration;
                     break;
                 case MagicianPatternType.Barrage:
-                    pattern = MagicianPatternType.Barrage;
                     var barrageDir = (BarrageDirection)Random.Range(0, 2);
                     m_activePattern = MagicianPatternPool.instance.InvokeBarrage(barragePivot, barrageDir);
                     break;
+                case MagicianPatternType.Floor:
+                    m_activePattern = MagicianPatternPool.instance.InvokeFloor(floorPivot);
+                    break;
             }
+            
         }
         private void ShootTimer()
         {
             if (pattern != MagicianPatternType.Shoot) return;
             if (m_shootTime <= 0) return;
+            if (m_shootTime == shootPatternDuration - shootTelegraphDuration) 
+                sprite.color = Color.white;
             m_shootTime--;
-            ShootProjectile();
+            if (!InShootTelegraph) ShootProjectile();
         }
         private void ShootProjectile()
         {
@@ -251,9 +276,14 @@ namespace BucketsGame
                 if (m_dashesLeft > 0) Dash();
                 else
                 {
+                    CancelAttacks();
                     hp--;
-                    if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit();
-                        SetInvincible(); ResetDashes(); return true; }
+                    if (hp > 0)
+                    {
+                        sprite.color = Color.red;
+                        HurtTween(); BucketsGameManager.instance.OnMagicianHit();
+                        SetInvincible(); ResetDashes(); return true;
+                    }
                     else return Kill(launch);
                 }
             }
@@ -262,6 +292,14 @@ namespace BucketsGame
             //AlertEnemy();
             //if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
             //return Kill(launch);
+        }
+
+        private void CancelAttacks()
+        {
+            pattern = MagicianPatternType.Idle;
+            m_shootTime = 0;
+            m_patternTime = timeBetweenAttacks;
+            MagicianPatternPool.instance.ResetPool();
         }
     }
 }

@@ -189,6 +189,16 @@ namespace BucketsGame
             }
             AddTicks(hitFocusTicksRegain);
         }
+        public void OnMagicianHit()
+        {
+            if (SceneProperties.instance)
+            {
+                float amplitude = 10f;
+                SceneProperties.instance.camManager.ShakeCamera(amplitude, 1f);
+                TUFF.AudioManager.instance.PlaySFX(SFXList.instance.enemyHitSFX);
+                PlayHitstun(0.35f);
+            }
+        }
         
         public void OnPlayerDead()
         {

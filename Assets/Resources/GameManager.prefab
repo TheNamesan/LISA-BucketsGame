@@ -249,6 +249,7 @@ MonoBehaviour:
   prefab: {fileID: 0}
   pool: []
   barragePrefab: {fileID: 6798457310182030867, guid: 21f581a89852845488483c5a3c594056, type: 3}
+  floorPrefab: {fileID: 8155085091445250858, guid: 71f38c444dc9f8c4ba1418c65033f556, type: 3}
 --- !u!1 &5935450050737164437
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,6 +878,8 @@ MonoBehaviour:
     dashDown: 0
     jumpDown: 0
     focus: 0
+  bufferedPointerWorld: {x: 0, y: 0}
+  bufferedPointer: {x: 0, y: 0}
 --- !u!114 &8566072047202255938
 MonoBehaviour:
   m_ObjectHideFlags: 0
