@@ -19,6 +19,7 @@ namespace BucketsGame
             m_delay = fireDelay;
             m_stay = stayTime;
             m_end = endTimer;
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.magicianPortalSFX);
             TmpShowSprite(false); // Tmp;
         }
 

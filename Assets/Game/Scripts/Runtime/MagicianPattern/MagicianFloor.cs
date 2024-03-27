@@ -52,6 +52,8 @@ namespace BucketsGame
             else telegraph.gameObject.SetActive(false);
             if (m_floorTime > 0)
             {
+                if (m_floorTime == floorTotalDuration)
+                    TUFF.AudioManager.instance.PlaySFX(SFXList.instance.magicianGroundSFX);
                 hitboxRef.gameObject.SetActive(true);
                 float t = Mathf.InverseLerp(floorTotalDuration, (floorTotalDuration - floorAscendDuration), m_floorTime);
                 float y = Mathf.Lerp(floorInitialPosition, floorFinalPosition, t);

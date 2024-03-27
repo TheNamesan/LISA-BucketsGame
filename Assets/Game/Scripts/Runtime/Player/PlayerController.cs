@@ -630,7 +630,7 @@ namespace BucketsGame
                         doubleJumping = true;
                         m_jumps--;
                         if (!dashing) ChangeState(CharacterStates.Airborne, true);
-                        VFXPool.instance.PlayVFX("DoubleJumpVFX", sprite.transform.position);
+                        VFXPool.instance.PlayVFX("DoubleJumpVFX", sprite.transform.position, facing == Facing.Left);
                     }
                 }
                 SetAirborne(); //Setting this here so slope fixes get ignored

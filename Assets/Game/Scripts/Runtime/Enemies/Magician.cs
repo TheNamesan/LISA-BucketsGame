@@ -226,6 +226,7 @@ namespace BucketsGame
             {
                 case MagicianPatternType.Shoot:
                     m_shootTime = shootPatternDuration;
+                    TUFF.AudioManager.instance.PlaySFX(SFXList.instance.magicianBarrageSFX);
                     break;
                 case MagicianPatternType.Barrage:
                     var barrageDir = (BarrageDirection)Random.Range(0, 2);
