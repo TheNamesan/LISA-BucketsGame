@@ -17,6 +17,8 @@ namespace BucketsGame
         //public SpriteRenderer sprite;
         public CharacterAnimationHandler animHandler;
         public AfterImagesHandler afterImagesHandler;
+        public AfterImagesHandler leftArmAfterImagesHandler;
+        public AfterImagesHandler rightArmAfterImagesHandler;
         //public Hurtbox hurtbox;
         
         //public Vector2 closestContactPointD { get => col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size); }
@@ -106,6 +108,17 @@ namespace BucketsGame
             {
                 bool active = dashing || wallJumping || BucketsGameManager.instance.focusMode;
                 afterImagesHandler.enabled = active;
+                if (leftArmAfterImagesHandler)
+                {
+                    leftArmAfterImagesHandler.m_time = afterImagesHandler.m_time;
+                    leftArmAfterImagesHandler.enabled = active; 
+                }
+                if (rightArmAfterImagesHandler)
+                {
+                    rightArmAfterImagesHandler.m_time = afterImagesHandler.m_time;
+                    rightArmAfterImagesHandler.enabled = active; 
+                    
+                }
             }
             GroundedAnimationStateCheck();
         }

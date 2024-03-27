@@ -10,7 +10,7 @@ namespace BucketsGame
         private Tween tween;
         public SpriteRenderer sprite;
 
-        public void Invoke(Vector3 position, Sprite sprite, bool flip, Color color, float duration)
+        public void Invoke(Vector3 position, Quaternion rotation, Sprite sprite, bool flip, Color color, float duration)
         {
             gameObject.SetActive(true);
             GameUtility.KillTween(ref tween);
@@ -21,6 +21,7 @@ namespace BucketsGame
                 this.sprite.flipX = flip;
             }
             transform.position = position;
+            transform.rotation = rotation;
             m_inUse = true;
             tween = this.sprite.DOFade(0f, duration).From(color).SetEase(Ease.Linear)
                 .OnComplete(OnComplete);

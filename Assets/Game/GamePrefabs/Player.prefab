@@ -116,6 +116,53 @@ Transform:
   m_Father: {fileID: 3711834660401418070}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2041289269375038277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2572616708025216619}
+  - component: {fileID: 4437586744917775630}
+  m_Layer: 7
+  m_Name: LeftArmAfterImages
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2572616708025216619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041289269375038277}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.52, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3711834660284266073}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &4437586744917775630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041289269375038277}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0f692e8d8c2154583b179bf7331bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSprite: {fileID: 6897272643385181820}
+  rateOverTime: 20
+  targetColor: {r: 0.8745099, g: 0.6666667, b: 0.13725491, a: 0.5}
 --- !u!1 &3711834660200709155
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +261,8 @@ Transform:
   - {fileID: 3711834660401418070}
   - {fileID: 3711834661885002636}
   - {fileID: 803481164522549295}
+  - {fileID: 2572616708025216619}
+  - {fileID: 2717388905537401240}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -267,6 +316,8 @@ MonoBehaviour:
   weapon: {fileID: 3711834660284266070}
   animHandler: {fileID: 3711834660284266069}
   afterImagesHandler: {fileID: 5638499196102414002}
+  leftArmAfterImagesHandler: {fileID: 4437586744917775630}
+  rightArmAfterImagesHandler: {fileID: 2511058718879490194}
   input:
     inputH: 0
     inputV: 0
@@ -351,6 +402,8 @@ MonoBehaviour:
   pivotRight: {x: 0.03125, y: 0.5}
   walkPivotLeft: {x: -0.54875, y: 0.59375}
   walkPivotRight: {x: 0.0625, y: 0.625}
+  fallPivotLeft: {x: -0.3125, y: 0.7075}
+  fallPivotRight: {x: 0.34375, y: 0.645}
   scarfNormalPosition: {x: 0, y: 0.72}
   scarfShootPosition: {x: -0.27, y: 0.72}
   scarfDeadPosition: {x: 0, y: 0.18}
@@ -716,6 +769,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.9}
   m_EdgeRadius: 0
+--- !u!1 &4720218999079246892
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2717388905537401240}
+  - component: {fileID: 2511058718879490194}
+  m_Layer: 7
+  m_Name: RightArmAfterImages
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2717388905537401240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720218999079246892}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.52, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3711834660284266073}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &2511058718879490194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4720218999079246892}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b0f692e8d8c2154583b179bf7331bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSprite: {fileID: 8848599386185273915}
+  rateOverTime: 20
+  targetColor: {r: 0.8745099, g: 0.6666667, b: 0.13725491, a: 0.5}
 --- !u!1 &4910718791046587026
 GameObject:
   m_ObjectHideFlags: 0
