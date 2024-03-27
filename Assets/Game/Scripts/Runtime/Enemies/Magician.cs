@@ -261,7 +261,8 @@ namespace BucketsGame
             if (!player) return;
             Vector2 dir = player.rb.position - rb.position;
             Vector2 size = Vector2.one;
-            BulletsPool.instance.SpawnBullet(rb.position, dir, Team.Enemy);
+            Vector2 offset = dir.normalized * 0.5f;
+            BulletsPool.instance.SpawnBullet(rb.position + offset, dir, Team.Enemy);
         }
         private void DashTimer()
         {
@@ -277,6 +278,8 @@ namespace BucketsGame
         }
         public override bool Hurt(Vector2 launch)
         {
+            var player = SceneProperties.mainPlayer;
+            if (player && player.dead) return false;
             if (m_dead) return false;
             //DoRandomTeleport();
             if (invincible) return false;

@@ -19,7 +19,7 @@ namespace BucketsGame
             m_delay = fireDelay;
             m_stay = stayTime;
             m_end = endTimer;
-            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.magicianPortalSFX);
+            
             TmpShowSprite(false); // Tmp;
         }
 
@@ -46,6 +46,7 @@ namespace BucketsGame
         private void StayTimer()
         {
             if (m_delay > 0 || m_stay <= 0) { TmpShowSprite(false); return; }
+            if (m_stay == stayTime) TUFF.AudioManager.instance.PlaySFX(SFXList.instance.magicianPortalSFX);
             m_stay--;
             AttackHitbox();
             TmpShowSprite(true);

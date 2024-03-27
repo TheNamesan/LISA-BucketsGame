@@ -54,7 +54,6 @@ namespace BucketsGame
         }
         public void AngleArms(Vector2 normal, int facingSign, CharacterStates state)
         {
-            Debug.Log($"Normal: {normal}, Facing: {facingSign}");
             normal *= facingSign;
 
             Vector2 offsetLeft = Vector2.zero;
