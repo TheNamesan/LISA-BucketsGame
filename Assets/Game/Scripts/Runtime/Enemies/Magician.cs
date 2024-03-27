@@ -69,7 +69,7 @@ namespace BucketsGame
         [SerializeField] public int m_shootTime = 0;
         public bool InShootTelegraph { get => shootPatternDuration - m_shootTime <= shootTelegraphDuration; }
 
-
+        public string roomToLoadOnDefeat = "";
 
         public PlayerController player { get => SceneProperties.mainPlayer; }
         private void Awake()
@@ -85,8 +85,16 @@ namespace BucketsGame
 
         private void Start()
         {
+            PreloadRoomOnDefeat();
             //AddAsRoomEnemy();
         }
+
+        private void PreloadRoomOnDefeat()
+        {
+            if (!string.IsNullOrEmpty(roomToLoadOnDefeat))
+                TUFF.SceneLoaderManager.instance.LoadNeighbourScene(roomToLoadOnDefeat);
+        }
+
         private void Update()
         {
             if (afterImagesHandler)
@@ -285,7 +293,13 @@ namespace BucketsGame
                         HurtTween(); BucketsGameManager.instance.OnMagicianHit();
                         SetInvincible(); ResetDashes(); return true;
                     }
-                    else return Kill(launch);
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(roomToLoadOnDefeat))
+                        TUFF.SceneLoaderManager.instance.LoadScene(roomToLoadOnDefeat, 
+                            Vector2.zero, TUFF.FaceDirections.East, true, false, false);
+                        return Kill(launch);
+                    }
                 }
             }
             return false;
