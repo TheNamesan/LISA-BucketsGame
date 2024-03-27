@@ -69,7 +69,7 @@ namespace TUFF
 
         private void Initialize()
         {
-            if (anim != null)
+            if (anim != null && anim.runtimeAnimatorController != null)
             {
                 overrideControl = new AnimatorOverrideController(anim.runtimeAnimatorController);
                 overrideControl.name = $"Override {anim.name}";
