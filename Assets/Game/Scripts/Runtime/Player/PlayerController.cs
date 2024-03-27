@@ -349,7 +349,7 @@ namespace BucketsGame
             }
         }
 
-        private void ChangeFacingToShootDirection(Vector2 aimNormal)
+        private void ChangeFacingToShootDirection(Vector2 aimNormal, bool ignoreAnims = false)
         {
             // Change character's facing if shooting backwards and idle
             flipLockDir = (aimNormal.x > 0 ? 1 : -1);
@@ -363,8 +363,9 @@ namespace BucketsGame
             flipLock = true;
             //flipLockDir = (aimNormal.x > 0 ? 1 : -1);
             // Shoot Animation
-            animHandler?.PlayArmsAnimation();
-            ChangeState(lastState, true);
+            if (!ignoreAnims) animHandler?.PlayArmsAnimation();
+            if (grounded) ChangeState(lastState, true);
+            
         }
 
         protected override void TouchLand()
@@ -374,7 +375,7 @@ namespace BucketsGame
             wallClimb = false;
             StopWallJump();
             EnableGravity(false);
-            if (weapon.animTicks > 0) ChangeFacingToShootDirection(weapon.shootNormal);
+            if (weapon.animTicks > 0) ChangeFacingToShootDirection(weapon.shootNormal, true);
             if (!ignoreLandAnim) AudioManager.instance.PlaySFX(SFXList.instance.landSFX);
         }
         private void MoveHandler()
@@ -498,7 +499,7 @@ namespace BucketsGame
                 if (m_slowDownTicks < 0) m_slowDownTicks = 0;
             }
             // Set to 1 so the walking forwards anim is not visible for 1 frame
-            if (weapon.animTicks <= 1)
+            if (weapon.animTicks <= 0)
             {
                 flipLock = false;
             }

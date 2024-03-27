@@ -21,7 +21,6 @@ namespace BucketsGame
         public Vector2 scarfShootPosition = new Vector2(-0.27f, 0.72f);
         public Vector2 scarfDeadPosition = new Vector2(0f, 0.18f);
         private float m_startNormalizedTime = 0;
-        private float m_armsStartNormalizedTime = 0;
 
         public void FlipSprite(Facing facing)
         {
@@ -86,7 +85,7 @@ namespace BucketsGame
                 CancelAnimationWait();
             }
             m_startNormalizedTime = fromNormalizedTime;
-            m_armsStartNormalizedTime = 0;
+
             string stateName = GetAnimationStateName(controller, state, out bool showArm, out bool showLeg);
             //ShowArms(true);
             
@@ -133,9 +132,6 @@ namespace BucketsGame
                             CancelAnimationWait();
                         if (animationInWait) { showArm = showArms; return lastStateName; }
                         showArm = true;
-                        // Continue arms animation seemlessly from walk
-                        if (lastStateName.StartsWith("ShootWalk"))
-                            m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir) ;
                         SetScarfPivot(1, faceDir);
                         AngleArms(controller.weapon.shootNormal, faceDir, false);
@@ -163,14 +159,10 @@ namespace BucketsGame
                         // the ShootSomething is necessary so it repeats the animation when shooting again
                         if (lastStateName.StartsWith("ShootWalk") || lastStateName.StartsWith("RecoverDash") || changedWalking)
                             CancelAnimationWait();
-                        if (animationInWait) { showArm = showArms; showLeg = showLegs; return lastStateName; }
+                        if (animationInWait) { showArm = showArms; return lastStateName; }
                         showArm = true;
-                        showLeg = true;
-                        // Continue arms animation seemlessly from idle
-                        if (lastStateName.StartsWith("ShootIdle"))
-                            m_armsStartNormalizedTime = anim.GetCurrentAnimatorStateInfo(1).normalizedTime;
                         // Continue animation seemlessly from normal walk
-                        if (lastStateName.StartsWith("Walk") || changedWalking)
+                        if (lastStateName.StartsWith("Walk") || changedWalking || lastStateName.StartsWith("ShootFall"))
                             m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir);
                         SetScarfPivot(1, faceDir);
@@ -191,6 +183,19 @@ namespace BucketsGame
                         m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                     return $"WalkRight";
                 case CharacterStates.Airborne:
+                    if (controller.weapon.animTicks > 0)
+                    {
+                        //the ShootSomething is necessary so it repeats the animation when shooting again
+                        if (lastStateName.StartsWith("ShootFall") || lastStateName.StartsWith("RecoverDash"))
+                            CancelAnimationWait();
+                        if (animationInWait) { showArm = showArms; return lastStateName; }
+                        showArm = true;
+                        int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir);
+                        SetScarfPivot(1, faceDir);
+                        AngleArms(controller.weapon.shootNormal, faceDir, false);
+                        SetAnimationWait(0.44f);
+                        return $"ShootFall";
+                    }
                     if (controller.wallClimb)
                     {
                         return $"WallSlide";
