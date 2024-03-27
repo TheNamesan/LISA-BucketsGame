@@ -396,6 +396,8 @@ namespace BucketsGame
                     ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) && !dashing) // Wall Climb
                 {
                     StopWallJump();
+                    CancelFacingLock();
+                    ChangeFacingOnMove(moveH);
                     wallClimb = true;
                 }
                 if (wallClimb && (IsVerticalWall(wallRightHit) || IsVerticalWall(wallLeftHit))) // Wall Climb speed

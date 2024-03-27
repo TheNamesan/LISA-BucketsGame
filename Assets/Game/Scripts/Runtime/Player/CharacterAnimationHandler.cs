@@ -190,7 +190,11 @@ namespace BucketsGame
                     if (lastStateName.StartsWith("ShootWalk"))
                         m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                     return $"WalkRight";
-                case CharacterStates.Airborne:                    
+                case CharacterStates.Airborne:
+                    if (controller.wallClimb)
+                    {
+                        return $"WallSlide";
+                    }
                     if (controller.doubleJumping)
                     {
                         return $"DoubleJumpRight";
