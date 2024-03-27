@@ -351,20 +351,20 @@ namespace BucketsGame
 
         private void ChangeFacingToShootDirection(Vector2 aimNormal, bool ignoreAnims = false)
         {
-            // Change character's facing if shooting backwards and idle
+            // Change character's facing and lock it to the aiming direction
             flipLockDir = (aimNormal.x > 0 ? 1 : -1);
-            //if ((lastState == CharacterStates.Idle) && Mathf.Abs(aimNormal.x) > 0 && Mathf.Sign(aimNormal.x) != FaceToInt())
-            if (true)
-            {
-                flipLock = false;
-                //ChangeFacing(FaceToInt() > 0 ? Facing.Left : Facing.Right);
-                ChangeFacing(flipLockDir > 0 ? Facing.Right : Facing.Left);
-            }
+            
+            flipLock = false;
+            ChangeFacing(flipLockDir > 0 ? Facing.Right : Facing.Left);
+            
             flipLock = true;
-            //flipLockDir = (aimNormal.x > 0 ? 1 : -1);
             // Shoot Animation
-            if (!ignoreAnims) animHandler?.PlayArmsAnimation();
-            if (grounded) ChangeState(lastState, true);
+            // This below is so it doesn't replay the arms shoot anim when landing
+            if (!ignoreAnims) 
+                animHandler?.PlayArmsAnimation(weapon.shootNormal, flipLockDir, lastState);
+            //if (grounded || (!grounded && weapon.animTicks <= 0)) 
+            bool forcePlaySameAnim = grounded || weapon.animTicks <= 0; 
+                ChangeState(lastState, forcePlaySameAnim);
             
         }
 

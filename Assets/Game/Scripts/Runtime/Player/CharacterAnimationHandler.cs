@@ -16,7 +16,8 @@ namespace BucketsGame
         public Vector2 pivotRight = new Vector2(0.03f, 0.5f);
         public Vector2 walkPivotLeft = new Vector2(-0.58f, 0.625f);
         public Vector2 walkPivotRight = new Vector2(0.03f, 0.625f);
-        //public Vector2 walkHeightOffset = new Vector2(0, 0.125f);
+        public Vector2 fallPivotLeft = new Vector2(-0.3125f, 0.7075f);
+        public Vector2 fallPivotRight = new Vector2(0.34375f, 0.645f);
         public Vector2 scarfNormalPosition = new Vector2(0, 0.72f);
         public Vector2 scarfShootPosition = new Vector2(-0.27f, 0.72f);
         public Vector2 scarfDeadPosition = new Vector2(0f, 0.18f);
@@ -51,26 +52,47 @@ namespace BucketsGame
             pivot.x *= faceDir;
             scarfPivot.transform.localPosition = pivot;
         }
-        public void AngleArms(Vector2 normal, int facingSign, bool walking)
+        public void AngleArms(Vector2 normal, int facingSign, CharacterStates state)
         {
+            Debug.Log($"Normal: {normal}, Facing: {facingSign}");
             normal *= facingSign;
 
-            Vector2 offset = Vector2.zero;
+            Vector2 offsetLeft = Vector2.zero;
+            Vector2 offsetRight = Vector2.zero;
             // Adjust pivots to flipped sprite
-            Vector2 leftArmPivot = (walking ? walkPivotLeft : pivotLeft);
-            Vector2 rightArmPivot = (walking ? walkPivotRight : pivotRight);
-            if (walking) offset = walkPivotLeft - pivotLeft;
+            Vector2 leftArmPivot = (pivotLeft);
+            Vector2 rightArmPivot = (pivotRight);
+
+            if (state == CharacterStates.Walk)
+            {
+                leftArmPivot = (walkPivotLeft);
+                rightArmPivot = (walkPivotRight);
+                offsetLeft = walkPivotLeft - pivotLeft;
+                offsetRight = walkPivotLeft - pivotLeft;
+            }
+            else if (state == CharacterStates.Airborne)
+            {
+                leftArmPivot = (fallPivotLeft);
+                rightArmPivot = (fallPivotRight);
+                offsetLeft = fallPivotLeft - pivotLeft;
+                offsetRight = fallPivotRight - pivotRight;
+
+                offsetLeft.x *= facingSign;
+                offsetRight.x *= facingSign;
+            }
             if (facingSign < 0) { leftArmPivot.x *= -1; rightArmPivot.x *= -1; }
             if (leftArm) leftArm.transform.parent.localPosition = leftArmPivot;
             if (rightArm) rightArm.transform.parent.localPosition = rightArmPivot;
 
             // Adjust arm positions to flipped parent position
-            if (leftArm) leftArm.transform.localPosition = new Vector3(-leftArmPivot.x + offset.x, -leftArmPivot.y + offset.y, leftArm.transform.localPosition.z);
-            if (rightArm) rightArm.transform.localPosition = new Vector3(-rightArmPivot.x + offset.x, -rightArmPivot.y + offset.y, rightArm.transform.localPosition.z);
+            if (leftArm) leftArm.transform.localPosition = new Vector3(-leftArmPivot.x + offsetLeft.x, -leftArmPivot.y + offsetLeft.y, leftArm.transform.localPosition.z);
+            if (rightArm) rightArm.transform.localPosition = new Vector3(-rightArmPivot.x + offsetRight.x, -rightArmPivot.y + offsetRight.y, rightArm.transform.localPosition.z);
 
+            //normal = Vector2.right;
             // Rotate from pivot
             if (leftArm) leftArm.transform.parent.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
             if (rightArm) rightArm.transform.parent.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
+
             //if (leftArm) leftArm.transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
             //if (rightArm) rightArm.transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
         }
@@ -102,9 +124,10 @@ namespace BucketsGame
             
             lastStateName = stateName;
         }
-        public void PlayArmsAnimation(float from = 0)
+        public void PlayArmsAnimation(Vector2 normal, int facingSign, CharacterStates state, float from = 0)
         {
             anim.Play("ArmsShoot", 1, from);
+            AngleArms(normal, facingSign, state); // This is just here as a fallback :P
         }
         private string GetAnimationStateName(PlayerController controller, CharacterStates state, out bool showArm, out bool showLeg)
         {
@@ -134,7 +157,7 @@ namespace BucketsGame
                         showArm = true;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir) ;
                         SetScarfPivot(1, faceDir);
-                        AngleArms(controller.weapon.shootNormal, faceDir, false);
+                        AngleArms(controller.weapon.shootNormal, faceDir, state);
                         SetAnimationWait(0.44f);
                         return $"ShootIdle";
                     }
@@ -162,11 +185,11 @@ namespace BucketsGame
                         if (animationInWait) { showArm = showArms; return lastStateName; }
                         showArm = true;
                         // Continue animation seemlessly from normal walk
-                        if (lastStateName.StartsWith("Walk") || changedWalking || lastStateName.StartsWith("ShootFall"))
+                        if (lastStateName.StartsWith("Walk") || changedWalking)
                             m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir);
                         SetScarfPivot(1, faceDir);
-                        AngleArms(controller.weapon.shootNormal, faceDir, true);
+                        AngleArms(controller.weapon.shootNormal, faceDir, state);
                         SetAnimationWait(0.44f);
                         if (controller.walkingBackwards) { return $"ShootWalkBack"; }
                         return $"ShootWalk";
@@ -190,12 +213,15 @@ namespace BucketsGame
                             CancelAnimationWait();
                         if (animationInWait) { showArm = showArms; return lastStateName; }
                         showArm = true;
+                        // Continue animation seemlessly from normal fall
+                        if (lastStateName.StartsWith("Fall"))
+                            m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                         int faceDir = (!controller.flipLock ? controller.FaceToInt() : controller.flipLockDir);
-                        SetScarfPivot(1, faceDir);
-                        AngleArms(controller.weapon.shootNormal, faceDir, false);
+                        AngleArms(controller.weapon.shootNormal, faceDir, state);
                         SetAnimationWait(0.44f);
                         return $"ShootFall";
                     }
+                    else if (lastStateName.StartsWith("Shoot")) CancelAnimationWait(); // Failsafe
                     if (controller.wallClimb)
                     {
                         return $"WallSlide";
@@ -204,6 +230,8 @@ namespace BucketsGame
                     {
                         return $"DoubleJumpRight";
                     }
+                    if (lastStateName.StartsWith("ShootFall"))
+                        m_startNormalizedTime = anim.GetCurrentAnimatorStateInfo(0).normalizedTime;
                     return $"FallRight";
                 case CharacterStates.Dashing:
                     return $"DashRight";
