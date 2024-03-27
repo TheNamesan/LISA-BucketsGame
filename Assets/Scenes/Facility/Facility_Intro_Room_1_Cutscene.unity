@@ -404,6 +404,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 04cdeb25270bfd04a947fd40f9fce1ef, type: 2}
   - m_RefCount: 4
     m_Data: {fileID: 11400000, guid: 028d9207ae10e1249a512cf3fad96314, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 3
     m_Data: {fileID: 1395877525, guid: 4815381665faba345917d7783c9f1647, type: 3}
@@ -411,6 +415,10 @@ Tilemap:
     m_Data: {fileID: 137446430, guid: f4a5f770f09d48a4e83a7eee96e41537, type: 3}
   - m_RefCount: 4
     m_Data: {fileID: -494912695, guid: 78e110a40b43e0344819e36cc3fe0e10, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 10
     m_Data:
@@ -7439,6 +7447,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -19, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 19
+      m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -6, y: 3, z: 0}
     second:
       serializedVersion: 2
@@ -7479,6 +7497,36 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -19, y: 4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -9, y: 4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 47
+      m_TileSpriteIndex: 47
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -8, y: 4, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 48
+      m_TileSpriteIndex: 48
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: -4, y: 4, z: 0}
     second:
       serializedVersion: 2
@@ -7514,6 +7562,26 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 35
       m_TileSpriteIndex: 35
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -9, y: 5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 49
+      m_TileSpriteIndex: 49
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -8, y: 5, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 50
+      m_TileSpriteIndex: 50
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -7841,8 +7909,8 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 89352fb1dc2ea704588930e154d7ce39, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 8370bd8dc5d50e641baae76d352fcfd1, type: 2}
   - m_RefCount: 1
@@ -7879,8 +7947,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 57b95862eccc54049900870199cbe1d9, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: fdfeb3a26437b7a40b5dd40f82cf1379, type: 2}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 0ec9fda4978d79547b93ee9872097ea2, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 65b0634cf2e81b74fa2cdcfc49f9609e, type: 2}
   - m_RefCount: 1
@@ -7935,11 +8003,19 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 4d3ff3f201c5caa44bd6763b40bc38e5, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 164efef15fea2014593212da4f839a00, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: b4c943007cc3d7a459634aa88adcca60, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: da6a368fb98a65e4e85bfd99a5a0648b, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 4743fa4638217824ea2b76836ba130d0, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 0654662c17b96f740af4581cddea9cb0, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -923332537, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 1337771806, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -2068313718, guid: 4da296ffba8b8bb4c81055a34a763330, type: 3}
   - m_RefCount: 1
@@ -8030,8 +8106,16 @@ Tilemap:
     m_Data: {fileID: -1526191534, guid: 4da296ffba8b8bb4c81055a34a763330, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -290446236, guid: 4da296ffba8b8bb4c81055a34a763330, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -396268087, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 461952587, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 2022361456, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 676251759, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 60
+  - m_RefCount: 66
     m_Data:
       e00: 1
       e01: 0
@@ -8050,7 +8134,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 60
+  - m_RefCount: 66
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -21975,6 +22059,16 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 11
       m_TileSpriteIndex: 11
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: -23, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 4
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -46040,7 +46134,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: ca227532c16fb1c4b97a3c72a83fc5c5, type: 2}
   - m_RefCount: 60
     m_Data: {fileID: 11400000, guid: 5e61a6b179fa1e64e860f77d9438c7b3, type: 2}
-  - m_RefCount: 54
+  - m_RefCount: 55
     m_Data: {fileID: 11400000, guid: 7db2c8c9213fc9e4fb108052eb44ddf1, type: 2}
   - m_RefCount: 64
     m_Data: {fileID: 11400000, guid: 29fd62e9c62ac0746ab06b0f877344f0, type: 2}
@@ -46065,7 +46159,7 @@ Tilemap:
     m_Data: {fileID: 1412812074, guid: 4da296ffba8b8bb4c81055a34a763330, type: 3}
   - m_RefCount: 60
     m_Data: {fileID: 1711134856, guid: 4da296ffba8b8bb4c81055a34a763330, type: 3}
-  - m_RefCount: 54
+  - m_RefCount: 55
     m_Data: {fileID: -148951084, guid: 4da296ffba8b8bb4c81055a34a763330, type: 3}
   - m_RefCount: 64
     m_Data: {fileID: 804640626, guid: 4da296ffba8b8bb4c81055a34a763330, type: 3}
@@ -46082,7 +46176,7 @@ Tilemap:
   - m_RefCount: 3396
     m_Data: {fileID: 1395877525, guid: 4815381665faba345917d7783c9f1647, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 3779
+  - m_RefCount: 3780
     m_Data:
       e00: 1
       e01: 0
@@ -46101,7 +46195,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 3779
+  - m_RefCount: 3780
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -57228,7 +57322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940446].seconds
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414146].seconds
@@ -61212,7 +61306,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940435].dialogue.sentences.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940437].sfxs.Array.data[0].volumeMode
@@ -61252,7 +61346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414147].dialogue.sentences.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.fixedTextboxPosition
@@ -61300,7 +61394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689223].sfxs.Array.data[0].volumeMode
@@ -61607,6 +61701,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[4840228804657414147].dialogue.sentences.Array.data[1].key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.sentences.Array.data[0].key
       value: 
       objectReference: {fileID: 0}
@@ -61616,6 +61714,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[1].key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[2].key
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -61660,7 +61762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940431].dialogue.sentences.Array.data[0].text
-      value: "That sounds good, \nbut\u2026 Fuck, man."
+      value: ... Fuck, man.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940431].dialogue.sentences.Array.data[1].text
@@ -61681,12 +61783,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940433].dialogue.sentences.Array.data[0].text
-      value: "Cause that\u2019s just how it is.\nNo groups out there are as\nbig
-        as that army in our area."
+      value: 'Cause who else we got out there?
+
+        No groups out there are as
+
+        big
+        as them in our area.'
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940434].dialogue.sentences.Array.data[0].text
-      value: "Besides, it\u2019s almost done already."
+      value: Besides, we're almost done with it.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940434].dialogue.sentences.Array.data[1].text
@@ -61695,7 +61801,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940435].dialogue.sentences.Array.data[0].text
-      value: "We\u2019ve already shipped a good \namount of crates to them."
+      value: "Once the rest of the gang will come back we'll ship \nthe final few
+        shipments and we're..."
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901043075940435].dialogue.sentences.Array.data[1].text
@@ -61722,7 +61829,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414147].dialogue.sentences.Array.data[0].text
-      value: "... I dunno man, this whole supply \nexchange thing seems too good."
+      value: "... I dunno man, this whole supply \nexchange deal seems too good."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[4840228804657414147].dialogue.sentences.Array.data[1].text
+      value: "I just feel like we're gonna be \nfucked over like always."
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.sentences.Array.data[0].text
@@ -61730,12 +61841,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[0].text
-      value: But what if it is that good though?
+      value: Maybe, but I can't deal with the way it is anymore.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[1].text
       value: "Imagine not having to\nlook over your shoulder \nevery 2 seconds to
         see if\na soldier's gonna shake you down."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[2].text
+      value: That's something I'm willing to risk for.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689224].dialogue.sentences.Array.data[0].text
@@ -62012,6 +62127,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[4840228804657414147].dialogue.sentences.Array.data[1].textSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[4840228804657414147].dialogue.sentences.Array.data[1].voicebank
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.sentences.Array.data[0].textSpeed
       value: 0
       objectReference: {fileID: 0}
@@ -62033,6 +62156,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[1].voicebank
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[2].textSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[2].voicebank
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -62196,6 +62327,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[4840228804657414147].dialogue.sentences.Array.data[1].sentenceTextType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.sentences.Array.data[0].sentenceTextType
       value: 1
       objectReference: {fileID: 0}
@@ -62205,6 +62340,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[1].sentenceTextType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[7087076426665689222].dialogue.sentences.Array.data[2].sentenceTextType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
