@@ -108,7 +108,7 @@ TextureImporter:
       name: Magician_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 60
         y: 60
         width: 60
         height: 60
@@ -129,7 +129,7 @@ TextureImporter:
       name: Magician_1
       rect:
         serializedVersion: 2
-        x: 60
+        x: 120
         y: 60
         width: 60
         height: 60
@@ -150,7 +150,7 @@ TextureImporter:
       name: Magician_2
       rect:
         serializedVersion: 2
-        x: 0
+        x: 60
         y: 0
         width: 60
         height: 60
@@ -171,7 +171,7 @@ TextureImporter:
       name: Magician_3
       rect:
         serializedVersion: 2
-        x: 60
+        x: 120
         y: 0
         width: 60
         height: 60
@@ -192,7 +192,7 @@ TextureImporter:
       name: Magician_4
       rect:
         serializedVersion: 2
-        x: 120
+        x: 180
         y: 0
         width: 60
         height: 60
@@ -213,7 +213,7 @@ TextureImporter:
       name: Magician_5
       rect:
         serializedVersion: 2
-        x: 120
+        x: 180
         y: 60
         width: 60
         height: 60
@@ -226,6 +226,27 @@ TextureImporter:
       bones: []
       spriteID: 79bf29aa81405734599287d125b4f8bb
       internalID: 1664126408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Magician_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 60
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 240b5a2b7cddf1b4cb3bf4ea97487d81
+      internalID: 645180152
       vertices: []
       indices: 
       edges: []
@@ -247,6 +268,7 @@ TextureImporter:
       Magician_3: 769978541
       Magician_4: -1812606757
       Magician_5: 1664126408
+      Magician_6: 645180152
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
