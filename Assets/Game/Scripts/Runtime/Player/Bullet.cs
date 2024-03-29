@@ -98,15 +98,16 @@ namespace BucketsGame
             }
             if (hitWall) return;
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
-            RaycastHit2D hit = Physics2D.CircleCast(rb.position, radius, rb.transform.up, 0, hitboxLayers);
-            if (hit)
+            RaycastHit2D[] hitAll = Physics2D.CircleCastAll(rb.position, radius, rb.transform.up, 0, hitboxLayers);
+            for (int i = 0; i < hitAll.Length; i++)
             {
-                if (hit.collider.TryGetComponent(out Hurtbox hurtbox))
+                if (hitAll[i].collider.TryGetComponent(out Hurtbox hurtbox))
                 {
                     if (hurtbox.team != team && !hurtbox.invulnerable)
                     {
+                        // If target is not dead and hits, despawn bullet
                         bool hitTarget = hurtbox.Collision(rb.velocity.normalized);
-                        if (hitTarget) ReturnToPool();
+                        if (hitTarget) { ReturnToPool(); return; }
                     }
                 }
             }
