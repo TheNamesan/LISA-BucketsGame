@@ -114,6 +114,22 @@ namespace BucketsGame
                 //else sprite.color = Color.white;
             }
         }
+        private void OnEnable()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.AddListener(RecolorMagician);
+        }
+        private void OnDisable()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(RecolorMagician);
+        }
+        private void OnDestroy()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(RecolorMagician);
+        }
+        private void RecolorMagician()
+        {
+            if (sprite) sprite.color = Color.white;
+        }    
         private void FixedUpdate()
         {
             if (!m_dead) rb.sharedMaterial = BucketsGameManager.instance.aliveMat;

@@ -145,7 +145,7 @@ namespace BucketsGame
         {
             m_queuedReset = true;
         }
-        public void ResetLevel()
+        private void ResetLevel()
         {
             Debug.Log("Resetting");
             GameUtility.KillTween(ref m_hitstunTween);

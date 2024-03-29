@@ -16,6 +16,7 @@ namespace BucketsGame
         }
         public void A_Retry()
         {
+            BucketsGameManager.instance.QueueReset();
             uiMenu.CloseMenu();
         }
         public void A_Exit()
