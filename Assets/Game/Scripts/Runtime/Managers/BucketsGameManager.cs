@@ -79,12 +79,16 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
-            CheckResetQueue();
+            
             FocusTimer();
         }
         private IEnumerator LateFixedUpdate()
         {
-            
+            while (true)
+            {
+                yield return new WaitForFixedUpdate();
+                CheckResetQueue();
+            }
             yield break;
         }    
         private void CheckResetQueue()
@@ -143,6 +147,7 @@ namespace BucketsGame
         }
         public void ResetLevel()
         {
+            Debug.Log("Resetting");
             GameUtility.KillTween(ref m_hitstunTween);
             ResetGameManager();
             BulletsPool.instance.ResetPool();
