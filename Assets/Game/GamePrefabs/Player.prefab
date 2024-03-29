@@ -163,6 +163,7 @@ MonoBehaviour:
   targetSprite: {fileID: 6897272643385181820}
   rateOverTime: 20
   targetColor: {r: 0.8745099, g: 0.6666667, b: 0.13725491, a: 0.5}
+  m_time: 0
 --- !u!1 &3711834660200709155
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +344,7 @@ MonoBehaviour:
   m_slowDownTicks: 0
   dashSpeed: 25
   dashTicksDuration: 20
+  dashDirectionBufferDuration: 2
   dashing: 0
   m_dashTicks: 0
   dashCooldownTicksDuration: 25
@@ -816,6 +818,7 @@ MonoBehaviour:
   targetSprite: {fileID: 8848599386185273915}
   rateOverTime: 20
   targetColor: {r: 0.8745099, g: 0.6666667, b: 0.13725491, a: 0.5}
+  m_time: 0
 --- !u!1 &4910718791046587026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,3 +1066,4 @@ MonoBehaviour:
   targetSprite: {fileID: 3711834660401418069}
   rateOverTime: 20
   targetColor: {r: 0.8745099, g: 0.6666667, b: 0.13725491, a: 0.5}
+  m_time: 0

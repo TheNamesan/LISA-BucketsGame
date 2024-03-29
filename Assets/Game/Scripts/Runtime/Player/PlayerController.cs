@@ -60,7 +60,11 @@ namespace BucketsGame
         [Header("Dash")]
         public float dashSpeed = 15;
         public int dashTicksDuration = 25;
+        [Tooltip("Amount of physics ticks it takes to be able to change directions at the start of the dash.")]
+        public int dashDirectionBufferDuration = 2;
+        
         public bool dashing = false;
+        public bool canBufferDashDirection { get => dashTicksDuration - m_dashTicks <= dashDirectionBufferDuration; }
         [SerializeField] private int m_dashTicks = 0;
         public int dashCooldownTicksDuration = 25;
         public int dashCooldownTicks { get => m_dashCooldownTicks; }
@@ -497,7 +501,12 @@ namespace BucketsGame
 
         private void DashCancelCheck(int moveH)
         {
-            if (dashing && moveH != 0 && m_dashDirection != moveH) { StopDash(true); } // Cancel Dash
+            if (canBufferDashDirection && moveH != 0)
+            {
+                m_dashDirection = moveH; return;
+            }
+            if (dashing && moveH != 0 && m_dashDirection != moveH) 
+            { StopDash(true); } // Cancel Dash
         }
 
         private void TimerHandler()
