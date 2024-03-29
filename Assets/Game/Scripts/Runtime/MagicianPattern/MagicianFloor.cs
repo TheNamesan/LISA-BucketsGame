@@ -57,7 +57,7 @@ namespace BucketsGame
                 hitboxRef.gameObject.SetActive(true);
                 float t = Mathf.InverseLerp(floorTotalDuration, (floorTotalDuration - floorAscendDuration), m_floorTime);
                 float y = Mathf.Lerp(floorInitialPosition, floorFinalPosition, t);
-                Debug.Log(t);
+                //Debug.Log(t);
                 hitboxRef.transform.localPosition =
                     new Vector3(hitboxRef.transform.localPosition.x, y, hitboxRef.transform.localPosition.z);
 

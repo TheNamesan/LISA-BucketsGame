@@ -111,6 +111,11 @@ namespace BucketsGame
                     float t = Mathf.InverseLerp(shootPatternDuration, (shootPatternDuration - shootTelegraphDuration), m_shootTime);
                     sprite.color = Color.Lerp(Color.white, shootTelegraphColor, t);
                 }
+                if (invincible)
+                {
+                    bool alternate = ((m_invincibilityFramesLeft - 1) % 8 >= 0 && (m_invincibilityFramesLeft - 1) % 8 <= 3);
+                    sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, (alternate ? 0.5f : 1f));
+                }    
                 //else sprite.color = Color.white;
             }
         }
@@ -290,7 +295,8 @@ namespace BucketsGame
         {
             if (!invincible) return;
             m_invincibilityFramesLeft--;
-            if (m_invincibilityFramesLeft < 0) m_invincibilityFramesLeft = 0;
+            if (m_invincibilityFramesLeft <= 0)
+            { RecolorMagician(); m_invincibilityFramesLeft = 0; }
         }
         public override bool Hurt(Vector2 launch)
         {
