@@ -17,6 +17,7 @@ namespace TUFF
         public int textSpeed = 0;
         public bool lost = false;
         public bool bucketsAutoFire = false;
+        public bool bucketsSwapDash = false;
 
         public void SaveData()
         {

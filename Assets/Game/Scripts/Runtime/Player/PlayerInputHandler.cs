@@ -52,13 +52,28 @@ namespace BucketsGame
         }
         public void Dash(InputAction.CallbackContext context)
         {
+            if (TUFF.GameManager.instance.configData.bucketsSwapDash) 
+                FocusHandler(context);
+            else DashHandler(context);
+        }
+
+        private void DashHandler(InputAction.CallbackContext context)
+        {
             if (!player) return;
             if (context.performed)
                 gameInput.dashDown = true;
             if (context.canceled)
                 gameInput.dashDown = false;
         }
+
         public void Focus(InputAction.CallbackContext context)
+        {
+            if (TUFF.GameManager.instance.configData.bucketsSwapDash)
+                DashHandler(context);
+            else FocusHandler(context);
+        }
+
+        private void FocusHandler(InputAction.CallbackContext context)
         {
             if (!player) return;
             if (context.performed)
@@ -66,6 +81,7 @@ namespace BucketsGame
             if (context.canceled)
                 gameInput.focus = false;
         }
+
         public void ResetLevel(InputAction.CallbackContext context)
         {
             if (!player || TUFF.GameManager.disablePlayerInput) return;

@@ -16,6 +16,7 @@ namespace TUFF
         public UISlider ambienceSlider;
         public UIPicker textSpeed;
         public UIPicker autoFire;
+        public UIPicker swapDash;
 
         public void OpenOptionsMenu()
         {
@@ -73,6 +74,9 @@ namespace TUFF
 
             autoFire.highlightedOption = GameManager.instance.configData.bucketsAutoFire ? 1 : 0;
             autoFire.UpdateText();
+
+            swapDash.highlightedOption = GameManager.instance.configData.bucketsSwapDash ? 1 : 0;
+            swapDash.UpdateText();
         }
 
         public void UpdateGlobalMusicVolume(float volume)
@@ -121,6 +125,12 @@ namespace TUFF
         {
             Debug.Log("Updated Auto Fire: " + autoFire.highlightedOption);
             GameManager.instance.configData.bucketsAutoFire = System.Convert.ToBoolean(autoFire.highlightedOption);
+            SaveOptionsData();
+        }
+        public void SetBucketsSwapDash()
+        {
+            Debug.Log("Updated Swap Dash: " + swapDash.highlightedOption);
+            GameManager.instance.configData.bucketsSwapDash = System.Convert.ToBoolean(swapDash.highlightedOption);
             SaveOptionsData();
         }
 
