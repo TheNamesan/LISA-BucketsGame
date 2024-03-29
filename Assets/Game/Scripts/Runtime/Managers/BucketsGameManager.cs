@@ -127,7 +127,8 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (player != null)
             {
-                if (player.input.focus && focusTicks > 0 && !player.dead && m_cooldownTicks <= 0)
+                //if (player.input.focus && focusTicks > 0 && !player.dead && m_cooldownTicks <= 0)
+                if (player.input.focus && focusTicks > 0 && !player.dead)
                 {
                     ToggleFocus(true);
                     focusTicks--;
