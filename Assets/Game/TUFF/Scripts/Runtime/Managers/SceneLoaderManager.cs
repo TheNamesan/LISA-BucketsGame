@@ -64,6 +64,7 @@ namespace TUFF
         public static List<string> unloadingScenes = new List<string>();
         public static List<AsyncOperation> neighbourOperations = new List<AsyncOperation>();
 
+        public static UnityEvent onSceneLoadStart = new();
         public static UnityEvent onSceneLoad = new();
 
         #region Singleton
@@ -132,7 +133,7 @@ namespace TUFF
             //    var scene = SceneManager.GetSceneAt(i);
             //    Debug.Log(scene.name + " [" + scene.buildIndex + "]");
             //}
-
+            onSceneLoadStart?.Invoke();
             if (currentSceneName != newScene)
             {
                 float tim = Time.unscaledTime;

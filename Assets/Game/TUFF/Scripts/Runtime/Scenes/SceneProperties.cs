@@ -14,6 +14,8 @@ namespace TUFF
         public Vector2 min;
         [Tooltip("Scene size max point in world space.")]
         public Vector2 max;
+        public Vector2 trueMin { get => Vector2.Min(min, max); }
+        public Vector2 trueMax { get => Vector2.Max(min, max); }
 
         [Header("Scene Audio")]
         [Tooltip("If true, will play the BGM when the Scene loads.")]

@@ -49,6 +49,7 @@ namespace BucketsGame
             //BucketsGameManager.CheckInstance();
             if (!instance) instance = this;
             if (!nextRoomCheck) nextRoomCheck = GetComponentInChildren<NextRoomCheck>();
+            //TUFF.SceneLoaderManager.onSceneLoadStart.AddListener(RemoveInstance);
             TUFF.SceneLoaderManager.onSceneLoad.AddListener(MakeThisInstance);
             if (TUFFSceneProperties)
             {
@@ -68,6 +69,7 @@ namespace BucketsGame
         }
         private void OnDestroy()
         {
+            //TUFF.SceneLoaderManager.onSceneLoadStart.RemoveListener(RemoveInstance);
             TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(MakeThisInstance);
         }
         private void MakeThisInstance()
@@ -77,6 +79,10 @@ namespace BucketsGame
                 instance = this;
             }
         }
+        private void RemoveInstance()
+        {
+            instance = null;
+        }
         public void AddRoomEnemy(Enemy enemy)
         {
             if (roomEnemies.Contains(enemy)) return;
@@ -85,22 +91,6 @@ namespace BucketsGame
         
         private void OnEnable()
         {
-            //string text = "";
-            //var components = GetComponentsInChildren<Component>();
-            ////text += JsonUtility.ToJson(components, true);
-            //for (int i = 0; i < components.Length; i++)
-            //{
-            //    if (components[i] is not MonoBehaviour)
-            //    {
-            //        if (components[i] is Transform trs)
-            //        {
-            //            text += $"Position: {trs.position}. Rotation: {trs.rotation}\n";
-            //        }
-            //        continue;
-            //    }
-            //    text += JsonUtility.ToJson(components[i], true);
-            //}
-            //Debug.Log(text);
         }
         public void ResetLevel()
         {

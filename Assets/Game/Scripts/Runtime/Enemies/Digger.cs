@@ -72,6 +72,7 @@ namespace BucketsGame
             CheckPlayerDistance();
             MoveHandler();
             TimerHandler();
+            FallOffMapCheck();
         }
 
         private void AdjustHurtbox()

@@ -137,9 +137,11 @@ namespace BucketsGame
             MoveHandler();
             TimerHandler();
             ExpectedPosition();
-            
+            FallOffMapCheck();
+
             lastVelocity = rb.velocity;
         }
+
         protected override void GroundCheck()
         {
             //if (m_dead) return;

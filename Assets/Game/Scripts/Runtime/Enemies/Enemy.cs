@@ -51,6 +51,7 @@ namespace BucketsGame
             else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
             GroundCheck();
             MoveHandler();
+            FallOffMapCheck();
         }
         private void MoveHandler()
         {

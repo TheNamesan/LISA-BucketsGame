@@ -288,6 +288,18 @@ namespace BucketsGame
         {
             return (facing == Facing.Right ? 1 : -1);
         }
+        protected virtual void FallOffMapCheck()
+        {
+            if (!SceneProperties.instance) return;
+            if (!SceneProperties.instance.TUFFSceneProperties) return;
+            float minY = SceneProperties.instance.TUFFSceneProperties.trueMin.y;
+            if (rb.position.y <= minY - 1)
+            {
+                if (!m_dead) Kill(Vector2.zero);
+                rb.velocity = Vector2.zero;
+                rb.gravityScale = 0;
+            }
+        }
         public virtual void A_StepEffect()
         {
             if (groundProperties)

@@ -62,7 +62,8 @@ namespace BucketsGame
             CheckPlayerDistance();
             AlertLineOfSightCheck();
             MoveHandler();
-            
+            FallOffMapCheck();
+
         }
         private void CheckPlayerDistance()
         {
