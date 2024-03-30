@@ -9,17 +9,17 @@ namespace BucketsGame
         public SpriteRenderer telegraph;
         public BoxCollider2D hitboxRef;
         public int telegraphDuration = 20;
+        public int telegraphTime { get => m_telegraphTime; }
         [SerializeField] protected int m_telegraphTime = 0;
         public int floorAscendDuration = 20;
         public int floorTotalDuration = 50;
         public float floorInitialPosition = -4.2f;
         public float floorFinalPosition = -2.7f;
+        public int floorTime { get => m_floorTime; }
         [SerializeField] protected int m_floorTime = 0;
-
-        void Start()
-        {
-            
-        }
+        public int endTime { get => m_endTime; }
+        public int floorEndDuration = 30;
+        [SerializeField] protected int m_endTime = 0;
 
         public override void Play()
         {
@@ -27,6 +27,7 @@ namespace BucketsGame
             gameObject.SetActive(true);
             m_telegraphTime = telegraphDuration;
             m_floorTime = floorTotalDuration;
+            m_endTime = floorEndDuration; 
             hitboxRef.transform.localPosition = 
                 new Vector3(hitboxRef.transform.localPosition.x, floorInitialPosition, hitboxRef.transform.localPosition.z);
             telegraph.gameObject.SetActive(false);
@@ -63,6 +64,13 @@ namespace BucketsGame
 
                 AttackHitbox();
                 m_floorTime--;
+                return;
+            }
+            else hitboxRef.gameObject.SetActive(false);
+            if (m_endTime > 0)
+            {
+                m_endTime--;
+                return;
             }
             else ReturnToPool();
         }
