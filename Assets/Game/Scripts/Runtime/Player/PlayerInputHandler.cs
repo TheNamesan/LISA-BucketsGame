@@ -15,7 +15,6 @@ namespace BucketsGame
 
         public void Move(InputAction.CallbackContext context)
         {
-            
             if (!player) return;
             if (context.performed || context.canceled)
                 gameInput.inputH = context.ReadValue<float>();
@@ -38,7 +37,6 @@ namespace BucketsGame
         public void Shoot(InputAction.CallbackContext context)
         {
             if (!player) return;
-            
             if (context.performed)
             {
                 gameInput.shoot = true;
@@ -107,7 +105,9 @@ namespace BucketsGame
         public void OnDestroy()
         {
             if (Application.isPlaying)
+            {
                 TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(ToggleInput);
+            }
         }
         public void FixedUpdate()
         {
@@ -124,15 +124,21 @@ namespace BucketsGame
             if (!enabled)
             {
                 // Stop Input
-                bufferedPointer = player.input.mousePoint;
-                bufferedPointerWorld = player.input.MousePointWorld;
-                player.input = new GamePlayerInput();
+                StopInput();
             }
             else
             {
                 player.input.mousePoint = bufferedPointer;
             }
         }
+
+        private void StopInput()
+        {
+            bufferedPointer = player.input.mousePoint;
+            bufferedPointerWorld = player.input.MousePointWorld;
+            player.input = new GamePlayerInput();
+        }
+
         public IEnumerator LateFixedUpdate()
         {
             while (true)

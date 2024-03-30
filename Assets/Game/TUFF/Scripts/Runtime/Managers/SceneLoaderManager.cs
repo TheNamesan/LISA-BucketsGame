@@ -66,6 +66,10 @@ namespace TUFF
 
         public static UnityEvent onSceneLoadStart = new();
         public static UnityEvent onSceneLoad = new();
+        public static UnityEvent onSceneChanged = new();
+
+        public static bool loading { get => m_loading; }
+        private static bool m_loading = false;
 
         #region Singleton
         public static SceneLoaderManager instance { get {
@@ -133,7 +137,9 @@ namespace TUFF
             //    var scene = SceneManager.GetSceneAt(i);
             //    Debug.Log(scene.name + " [" + scene.buildIndex + "]");
             //}
+            m_loading = true;
             onSceneLoadStart?.Invoke();
+            
             if (currentSceneName != newScene)
             {
                 float tim = Time.unscaledTime;
@@ -184,11 +190,13 @@ namespace TUFF
                 StartCoroutine(UnloadScenes());
             }
             else SetPlayerPosition(playerPosition, faceDirection);
+            m_loading = false;
             UIController.instance.TriggerLoadingIcon(false);
             if (disableActionMap) GameManager.instance.DisableActionMaps(false);
             if (enablePlayerInput) GameManager.instance.DisablePlayerInput(false);
             GameManager.instance.ChangeTimeScale(1);
             onSceneLoad?.Invoke();
+            onSceneChanged?.Invoke();
             onLoad?.Invoke();
         }
         public void UpdateCurrentScene(Scene scene)

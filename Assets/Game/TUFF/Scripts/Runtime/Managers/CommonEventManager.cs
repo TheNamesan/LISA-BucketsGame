@@ -64,6 +64,10 @@ namespace TUFF
         {
             ActionList actionList = interactableEvent.actionList;
             m_interactableEventPlaying = true;
+            // I put this here in buckets game to hotfix an issue where buckets would be able to keep
+            // moving right as a scene loaded and an interactable with a trigger mode of
+            // Play On Start played something. Which would cause unexpected issues.
+            GameManager.instance.DisablePlayerInput(true); 
             // This is probably an ugly way of forcing input disabling if a menu is closed for example.
             // Find a better alternative
             yield return actionList.PlayActions(() =>
