@@ -42,7 +42,7 @@ namespace BucketsGame
                     //    else sprite.color = Color.green;
                     //}
                     //else sprite.color = Color.white;
-                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    //rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 }
                 sprite.flipX = facing == Facing.Left;
             }

@@ -24,8 +24,8 @@ namespace BucketsGame
             {
                 if (m_dead)
                 {
-                    sprite.color = Color.red;
-                    rb.constraints = RigidbodyConstraints2D.None;
+                    //sprite.color = Color.red;
+                    //rb.constraints = RigidbodyConstraints2D.None;
                 }
                 else {
                     //if (m_attacking)
@@ -34,7 +34,7 @@ namespace BucketsGame
                     //    else sprite.color = Color.green;
                     //}
                     //else sprite.color = Color.white;
-                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                    //rb.constraints = RigidbodyConstraints2D.FreezeRotation;
                 }
                 sprite.flipX = facing == Facing.Left;
             }

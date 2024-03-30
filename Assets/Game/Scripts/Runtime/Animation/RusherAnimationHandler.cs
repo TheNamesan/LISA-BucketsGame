@@ -25,6 +25,10 @@ namespace BucketsGame
         }
         public string GetAnimationStateName()
         {
+            if (rusher.dead)
+            {
+                return "RusherDead";
+            }
             if (Mathf.Abs(rusher.rb.velocity.x) >= 0.001f)
             {
                 return "RusherWalk";

@@ -82,6 +82,7 @@ namespace BucketsGame
             hp--;
             AlertEnemy();
             if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit(); return true; }
+            HurtTween();
             return Kill(launch);
         }
         protected void HurtTween()
