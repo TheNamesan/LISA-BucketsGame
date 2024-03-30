@@ -8,7 +8,6 @@ namespace BucketsGame
     {
 
         [Header("Shielder Properties")]
-        public Sprite bulletSprite;
         public float roamSpeed = 3f;
         public float approachSpeed = 2f;
         public float approachDistance = 10f;
@@ -247,7 +246,7 @@ namespace BucketsGame
             // If player is behind enemy, rotate direction in X
             if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
             Vector2 position = rb.position + dir.normalized;
-            BulletsPool.instance.SpawnBullet(position, bulletSprite, size, dir, bulletVelocity, Team.Enemy);
+            BulletsPool.instance.SpawnBullet(position, dir, BulletType.Spear, Team.Enemy);
         }
         private void StunTimer()
         {

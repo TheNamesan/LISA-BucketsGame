@@ -67,7 +67,7 @@ namespace BucketsGame
                     offset = hit.point - position;
                 }
                 position += offset;
-                BulletsPool.instance.SpawnBullet(position, normal, GetVelocity());
+                BulletsPool.instance.SpawnBullet(position, normal);
                 AudioManager.instance.PlaySFX(SFXList.instance.pistolShotSFX);
             }
             else if (weaponMode == WeaponMode.Shotgun)
@@ -96,7 +96,7 @@ namespace BucketsGame
                     }
                     position += offset;
                     Debug.DrawRay(position, dir, Color.white, 1f);
-                    BulletsPool.instance.SpawnBullet(position, dir, GetVelocity());
+                    BulletsPool.instance.SpawnBullet(position, dir);
                 }
                 SceneProperties.instance.camManager.ShakeCamera(10, 0.5f);
             }

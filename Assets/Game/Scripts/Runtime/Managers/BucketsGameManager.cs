@@ -95,7 +95,6 @@ namespace BucketsGame
                 yield return new WaitForFixedUpdate();
                 CheckResetQueue();
             }
-            yield break;
         }    
         private void CheckResetQueue()
         {

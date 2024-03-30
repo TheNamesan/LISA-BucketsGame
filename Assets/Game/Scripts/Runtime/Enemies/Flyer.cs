@@ -7,7 +7,6 @@ namespace BucketsGame
     public class Flyer : Enemy
     {
         [Header("Flyer Properties")]
-        public Sprite bulletSprite;
         public float roamSpeed = 3f;
         public float approachDistance = 10f;
         public float deadGravity = 2f;
@@ -192,7 +191,7 @@ namespace BucketsGame
             Vector2 size = Vector2.one;
             // If player is behind enemy, rotate direction in X
             //if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
-            BulletsPool.instance.SpawnBullet(rb.position, bulletSprite, size, dir, Team.Enemy);
+            BulletsPool.instance.SpawnBullet(rb.position, dir, BulletType.Bottle, Team.Enemy);
         }
         private void FireTimer()
         {

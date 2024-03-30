@@ -283,7 +283,7 @@ namespace BucketsGame
             Vector2 dir = player.rb.position - rb.position;
             Vector2 size = Vector2.one;
             Vector2 offset = dir.normalized * 0.5f;
-            BulletsPool.instance.SpawnBullet(rb.position + offset, dir, Team.Enemy);
+            BulletsPool.instance.SpawnBullet(rb.position + offset, dir, BulletType.Magician, Team.Enemy);
         }
         private void DashTimer()
         {

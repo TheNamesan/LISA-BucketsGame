@@ -9,8 +9,17 @@ namespace BucketsGame
         Player = 0,
         Enemy = 1
     }
+    public enum BulletType
+    {
+        Normal = 0,
+        Spear = 1,
+        Bottle = 2,
+        Magician = 3
+    }
+    
     public class Bullet : PoolObject
     {
+        public Animator anim;
         public Sprite defaultSprite;
         public Vector2 defaultSpriteSize = new Vector2(0.3f, 0.3f);
         public float defaultVelocity = 27f;
@@ -25,31 +34,22 @@ namespace BucketsGame
         private int m_ticks = 0;
         private Vector2 m_lastPosition;
 
-        public void Fire(Vector2 normal, Sprite sprite, Vector2 size, Team team = Team.Player)
-        {
-            Fire(normal, defaultSprite, defaultSpriteSize, defaultVelocity, team);
-        }
-        public void Fire(Vector2 normal, Team team = Team.Player)
-        {
-            Fire(normal, defaultSprite, defaultSpriteSize, team);
-        }
-        public void Fire(Vector2 normal, float velocity, Team team = Team.Player)
-        {
-            Fire(normal, defaultSprite, defaultSpriteSize, velocity, team);
-        }
-        public void Fire(Vector2 normal, Sprite sprite, Vector2 size, float velocity, Team team = Team.Player)
+        public void Fire(Vector2 normal, float velocity, string animName, Vector2 spriteSize, Team team = Team.Player)
         {
             gameObject.SetActive(true);
-            spriteRenderer.sprite = sprite;
-            spriteRenderer.transform.localScale = new Vector3(size.x, size.y, spriteRenderer.transform.localScale.z);
-            this.velocity = velocity;
             this.team = team;
+            //spriteRenderer.sprite = sprite;
+            spriteRenderer.transform.localScale = new Vector3(spriteSize.x, spriteSize.y, 
+                spriteRenderer.transform.localScale.z);
+            this.velocity = velocity;
+            PlayAnimation(animName);
             transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
             m_ticks = 0; // Reset Ticks
             m_inUse = true;
             // Place last position a little behind
             m_lastPosition = (transform.position - (transform.right * velocity * Time.fixedDeltaTime));
         }
+        
         private void OnEnable()
         {
             m_lastPosition = rb.position;
@@ -73,7 +73,11 @@ namespace BucketsGame
             if (!rb) return;
             var vel = transform.right * velocity;
             rb.velocity = vel;
-            
+        }
+        private void PlayAnimation(string animName)
+        {
+            if (!anim) return;
+            anim.Play(animName, -1, 0f);
         }
 
         private void CollisionCheck()

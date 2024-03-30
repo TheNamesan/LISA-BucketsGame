@@ -327,6 +327,23 @@ MonoBehaviour:
   startingObjects: 30
   prefab: {fileID: 7651473218300279274, guid: 828e4795e14d84c4194db5f936f336ca, type: 3}
   pool: []
+  m_normalProperties:
+    velocity: 30
+    animName: NormalBullet
+    spriteSize: {x: 0.3, y: 0.3}
+  m_spearProperties:
+    velocity: 30
+    animName: SpearBullet
+    spriteSize: {x: 1, y: 1}
+  m_bottleProperties:
+    velocity: 30
+    animName: BottleBullet
+    spriteSize: {x: 1, y: 1}
+  m_magicianProperties:
+    velocity: 30
+    animName: MagicianBullet
+    spriteSize: {x: 1, y: 1}
+  adrenalineVelocityScale: 1.4
 --- !u!1 &6547701444824546350
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +466,7 @@ MonoBehaviour:
     textSpeed: 0
     lost: 0
     bucketsAutoFire: 0
+    bucketsSwapDash: 0
   gameCanvasPrefab: {fileID: 2184341498768048309, guid: f4aa33790ccdc504fa6700569f716078, type: 3}
   inputManager: {fileID: 8566072047202255938}
   databaseLoader: {fileID: 7760827275875051410}
