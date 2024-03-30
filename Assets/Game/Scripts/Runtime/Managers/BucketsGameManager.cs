@@ -63,7 +63,13 @@ namespace BucketsGame
         }
         public void OnEnable()
         {
+            if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.AddListener(ResetGameManager);
+
             StartCoroutine(LateFixedUpdate());
+        }
+        public void OnDisable()
+        {
+            if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(ResetGameManager);
         }
         private static void AssignInstance(BucketsGameManager go)
         {
@@ -225,6 +231,7 @@ namespace BucketsGame
         }
         private void OnDestroy()
         {
+            if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(ResetGameManager);
             Debug.Log("Manager destroyed!");
         }
     }
