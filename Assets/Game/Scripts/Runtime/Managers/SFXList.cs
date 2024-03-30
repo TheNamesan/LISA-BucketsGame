@@ -19,8 +19,14 @@ namespace BucketsGame
         public SFX adrenalineActiveSFX = new();
         public SFX barrelBroWallHit = new();
         public SFX doorOpenSFX = new();
+        public SFX rusherPunchSFX = new();
+        public SFX rusherPunchHitSFX = new();
+        public SFX shielderShootSFX = new();
+        public SFX flyerShootSFX = new();
+        public SFX flyerShootHitSFX = new();
         public SFX magicianPortalSFX = new();
         public SFX magicianGroundSFX = new();
         public SFX magicianBarrageSFX = new();
+        public SFX magicianBulletHitSFX = new();
     }
 }

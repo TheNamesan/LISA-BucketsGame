@@ -192,6 +192,7 @@ namespace BucketsGame
             // If player is behind enemy, rotate direction in X
             //if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
             BulletsPool.instance.SpawnBullet(rb.position, dir, BulletType.Bottle, Team.Enemy);
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.flyerShootSFX);
         }
         private void FireTimer()
         {

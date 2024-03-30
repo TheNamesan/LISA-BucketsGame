@@ -66,7 +66,7 @@ namespace TUFF
                 onStepEvent?.Invoke();
             }
         }
-        public void WallHit()
+        public void WallHit(bool ignoreSFX = false)
         {
             if (propertiesData)
             {
@@ -75,7 +75,8 @@ namespace TUFF
                     int index = Random.Range(0, propertiesData.wallHitSFXs.Count);
                     var sfx = propertiesData.wallHitSFXs[index];
                     var pitchVar = propertiesData.wallHitVariation;
-                    AudioManager.instance.PlaySFX(sfx.audioClip, sfx.volume, sfx.pitch + Random.Range(-pitchVar, pitchVar));
+                    if (!ignoreSFX) 
+                        AudioManager.instance.PlaySFX(sfx.audioClip, sfx.volume, sfx.pitch + Random.Range(-pitchVar, pitchVar));
                 }
             }
         }

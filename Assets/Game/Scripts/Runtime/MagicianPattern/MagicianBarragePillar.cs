@@ -7,8 +7,8 @@ namespace BucketsGame
     public class MagicianBarragePillar : MonoBehaviour
     {
         public BoxCollider2D hitboxRef;
-        public int fireDelay = 10;
-        public int stayTime = 3;
+        public int fireDelay = 25;
+        public int stayTime = 5;
         public int endTimer = 10;
         [SerializeField] private int m_delay = 0;
         [SerializeField] private int m_stay = 0;

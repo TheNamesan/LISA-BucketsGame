@@ -234,6 +234,7 @@ namespace TUFF
         }
         public void PlaySFX(SFX sfx)
         {
+            if (sfx == null) return;
             sfxManager.PlaySFX(sfx.GetAudioClip(), sfx.GetVolume(), sfx.GetPitch());
         }
         public void PlayAMBS(AMBSPlayData ambsPlayData, float fadeInDuration = 0)

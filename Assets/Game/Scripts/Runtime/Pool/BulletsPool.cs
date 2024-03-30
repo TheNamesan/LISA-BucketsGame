@@ -43,6 +43,16 @@ namespace BucketsGame
             }
             return m_normalProperties;
         }
+        private TUFF.SFX GetSFX(BulletType type)
+        {
+            switch (type)
+            {
+                case BulletType.Spear: return null;
+                case BulletType.Bottle: return SFXList.instance.flyerShootHitSFX;
+                case BulletType.Magician: return SFXList.instance.magicianBulletHitSFX;
+            }
+            return null;
+        }
         public void SpawnBullet(Vector2 position, Vector2 dir, Team team = Team.Player)
         {
             SpawnBullet(position, dir, BulletType.Normal, team);
@@ -57,8 +67,9 @@ namespace BucketsGame
             float velocity = properties.velocity * (BucketsGameManager.instance.focusMode ? adrenalineVelocityScale : 1f);
             string animName = properties.animName;
             Vector2 spriteSize = properties.spriteSize;
+            TUFF.SFX hitSFX = GetSFX(bulletType);
 
-            available.Fire(dir, velocity, animName, spriteSize, team);
+            available.Fire(dir, velocity, animName, spriteSize, hitSFX, team);
         }
 
         private Bullet GetBullet(Vector2 position)

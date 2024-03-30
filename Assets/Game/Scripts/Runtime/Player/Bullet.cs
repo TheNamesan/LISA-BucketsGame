@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TUFF;
 
 namespace BucketsGame
 {
@@ -20,9 +21,7 @@ namespace BucketsGame
     public class Bullet : PoolObject
     {
         public Animator anim;
-        public Sprite defaultSprite;
-        public Vector2 defaultSpriteSize = new Vector2(0.3f, 0.3f);
-        public float defaultVelocity = 27f;
+        public SFX hitSFX;
         
         public Rigidbody2D rb;
         public CircleCollider2D col;
@@ -34,7 +33,7 @@ namespace BucketsGame
         private int m_ticks = 0;
         private Vector2 m_lastPosition;
 
-        public void Fire(Vector2 normal, float velocity, string animName, Vector2 spriteSize, Team team = Team.Player)
+        public void Fire(Vector2 normal, float velocity, string animName, Vector2 spriteSize, SFX hitSFX, Team team = Team.Player)
         {
             gameObject.SetActive(true);
             this.team = team;
@@ -42,6 +41,7 @@ namespace BucketsGame
             spriteRenderer.transform.localScale = new Vector3(spriteSize.x, spriteSize.y, 
                 spriteRenderer.transform.localScale.z);
             this.velocity = velocity;
+            this.hitSFX = hitSFX;
             PlayAnimation(animName);
             transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);
             m_ticks = 0; // Reset Ticks
@@ -111,7 +111,7 @@ namespace BucketsGame
                     {
                         // If target is not dead and hits, despawn bullet
                         bool hitTarget = hurtbox.Collision(rb.velocity.normalized);
-                        if (hitTarget) { ReturnToPool(); return; }
+                        if (hitTarget) { AudioManager.instance.PlaySFX(hitSFX); ReturnToPool(); return; }
                     }
                 }
             }
@@ -130,7 +130,8 @@ namespace BucketsGame
                 {
                     if (props.playerBulletsGoThrough && team == Team.Player) return false;
                     if (props.enemyBulletsGoThrough && team == Team.Enemy) return false;
-                    props.WallHit();
+                    bool ignoreSFX = (hitSFX == SFXList.instance.magicianBulletHitSFX); // LOL FIX;
+                    props.WallHit(ignoreSFX);
                 }
                 if (hitGround.collider.TryGetComponent(out Door door))
                 {
@@ -138,6 +139,7 @@ namespace BucketsGame
                 }
             }
             VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
+            AudioManager.instance.PlaySFX(hitSFX);
             ReturnToPool();
             return true;
         }

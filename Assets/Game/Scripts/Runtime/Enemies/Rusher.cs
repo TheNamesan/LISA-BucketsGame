@@ -95,6 +95,7 @@ namespace BucketsGame
                     if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
                     {
                         bool hitTarget = hurtbox.Collision(dir);
+                        if (hitTarget) TUFF.AudioManager.instance.PlaySFX(SFXList.instance.rusherPunchHitSFX);
                     }
                 }
             }
@@ -104,6 +105,7 @@ namespace BucketsGame
         {
             m_attacking = true;
             m_attackingTicks = attackingAnimTicks;
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.rusherPunchSFX);
         }
 
         private void MoveHandler()

@@ -201,6 +201,56 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
+  rusherPunchSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 471e29305c13b9341805dfdfd10ffc16, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  rusherPunchHitSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 32fae8514a577aa4ca1079cc4f44ea97, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  shielderShootSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 471e29305c13b9341805dfdfd10ffc16, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  flyerShootSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 0b918f24e208c6942bd8f85447e99a5a, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  flyerShootHitSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 71f3ee62c27f9bd4f8e7b152a279a4a0, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 1
+    pitch: 0.75
+    minPitch: 0.5
   magicianPortalSFX:
     audioClipMode: 0
     audioClip: {fileID: 8300000, guid: 42639aebe495ce14182fbf5bf37137d7, type: 3}
@@ -230,6 +280,16 @@ MonoBehaviour:
     minVolume: 1
     pitchMode: 0
     pitch: 0.8
+    minPitch: 1
+  magicianBulletHitSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 71f3ee62c27f9bd4f8e7b152a279a4a0, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
     minPitch: 1
 --- !u!1 &4366076100015176235
 GameObject:

@@ -247,6 +247,7 @@ namespace BucketsGame
             if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
             Vector2 position = rb.position + dir.normalized;
             BulletsPool.instance.SpawnBullet(position, dir, BulletType.Spear, Team.Enemy);
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.shielderShootSFX);
         }
         private void StunTimer()
         {
