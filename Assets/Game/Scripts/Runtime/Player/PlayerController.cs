@@ -100,14 +100,14 @@ namespace BucketsGame
         }
         private void Update()
         {
-            //if (sprite)
-            //{
-            //    if (grounded) sprite.color = Color.white; // Tmp
-            //    else sprite.color = Color.green;
-            //    if (hurtbox && hurtbox.invulnerable) sprite.color = Color.blue;
-            //    if (m_dead) rb.constraints = RigidbodyConstraints2D.None;
-            //    else rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-            //}
+            /*if (sprite)
+            {
+                if (grounded) sprite.color = Color.white; // Tmp
+                else sprite.color = Color.green;
+                if (hurtbox && hurtbox.invulnerable) sprite.color = Color.blue;
+                //if (m_dead) rb.constraints = RigidbodyConstraints2D.None;
+                //else rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            }*/
             if (afterImagesHandler)
             {
                 bool active = dashing || wallJumping || BucketsGameManager.instance.focusMode;
@@ -637,8 +637,8 @@ namespace BucketsGame
         {
             m_wallJumpTicks = 0;
             m_wallJumpDirection = 0;
+            if (wallJumping) hurtbox?.SetInvulnerable(false);
             wallJumping = false;
-            hurtbox?.SetInvulnerable(false);
         }
         /// <summary>
         /// Returns true if jump force was applied.
