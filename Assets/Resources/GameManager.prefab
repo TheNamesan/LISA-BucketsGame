@@ -153,13 +153,13 @@ MonoBehaviour:
     minPitch: 1
   enemyHitSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: d0751f641d2810744a577bd8169198f5, type: 3}
+    audioClip: {fileID: 0}
     randomClips: []
     volumeMode: 0
     volume: 1
     minVolume: 1
     pitchMode: 0
-    pitch: 1.5
+    pitch: 1.2
     minPitch: 1
   enemyDeadSFX:
     audioClipMode: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 6443c8326a8240047a00d94632d87a3b, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 0.5
+    volume: 0.4
     minVolume: 1
     pitchMode: 0
     pitch: 1.5
@@ -203,33 +203,33 @@ MonoBehaviour:
     minPitch: 1
   magicianPortalSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: fc662d08263666e478a7afa0d95a7a75, type: 3}
+    audioClip: {fileID: 8300000, guid: 42639aebe495ce14182fbf5bf37137d7, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 1
+    volume: 0.6
     minVolume: 1
     pitchMode: 0
     pitch: 1
     minPitch: 1
   magicianGroundSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: fc662d08263666e478a7afa0d95a7a75, type: 3}
+    audioClip: {fileID: 8300000, guid: bbb693e333c43fb4d87136520c1c80c2, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 1
+    volume: 1.2
     minVolume: 1
     pitchMode: 0
-    pitch: 1
+    pitch: 1.1
     minPitch: 1
   magicianBarrageSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: fc662d08263666e478a7afa0d95a7a75, type: 3}
+    audioClip: {fileID: 8300000, guid: dfb74624fb9dce9409feac5cd6c47086, type: 3}
     randomClips: []
     volumeMode: 0
     volume: 1
     minVolume: 1
     pitchMode: 0
-    pitch: 1
+    pitch: 0.8
     minPitch: 1
 --- !u!1 &4366076100015176235
 GameObject:
