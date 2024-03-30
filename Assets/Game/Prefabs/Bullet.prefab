@@ -133,9 +133,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4594690204480170651}
-  defaultSprite: {fileID: 21300000, guid: 8b3af7f9804d5f44cb18105ac8059e12, type: 3}
-  defaultSpriteSize: {x: 0.3, y: 0.3}
-  defaultVelocity: 30
+  hitSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   rb: {fileID: 7651473218300279273}
   col: {fileID: 7994474208427354963}
   spriteRenderer: {fileID: 3645052967004521449}
