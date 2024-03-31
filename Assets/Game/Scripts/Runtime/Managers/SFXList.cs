@@ -28,5 +28,6 @@ namespace BucketsGame
         public SFX magicianGroundSFX = new();
         public SFX magicianBarrageSFX = new();
         public SFX magicianBulletHitSFX = new();
+        public SFX firebombHitSFX = new();
     }
 }

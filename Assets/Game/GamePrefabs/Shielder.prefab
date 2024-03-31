@@ -241,6 +241,7 @@ MonoBehaviour:
   groundIsOneWay: 0
   gravityScale: 2
   maxFallSpeed: -15
+  maxHP: 1
   hp: 1
   m_dead: 0
   enemyState: 0
@@ -248,6 +249,8 @@ MonoBehaviour:
   coneAngleOffset: 0
   coneDistance: 8.5
   coneAccuracy: 12
+  painMaxHP: 1
+  painMoveSpeed: 12
   roamSpeed: 3
   approachSpeed: 2
   approachDistance: 11

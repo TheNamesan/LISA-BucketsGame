@@ -126,6 +126,7 @@ namespace BucketsGame
                     if (enemyState == EnemyAIState.Alert)
                     {
                         speed = moveSpeed;
+                        if (BucketsGameManager.IsPainMode()) speed = painMoveSpeed;
                         moveH = (int)Mathf.Sign(distanceToPlayer);
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH = 0;
@@ -134,6 +135,7 @@ namespace BucketsGame
                     if (enemyState == EnemyAIState.Roaming)
                     {
                         speed = roamSpeed;
+                        
                         moveH = FaceToInt();
                         // Fall Check
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))

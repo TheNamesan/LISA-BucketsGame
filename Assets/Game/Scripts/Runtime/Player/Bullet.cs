@@ -10,19 +10,13 @@ namespace BucketsGame
         Player = 0,
         Enemy = 1
     }
-    public enum BulletType
-    {
-        Normal = 0,
-        Spear = 1,
-        Bottle = 2,
-        Magician = 3
-    }
     
     public class Bullet : PoolObject
     {
         public Animator anim;
         public SFX hitSFX;
-        
+        public BulletType type;
+
         public Rigidbody2D rb;
         public CircleCollider2D col;
         public SpriteRenderer spriteRenderer;
@@ -33,11 +27,12 @@ namespace BucketsGame
         private int m_ticks = 0;
         private Vector2 m_lastPosition;
 
-        public void Fire(Vector2 normal, float velocity, string animName, Vector2 spriteSize, SFX hitSFX, Team team = Team.Player)
+        public void Fire(Vector2 normal, float velocity, string animName, Vector2 spriteSize, SFX hitSFX, BulletType bulletType, Team team = Team.Player)
         {
             gameObject.SetActive(true);
             this.team = team;
             //spriteRenderer.sprite = sprite;
+            type = bulletType;
             spriteRenderer.transform.localScale = new Vector3(spriteSize.x, spriteSize.y, 
                 spriteRenderer.transform.localScale.z);
             this.velocity = velocity;
@@ -105,7 +100,7 @@ namespace BucketsGame
                 }
             }
             if (hitWall) return;
-            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
             RaycastHit2D[] hitAll = Physics2D.CircleCastAll(rb.position, radius, rb.transform.up, 0, hitboxLayers);
             for (int i = 0; i < hitAll.Length; i++)
             {
@@ -115,7 +110,11 @@ namespace BucketsGame
                     {
                         // If target is not dead and hits, despawn bullet
                         bool hitTarget = hurtbox.Collision(rb.velocity.normalized);
-                        if (hitTarget) { AudioManager.instance.PlaySFX(hitSFX); ReturnToPool(); return; }
+                        if (hitTarget) {
+                            if (type == BulletType.Firebomb) FirebombEffects(hitAll[i].point);
+                            AudioManager.instance.PlaySFX(hitSFX); 
+                            ReturnToPool(); 
+                            return; }
                     }
                 }
             }
@@ -127,14 +126,14 @@ namespace BucketsGame
             // I'm flipping the normal to align with the sprite
             float rotation = Vector2.SignedAngle(Vector2.right, -normal);
             //Debug.Log(rotation);
-            
+
             if (hitGround)
             {
                 if (hitGround.collider.TryGetComponent(out TUFF.TerrainProperties props))
                 {
                     if (props.playerBulletsGoThrough && team == Team.Player) return false;
                     if (props.enemyBulletsGoThrough && team == Team.Enemy) return false;
-                    bool ignoreSFX = (hitSFX == SFXList.instance.magicianBulletHitSFX); // LOL FIX;
+                    bool ignoreSFX = (type == BulletType.Magician); // LOL FIX;
                     props.WallHit(ignoreSFX);
                 }
                 else if (isOneWay) return false;
@@ -143,10 +142,30 @@ namespace BucketsGame
                     door.Open(rb.velocity.normalized.x, team == Team.Player);
                 }
             }
-            VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
+            if (type == BulletType.Firebomb) FirebombEffects(point);
+            else VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
             AudioManager.instance.PlaySFX(hitSFX);
             ReturnToPool();
             return true;
+        }
+
+        private void FirebombEffects(Vector2 point)
+        {
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
+            float radius = 1.5f;
+            RaycastHit2D[] hitAll = Physics2D.CircleCastAll(point + Vector2.up * radius * 0.5f, radius, rb.transform.up, 0, hitboxLayers);
+            for (int i = 0; i < hitAll.Length; i++)
+            {
+                if (hitAll[i].collider.TryGetComponent(out Hurtbox hurtbox))
+                {
+                    if (hurtbox.team != team && !hurtbox.invulnerable)
+                    {
+                        bool hitTarget = hurtbox.Collision(rb.velocity.normalized);
+                    }
+                }
+            }
+            VFXPool.instance.PlayVFX("ExplosionVFX", point, false);
+            AudioManager.instance.PlaySFX(SFXList.instance.firebombHitSFX);
         }
 
         private void OnTriggerEnter2D(Collider2D other)

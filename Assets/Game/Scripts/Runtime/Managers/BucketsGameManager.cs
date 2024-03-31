@@ -11,6 +11,7 @@ namespace BucketsGame
         public PlayerInputHandler inputHandler;
         public SFXList sfxs;
         public PrefabList prefabList;
+        public bool painMode = false;
         public bool hitstun = true;
         public int maxFocusTicks = 150;
         public int focusTicks = 0;
@@ -233,6 +234,10 @@ namespace BucketsGame
         {
             if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(ResetGameManager);
             Debug.Log("Manager destroyed!");
+        }
+        public static bool IsPainMode()
+        {
+            return instance.painMode;
         }
     }
 }

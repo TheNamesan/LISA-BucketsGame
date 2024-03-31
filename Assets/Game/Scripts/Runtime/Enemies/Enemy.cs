@@ -21,7 +21,21 @@ namespace BucketsGame
         public float coneAngleOffset = 0f;
         public float coneDistance = 8.5f;
         public int coneAccuracy = 12;
-        
+
+        [Header("Pain Mode")]
+        public int painMaxHP = 2;
+        public float painMoveSpeed = 12;
+
+        protected void Awake()
+        {
+            AssignHP();
+        }
+
+        protected override void AssignHP()
+        {
+            hp = (BucketsGameManager.IsPainMode() ? painMaxHP : maxHP);
+        }
+
         private void Start()
         {
             //AddAsRoomEnemy();

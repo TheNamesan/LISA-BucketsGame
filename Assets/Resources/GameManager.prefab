@@ -291,6 +291,16 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
+  firebombHitSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 6e58ffb3e21285a48b37e678dd5db6fb, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 0.8
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1.5
+    minPitch: 1
 --- !u!1 &4366076100015176235
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,19 +399,28 @@ MonoBehaviour:
   pool: []
   m_normalProperties:
     velocity: 30
+    painModeVelocity: 30
     animName: NormalBullet
     spriteSize: {x: 0.3, y: 0.3}
   m_spearProperties:
     velocity: 30
+    painModeVelocity: 35
     animName: SpearBullet
     spriteSize: {x: 1, y: 1}
   m_bottleProperties:
     velocity: 30
+    painModeVelocity: 40
     animName: BottleBullet
     spriteSize: {x: 1, y: 1}
   m_magicianProperties:
     velocity: 30
+    painModeVelocity: 35
     animName: MagicianBullet
+    spriteSize: {x: 1, y: 1}
+  m_firebombProperties:
+    velocity: 30
+    painModeVelocity: 40
+    animName: BottleBullet
     spriteSize: {x: 1, y: 1}
   adrenalineVelocityScale: 1.4
 --- !u!1 &6547701444824546350
@@ -464,6 +483,7 @@ MonoBehaviour:
   inputHandler: {fileID: 6547701444824546339}
   sfxs: {fileID: 3812152892053159506}
   prefabList: {fileID: 1638748199791322427}
+  painMode: 1
   hitstun: 1
   maxFocusTicks: 150
   focusTicks: 0

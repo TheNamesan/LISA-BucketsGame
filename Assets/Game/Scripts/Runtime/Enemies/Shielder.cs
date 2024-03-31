@@ -25,7 +25,7 @@ namespace BucketsGame
         public float bulletVelocity = 30;
         public int fireAnimDuration = 35;
         public int fireTick = 15;
-        public int fireRate = 50;
+        public int fireRate = 25;
         public bool firing { get => m_firing; }
         [SerializeField] private bool m_firing = false;
         [SerializeField] private int m_fireAnimTicks = 0;
@@ -37,6 +37,10 @@ namespace BucketsGame
         public int stunnedTicks { get => m_stunnedTicks; }
         [SerializeField] private int m_stunnedTicks = 0;
         [SerializeField] private int m_stunDirection = 0;
+
+        [Header("Pain Mode")]
+        public float painApproachSpeed = 3.5f;
+        public int painFireRate = 15;
 
         private void Start()
         {
@@ -166,7 +170,10 @@ namespace BucketsGame
                     {
                         speed = moveSpeed;
                         if (Mathf.Abs(distanceToPlayerX) <= approachDistance)
-                            speed = approachSpeed;
+                        {
+                            speed = (BucketsGameManager.IsPainMode() ? painApproachSpeed : approachSpeed);
+                        }
+                            
                         if (distanceToPlayer <= 0.3f) speed = 0;
                         moveH = (int)Mathf.Sign(distanceToPlayerX);
                         CheckDoorOpening(moveH);
@@ -236,7 +243,7 @@ namespace BucketsGame
         }
         private void StopFire(bool useCooldown = false)
         {
-            if (useCooldown) m_fireCooldownTicks = fireRate;
+            if (useCooldown) m_fireCooldownTicks = (BucketsGameManager.IsPainMode() ? painFireRate : fireRate);
             m_vulnerable = false;
             m_fireAnimTicks = 0;
             m_firing = false;

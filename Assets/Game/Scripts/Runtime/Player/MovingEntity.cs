@@ -40,7 +40,9 @@ namespace BucketsGame
         public float gravityScale = 2;
         public float maxFallSpeed = -15;
 
+        public int maxHP = 1;
         public int hp = 1;
+        
         public bool dead { get => m_dead; }
         [SerializeField] protected bool m_dead = false;
         protected readonly Vector2 NORMAL_LIMIT = new Vector2(1, 0);
@@ -54,7 +56,14 @@ namespace BucketsGame
                     screenPos.y > 0f && screenPos.y < Screen.height;
             }
         }
-
+        private void Awake()
+        {
+            AssignHP();
+        }
+        protected virtual void AssignHP()
+        {
+            hp = maxHP;
+        }
         protected virtual void GroundCheck()
         {
             //if (m_dead) return;

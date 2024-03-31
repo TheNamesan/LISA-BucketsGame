@@ -72,8 +72,9 @@ namespace BucketsGame
         public string roomToLoadOnDefeat = "";
 
         public PlayerController player { get => SceneProperties.mainPlayer; }
-        private void Awake()
+        private new void Awake()
         {
+            AssignHP();
             m_patternTime = timeBetweenAttacks;
             ResetDashes();
             UpdateAfterImages();

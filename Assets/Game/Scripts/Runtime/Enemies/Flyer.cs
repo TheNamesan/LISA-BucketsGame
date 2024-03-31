@@ -130,8 +130,7 @@ namespace BucketsGame
                 if (enemyState == EnemyAIState.Alert)
                 {
                     speed = moveSpeed;
-                    //if (Mathf.Abs(distanceToPlayer) <= approachDistance)
-                    //    speed = approachSpeed;
+                    if (BucketsGameManager.IsPainMode()) speed = painMoveSpeed;
                     moveH = (int)Mathf.Sign(distanceToPlayer);
                     //if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                     //    moveH = 0;
@@ -191,7 +190,8 @@ namespace BucketsGame
             Vector2 size = Vector2.one;
             // If player is behind enemy, rotate direction in X
             //if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
-            BulletsPool.instance.SpawnBullet(rb.position, dir, BulletType.Bottle, Team.Enemy);
+            BulletType type = (BucketsGameManager.IsPainMode() ? BulletType.Firebomb : BulletType.Bottle);
+            BulletsPool.instance.SpawnBullet(rb.position, dir, type, Team.Enemy);
             TUFF.AudioManager.instance.PlaySFX(SFXList.instance.flyerShootSFX);
         }
         private void FireTimer()

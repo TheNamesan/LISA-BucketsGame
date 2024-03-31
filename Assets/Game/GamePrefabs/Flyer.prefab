@@ -82,6 +82,7 @@ MonoBehaviour:
   groundIsOneWay: 0
   gravityScale: 0
   maxFallSpeed: -15
+  maxHP: 2
   hp: 2
   m_dead: 0
   enemyState: 0
@@ -89,7 +90,8 @@ MonoBehaviour:
   coneAngleOffset: 45
   coneDistance: 16
   coneAccuracy: 26
-  bulletSprite: {fileID: 1794795385, guid: e731502b5cf61fb4a8d3961bad059293, type: 3}
+  painMaxHP: 3
+  painMoveSpeed: 4
   roamSpeed: 1
   approachDistance: 10
   deadGravity: 2
