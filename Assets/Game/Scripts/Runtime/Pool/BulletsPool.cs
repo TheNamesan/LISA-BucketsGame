@@ -64,7 +64,8 @@ namespace BucketsGame
 
             var properties = GetTargetProperties(bulletType);
             // Scale with adrenaline slow mo
-            float velocity = properties.velocity * (BucketsGameManager.instance.focusMode ? adrenalineVelocityScale : 1f);
+            float velocity = properties.velocity;
+            if (team == Team.Player) velocity *= (BucketsGameManager.instance.focusMode ? adrenalineVelocityScale : 1f);
             string animName = properties.animName;
             Vector2 spriteSize = properties.spriteSize;
             TUFF.SFX hitSFX = GetSFX(bulletType);
