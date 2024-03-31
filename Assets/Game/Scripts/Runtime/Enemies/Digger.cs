@@ -186,7 +186,11 @@ namespace BucketsGame
         }
         private void MoveHandler()
         {
-            if (m_dead) return;
+            if (m_dead)
+            {
+                if (grounded) rb.velocity *= 0.95f;
+                return;
+            }
             if (grounded)
             {
                 var player = SceneProperties.mainPlayer;

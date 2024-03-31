@@ -90,15 +90,19 @@ namespace BucketsGame
             //RaycastHit2D hitGround = Physics2D.CircleCast(rb.position, radius, dir, 0, groundLayers);
             Debug.DrawLine(m_lastPosition, rb.position, Color.magenta, Time.fixedDeltaTime);
             RaycastHit2D hitGround = Physics2D.CircleCast(m_lastPosition, radius, distance, distance.magnitude, groundLayers);
+            
             bool hitWall = false;
             if (hitGround)
             {
-                Vector2 normal = hitGround.normal;
-                // Adjust hit normal
-                //RaycastHit2D adjustHit = Physics2D.Linecast(m_lastPosition, rb.position, groundLayers);
-                //if (adjustHit) { Debug.Log("Using adjust hit"); normal = adjustHit.normal; }
-                
-                hitWall = OnWallHit(hitGround, hitGround.point, normal);
+                hitWall = OnWallHit(hitGround, hitGround.point, hitGround.normal, false);
+            }
+            if (!hitWall)
+            {
+                RaycastHit2D hitOneWay = Physics2D.CircleCast(m_lastPosition, radius, distance, distance.magnitude, BucketsGameManager.instance.oneWayLayers);
+                if (hitOneWay)
+                {
+                    hitWall = OnWallHit(hitOneWay, hitOneWay.point, hitOneWay.normal, true);
+                }
             }
             if (hitWall) return;
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers; // Make the hitbox a seperate class
@@ -117,7 +121,7 @@ namespace BucketsGame
             }
         }
 
-        private bool OnWallHit(RaycastHit2D hitGround, Vector2 point, Vector2 normal)
+        private bool OnWallHit(RaycastHit2D hitGround, Vector2 point, Vector2 normal, bool isOneWay)
         {
             //Debug.Log(normal);
             // I'm flipping the normal to align with the sprite
@@ -133,6 +137,7 @@ namespace BucketsGame
                     bool ignoreSFX = (hitSFX == SFXList.instance.magicianBulletHitSFX); // LOL FIX;
                     props.WallHit(ignoreSFX);
                 }
+                else if (isOneWay) return false;
                 if (hitGround.collider.TryGetComponent(out Door door))
                 {
                     door.Open(rb.velocity.normalized.x, team == Team.Player);

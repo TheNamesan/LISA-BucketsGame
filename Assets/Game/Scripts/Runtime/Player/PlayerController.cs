@@ -401,7 +401,7 @@ namespace BucketsGame
         {
             int moveH = (int)input.inputH;
             int moveV = (int)input.inputV;
-            if (m_dead)
+            if (m_dead || stunned)
             {
                 if (grounded) rb.velocity *= 0.95f;
                 return; 
