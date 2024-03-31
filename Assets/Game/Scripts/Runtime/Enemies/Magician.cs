@@ -115,8 +115,9 @@ namespace BucketsGame
                 {
                     bool alternate = ((m_invincibilityFramesLeft - 1) % 8 >= 0 && (m_invincibilityFramesLeft - 1) % 8 <= 3);
                     sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, (alternate ? 0.5f : 1f));
-                }    
+                }
                 //else sprite.color = Color.white;
+                sprite.flipX = facing == Facing.Left;
             }
         }
         private void OnEnable()
