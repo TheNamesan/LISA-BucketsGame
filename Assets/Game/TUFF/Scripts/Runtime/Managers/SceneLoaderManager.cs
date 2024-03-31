@@ -295,6 +295,7 @@ namespace TUFF
                 onLoad?.Invoke();
             });
             onSceneLoad?.Invoke();
+            onSceneChanged?.Invoke();
         }
         public void SetPlayerPosition(Vector2 position, FaceDirections faceDirection)
         {

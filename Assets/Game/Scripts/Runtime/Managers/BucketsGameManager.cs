@@ -156,6 +156,7 @@ namespace BucketsGame
             Debug.Log("Resetting");
             GameUtility.KillTween(ref m_hitstunTween);
             ResetGameManager();
+            AfterImagesPool.instance.ResetPool();
             BulletsPool.instance.ResetPool();
             MagicianPatternPool.instance.ResetPool();
             SceneProperties.instance.ResetLevel();

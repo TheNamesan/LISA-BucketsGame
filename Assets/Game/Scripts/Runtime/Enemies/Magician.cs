@@ -76,6 +76,7 @@ namespace BucketsGame
         {
             m_patternTime = timeBetweenAttacks;
             ResetDashes();
+            UpdateAfterImages();
         }
 
         private void ResetDashes()
@@ -97,13 +98,7 @@ namespace BucketsGame
 
         private void Update()
         {
-            if (afterImagesHandler)
-            {
-                float time = (dashes == 0 ? 0f : (float)m_dashesLeft / dashes);
-                var color = Color.Lerp(zeroDashesColor, maxDashesColor, time);
-                if (invincible) color = invincibilityColor;
-                afterImagesHandler.targetColor = color;
-            }
+            UpdateAfterImages();
             if (sprite)
             {
                 if (pattern == MagicianPatternType.Shoot && InShootTelegraph)
@@ -120,6 +115,18 @@ namespace BucketsGame
                 sprite.flipX = facing == Facing.Left;
             }
         }
+
+        private void UpdateAfterImages()
+        {
+            if (afterImagesHandler)
+            {
+                float time = (dashes == 0 ? 0f : (float)m_dashesLeft / dashes);
+                var color = Color.Lerp(zeroDashesColor, maxDashesColor, time);
+                if (invincible) color = invincibilityColor;
+                afterImagesHandler.targetColor = color;
+            }
+        }
+
         private void OnEnable()
         {
             if (Application.isPlaying) EntityResetCaller.onResetLevel.AddListener(RecolorMagician);
