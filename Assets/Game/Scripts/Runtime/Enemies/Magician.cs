@@ -45,12 +45,11 @@ namespace BucketsGame
         [SerializeField] private int m_invincibilityFramesLeft = 0;
         public bool invincible { get => m_invincibilityFramesLeft > 0; }
 
-        [Header("HP")]
-        public int dashes = 7;
+        [Header("Dashes")]
+        public int dashes = 5;
         [SerializeField] private int m_dashesLeft = 0;
 
         [Header("Pattern")]
-        
         public MagicianPatternType pattern = MagicianPatternType.Idle;
         public bool attacking { 
             get => 
@@ -58,7 +57,8 @@ namespace BucketsGame
         }
         public Vector2 barragePivot = new Vector2(-16.9f, 1.2f);
         public Vector2 floorPivot = new Vector2(-16.9f, 1.2f);
-        public int timeBetweenAttacks = 50;
+        public int timeBetweenAttacks = 60;
+        public int patternTimeReductionPerHPLost = 5;
         [SerializeField] private int m_patternTime = 0;
         [SerializeField] private MagicianPattern m_activePattern = null;
 
@@ -67,7 +67,16 @@ namespace BucketsGame
         public int shootTelegraphDuration = 20;
         public int shootPatternDuration = 70;
         [SerializeField] public int m_shootTime = 0;
-        public bool InShootTelegraph { get => shootPatternDuration - m_shootTime <= shootTelegraphDuration; }
+        public int ShootDuration { get => (BucketsGameManager.IsPainMode() ? painShootPatternDuration : shootPatternDuration); }
+        public bool InShootTelegraph { get => ShootDuration - m_shootTime <= shootTelegraphDuration; }
+
+        [Header("Spike")]
+        public CircleCollider2D spikeRef;
+
+        [Header("Pain Mode")]
+        public int painDashes = 8;
+        public int painTimeBetweenAttacks = 45;
+        public int painShootPatternDuration = 90;
 
         public string roomToLoadOnDefeat = "";
 
@@ -75,14 +84,21 @@ namespace BucketsGame
         private new void Awake()
         {
             AssignHP();
-            m_patternTime = timeBetweenAttacks;
+            AssignPatternTime();
             ResetDashes();
             UpdateAfterImages();
         }
 
+        private void AssignPatternTime()
+        {
+            int hpLost = maxHP - hp;
+            int time = (BucketsGameManager.IsPainMode() ? painTimeBetweenAttacks : timeBetweenAttacks);
+            m_patternTime = time - (hpLost * patternTimeReductionPerHPLost);
+        }
+
         private void ResetDashes()
         {
-            m_dashesLeft = dashes;
+            m_dashesLeft = (BucketsGameManager.IsPainMode() ? painDashes : dashes);
         }
 
         private void Start()
@@ -104,7 +120,7 @@ namespace BucketsGame
             {
                 if (pattern == MagicianPatternType.Shoot && InShootTelegraph)
                 {
-                    float t = Mathf.InverseLerp(shootPatternDuration, (shootPatternDuration - shootTelegraphDuration), m_shootTime);
+                    float t = Mathf.InverseLerp(ShootDuration, (ShootDuration - shootTelegraphDuration), m_shootTime);
                     sprite.color = Color.Lerp(Color.white, shootTelegraphColor, t);
                 }
                 if (invincible)
@@ -153,11 +169,35 @@ namespace BucketsGame
             WallCheck();
             MoveHandler();
             TimerHandler();
+            SpikeHitbox();
+        }
+        private void SpikeHitbox()
+        {
+            if (!spikeRef) return;
+            if (!BucketsGameManager.IsPainMode())
+            { spikeRef.gameObject.SetActive(false); return; }
+            spikeRef.gameObject.SetActive(true);
+            Vector2 origin = spikeRef.transform.position;
+            float radius = spikeRef.radius * spikeRef.transform.localScale.y;
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
+            var launchDir = rb.velocity.normalized;
+            var hits = Physics2D.CircleCastAll(origin, radius, Vector2.up, 0f, hitboxLayers);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
+                {
+                    if (hurtbox.team == Team.Player && !hurtbox.invulnerable)
+                    {
+                        bool hitTarget = hurtbox.Collision(launchDir);
+                    }
+                }
+            }
         }
         private float GetVelX(int moveH)
         {
             if (m_dead) return rb.velocity.x;
             float speed = moveSpeed;
+            if (BucketsGameManager.IsPainMode()) speed = painMoveSpeed;
             float velocity = moveH * speed; // Walk Speed
             if (dashing) // Dash Speed
             {
@@ -180,7 +220,6 @@ namespace BucketsGame
                 sineMove.transform.localPosition = new Vector2(sineMove.transform.localPosition.x, value);
 
                 int moveH = 0;
-                float speed = moveSpeed;
                 moveH = (int)Mathf.Sign(distanceToPlayer);
 
                 float velX = GetVelX(moveH);
@@ -244,7 +283,7 @@ namespace BucketsGame
                 if (pattern != MagicianPatternType.Idle)
                 {
                     pattern = MagicianPatternType.Idle;
-                    m_patternTime = timeBetweenAttacks;
+                    AssignPatternTime();
                 }
                 else
                 {
@@ -263,7 +302,7 @@ namespace BucketsGame
             switch (random)
             {
                 case MagicianPatternType.Shoot:
-                    m_shootTime = shootPatternDuration;
+                    m_shootTime = ShootDuration;
                     TUFF.AudioManager.instance.PlaySFX(SFXList.instance.magicianBarrageSFX);
                     break;
                 case MagicianPatternType.Barrage:
@@ -280,7 +319,7 @@ namespace BucketsGame
         {
             if (pattern != MagicianPatternType.Shoot) return;
             if (m_shootTime <= 0) return;
-            if (m_shootTime == shootPatternDuration - shootTelegraphDuration) 
+            if (m_shootTime == ShootDuration - shootTelegraphDuration) 
                 sprite.color = Color.white;
             m_shootTime--;
             if (!InShootTelegraph) ShootProjectile();
@@ -347,7 +386,7 @@ namespace BucketsGame
         {
             pattern = MagicianPatternType.Idle;
             m_shootTime = 0;
-            m_patternTime = timeBetweenAttacks;
+            AssignPatternTime();
             MagicianPatternPool.instance.ResetPool();
         }
     }
