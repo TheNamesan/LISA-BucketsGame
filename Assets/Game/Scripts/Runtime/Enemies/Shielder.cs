@@ -312,8 +312,8 @@ namespace BucketsGame
             launch *= 40f;
             rb.velocity = (launch);
             BucketsGameManager.instance.OnEnemyKill();
-            MovingPropPool.instance.SpawnProp(rb.position + Vector2.right * 0.5f, 0f, launch, spearSprite);
-            MovingPropPool.instance.SpawnProp(rb.position - Vector2.right * 0.5f, 0f, launch, doorSprite);
+            MovingPropPool.instance.SpawnProp(rb.position + Vector2.right * 0.5f, 0f, launch * 1.5f, spearSprite);
+            MovingPropPool.instance.SpawnProp(rb.position - Vector2.right * 0.5f, 0f, launch * 0.5f, doorSprite);
             return true;
         }
         public void OnDrawGizmos()

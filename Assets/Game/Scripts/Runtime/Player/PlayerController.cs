@@ -100,7 +100,7 @@ namespace BucketsGame
             ResetMidairMoves();
             ignoreLandAnim = true;
             GroundCheck();
-            GroundedAnimationStateCheck();
+            //GroundedAnimationStateCheck(); // If this is ON, weird stuff happens when resetting
         }
         private void Update()
         {

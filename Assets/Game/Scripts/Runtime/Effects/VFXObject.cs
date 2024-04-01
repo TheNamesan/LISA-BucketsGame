@@ -9,11 +9,15 @@ namespace BucketsGame
         public Animator anim;
         public SpriteRenderer spriteRenderer;
         private IEnumerator durationCoroutine = null;
-        public void Play(string animName, bool flipX = false)
+        public void Play(string animName, bool flipX = false, string sortingLayerName = "Default")
         {
             m_inUse = true;
             gameObject.SetActive(true);
-            if (spriteRenderer) spriteRenderer.flipX = flipX;
+            if (spriteRenderer)
+            { 
+                spriteRenderer.flipX = flipX;
+                spriteRenderer.sortingLayerName = sortingLayerName;
+            }
             if (!anim) return;
             if (durationCoroutine != null) StopCoroutine(durationCoroutine);
             anim.Play(animName, -1, 0f);
