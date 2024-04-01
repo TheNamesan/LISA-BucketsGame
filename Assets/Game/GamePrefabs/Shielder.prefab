@@ -254,6 +254,8 @@ MonoBehaviour:
   roamSpeed: 3
   approachSpeed: 2
   approachDistance: 11
+  spearSprite: {fileID: 21300000, guid: ac57645cd7a776147b9a0771daa46288, type: 3}
+  doorSprite: {fileID: 21300000, guid: 76f51520d9deb8a44a6f75dae83ce244, type: 3}
   m_attacking: 0
   m_vulnerable: 0
   attackingAnimTicks: 30
@@ -270,6 +272,8 @@ MonoBehaviour:
   stunnedDuration: 30
   m_stunnedTicks: 0
   m_stunDirection: 0
+  painApproachSpeed: 3.5
+  painFireRate: 15
 --- !u!114 &5115521999454662445
 MonoBehaviour:
   m_ObjectHideFlags: 0

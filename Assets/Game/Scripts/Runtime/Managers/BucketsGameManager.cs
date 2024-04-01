@@ -70,7 +70,6 @@ namespace BucketsGame
         public void OnEnable()
         {
             if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.AddListener(ResetGameManager);
-
             StartCoroutine(LateFixedUpdate());
         }
         public void OnDisable()
@@ -162,17 +161,25 @@ namespace BucketsGame
             Debug.Log("Resetting");
             GameUtility.KillTween(ref m_hitstunTween);
             ResetGameManager();
-            AfterImagesPool.instance.ResetPool();
-            BulletsPool.instance.ResetPool();
-            MagicianPatternPool.instance.ResetPool();
             SceneProperties.instance.ResetLevel();
             EntityResetCaller.onResetLevel.Invoke();
         }
+
+        private static void ResetPools()
+        {
+            VFXPool.instance.ResetPool();
+            MovingPropPool.instance.ResetPool();
+            AfterImagesPool.instance.ResetPool();
+            BulletsPool.instance.ResetPool();
+            MagicianPatternPool.instance.ResetPool();
+        }
+
         private void ResetGameManager()
         {
             ToggleFocus(false);
             focusTicks = maxFocusTicks;
             m_cooldownTicks = 0;
+            ResetPools();
         }
         private void AddTicks(int value)
         {

@@ -11,6 +11,8 @@ namespace BucketsGame
         public float roamSpeed = 3f;
         public float approachSpeed = 2f;
         public float approachDistance = 10f;
+        public Sprite spearSprite;
+        public Sprite doorSprite;
         public bool attacking { get => m_attacking; }
         public bool vulnerable { get => m_vulnerable; }
 
@@ -50,25 +52,25 @@ namespace BucketsGame
         {
             if (sprite)
             {
-                if (m_dead)
-                {
-                    sprite.color = Color.red;
-                    rb.constraints = RigidbodyConstraints2D.None;
-                }
-                else
-                {
-                    if (m_vulnerable)
-                    {
-                        sprite.color = Color.blue;
-                    }
-                    else if (m_attacking)
-                    {
-                        if (m_attackingTicks == attackTick) sprite.color = new Color(255, 127, 0, 255);
-                        else sprite.color = Color.green;
-                    }
-                    else sprite.color = Color.white;
-                    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
-                }
+                //if (m_dead)
+                //{
+                //    sprite.color = Color.red;
+                //    rb.constraints = RigidbodyConstraints2D.None;
+                //}
+                //else
+                //{
+                //    if (m_vulnerable)
+                //    {
+                //        sprite.color = Color.blue;
+                //    }
+                //    else if (m_attacking)
+                //    {
+                //        if (m_attackingTicks == attackTick) sprite.color = new Color(255, 127, 0, 255);
+                //        else sprite.color = Color.green;
+                //    }
+                //    else sprite.color = Color.white;
+                //    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+                //}
                 sprite.flipX = facing == Facing.Left;
             }
         }
@@ -297,7 +299,8 @@ namespace BucketsGame
             }
             hp--;
             AlertEnemy();
-            if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit(); return true; }
+            HurtTween();
+            if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
             return Kill(launch);
         }
         public override bool Kill(Vector2 launch)
@@ -309,6 +312,8 @@ namespace BucketsGame
             launch *= 40f;
             rb.velocity = (launch);
             BucketsGameManager.instance.OnEnemyKill();
+            MovingPropPool.instance.SpawnProp(rb.position + Vector2.right * 0.5f, 0f, launch, spearSprite);
+            MovingPropPool.instance.SpawnProp(rb.position - Vector2.right * 0.5f, 0f, launch, doorSprite);
             return true;
         }
         public void OnDrawGizmos()
