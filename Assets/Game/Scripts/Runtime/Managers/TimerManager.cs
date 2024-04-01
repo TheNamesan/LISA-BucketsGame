@@ -11,7 +11,6 @@ namespace BucketsGame
         public static TimerManager instance { get => BucketsGameManager.instance.timerManager; }
         private Stopwatch stopwatch = new();
         private bool m_initialized = false;
-        public double secondsElapsed = 0;
         public System.TimeSpan timeSpanElapsed { get => stopwatch.Elapsed; }
         private void OnEnable()
         {

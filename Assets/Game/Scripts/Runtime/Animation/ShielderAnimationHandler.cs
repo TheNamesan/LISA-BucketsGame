@@ -25,6 +25,10 @@ namespace BucketsGame
         }
         public string GetAnimationStateName()
         {
+            if (target.dead)
+            {
+                return "ShielderDead";
+            }
             if (target.firing)
             {
                 return "ShielderFire";

@@ -144,6 +144,7 @@ namespace BucketsGame
                 }
             }
             if (type == BulletType.Firebomb) FirebombEffects(point);
+            else if (type == BulletType.Spear) VFXPool.instance.PlayVFX("SpearVFX", point, false, rb.rotation);
             else VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
             AudioManager.instance.PlaySFX(hitSFX);
             ReturnToPool();

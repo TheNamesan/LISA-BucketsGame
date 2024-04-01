@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ecd9ef173ddcd4c9caf028f57b46e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  secondsElapsed: 0
 --- !u!1 &2858019558890567306
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,7 +376,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6863682101127422214}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &984294081093158812
 MonoBehaviour:
@@ -394,6 +395,53 @@ MonoBehaviour:
   pool: []
   barragePrefab: {fileID: 6798457310182030867, guid: 21f581a89852845488483c5a3c594056, type: 3}
   floorPrefab: {fileID: 8155085091445250858, guid: 71f38c444dc9f8c4ba1418c65033f556, type: 3}
+--- !u!1 &5420028649121388384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1264631870200859350}
+  - component: {fileID: 2766242475334240797}
+  m_Layer: 0
+  m_Name: MovingPropPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1264631870200859350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420028649121388384}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6863682101127422214}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2766242475334240797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420028649121388384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 192d7aa414129274e853ce9ef9260bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingObjects: 10
+  prefab: {fileID: 8889923109436102064, guid: 9608ea2edea9b7a4faed3f565695810f, type: 3}
+  pool: []
 --- !u!1 &5935450050737164437
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +649,7 @@ MonoBehaviour:
     bucketsSwapDash: 0
     bucketsComplete: 0
     bucketsPainModeComplete: 0
+    bucketsTimer: 0
     bucketsPainMode: 0
     bucketsRusherMode: 0
   gameCanvasPrefab: {fileID: 2184341498768048309, guid: f4aa33790ccdc504fa6700569f716078, type: 3}
@@ -1119,6 +1168,7 @@ Transform:
   - {fileID: 1013428546601661257}
   - {fileID: 2176787915242323425}
   - {fileID: 3634378098967702237}
+  - {fileID: 1264631870200859350}
   - {fileID: 2111622251158414460}
   m_Father: {fileID: 6547701444824546337}
   m_RootOrder: 1
