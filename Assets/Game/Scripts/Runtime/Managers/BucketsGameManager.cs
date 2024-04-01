@@ -11,7 +11,9 @@ namespace BucketsGame
         public PlayerInputHandler inputHandler;
         public SFXList sfxs;
         public PrefabList prefabList;
-        public bool painMode = false;
+        public bool newGame { get => m_newGame; }
+        private bool m_newGame = false;
+        public bool forcePainMode = false;
         public bool hitstun = true;
         public int maxFocusTicks = 150;
         public int focusTicks = 0;
@@ -237,7 +239,12 @@ namespace BucketsGame
         }
         public static bool IsPainMode()
         {
-            return instance.painMode;
+            if (Application.isEditor && instance.forcePainMode) return true;
+            return TUFF.GameManager.instance.configData.bucketsPainMode;
+        }
+        public void SetNewGame(bool isNewGame)
+        {
+            m_newGame = isNewGame;
         }
     }
 }

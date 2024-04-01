@@ -18,6 +18,11 @@ namespace TUFF
         public bool lost = false;
         public bool bucketsAutoFire = false;
         public bool bucketsSwapDash = false;
+        public bool bucketsComplete = false;
+        public bool bucketsPainModeComplete = false;
+        public bool bucketsPainMode = false;
+        public bool bucketsRusherMode = false;
+        
 
         public void SaveData()
         {
@@ -38,6 +43,12 @@ namespace TUFF
             textSpeed = load.textSpeed;
             lost = load.lost;
             bucketsAutoFire = load.bucketsAutoFire;
+            bucketsSwapDash = load.bucketsSwapDash;
+            bucketsComplete = load.bucketsComplete;
+            bucketsPainModeComplete = load.bucketsPainModeComplete;
+            bucketsPainMode = load.bucketsPainMode;
+            bucketsRusherMode = load.bucketsRusherMode;
+            
         }
         public static ConfigData GetDefaultData() // Set Best Settings for current device on first load here
         {
@@ -54,6 +65,13 @@ namespace TUFF
             configData.textSpeed = 0;
             configData.lost = false;
             configData.bucketsAutoFire = false;
+            configData.bucketsSwapDash = false;
+            configData.bucketsComplete = false;
+            configData.bucketsPainModeComplete = false;
+            configData.bucketsPainMode = false;
+            configData.bucketsRusherMode = false;
+
+
             return configData;
         }
     }
