@@ -27,7 +27,7 @@ namespace BucketsGame
         private int m_ticks = 0;
         private Vector2 m_lastPosition;
 
-        public void Fire(Vector2 normal, float velocity, string animName, Vector2 spriteSize, SFX hitSFX, BulletType bulletType, Team team = Team.Player)
+        public void Fire(Vector2 normal, float velocity, float radius, string animName, Vector2 spriteSize, SFX hitSFX, BulletType bulletType, Team team = Team.Player)
         {
             gameObject.SetActive(true);
             this.team = team;
@@ -36,6 +36,7 @@ namespace BucketsGame
             spriteRenderer.transform.localScale = new Vector3(spriteSize.x, spriteSize.y, 
                 spriteRenderer.transform.localScale.z);
             this.velocity = velocity;
+            col.radius = radius;
             this.hitSFX = hitSFX;
             PlayAnimation(animName);
             transform.localRotation = Quaternion.FromToRotation(Vector2.right, normal);

@@ -399,29 +399,34 @@ MonoBehaviour:
   pool: []
   m_normalProperties:
     velocity: 30
+    radius: 0.3
     painModeVelocity: 30
     animName: NormalBullet
     spriteSize: {x: 0.3, y: 0.3}
   m_spearProperties:
     velocity: 30
+    radius: 0.3
     painModeVelocity: 35
     animName: SpearBullet
     spriteSize: {x: 1, y: 1}
   m_bottleProperties:
     velocity: 30
+    radius: 0.375
     painModeVelocity: 40
     animName: BottleBullet
-    spriteSize: {x: 1, y: 1}
+    spriteSize: {x: 1.25, y: 1.25}
   m_magicianProperties:
     velocity: 30
+    radius: 0.3
     painModeVelocity: 35
     animName: MagicianBullet
     spriteSize: {x: 1, y: 1}
   m_firebombProperties:
     velocity: 30
-    painModeVelocity: 40
+    radius: 0.375
+    painModeVelocity: 37
     animName: BottleBullet
-    spriteSize: {x: 1, y: 1}
+    spriteSize: {x: 1.25, y: 1.25}
   adrenalineVelocityScale: 1.4
 --- !u!1 &6547701444824546350
 GameObject:
