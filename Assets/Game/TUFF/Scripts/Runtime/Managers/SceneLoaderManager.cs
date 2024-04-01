@@ -273,6 +273,7 @@ namespace TUFF
 
         IEnumerator AsyncSceneLoadFadeIn(string newScene, float fadeDuration, Vector2 playerPosition, FaceDirections faceDirection, bool disableActionMap, bool enablePlayerInput, Action onLoad = null)
         {
+            onSceneLoadStart?.Invoke();
             if (disableActionMap) GameManager.instance.DisableActionMaps(true);
             UIController.instance.TriggerLoadingIcon(true);
             AsyncOperation operation = SceneManager.LoadSceneAsync(newScene);

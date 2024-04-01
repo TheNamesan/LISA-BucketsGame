@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &30296639537926664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1898926241296214039}
+  - component: {fileID: 3207281388770998356}
+  m_Layer: 0
+  m_Name: TimerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1898926241296214039
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30296639537926664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6547701444824546337}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3207281388770998356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30296639537926664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ecd9ef173ddcd4c9caf028f57b46e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2858019558890567306
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,6 +513,7 @@ Transform:
   - {fileID: 6863682101127422214}
   - {fileID: 7019296624731009941}
   - {fileID: 7450075511373325521}
+  - {fileID: 1898926241296214039}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -488,7 +533,9 @@ MonoBehaviour:
   inputHandler: {fileID: 6547701444824546339}
   sfxs: {fileID: 3812152892053159506}
   prefabList: {fileID: 1638748199791322427}
-  painMode: 1
+  timerManager: {fileID: 3207281388770998356}
+  forcePainMode: 0
+  forceRusherMode: 0
   hitstun: 1
   maxFocusTicks: 150
   focusTicks: 0
@@ -552,6 +599,10 @@ MonoBehaviour:
     lost: 0
     bucketsAutoFire: 0
     bucketsSwapDash: 0
+    bucketsComplete: 0
+    bucketsPainModeComplete: 0
+    bucketsPainMode: 0
+    bucketsRusherMode: 0
   gameCanvasPrefab: {fileID: 2184341498768048309, guid: f4aa33790ccdc504fa6700569f716078, type: 3}
   inputManager: {fileID: 8566072047202255938}
   databaseLoader: {fileID: 7760827275875051410}

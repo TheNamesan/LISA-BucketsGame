@@ -22,6 +22,7 @@ namespace BucketsGame
         public void A_Exit()
         {
             BucketsGameManager.instance.SetNewGame(false);
+            TimerManager.instance.Stop();
             uiMenu.CloseMenu();
             StartCoroutine(Exit());
             //SceneManager.LoadScene(mainMenuScene);

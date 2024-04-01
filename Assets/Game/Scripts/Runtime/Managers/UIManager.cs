@@ -28,6 +28,9 @@ namespace BucketsGame
         private PlayerController Player { get => SceneProperties.mainPlayer; }
         private float m_timePassed = 0;
 
+        [Header("Timer")]
+        public TMP_Text timerText;
+
         public static UIManager instance { get { if (m_instance == null) AssignInstance(null); return m_instance; } }
         private static UIManager m_instance;
 
@@ -66,6 +69,7 @@ namespace BucketsGame
         {
             UpdateBar();
             UpdateIndicator();
+            UpdateTimer();
             if (SceneProperties.mainPlayer)
                 retryText?.SetActive(SceneProperties.mainPlayer.dead);
         }
@@ -74,8 +78,13 @@ namespace BucketsGame
             if (content)
             {
                 if (SceneManager.GetActiveScene().name == "TitleScreen")
-                { content.SetActive(false); return; }
+                { 
+                    content.SetActive(false);
+                    if (timerText) timerText.gameObject.SetActive(false);
+                    return; 
+                }
                 content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying);
+                timerText.gameObject.SetActive(TUFF.GameManager.instance.configData.bucketsTimer);
             }
         }
         private void UpdateIndicator()
@@ -127,6 +136,16 @@ namespace BucketsGame
                 focusAnim.Play(focus);
             }
             if (eyeAnim) eyeAnim.Play(focus);
+        }
+        private void UpdateTimer()
+        {
+            if (!timerText) return;
+            System.TimeSpan timeSpan = TimerManager.instance.timeSpanElapsed;
+            string hours = (timeSpan.Hours).ToString("00", System.Globalization.CultureInfo.InvariantCulture);
+            string minutes = (timeSpan.Minutes).ToString("00", System.Globalization.CultureInfo.InvariantCulture);
+            string seconds = (timeSpan.Seconds).ToString("00", System.Globalization.CultureInfo.InvariantCulture);
+            string milliseconds = (timeSpan.Milliseconds).ToString("00", System.Globalization.CultureInfo.InvariantCulture).Substring(0, 2);
+            timerText.text = $"{hours}:{minutes}:{seconds}.{milliseconds}";
         }
         public void ShowPauseMenu()
         {

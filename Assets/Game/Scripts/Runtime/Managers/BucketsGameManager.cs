@@ -11,6 +11,7 @@ namespace BucketsGame
         public PlayerInputHandler inputHandler;
         public SFXList sfxs;
         public PrefabList prefabList;
+        public TimerManager timerManager;
         public bool newGame { get => m_newGame; }
         private bool m_newGame = false;
         public bool forcePainMode = false;
@@ -22,6 +23,7 @@ namespace BucketsGame
         public bool focusMode = false;
         public int adrenalineCooldown = 20;
         private int m_cooldownTicks = 0;
+        private float gameTimer = 0;
         public LayerMask groundLayers;
         public LayerMask oneWayLayers;
         public LayerMask hurtboxLayers;
@@ -89,7 +91,6 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
-            
             FocusTimer();
         }
         private IEnumerator LateFixedUpdate()
@@ -99,7 +100,8 @@ namespace BucketsGame
                 yield return new WaitForFixedUpdate();
                 CheckResetQueue();
             }
-        }    
+        }
+        
         private void CheckResetQueue()
         {
             if (m_queuedReset)

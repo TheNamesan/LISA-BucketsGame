@@ -11,13 +11,17 @@ namespace BucketsGame
     public class BucketsTitleMenuManager : MonoBehaviour
     {
         public string newGameScene = "";
+        public UIButton timerButton;
         public UIButton painModeButton;
         public UIButton rusherModeButton;
 
         public void Start()
         {
+            UpdateTimerText();
             UpdatePainModeText();
             UpdateRusherModeText();
+            if (timerButton)
+                timerButton.gameObject.SetActive(GameManager.instance.configData.bucketsComplete);
             if (painModeButton) 
                 painModeButton.gameObject.SetActive(GameManager.instance.configData.bucketsComplete);
             if (rusherModeButton)
@@ -35,6 +39,7 @@ namespace BucketsGame
             AudioManager.instance.FadeOutVolume(1f);
             //GameManager.instance.StartNewGame();
             yield return new WaitForSeconds(2f);
+            TimerManager.instance.Initialize();
             SceneLoaderManager.instance.LoadSceneWithFadeIn(newGameScene, 0.5f, TUFFSettings.startingScenePosition, TUFFSettings.startingSceneFacing, true, true);
         }
         public void A_Options()
@@ -54,6 +59,12 @@ namespace BucketsGame
             Debug.Log("Exiting Game");
             Application.Quit();
         }
+        public void A_TimerToggle()
+        {
+            GameManager.instance.configData.bucketsTimer = !GameManager.instance.configData.bucketsTimer;
+            GameManager.instance.configData.SaveData();
+            UpdateTimerText();
+        }
         public void A_PainModeToggle()
         {
             GameManager.instance.configData.bucketsPainMode = !GameManager.instance.configData.bucketsPainMode;
@@ -66,7 +77,11 @@ namespace BucketsGame
             GameManager.instance.configData.SaveData();
             UpdateRusherModeText();
         }
-
+        public void UpdateTimerText()
+        {
+            if (timerButton && timerButton.text)
+                timerButton.text.text = $"Timer {(GameManager.instance.configData.bucketsTimer ? "ON" : "OFF")}";
+        }
         public void UpdatePainModeText()
         {
             if (painModeButton && painModeButton.text)

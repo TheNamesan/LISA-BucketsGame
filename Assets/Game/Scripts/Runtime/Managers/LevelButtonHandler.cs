@@ -13,12 +13,13 @@ namespace BucketsGame
         {
             StartCoroutine(LoadLevel(levelName));
         }
-        protected IEnumerator LoadLevel(string name)
+        protected static IEnumerator LoadLevel(string name)
         {
             UIController.instance.SetMenu(null);
             UIController.instance.fadeScreen.TriggerFadeOut(1f);
             AudioManager.instance.FadeOutVolume(1f);
             yield return new WaitForSeconds(2f);
+            TimerManager.instance.Initialize();
             SceneLoaderManager.instance.LoadSceneWithFadeIn(name, 0.5f, TUFFSettings.startingScenePosition, TUFFSettings.startingSceneFacing, true, true);
         }
     }
