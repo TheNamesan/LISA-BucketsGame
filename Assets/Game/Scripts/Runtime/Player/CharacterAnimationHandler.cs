@@ -107,7 +107,12 @@ namespace BucketsGame
             }
             m_startNormalizedTime = fromNormalizedTime;
 
-            string stateName = GetAnimationStateName(controller, state, out bool showArm, out bool showLeg);
+            bool showArm = false;
+            string stateName = "";
+            if (BucketsGameManager.IsRusher())
+                stateName = GetRusherAnimationStateName(controller, state);
+            else
+                stateName = GetBucketsAnimationStateName(controller, state, out showArm, out bool showLeg);
             //ShowArms(true);
             
             if (lastStateName == stateName && !forcePlaySameState) { return; }
@@ -128,8 +133,21 @@ namespace BucketsGame
             anim.Play("ArmsShoot", 1, from);
             AngleArms(normal, facingSign, state); // This is just here as a fallback :P
         }
-        private string GetAnimationStateName(PlayerController controller, CharacterStates state, out bool showArm, out bool showLeg)
+        private string GetRusherAnimationStateName(PlayerController controller, CharacterStates state)
         {
+            if (scarfPivot) scarfPivot.gameObject.SetActive(false);
+            if (!controller.flipLock) FlipSprite(controller.facing);
+            if (controller.dead || controller.stunned)
+                return "RusherDead";
+            if (controller.dashing) return "RusherAttack";
+            if (controller.grounded && Mathf.Abs(controller.rb.velocity.x) >= 0.001f)
+                return "RusherWalk";
+            
+            return "RusherIdle";
+        }
+        private string GetBucketsAnimationStateName(PlayerController controller, CharacterStates state, out bool showArm, out bool showLeg)
+        {
+            if (scarfPivot) scarfPivot.gameObject.SetActive(true);
             string dir = (controller.facing == Facing.Right ? "Right" : "Left");
             showArm = false;
             showLeg = false;

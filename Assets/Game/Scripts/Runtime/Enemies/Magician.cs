@@ -376,10 +376,10 @@ namespace BucketsGame
                 }
             }
             return false;
-            //hp--;
-            //AlertEnemy();
-            //if (hp > 0) { BucketsGameManager.instance.OnEnemyHit(); return true; }
-            //return Kill(launch);
+        }
+        public override bool TryKill(Vector2 launch)
+        {
+            return Hurt(launch);
         }
 
         private void CancelAttacks()

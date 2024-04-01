@@ -117,7 +117,7 @@ namespace BucketsGame
             var distanceToPlayer = player.input.MousePointWorld.y - player.transform.position.y;
             Debug.Log(distanceToPlayer);
             float duration = 0.05f;
-            Vector2 to = new Vector2(-player.dashDirection * 0.5f, Mathf.Sign(distanceToPlayer) * -0.2f) * dashOffsetIntensity;
+            Vector2 to = new Vector2(-player.dashDirection.x * 0.5f, Mathf.Sign(distanceToPlayer) * -0.2f) * dashOffsetIntensity;
             GameUtility.KillTween(ref m_dashingTween);
             m_dashingTween = DOTween.To(() => m_dashOffset, x => m_dashOffset = x, to, duration).From(Vector2.zero)
                 .SetLoops(2, LoopType.Yoyo).SetUpdate(true)

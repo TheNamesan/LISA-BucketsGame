@@ -95,14 +95,20 @@ namespace BucketsGame
             if (m_dead) return false;
             hp--;
             AlertEnemy();
-            if (hp > 0) { HurtTween(); BucketsGameManager.instance.OnEnemyHit(); return true; }
             HurtTween();
+            if (hp > 0) {  BucketsGameManager.instance.OnEnemyHit(); return true; }
             return Kill(launch);
         }
         protected void HurtTween()
         {
             GameUtility.KillTween(ref hurtTween);
             hurtTween = sprite.DOColor(Color.white, 0.25f).From(Color.red);
+        }
+        public override bool TryKill(Vector2 launch)
+        {
+            bool killed = Kill(launch);
+            if (killed) HurtTween();
+            return killed;
         }
         public override bool Kill(Vector2 launch)
         {

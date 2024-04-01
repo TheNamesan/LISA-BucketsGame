@@ -312,6 +312,7 @@ MonoBehaviour:
   groundIsOneWay: 0
   gravityScale: 2
   maxFallSpeed: -15
+  maxHP: 1
   hp: 1
   m_dead: 0
   weapon: {fileID: 3711834660284266070}
@@ -349,7 +350,7 @@ MonoBehaviour:
   m_dashTicks: 0
   dashCooldownTicksDuration: 25
   m_dashCooldownTicks: 0
-  m_dashDirection: 0
+  m_dashDirection: {x: 0, y: 0}
   wallClimb: 0
   wallJumping: 0
   wallJumpSpeed: {x: 25, y: 14}
@@ -359,6 +360,7 @@ MonoBehaviour:
   stunDuration: 62
   m_stunTicks: 0
   ignoreLandAnim: 0
+  rusherDashSpeed: 27
 --- !u!114 &3711834660284266070
 MonoBehaviour:
   m_ObjectHideFlags: 0

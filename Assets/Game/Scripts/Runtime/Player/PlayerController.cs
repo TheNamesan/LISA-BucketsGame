@@ -6,7 +6,7 @@ using DG.Tweening;
 
 namespace BucketsGame
 {
-    
+    public enum PlayableCharacters { Buckets = 0, Rusher = 1 }
     public enum CharacterStates { Idle = 0, Walk = 1, Falling = 2, Airborne = 3, Dashing = 4 };
     public class PlayerController : MovingEntity
     {
@@ -58,7 +58,7 @@ namespace BucketsGame
         [SerializeField] private int m_slowDownTicks = 0;
 
         [Header("Dash")]
-        public float dashSpeed = 15;
+        public float dashSpeed = 25;
         public int dashTicksDuration = 25;
         [Tooltip("Amount of physics ticks it takes to be able to change directions at the start of the dash.")]
         public int dashDirectionBufferDuration = 2;
@@ -69,8 +69,8 @@ namespace BucketsGame
         public int dashCooldownTicksDuration = 25;
         public int dashCooldownTicks { get => m_dashCooldownTicks; }
         [SerializeField] private int m_dashCooldownTicks = 0;
-        public int dashDirection { get => m_dashDirection; }
-        [SerializeField] private int m_dashDirection = 0;
+        public Vector2 dashDirection { get => m_dashDirection; }
+        [SerializeField] private Vector2 m_dashDirection = new Vector2();
 
         [Header("Wall Jump")]
         public bool wallClimb = false;
@@ -87,6 +87,9 @@ namespace BucketsGame
 
         public bool ignoreLandAnim = false;
 
+        [Header("Rusher")]
+        public float rusherDashSpeed = 30;
+
         private void OnEnable()
         {
             lastPosition = rb.position;
@@ -97,6 +100,7 @@ namespace BucketsGame
             ResetMidairMoves();
             ignoreLandAnim = true;
             GroundCheck();
+            GroundedAnimationStateCheck();
         }
         private void Update()
         {
@@ -134,6 +138,7 @@ namespace BucketsGame
             GroundCheck();
             WallCheck();
             InputCheck();
+            AttackRaycast();
             MoveHandler();
             TimerHandler();
             ExpectedPosition();
@@ -223,7 +228,7 @@ namespace BucketsGame
                 float distance = col.size.y;
                 RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, layers);
                 RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, layers);
-                Vector2 offset = new Vector2((dashing ? dashSpeed : moveSpeed) * Time.fixedDeltaTime, 0);
+                Vector2 offset = new Vector2((dashing ? GetDashSpeed() : moveSpeed) * Time.fixedDeltaTime, 0);
                 Vector2 rightOrigin = closestContactPointD + offset;
                 normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
                 Vector2 leftOrigin = closestContactPointD - offset;
@@ -351,12 +356,35 @@ namespace BucketsGame
             UpdateGroundData(null);
             EnableGravity(true);
         }
-
+        private void AttackRaycast()
+        {
+            if (!BucketsGameManager.IsRusher()) return;
+            if (!dashing) return;
+            
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
+            Vector2 dir = transform.right * FaceToInt();
+            RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, new Vector2(1f, 1f), 0f, dir, 0.25f, hitboxLayers);
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if (hits[i].collider.TryGetComponent(out Hurtbox hurtbox))
+                {
+                    if (hurtbox.team == Team.Enemy && !hurtbox.invulnerable)
+                    {
+                        bool hitTarget = hurtbox.TryKill(dir);
+                        if (hitTarget)
+                        { 
+                            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.rusherPunchHitSFX);
+                        }
+                    }
+                }
+            }
+        }
         private void ShootHandler()
         {
             if (m_dead || stunned) return;
+            if (BucketsGameManager.IsRusher()) return;
             bool disabledByAction = wallClimb || wallJumping || dashing;
-            bool shoot = input.shootDown || (input.shoot && TUFF.GameManager.instance.configData.bucketsAutoFire);
+            bool shoot = ShootButton();
             if (weapon && shoot && !disabledByAction)
             {
                 Vector2 aimNormal = DistanceToMouse().normalized;
@@ -503,11 +531,15 @@ namespace BucketsGame
 
         private void DashCancelCheck(int moveH)
         {
+            if (BucketsGameManager.IsRusher())
+            {
+                m_dashDirection.x = moveH; return;
+            }
             if (canBufferDashDirection && moveH != 0)
             {
-                m_dashDirection = moveH; return;
+                m_dashDirection.x = moveH; return;
             }
-            if (dashing && moveH != 0 && m_dashDirection != moveH) 
+            if (dashing && moveH != 0 && m_dashDirection.x != moveH) 
             { StopDash(true); } // Cancel Dash
         }
 
@@ -537,18 +569,35 @@ namespace BucketsGame
             float velocity = moveH * speed; // Walk Speed
             if (dashing) // Dash Speed
             {
-                velocity = Mathf.Lerp(speed, dashSpeed, (float)m_dashTicks / dashTicksDuration) * m_dashDirection;
+                velocity = Mathf.Lerp(speed, GetDashSpeed(), (float)m_dashTicks / dashTicksDuration) * m_dashDirection.x;
             }
             
             return velocity;
         }
         private void DashHandler()
         {
-            if (input.dashDown && m_dashTicks <= 0 && !wallJumping && !wallClimb) // Dash Input
+            bool zeroTicks = m_dashTicks <= 0;
+            bool button = input.dashDown;
+            if (BucketsGameManager.IsRusher())
             {
-                Dash(!grounded);
+                zeroTicks = true;
+                bool shoot = input.shootDown;
+                button = button || shoot;
+            }
+            if (button && zeroTicks && !wallJumping && !wallClimb) // Dash Input
+            {
+                bool useMidairDashes = !grounded;
+                if (BucketsGameManager.IsRusher())
+                    useMidairDashes = false;
+                Dash(useMidairDashes);
             }
         }
+
+        private bool ShootButton()
+        {
+            return input.shootDown || (input.shoot && TUFF.GameManager.instance.configData.bucketsAutoFire);
+        }
+
         private void Dash(bool useMidairDashes = false)
         {
             if (useMidairDashes)
@@ -563,12 +612,14 @@ namespace BucketsGame
             // Cancel facing lock
             CancelFacingLock();
             m_dashTicks = dashTicksDuration;
-            m_dashDirection = FaceToInt();
+            m_dashDirection = new Vector2(FaceToInt(), input.inputV);
             dashing = true;
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
             if (grounded) VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position, facing == Facing.Left);
             AudioManager.instance.PlaySFX(SFXList.instance.dashSFX);
+            if (BucketsGameManager.IsRusher())
+                AudioManager.instance.PlaySFX(SFXList.instance.rusherPunchSFX);
             BucketsGameManager.instance.OnDash();
         }
 
@@ -627,7 +678,7 @@ namespace BucketsGame
         private void StopDash(bool setCooldown = false)
         {
             m_dashTicks = 0;
-            m_dashDirection = 0;
+            m_dashDirection = new();
             if (setCooldown) m_dashCooldownTicks = dashCooldownTicksDuration;
             dashing = false;
             hurtbox?.SetInvulnerable(false);
@@ -655,7 +706,8 @@ namespace BucketsGame
                     else
                     {
                         doubleJumping = true;
-                        m_jumps--;
+                        if (!BucketsGameManager.IsRusher()) 
+                            m_jumps--;
                         if (!dashing) ChangeState(CharacterStates.Airborne, true);
                         VFXPool.instance.PlayVFX("DoubleJumpVFX", sprite.transform.position, facing == Facing.Left);
                     }
@@ -752,6 +804,13 @@ namespace BucketsGame
             float duration = 0.5f;
             movementTween = DOTween.To(() => input.inputH, value => input.inputH = 1f, 0f, duration)
                 .OnComplete(() => input.inputH = 0);
+        }
+        public float GetDashSpeed()
+        {
+            if (BucketsGameManager.IsRusher())
+                return rusherDashSpeed;
+            
+            return dashSpeed;
         }
     }
 }

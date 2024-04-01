@@ -14,6 +14,7 @@ namespace BucketsGame
         public bool newGame { get => m_newGame; }
         private bool m_newGame = false;
         public bool forcePainMode = false;
+        public bool forceRusherMode = false;
         public bool hitstun = true;
         public int maxFocusTicks = 150;
         public int focusTicks = 0;
@@ -241,6 +242,16 @@ namespace BucketsGame
         {
             if (Application.isEditor && instance.forcePainMode) return true;
             return TUFF.GameManager.instance.configData.bucketsPainMode;
+        }
+        public static PlayableCharacters GetCharacter()
+        {
+            if (TUFF.GameManager.instance.configData.bucketsRusherMode || (Application.isEditor && instance.forceRusherMode))
+                return PlayableCharacters.Rusher;
+            return PlayableCharacters.Buckets;
+        }
+        public static bool IsRusher()
+        {
+            return GetCharacter() == PlayableCharacters.Rusher;
         }
         public void SetNewGame(bool isNewGame)
         {

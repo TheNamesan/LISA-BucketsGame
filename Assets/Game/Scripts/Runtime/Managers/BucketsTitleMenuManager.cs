@@ -77,6 +77,7 @@ namespace BucketsGame
             if (rusherModeButton && rusherModeButton.text)
                 rusherModeButton.text.text = $"Rusher Mode {(GameManager.instance.configData.bucketsRusherMode ? "ON" : "OFF")}";
         }
+        
     }
 }
 

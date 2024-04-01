@@ -11,6 +11,12 @@ namespace BucketsGame
         public Team team;
         public bool invulnerable { get => m_invulnerable; }
         [SerializeField] private bool m_invulnerable = false;
+        public bool TryKill(Vector2 launchDir)
+        {
+            if (!callback) return false;
+            launchDir.Normalize();
+            return callback.TryKill(launchDir);
+        }
         public bool Kill(Vector2 launchDir)
         {
             if (!callback) return false;

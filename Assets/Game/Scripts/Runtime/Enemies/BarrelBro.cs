@@ -64,6 +64,7 @@ namespace BucketsGame
         }
         private void AttackRaycast()
         {
+            if (m_dead) return;
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
             Vector2 dir = transform.right * FaceToInt();
             RaycastHit2D[] hits = Physics2D.BoxCastAll(rb.position, col.bounds.size, 0f, dir, 0f, hitboxLayers);

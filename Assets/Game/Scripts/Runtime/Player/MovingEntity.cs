@@ -246,6 +246,10 @@ namespace BucketsGame
             rb.velocity = (launch);
             return true;
         }
+        public virtual bool TryKill(Vector2 launch)
+        {
+            return Kill(launch);
+        }
         protected virtual void CapVelocity()
         {
             if (rb.velocity.y < maxFallSpeed)
