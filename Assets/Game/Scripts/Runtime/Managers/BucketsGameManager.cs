@@ -264,6 +264,7 @@ namespace BucketsGame
         public void SetNewGame(bool isNewGame)
         {
             m_newGame = isNewGame;
+            if (isNewGame) Debug.Log("Marked New Game");
         }
     }
 }
