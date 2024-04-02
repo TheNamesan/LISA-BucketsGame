@@ -160,7 +160,7 @@ namespace BucketsGame
         }
         private void OnDrawGizmos()
         {
-            if (spawnOnProximity) Gizmos.DrawWireSphere(proximityCheckPosition, proximityRadius);
+            Gizmos.DrawWireSphere(proximityCheckPosition, proximityRadius);
         }
     }
 }
