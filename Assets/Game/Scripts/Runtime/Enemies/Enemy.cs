@@ -22,7 +22,7 @@ namespace BucketsGame
         public float coneAngleOffset = 0f;
         public float coneDistance = 8.5f;
         public int coneAccuracy = 12;
-        public float alertRadius = 2f;
+        public float nearbyEnemyAlertRadius = 3.5f;
 
         [Header("Pain Mode")]
         public int painMaxHP = 2;
@@ -195,18 +195,21 @@ namespace BucketsGame
         protected virtual void AlertNearbyEnemies()
         {
             var position = rb.position;
-            var radius = alertRadius;
+            var radius = nearbyEnemyAlertRadius;
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
-            RaycastHit2D[] alert = Physics2D.CircleCastAll(position, radius, Vector2.zero, 0f, groundLayers);
+            RaycastHit2D[] alert = Physics2D.CircleCastAll(position, radius, Vector2.zero, 0f, hitboxLayers);
+            Debug.Log($"Enemies found: {alert.Length}");
             for (int i = 0; i < alert.Length; i++)
             {
                 if (alert[i].collider.TryGetComponent(out Hurtbox hurtbox))
                 {
                     if (!hurtbox.callback) continue; // If hitbox has no callback, abort
+                    Debug.Log(hurtbox.callback.gameObject.name);
                     Enemy enemy = hurtbox.callback as Enemy; 
                     if (!enemy) continue; // If hitbox is not an enemy, abort
                     if (enemy == this) continue; // If hitbox is this, abort
                     if (enemy.enemyState == EnemyAIState.Alert) continue; // If enemy is already alerted, abort
+                    
                     enemy.AlertEnemy();
                 }
             }
