@@ -62,7 +62,7 @@ namespace BucketsGame
         {
             Debug.Log("Hitbox");
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
-            Vector2 size = new Vector2(col.bounds.size.x, col.bounds.size.y);
+            Vector2 size = new Vector2(hurtbox.col.bounds.size.x, hurtbox.col.bounds.size.y);
             Vector2 dir = transform.right * openDir;
             float distance = 1.5f;
             Debug.Log(size);

@@ -128,7 +128,8 @@ namespace BucketsGame
             }
             else
             {
-                player.input.mousePoint = bufferedPointer;
+                if (player)
+                    player.input.mousePoint = bufferedPointer;
             }
         }
 

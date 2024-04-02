@@ -529,16 +529,49 @@ namespace BucketsGame
         {
             Door targetDoor = null;
             int openDir = 0;
-            if ((moveH > 0 || dashing) && (IsVerticalWall(wallRightHit)))
+            Vector2 size = col.bounds.size;
+            Vector2 collisionBoxSize = new Vector2(Physics2D.defaultContactOffset * 0.1f, col.bounds.size.y);
+            float collisionBoxDistance = collisionBoxSize.x * 10f;
+            LayerMask hurtboxLayers = BucketsGameManager.instance.hurtboxLayers;
+            RaycastHit2D[] doorRightChecks = Physics2D.BoxCastAll(closestContactPointR, collisionBoxSize, 0f, Vector2.right, collisionBoxDistance, hurtboxLayers);
+            RaycastHit2D[] doorLeftChecks = Physics2D.BoxCastAll(closestContactPointL, collisionBoxSize, 0f, Vector2.left, collisionBoxDistance, hurtboxLayers);
+
+            Door rightDoor = null;
+            rightDoor = TryGetDoor(doorRightChecks, rightDoor);
+            Door leftDoor = null;
+            leftDoor = TryGetDoor(doorLeftChecks, leftDoor);
+
+            //if ((moveH > 0 || dashing) && (IsVerticalWall(wallRightHit)))
+            if ((moveH > 0 || (dashing && m_dashDirection.x > 0)) && rightDoor)
             {
-                if (wallRightHit.collider.TryGetComponent(out Door door)) { openDir = 1; targetDoor = door; }
-                    
+                //if (wallRightHit.collider.TryGetComponent(out Door door)) { openDir = 1; targetDoor = door; }
+                { openDir = 1; targetDoor = rightDoor; }
             }
-            else if ((moveH < 0 || dashing) && IsVerticalWall(wallLeftHit))
+            //else if ((moveH < 0 || (dashing && m_dashDirection.x < 0)) && IsVerticalWall(wallLeftHit))
+            else if ((moveH < 0 || (dashing && m_dashDirection.x < 0)) && leftDoor)
             {
-                if (wallLeftHit.collider.TryGetComponent(out Door door)) { openDir = -1; targetDoor = door; }
+                //if (wallLeftHit.collider.TryGetComponent(out Door door)) { openDir = -1; targetDoor = door; }
+                { openDir = -1; targetDoor = leftDoor; }
             }
             if (targetDoor) targetDoor.Open(openDir, true);
+        }
+
+        private static Door TryGetDoor(RaycastHit2D[] doorRightChecks, Door targetDoor)
+        {
+            for (int i = 0; i < doorRightChecks.Length; i++)
+            {
+                var e = doorRightChecks[i];
+                if (e.collider.TryGetComponent(out Hurtbox hurtbox))
+                {
+                    if (!hurtbox.callback) continue;
+                    if (hurtbox.callback.TryGetComponent(out Door door))
+                    {
+                        targetDoor = door;
+                        break;
+                    }
+                }
+            }
+            return targetDoor;
         }
 
         private void DashCancelCheck(int moveH)
