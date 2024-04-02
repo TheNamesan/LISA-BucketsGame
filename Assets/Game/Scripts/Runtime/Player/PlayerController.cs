@@ -79,6 +79,7 @@ namespace BucketsGame
         public int wallJumpTicksDuration = 10;
         [SerializeField] private int m_wallJumpTicks = 0;
         [SerializeField] private int m_wallJumpDirection = 0;
+        [SerializeField] private bool m_wallClimbCanceled = false;
 
         [Header("Stun")]
         public int stunDuration = 62;
@@ -137,9 +138,9 @@ namespace BucketsGame
             IgnoreOneWayCheck();
             GroundCheck();
             WallCheck();
-            InputCheck();
             AttackRaycast();
             MoveHandler();
+            InputCheck();
             TimerHandler();
             ExpectedPosition();
             FallOffMapCheck();
@@ -383,8 +384,13 @@ namespace BucketsGame
         {
             if (m_dead || stunned) return;
             if (BucketsGameManager.IsRusher()) return;
-            bool disabledByAction = wallClimb || wallJumping || dashing;
             bool shoot = ShootButton();
+            if (shoot && wallClimb)
+            { 
+                wallClimb = false;
+                m_wallClimbCanceled = true;
+            }
+            bool disabledByAction = wallClimb || wallJumping || dashing;
             if (weapon && shoot && !disabledByAction)
             {
                 Vector2 aimNormal = DistanceToMouse().normalized;
@@ -420,6 +426,7 @@ namespace BucketsGame
             grounded = true;
             ResetMidairMoves();
             wallClimb = false;
+            m_wallClimbCanceled = false;
             StopWallJump();
             EnableGravity(false);
             if (weapon.animTicks > 0) ChangeFacingToShootDirection(weapon.shootNormal, true);
@@ -441,11 +448,13 @@ namespace BucketsGame
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
                 if (((moveH > 0 || wallJumping) && (IsVerticalWall(wallRightHit)) ||
-                    ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) && !dashing) // Wall Climb
+                    ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) 
+                    && !dashing && !m_wallClimbCanceled) // Wall Climb
                 {
+                    if (!wallJumping) ChangeFacingOnMove(moveH);
+                    else ChangeFacingOnMove(m_wallJumpDirection);
                     StopWallJump();
                     CancelFacingLock();
-                    //ChangeFacingOnMove(moveH);
                     wallClimb = true;
                 }
                 if (wallClimb && (IsVerticalWall(wallRightHit) || IsVerticalWall(wallLeftHit))) // Wall Climb speed
@@ -465,6 +474,7 @@ namespace BucketsGame
                         else return;
                     }
                 }
+                else if (wallClimb) wallClimb = false;
                 if (wallJumping) // Wall Jump Speed
                 {
                     rb.velocity = new Vector2(wallJumpSpeed.x * m_wallJumpDirection, rb.velocity.y);
@@ -716,6 +726,7 @@ namespace BucketsGame
                 Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
                 wallClimb = false;
+                m_wallClimbCanceled = false;
                 AudioManager.instance.PlaySFX(SFXList.instance.jumpSFX);
                 return true;
             }
