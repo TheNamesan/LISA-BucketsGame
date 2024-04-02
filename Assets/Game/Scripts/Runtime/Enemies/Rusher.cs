@@ -62,7 +62,7 @@ namespace BucketsGame
                     EnemyLineOfSight();
                 }
             }
-            else enemyState = EnemyAIState.Roaming;
+            else AssignOriginalState();
 
             if (enemyState != EnemyAIState.Alert) return;
             if (m_attacking) // Run Tick

@@ -14,26 +14,42 @@ namespace BucketsGame
     public class Enemy : MovingEntity
     {
         public EnemyAIState enemyState = EnemyAIState.Roaming;
+
         public Tween hurtTween;
-        
+
         [Header("Line Of Sight")]
         public float coneAngle = 45f;
         public float coneAngleOffset = 0f;
         public float coneDistance = 8.5f;
         public int coneAccuracy = 12;
+        public float alertRadius = 2f;
 
         [Header("Pain Mode")]
         public int painMaxHP = 2;
         public float painMoveSpeed = 12;
+        
+        
 
+        protected EnemyAIState m_originalState = EnemyAIState.Roaming;
         protected void Awake()
         {
             AssignHP();
+            SaveOriginalState();
         }
 
         protected override void AssignHP()
         {
             hp = (BucketsGameManager.IsPainMode() ? painMaxHP : maxHP);
+        }
+        protected void SaveOriginalState()
+        {
+            m_originalState = enemyState;
+        }
+        protected void AssignOriginalState()
+        {
+            var state = m_originalState;
+            if (state == EnemyAIState.Alert) state = EnemyAIState.StandBy;
+            enemyState = state;
         }
 
         private void Start()
@@ -158,6 +174,7 @@ namespace BucketsGame
         protected virtual void AlertEnemy()
         {
             enemyState = EnemyAIState.Alert;
+            AlertNearbyEnemies();
         }
         protected virtual void CheckDoorOpening(int moveH)
         {
@@ -174,6 +191,25 @@ namespace BucketsGame
                 if (wallLeftHit.collider.TryGetComponent(out Door door)) { openDir = -1; targetDoor = door; }
             }
             if (targetDoor) targetDoor.Open(openDir);
+        }
+        protected virtual void AlertNearbyEnemies()
+        {
+            var position = rb.position;
+            var radius = alertRadius;
+            var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
+            RaycastHit2D[] alert = Physics2D.CircleCastAll(position, radius, Vector2.zero, 0f, groundLayers);
+            for (int i = 0; i < alert.Length; i++)
+            {
+                if (alert[i].collider.TryGetComponent(out Hurtbox hurtbox))
+                {
+                    if (!hurtbox.callback) continue; // If hitbox has no callback, abort
+                    Enemy enemy = hurtbox.callback as Enemy; 
+                    if (!enemy) continue; // If hitbox is not an enemy, abort
+                    if (enemy == this) continue; // If hitbox is this, abort
+                    if (enemy.enemyState == EnemyAIState.Alert) continue; // If enemy is already alerted, abort
+                    enemy.AlertEnemy();
+                }
+            }
         }
         protected virtual void DrawLineOfSightGizmos()
         {

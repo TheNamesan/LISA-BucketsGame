@@ -79,7 +79,7 @@ namespace BucketsGame
                     EnemyLineOfSight();
                 }
             }
-            else enemyState = EnemyAIState.Roaming;
+            else AssignOriginalState();
         }
 
         private void AlertLineOfSightCheck()
