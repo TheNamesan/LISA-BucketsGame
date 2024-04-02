@@ -30,6 +30,7 @@ namespace BucketsGame
         public PhysicsMaterial2D aliveMat;
         public PhysicsMaterial2D deadMat;
         private bool m_queuedReset = false;
+        private bool m_holdingSkip = false;
 
         public static BucketsGameManager instance { 
             get
@@ -89,8 +90,32 @@ namespace BucketsGame
         }
         private void FixedUpdate()
         {
+            FastForwardEvents();
             FocusTimer();
         }
+
+        private void FastForwardEvents()
+        {
+            if (TUFF.CommonEventManager.interactableEventPlaying)
+            {
+                if (TUFF.UIController.instance.skipButtonHold)
+                {
+                    Time.timeScale = 10f;
+                    m_holdingSkip = true;
+                }
+                else
+                {
+                    Time.timeScale = 1f;
+                    m_holdingSkip = false;
+                }
+            }
+            else if (m_holdingSkip)
+            {
+                Time.timeScale = 1f;
+                m_holdingSkip = false;
+            }
+        }
+
         private IEnumerator LateFixedUpdate()
         {
             while (true)
