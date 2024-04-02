@@ -42,9 +42,6 @@ namespace BucketsGame
             if (m_open) return false;
             m_dir = (dir > 0 ? 1 : -1);
             //Debug.Log($"Open: {openDir}");
-            // Tmp below until we have proper sprites
-            //sprite.transform.localPosition = new Vector3(openDir * 0.5f, sprite.transform.localPosition.y, sprite.transform.localPosition.z);
-            //sprite.transform.localScale = new Vector3(openDir * 1.5f, sprite.transform.localScale.y, sprite.transform.localScale.z);
             m_open = true;
             TUFF.AudioManager.instance.PlaySFX(SFXList.instance.doorOpenSFX);
             
@@ -54,6 +51,10 @@ namespace BucketsGame
             return true;
         }
         public override bool Hurt(Vector2 launch)
+        {
+            return Open(launch.x, true);
+        }
+        public override bool TryKill(Vector2 launch)
         {
             return Open(launch.x, true);
         }

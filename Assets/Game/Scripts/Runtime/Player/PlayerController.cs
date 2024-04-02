@@ -447,6 +447,7 @@ namespace BucketsGame
                 DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
                 float velY = moveV * jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
+                CheckDoorOpening(moveH);
                 if (((moveH > 0 || wallJumping) && (IsVerticalWall(wallRightHit)) ||
                     ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) 
                     && !dashing && !m_wallClimbCanceled) // Wall Climb
@@ -464,6 +465,7 @@ namespace BucketsGame
                     {
                         rb.velocity = new Vector2(0f, rb.velocity.y * 0.8f);
                         bool jumped = input.jumpDown || input.dashDown; // Wall Jump
+                        if (BucketsGameManager.IsRusher()) jumped = jumped || input.shootDown;
                         if (jumped)
                         {
                             rb.velocity = new Vector2(rb.velocity.x, wallJumpSpeed.y);
