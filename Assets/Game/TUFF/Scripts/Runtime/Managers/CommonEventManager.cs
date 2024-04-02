@@ -67,19 +67,24 @@ namespace TUFF
             // I put this here in buckets game to hotfix an issue where buckets would be able to keep
             // moving right as a scene loaded and an interactable with a trigger mode of
             // Play On Start played something. Which would cause unexpected issues.
-            GameManager.instance.DisablePlayerInput(true); 
+            GameManager.instance.DisablePlayerInput(true);
             // This is probably an ugly way of forcing input disabling if a menu is closed for example.
             // Find a better alternative
+            bool yielded = false;
             yield return actionList.PlayActions(() =>
             {
                 if (!GameManager.disablePlayerInput)
                 {
                     GameManager.instance.DisablePlayerInput(true);
+                    yielded = true;
                     Debug.Log("Stop Control");
                 }
             });
             InteractableObject.UpdateAll();
-            yield return new WaitForSeconds(.025f);
+            if (yielded)
+            {
+                yield return new WaitForSeconds(.025f);
+            }
             GameManager.instance.DisablePlayerInput(false);
             Debug.Log("Regain Control");
             m_interactableEventPlaying = false;
