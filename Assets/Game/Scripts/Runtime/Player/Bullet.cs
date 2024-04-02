@@ -88,7 +88,10 @@ namespace BucketsGame
             RaycastHit2D hitGround = Physics2D.CircleCast(m_lastPosition, radius, distance, distance.magnitude, groundLayers);
             
             bool hitWall = false;
-            if (hitGround)
+            bool ignoreGround = false;
+            if (type == BulletType.Magician && m_ticks <= 3)
+                ignoreGround = true;
+            if (hitGround && !ignoreGround)
             {
                 hitWall = OnWallHit(hitGround, hitGround.point, hitGround.normal, false);
             }
