@@ -4880,6 +4880,7 @@ MonoBehaviour:
   groundIsOneWay: 0
   gravityScale: 2
   maxFallSpeed: -15
+  maxHP: 1
   hp: 1
   m_dead: 0
   enemyState: 2
@@ -4887,6 +4888,8 @@ MonoBehaviour:
   coneAngleOffset: 0
   coneDistance: 8.5
   coneAccuracy: 12
+  painMaxHP: 2
+  painMoveSpeed: 12
   burrowSprite: {fileID: 6728792236865751752}
   jumpForce: 12
   decelerationRate: 3
@@ -4894,7 +4897,6 @@ MonoBehaviour:
   m_attacking: 0
   attackingAnimTicks: 30
   attackTick: 10
-  m_attackingTicks: 0
   m_buried: 0
   buriedDuration: 6
   m_buriedTicks: 0
