@@ -23,7 +23,6 @@ namespace BucketsGame
         public bool focusMode = false;
         public int adrenalineCooldown = 20;
         private int m_cooldownTicks = 0;
-        private float gameTimer = 0;
         public LayerMask groundLayers;
         public LayerMask oneWayLayers;
         public LayerMask hurtboxLayers;

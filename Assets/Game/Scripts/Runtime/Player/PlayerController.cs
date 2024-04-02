@@ -616,7 +616,7 @@ namespace BucketsGame
             dashing = true;
             hurtbox?.SetInvulnerable(true);
             ChangeState(CharacterStates.Dashing, true);
-            if (grounded) VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position, facing == Facing.Left);
+            if (grounded) VFXPool.instance.PlayVFX("DashVFX", sprite.transform.position, 0f, facing == Facing.Left);
             AudioManager.instance.PlaySFX(SFXList.instance.dashSFX);
             if (BucketsGameManager.IsRusher())
                 AudioManager.instance.PlaySFX(SFXList.instance.rusherPunchSFX);
@@ -709,7 +709,7 @@ namespace BucketsGame
                         if (!BucketsGameManager.IsRusher()) 
                             m_jumps--;
                         if (!dashing) ChangeState(CharacterStates.Airborne, true);
-                        VFXPool.instance.PlayVFX("DoubleJumpVFX", sprite.transform.position, facing == Facing.Left);
+                        VFXPool.instance.PlayVFX("DoubleJumpVFX", sprite.transform.position, 0f, facing == Facing.Left);
                     }
                 }
                 SetAirborne(); //Setting this here so slope fixes get ignored

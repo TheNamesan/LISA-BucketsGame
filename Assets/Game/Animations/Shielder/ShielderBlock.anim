@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShielderFire
+  m_Name: ShielderBlock
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -390225575, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
-    - time: 0.5
-      value: {fileID: 158547502, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
-    - time: 0.6
-      value: {fileID: 372190455, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
-    - time: 0.8
-      value: {fileID: 372190455, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
+      value: {fileID: -505448781, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
+    - time: 0.1
+      value: {fileID: -12869575, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
     attribute: m_Sprite
     path: Sprite
     classID: 212
@@ -46,16 +42,14 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -390225575, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
-    - {fileID: 158547502, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
-    - {fileID: 372190455, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
-    - {fileID: 372190455, guid: 91211b7f566690644a84ba7f7c88dc2d, type: 3}
+    - {fileID: -505448781, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
+    - {fileID: -12869575, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.90000004
+    m_StopTime: 0.2
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

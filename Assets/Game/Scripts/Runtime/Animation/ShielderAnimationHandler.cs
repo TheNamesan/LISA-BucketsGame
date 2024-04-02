@@ -29,6 +29,10 @@ namespace BucketsGame
             {
                 return "ShielderDead";
             }
+            if (target.stunned)
+            {
+                return "ShielderBlock";
+            }
             if (target.firing)
             {
                 return "ShielderFire";

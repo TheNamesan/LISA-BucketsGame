@@ -274,7 +274,7 @@ namespace BucketsGame
                     props.WallHit();
                 }
                 float rotation = Vector2.SignedAngle(Vector2.right, -ground.normal);
-                VFXPool.instance.PlayVFX("WallHitVFX", ground.point, false, rotation);
+                VFXPool.instance.PlayVFX("WallHitVFX", ground.point, rotation);
                 hitGround = ground;
                 return;
             }

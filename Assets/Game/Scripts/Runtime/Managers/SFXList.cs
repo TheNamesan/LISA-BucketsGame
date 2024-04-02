@@ -22,6 +22,7 @@ namespace BucketsGame
         public SFX rusherPunchSFX = new();
         public SFX rusherPunchHitSFX = new();
         public SFX shielderShootSFX = new();
+        public SFX shielderBlockSFX = new();
         public SFX flyerShootSFX = new();
         public SFX flyerShootHitSFX = new();
         public SFX magicianPortalSFX = new();

@@ -144,8 +144,11 @@ namespace BucketsGame
                 }
             }
             if (type == BulletType.Firebomb) FirebombEffects(point);
-            else if (type == BulletType.Spear) VFXPool.instance.PlayVFX("SpearVFX", point, false, rb.rotation, "Platforms");
-            else VFXPool.instance.PlayVFX("WallHitVFX", point, false, rotation);
+            else if (type == BulletType.Spear)
+            {
+                VFXPool.instance.PlayVFX("SpearVFX", point, transform.rotation, false, "Platforms"); 
+            }
+            else VFXPool.instance.PlayVFX("WallHitVFX", point, rotation, false);
             AudioManager.instance.PlaySFX(hitSFX);
             ReturnToPool();
             return true;
@@ -166,7 +169,7 @@ namespace BucketsGame
                     }
                 }
             }
-            VFXPool.instance.PlayVFX("ExplosionVFX", point, false);
+            VFXPool.instance.PlayVFX("ExplosionVFX", point, 0);
             AudioManager.instance.PlaySFX(SFXList.instance.firebombHitSFX);
         }
 

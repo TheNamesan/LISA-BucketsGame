@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ecd9ef173ddcd4c9caf028f57b46e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsElapsed: 0
 --- !u!1 &2858019558890567306
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,6 +275,16 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
+  shielderBlockSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 6a3c598c4e6a92944a789cbedc273ce2, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 1
+    pitch: 1.2
+    minPitch: 0.8
   flyerShootSFX:
     audioClipMode: 0
     audioClip: {fileID: 8300000, guid: 0b918f24e208c6942bd8f85447e99a5a, type: 3}

@@ -8,6 +8,7 @@ namespace BucketsGame
     {
 
         [Header("Shielder Properties")]
+        public ShielderAnimationHandler animationHandler;
         public float roamSpeed = 3f;
         public float approachSpeed = 2f;
         public float approachDistance = 10f;
@@ -37,6 +38,7 @@ namespace BucketsGame
         public float stunPushbackSpeed = 12f;
         public int stunnedDuration = 30;
         public int stunnedTicks { get => m_stunnedTicks; }
+        public bool stunned { get => m_stunnedTicks > 0; }
         [SerializeField] private int m_stunnedTicks = 0;
         [SerializeField] private int m_stunDirection = 0;
 
@@ -224,9 +226,12 @@ namespace BucketsGame
         {
             if (m_dead) return;
             m_stunnedTicks = stunnedDuration;
+
             m_stunDirection = (int)Mathf.Sign(direction.normalized.x);
             ChangeFacing((m_stunDirection > 0 ? Facing.Left : Facing.Right));
             StopFire();
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.shielderBlockSFX);
+            if (animationHandler) animationHandler.ChangeAnimationState(true);
             if (!SceneProperties.mainPlayer.dead)
             {
                 AlertEnemy();
