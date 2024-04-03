@@ -118,7 +118,7 @@ namespace BucketsGame
                     AttackRaycast();
                 }
             }
-            else if (!m_firing && Mathf.Abs(distanceToPlayer) <= 1f && !player.stunned) // Attack
+            else if (!m_firing && !stunned && Mathf.Abs(distanceToPlayer) <= 1f && !player.stunned) // Attack
             {
                 Attack();
             }
