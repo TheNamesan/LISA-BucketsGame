@@ -35,6 +35,7 @@ namespace BucketsGame
         {
             AssignHP();
             SaveOriginalState();
+            sprite.flipX = facing == Facing.Left;
         }
 
         protected override void AssignHP()

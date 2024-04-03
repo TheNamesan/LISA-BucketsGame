@@ -33,7 +33,6 @@ namespace BucketsGame
 
         public static UIManager instance { get { if (m_instance == null) AssignInstance(null); return m_instance; } }
         private static UIManager m_instance;
-        private static int contentDisplayBuffer = 0;
 
         private void Awake()
         {
