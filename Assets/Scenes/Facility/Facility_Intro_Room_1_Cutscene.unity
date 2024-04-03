@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1712725485}
     m_Modifications:
+    - target: {fileID: 4718757040220315142, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: hp
       value: 1
@@ -141,10 +145,6 @@ PrefabInstance:
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: facing
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
-      propertyPath: moveSpeed
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: painMaxHP
@@ -52313,6 +52313,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1712725485}
     m_Modifications:
+    - target: {fileID: 4718757040220315142, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: hp
       value: 1

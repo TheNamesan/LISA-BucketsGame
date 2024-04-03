@@ -14,6 +14,8 @@ namespace BucketsGame
         public UIButton timerButton;
         public UIButton painModeButton;
         public UIButton rusherModeButton;
+        public GameObject randoCampTitle;
+        public GameObject randoCampGroup;
 
         public void Start()
         {
@@ -26,6 +28,9 @@ namespace BucketsGame
                 painModeButton.gameObject.SetActive(GameManager.instance.configData.bucketsComplete);
             if (rusherModeButton)
                 rusherModeButton.gameObject.SetActive(GameManager.instance.configData.bucketsPainModeComplete);
+            bool randoLevelsUnlocked = GameManager.instance.configData.bucketsRandoLevelsUnlocked;
+            randoCampTitle?.SetActive(randoLevelsUnlocked);
+            randoCampGroup?.SetActive(randoLevelsUnlocked);
         }
         public void A_NewGame()
         {

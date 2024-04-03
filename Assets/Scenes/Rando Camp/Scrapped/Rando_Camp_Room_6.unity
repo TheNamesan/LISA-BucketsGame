@@ -521,7 +521,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1712725485}
     m_Modifications:
     - target: {fileID: 4952781121646547091, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_Name
@@ -529,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalScale.x
@@ -578,6 +578,10 @@ PrefabInstance:
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4952781121646547102, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
+      propertyPath: managedReferences[7087076245546467330].sceneToLoad
+      value: Rando_Camp_Room_idk
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
@@ -742,7 +746,7 @@ PrefabInstance:
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: sceneBGM.bgm
       value: 
-      objectReference: {fileID: 11400000, guid: 818c1c59663b7f74dabee2d06f3e7449, type: 2}
+      objectReference: {fileID: 11400000, guid: 103a9f5b52e9c4241a5e6a9164b7b858, type: 2}
     - target: {fileID: 6423423899683277877, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: m_Name
       value: SceneProps

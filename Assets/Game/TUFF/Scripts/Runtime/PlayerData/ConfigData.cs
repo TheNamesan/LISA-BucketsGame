@@ -20,6 +20,7 @@ namespace TUFF
         public bool bucketsSwapDash = false;
         public bool bucketsComplete = false;
         public bool bucketsPainModeComplete = false;
+        public bool bucketsRandoLevelsUnlocked = false;
         public bool bucketsTimer = false;
         public bool bucketsPainMode = false;
         public bool bucketsRusherMode = false;
@@ -47,6 +48,7 @@ namespace TUFF
             bucketsSwapDash = load.bucketsSwapDash;
             bucketsComplete = load.bucketsComplete;
             bucketsPainModeComplete = load.bucketsPainModeComplete;
+            bucketsRandoLevelsUnlocked = load.bucketsRandoLevelsUnlocked;
             bucketsTimer = load.bucketsTimer;
             bucketsPainMode = load.bucketsPainMode;
             bucketsRusherMode = load.bucketsRusherMode;
@@ -70,6 +72,7 @@ namespace TUFF
             configData.bucketsSwapDash = false;
             configData.bucketsComplete = false;
             configData.bucketsPainModeComplete = false;
+            configData.bucketsRandoLevelsUnlocked = false;
             configData.bucketsTimer = false;
             configData.bucketsPainMode = false;
             configData.bucketsRusherMode = false;

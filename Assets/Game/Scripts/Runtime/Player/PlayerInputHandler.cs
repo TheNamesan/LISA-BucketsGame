@@ -135,6 +135,7 @@ namespace BucketsGame
 
         private void StopInput()
         {
+            if (!player) return;
             bufferedPointer = player.input.mousePoint;
             bufferedPointerWorld = player.input.MousePointWorld;
             player.input = new GamePlayerInput();
