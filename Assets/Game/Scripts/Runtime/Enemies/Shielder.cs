@@ -45,6 +45,7 @@ namespace BucketsGame
         [Header("Pain Mode")]
         public float painApproachSpeed = 3.5f;
         public int painFireRate = 15;
+        public float painStunPushbackSpeed = 4f;
 
         private void Start()
         {
@@ -109,7 +110,8 @@ namespace BucketsGame
                 if (m_attackingTicks <= 0)
                 {
                     StopFire(true);
-                    m_attacking = false; 
+                    m_attacking = false;
+
                 }
                 else if (m_attackingTicks == attackTick) // Attack Raycast
                 {
@@ -143,6 +145,7 @@ namespace BucketsGame
                         if (hurtbox.callback is PlayerController player)
                         {
                             bool hitTarget = player.Stun(dir);
+                            if (hitTarget) TUFF.AudioManager.instance.PlaySFX(SFXList.instance.shielderShoveHitSFX);
                         }
                     }
                 }
@@ -152,6 +155,7 @@ namespace BucketsGame
         {
             m_attacking = true;
             m_attackingTicks = attackingAnimTicks;
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.shielderShoveSFX);
         }
 
         private void MoveHandler()
@@ -205,8 +209,9 @@ namespace BucketsGame
 
                     if (m_stunnedTicks > 0)
                     {
+                        float pushBackSpeed = (BucketsGameManager.IsPainMode() ? painStunPushbackSpeed : stunPushbackSpeed);
                         // Plus 0.2 few frames where shielder is stopped.
-                        float x = Mathf.Lerp(0, stunPushbackSpeed * m_stunDirection, ((float)m_stunnedTicks / stunnedDuration) * 2f);
+                        float x = Mathf.Lerp(0, pushBackSpeed * m_stunDirection, ((float)m_stunnedTicks / stunnedDuration) * 2f);
                         if ((x > 0 && !normalRight) || (x < 0 && !normalLeft))
                             x = 0;
                         //Debug.Log(x);
@@ -262,7 +267,14 @@ namespace BucketsGame
             Vector2 dir = player.rb.position - rb.position;
             Vector2 size = Vector2.one;
             // If player is behind enemy, rotate direction in X
-            if (Mathf.Sign(dir.normalized.x) != FaceToInt()) dir.x *= -1;
+            float faceAngle = Vector2.SignedAngle(Vector2.right, dir.normalized);
+            Debug.Log("Angle: " + faceAngle);
+            if (Mathf.Sign(dir.normalized.x) != FaceToInt())
+            {
+                // If the Y value of the vector is too low, it is a blind spot.
+                if (Mathf.Abs(dir.normalized.y) <= 0.3f)
+                    dir.x *= -1;
+            }
             Vector2 position = rb.position + dir.normalized;
             BulletsPool.instance.SpawnBullet(position, dir, BulletType.Spear, Team.Enemy);
             TUFF.AudioManager.instance.PlaySFX(SFXList.instance.shielderShootSFX);
@@ -285,9 +297,24 @@ namespace BucketsGame
                     ShootProjectile();
                     m_vulnerable = true;
                 }
-                if (m_fireAnimTicks <= 0) StopFire(true);
+                if (m_fireAnimTicks <= 0)
+                {
+                    StopFire(true);
+                    FacePlayer();
+
+                }
             }
         }
+
+        private void FacePlayer()
+        {
+            if (SceneProperties.mainPlayer)
+            {
+                float distanceToPlayerX = SceneProperties.mainPlayer.rb.position.x - rb.position.x;
+                ChangeFacingOnMove((int)Mathf.Sign(distanceToPlayerX));
+            }
+        }
+
         private void TimerHandler()
         {
             if (m_dead) return;
@@ -317,8 +344,14 @@ namespace BucketsGame
             launch *= 40f;
             rb.velocity = (launch);
             BucketsGameManager.instance.OnEnemyKill();
-            MovingPropPool.instance.SpawnProp(rb.position + Vector2.right * 0.5f, 0f, launch * 1.5f, spearSprite);
-            MovingPropPool.instance.SpawnProp(rb.position - Vector2.right * 0.5f, 0f, launch * 0.5f, doorSprite);
+            Vector2 spearSpawnPos = rb.position + Vector2.right * 0.5f;
+            Vector2 doorSpawnPos = rb.position - Vector2.right * 0.5f;
+            RaycastHit2D spearAdjust = Physics2D.Raycast(rb.position, Vector2.right, 0.5f, BucketsGameManager.instance.groundLayers);
+            RaycastHit2D doorAdjust = Physics2D.Raycast(rb.position, Vector2.left, 0.5f, BucketsGameManager.instance.groundLayers);
+            if (spearAdjust) spearSpawnPos = spearAdjust.point + new Vector2(-0.1f, 0);
+            if (doorAdjust) doorSpawnPos = doorAdjust.point + new Vector2(0.1f, 0);
+            MovingPropPool.instance.SpawnProp(spearSpawnPos, 0f, launch * 1.5f, spearSprite);
+            MovingPropPool.instance.SpawnProp(doorSpawnPos, 0f, launch * 0.5f, doorSprite);
             return true;
         }
         public void OnDrawGizmos()

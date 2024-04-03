@@ -116,6 +116,15 @@ namespace BucketsGame
                         bool hitTarget = hurtbox.Collision(rb.velocity.normalized);
                         if (hitTarget) {
                             if (type == BulletType.Firebomb) FirebombEffects(hitAll[i].point);
+                            if (hurtbox.callback && hurtbox.callback is Shielder shielder)
+                            {
+                                float rotation = Vector2.SignedAngle(Vector2.right, -hitAll[i].normal);
+                                Debug.Log("Shielder Vulnerable: " + shielder.vulnerable);
+                                if (!shielder.vulnerable && !shielder.dead)
+                                {
+                                    VFXPool.instance.PlayVFX("WallHitVFX", hitAll[i].point, rb.rotation, false);
+                                }
+                            }
                             AudioManager.instance.PlaySFX(hitSFX); 
                             ReturnToPool(); 
                             return; }

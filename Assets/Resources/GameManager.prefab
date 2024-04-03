@@ -285,6 +285,26 @@ MonoBehaviour:
     pitchMode: 1
     pitch: 1.2
     minPitch: 0.8
+  shielderShoveSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 471e29305c13b9341805dfdfd10ffc16, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  shielderShoveHitSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 99938428ce1fe5e478e20cfda0e1ff58, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   flyerShootSFX:
     audioClipMode: 0
     audioClip: {fileID: 8300000, guid: 0b918f24e208c6942bd8f85447e99a5a, type: 3}
@@ -658,6 +678,7 @@ MonoBehaviour:
     bucketsSwapDash: 0
     bucketsComplete: 0
     bucketsPainModeComplete: 0
+    bucketsRandoLevelsUnlocked: 0
     bucketsTimer: 0
     bucketsPainMode: 0
     bucketsRusherMode: 0
