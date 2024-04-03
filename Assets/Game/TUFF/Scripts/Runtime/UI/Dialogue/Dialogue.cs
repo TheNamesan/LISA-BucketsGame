@@ -33,7 +33,7 @@ namespace TUFF
         public FixedTextboxPosition fixedTextboxPosition;
         [Tooltip("The base Voicebank to use for sentences.")]
         public Voicebank baseVoicebank;
-        public const float defaultBaseTextSpeed = 40f;
+        public const float defaultBaseTextSpeed = 50f;
         [Tooltip("The base Text Speed to use to display in sentences. If 0 or less, will use the default instead. Default: 40.")]
         public float baseTextSpeed = 0f;
         [Tooltip("If true, will override the Textbox prefab with a custom one.")]
