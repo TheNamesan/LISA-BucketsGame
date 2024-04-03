@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Localization.Settings;
+using System.Linq;
 using DG.Tweening;
 
 namespace TUFF
@@ -254,19 +255,42 @@ namespace TUFF
 
         private void GetUserScreenResolutions()
         {
-            supportedResolutions = Screen.resolutions;
+            Resolution[] screenResolutions = Screen.resolutions;
+            //string test = "I am bot";
+            //test.GetHashCode();
+            Debug.Log($"All resolutions: {screenResolutions.Length}");
+            Resolution[] uniqueResolutions = Enumerable.Distinct(screenResolutions, new ResolutionEqualityComparer()).ToArray();
+            Debug.Log($"Unique resolutions: {uniqueResolutions.Length}");
+            supportedResolutions = uniqueResolutions;
+
+
             //for (int i=0; i < supportedResolutions.Length; i++)
             //{
             //    Debug.Log(supportedResolutions[i].width + "" +
             //        ", " + supportedResolutions[i].height +
             //        ", " + supportedResolutions[i].refreshRate);
             //}
+            
             m_highestResolution = supportedResolutions[supportedResolutions.Length - 1];
         }
         public void ExpandSupportedResolutions(Resolution add)
         {
             System.Array.Resize(ref supportedResolutions, supportedResolutions.Length + 1);
             supportedResolutions[supportedResolutions.Length - 1] = add;
+            if (add.height > m_highestResolution.height) 
+                m_highestResolution = add;
+        }
+        public int GetMaxUserRefreshRate()
+        {
+            if (supportedResolutions.Length <= 0) GetUserScreenResolutions();
+            int maxFrameRate = 0;
+            for (int i = 0; i < supportedResolutions.Length; i++)
+            {
+                var res = supportedResolutions[i];
+                if (res.refreshRate > maxFrameRate)
+                    maxFrameRate = res.refreshRate;
+            }
+            return maxFrameRate;
         }
         public void StartNewGame()
         {

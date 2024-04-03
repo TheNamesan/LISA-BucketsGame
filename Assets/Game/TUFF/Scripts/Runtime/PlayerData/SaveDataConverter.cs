@@ -51,8 +51,9 @@ namespace TUFF
                 Debug.Log("Loaded Config");
                 return load;
             }
-            else SaveConfigData(ConfigData.GetDefaultData());
-            return null;
+            ConfigData newConfig = ConfigData.GetDefaultData();
+            SaveConfigData(newConfig);
+            return newConfig;
         }
 
         private static void CheckSavePathExists()

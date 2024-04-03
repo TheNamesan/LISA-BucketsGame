@@ -285,4 +285,19 @@ namespace TUFF
             return LocalizationSettings.StringDatabase.GetLocalizedString(tableCollectionName, key);
         }
     }
+    public class ResolutionEqualityComparer : IEqualityComparer<Resolution>
+    {
+        public bool Equals(Resolution r1, Resolution r2)
+        {
+            return r1.width.Equals(r2.width) && r1.height.Equals(r2.height);
+        }
+
+        public int GetHashCode(Resolution r)
+        {
+            // Custom hash function for Vector2
+            int hashX = r.width.GetHashCode();
+            int hashY = r.height.GetHashCode();
+            return hashX ^ hashY;
+        }
+    }
 }

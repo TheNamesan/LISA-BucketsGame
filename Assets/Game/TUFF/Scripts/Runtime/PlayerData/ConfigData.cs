@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace TUFF
 {
@@ -34,7 +35,7 @@ namespace TUFF
         public void LoadData()
         {
             ConfigData load = SaveDataConverter.LoadConfigData();
-            if (load == null) return;
+            if (load == null) { Debug.LogWarning("Config file could not be loaded!"); return; }
             refreshRate = load.refreshRate;
             fullscreen = load.fullscreen;
             resolutionWidth = load.resolutionWidth;
@@ -62,7 +63,7 @@ namespace TUFF
             var res = GameManager.instance.highestResolution;
             configData.resolutionWidth = res.width;
             configData.resolutionHeight = res.height;
-            configData.refreshRate = res.refreshRate;
+            configData.refreshRate = GameManager.instance.GetMaxUserRefreshRate();
             configData.globalMusicVolume = 1f;
             configData.globalSFXVolume = 1f;
             configData.globalAmbienceVolume = 1f;
