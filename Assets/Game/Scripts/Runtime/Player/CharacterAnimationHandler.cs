@@ -23,6 +23,10 @@ namespace BucketsGame
         public Vector2 scarfDeadPosition = new Vector2(0f, 0.18f);
         private float m_startNormalizedTime = 0;
 
+        private void Awake()
+        {
+            ShowArms(false);
+        }
         public void FlipSprite(Facing facing)
         {
             bool flip = (facing == Facing.Left);

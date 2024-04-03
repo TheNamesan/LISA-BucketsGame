@@ -13,7 +13,16 @@ namespace BucketsGame
         [SerializeField] private bool m_open;
         [SerializeField] private int m_dir = 0;
 
+        private void Awake()
+        {
+            UpdateSprite();
+        }
         private void Update()
+        {
+            UpdateSprite();
+        }
+
+        private void UpdateSprite()
         {
             if (!open)
             {
@@ -25,6 +34,7 @@ namespace BucketsGame
                 else sprite.sprite = leftOpen;
             }
         }
+
         public void OpenRight()
         {
             Open(1, true);

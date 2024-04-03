@@ -33,6 +33,7 @@ namespace BucketsGame
 
         public static UIManager instance { get { if (m_instance == null) AssignInstance(null); return m_instance; } }
         private static UIManager m_instance;
+        private static int contentDisplayBuffer = 0;
 
         private void Awake()
         {
@@ -54,10 +55,12 @@ namespace BucketsGame
             ScrollBarEffect(0);
             if (cursorTexture) cursorHotspot = new Vector2(cursorTexture.width / 2, cursorTexture.height / 2);
             Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
+            //if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneChanged.AddListener(UpdateContent);
         }
         private void OnDisable()
         {
             ScrollBarEffect(0);
+            //if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneChanged.RemoveListener(UpdateContent);
         }
         private void ScrollBarEffect(float newTime)
         {
@@ -70,23 +73,38 @@ namespace BucketsGame
             UpdateBar();
             UpdateIndicator();
             UpdateTimer();
+            UpdateContent();
             if (SceneProperties.mainPlayer)
                 retryText?.SetActive(SceneProperties.mainPlayer.dead);
         }
         private void LateUpdate()
         {
+            //UpdateContent();
+        }
+
+        private void UpdateContent()
+        {
             if (content)
             {
                 if (SceneManager.GetActiveScene().name == "TitleScreen")
-                { 
+                {
                     content.SetActive(false);
                     if (timerText) timerText.gameObject.SetActive(false);
-                    return; 
+                    return;
                 }
-                content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying && SceneProperties.mainPlayer);
+                bool showContent = (!TUFF.CommonEventManager.interactableEventPlaying) 
+                    //&& !TUFF.GameManager.disablePlayerInput // Removed cuz it hides the pause menu lol
+                    //&& !TUFF.SceneLoaderManager.loading
+                    && SceneProperties.mainPlayer;
+                //if (!showContent) contentDisplayBuffer = 1;
+                //if (showContent && contentDisplayBuffer > 0)
+                    //{ showContent = false; contentDisplayBuffer--; }
+                content.SetActive(showContent);
+                
                 timerText.gameObject.SetActive(TUFF.GameManager.instance.configData.bucketsTimer);
             }
         }
+
         private void UpdateIndicator()
         {
             if (!m_nextRoomIndicator) return;

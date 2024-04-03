@@ -244,6 +244,8 @@ namespace TUFF
             int sceneIndex = preloadedScenes.IndexOf(targetScene);
             if (sceneIndex < 0) // Scene not loaded
             {
+                var prevPriority = Application.backgroundLoadingPriority;
+                Application.backgroundLoadingPriority = ThreadPriority.High;
                 loadingNeighbourScenes.Add(sceneName);
                 AsyncOperation nextOperation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
                 neighbourOperations.Add(nextOperation);
@@ -256,6 +258,7 @@ namespace TUFF
                     targetNode.AddNeighbour(neighbour);
                     loadingNeighbourScenes.Remove(sceneName);
                     neighbourOperations.Remove(nextOperation); // Remove from loading
+                    Application.backgroundLoadingPriority = prevPriority;
                 };
             }
             else
