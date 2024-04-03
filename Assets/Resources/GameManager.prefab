@@ -140,7 +140,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 9f12b499f948b1247871982b767ee4c4, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 0.85
+    volume: 0.6
     minVolume: 1
     pitchMode: 1
     pitch: 1.45
@@ -242,9 +242,9 @@ MonoBehaviour:
     volumeMode: 0
     volume: 1
     minVolume: 1
-    pitchMode: 0
-    pitch: 1
-    minPitch: 1
+    pitchMode: 1
+    pitch: 0.9
+    minPitch: 1.1
   rusherPunchSFX:
     audioClipMode: 0
     audioClip: {fileID: 8300000, guid: 471e29305c13b9341805dfdfd10ffc16, type: 3}
@@ -263,17 +263,17 @@ MonoBehaviour:
     volume: 1
     minVolume: 1
     pitchMode: 0
-    pitch: 1
+    pitch: 1.25
     minPitch: 1
   shielderShootSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: 471e29305c13b9341805dfdfd10ffc16, type: 3}
+    audioClip: {fileID: 8300000, guid: 20fcfda78e524254292e2aa986581dc1, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 1
+    volume: 0.8
     minVolume: 1
     pitchMode: 0
-    pitch: 1
+    pitch: 1.2
     minPitch: 1
   shielderBlockSFX:
     audioClipMode: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 6a3c598c4e6a92944a789cbedc273ce2, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 0.8
+    volume: 0.5
     minVolume: 1
     pitchMode: 0
     pitch: 1.4
