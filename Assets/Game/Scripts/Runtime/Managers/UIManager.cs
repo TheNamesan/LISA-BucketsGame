@@ -83,7 +83,7 @@ namespace BucketsGame
                     if (timerText) timerText.gameObject.SetActive(false);
                     return; 
                 }
-                content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying);
+                content.SetActive(!TUFF.CommonEventManager.interactableEventPlaying && SceneProperties.mainPlayer);
                 timerText.gameObject.SetActive(TUFF.GameManager.instance.configData.bucketsTimer);
             }
         }

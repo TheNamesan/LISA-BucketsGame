@@ -74,7 +74,11 @@ namespace TUFF
             LoadIndexData();
             if (!HasValidActions()) return;
             if (triggerEvents[m_index].triggerType == TriggerType.PlayOnStart)
-                StartCoroutine(PlayOnStart());
+            {
+                if (HasValidActions())
+                    TriggerInteractable(true);
+            }
+                //StartCoroutine(PlayOnStart());
         }
         public void Update()
         {
