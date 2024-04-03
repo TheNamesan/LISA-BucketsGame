@@ -116,7 +116,7 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (!player) return;
             var distanceToPlayer = player.input.MousePointWorld.y - player.transform.position.y;
-            Debug.Log(distanceToPlayer);
+            //Debug.Log(distanceToPlayer);
             float duration = 0.05f;
             Vector2 to = new Vector2(-player.dashDirection.x * 0.5f, Mathf.Sign(distanceToPlayer) * -0.2f) * dashOffsetIntensity;
             GameUtility.KillTween(ref m_dashingTween);

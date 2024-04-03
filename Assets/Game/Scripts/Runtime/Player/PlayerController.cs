@@ -493,7 +493,7 @@ namespace BucketsGame
                 }
                 else if (moveV == 0 && rb.velocity.y > 0) // Cancel Jump
                 {
-                    Debug.Log("Cancel Jump!");
+                    //Debug.Log("Cancel Jump!");
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                 }
                 ChangeFacingOnMove(moveH);
@@ -758,7 +758,7 @@ namespace BucketsGame
                     }
                 }
                 SetAirborne(); //Setting this here so slope fixes get ignored
-                Debug.Log("Jump!");
+                //Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
                 wallClimb = false;
                 m_wallClimbCanceled = false;
