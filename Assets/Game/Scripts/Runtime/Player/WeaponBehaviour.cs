@@ -56,7 +56,7 @@ namespace BucketsGame
         {
             if (m_ticks > 0) return false;
             Vector2 position = transform.position;
-            shootNormal = normal;
+            shootNormal = normal.normalized;
             if (weaponMode == WeaponMode.Pistols)
             {
                 Vector2 offset = normal * 1f;

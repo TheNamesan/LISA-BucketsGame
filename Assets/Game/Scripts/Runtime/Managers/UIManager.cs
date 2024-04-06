@@ -18,6 +18,7 @@ namespace BucketsGame
         [SerializeField] private GameObject content;
         private Vector2 cursorHotspot;
 
+        [SerializeField] private Image m_aimIndicator;
         [SerializeField] private Image m_nextRoomIndicator;
 
         [SerializeField] private GameObject retryText;
@@ -70,7 +71,8 @@ namespace BucketsGame
         private void Update()
         {
             UpdateBar();
-            UpdateIndicator();
+            UpdateAimIndicator();
+            UpdateRoomIndicator();
             UpdateTimer();
             UpdateContent();
             if (SceneProperties.mainPlayer)
@@ -104,7 +106,22 @@ namespace BucketsGame
             }
         }
 
-        private void UpdateIndicator()
+        private void UpdateAimIndicator()
+        {
+
+            if (!m_aimIndicator) return;
+            m_aimIndicator.gameObject.SetActive(false);
+            if (!SceneProperties.instance) return;
+            var player = SceneProperties.instance.player;
+            if (!player) return;
+            Vector2 inputAim = player.input.aim.normalized;
+            if (!player.input.InAimThreshold(inputAim)) return;
+            m_aimIndicator.gameObject.SetActive(true);
+            Vector2 worldPosition = (Vector2)player.transform.position + inputAim;
+            Vector2 canvasPosition = SceneProperties.cam.WorldToScreenPoint(worldPosition);
+            m_aimIndicator.rectTransform.position = canvasPosition;
+        }
+        private void UpdateRoomIndicator()
         {
             if (!m_nextRoomIndicator) return;
             if (!SceneProperties.instance) return;
@@ -137,6 +154,7 @@ namespace BucketsGame
             }
             m_nextRoomIndicator.rectTransform.position = canvasPosition;
         }
+
         private void UpdateBar()
         {
             var focus = BucketsGameManager.instance.focusMode;

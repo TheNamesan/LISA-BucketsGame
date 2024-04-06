@@ -391,9 +391,11 @@ namespace BucketsGame
                 m_wallClimbCanceled = true;
             }
             bool disabledByAction = wallClimb || wallJumping || dashing;
+            if (input.inAimThreshold) shoot = true;
             if (weapon && shoot && !disabledByAction)
             {
                 Vector2 aimNormal = DistanceToMouse().normalized;
+                if (input.inAimThreshold) aimNormal = input.aim.normalized;
                 bool shot = weapon.Shoot(aimNormal);
                 if (shot)
                 {

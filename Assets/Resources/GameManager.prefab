@@ -673,6 +673,7 @@ MonoBehaviour:
     globalSFXVolume: 1
     globalAmbienceVolume: 1
     textSpeed: 0
+    keybinds: 
     lost: 0
     bucketsAutoFire: 0
     bucketsComplete: 0
@@ -1115,6 +1116,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6e3cbba5-a00e-43dd-90f7-c0b3dd3c4bf7
     m_ActionName: Player/Pause[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6547701444824546339}
+        m_TargetAssemblyTypeName: BucketsGame.PlayerInputHandler, BucketsGameRuntime
+        m_MethodName: Aim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3d1bf860-97aa-4353-a2c9-0977aaa6e05d
+    m_ActionName: Player/Jump[/Keyboard/w,/SwitchProControllerHID/buttonEast,/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1138,9 +1155,11 @@ MonoBehaviour:
     mousePoint: {x: 0, y: 0}
     shoot: 0
     shootDown: 0
-    dashDown: 0
+    jump: 0
     jumpDown: 0
+    dashDown: 0
     focus: 0
+    aim: {x: 0, y: 0}
   bufferedPointerWorld: {x: 0, y: 0}
   bufferedPointer: {x: 0, y: 0}
 --- !u!114 &8566072047202255938
