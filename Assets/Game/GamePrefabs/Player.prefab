@@ -357,6 +357,7 @@ MonoBehaviour:
   wallJumpTicksDuration: 5
   m_wallJumpTicks: 0
   m_wallJumpDirection: 0
+  m_wallClimbCanceled: 0
   stunDuration: 62
   m_stunTicks: 0
   ignoreLandAnim: 0
@@ -378,6 +379,7 @@ MonoBehaviour:
   adrenalineFireRateIterations: 3
   normalVelocity: 30
   adrenalineVelocityScale: 1.4
+  casingSprite: {fileID: 21300000, guid: aa8f0872f715e224a98c718f65c57a53, type: 3}
   ticksFireRate: 17
   pistolAnimDuration: 50
 --- !u!114 &3711834660284266069

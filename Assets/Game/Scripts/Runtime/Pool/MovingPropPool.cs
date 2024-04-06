@@ -24,6 +24,14 @@ namespace BucketsGame
             available.transform.rotation = Quaternion.Euler(available.transform.eulerAngles.x, available.transform.eulerAngles.y, rotation);
             available.Spawn(launchForce, sprite);
         }
+        public void SpawnProp(Vector2 position, float rotation, Vector2 launchForce, Sprite sprite, float activeTime, Vector2 size, float gravityScale)
+        {
+            var available = pool.Find(o => !o.inUse);
+            if (available == null) available = AddNew();
+            available.transform.position = position;
+            available.transform.rotation = Quaternion.Euler(available.transform.eulerAngles.x, available.transform.eulerAngles.y, rotation);
+            available.Spawn(launchForce, sprite, activeTime, size, gravityScale);
+        }
     }
 
 }

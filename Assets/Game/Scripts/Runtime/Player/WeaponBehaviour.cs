@@ -22,6 +22,7 @@ namespace BucketsGame
         public float adrenalineVelocityScale = 1.4f;
 
         [Header("Pistol")]
+        public Sprite casingSprite;
         public int ticksFireRate = 15;
         public int pistolAnimDuration = 22;
         public int ticks { get => m_ticks; }
@@ -68,6 +69,13 @@ namespace BucketsGame
                 }
                 position += offset;
                 BulletsPool.instance.SpawnBullet(position, normal);
+                Vector2 forceA = new Vector2(Random.Range(-1.25f, 1.25f), Random.Range(-1.25f, 1.25f)) * 5f;
+                Vector2 forceB = new Vector2(Random.Range(-1.25f, 1.25f), Random.Range(-1.25f, 1.25f)) * 5f;
+                //forceA *= new Vector2(-normal.x, normal.y);
+                //forceB *= new Vector2(-normal.x, normal.y);
+                Vector2 size = new Vector2(0.19f, 0.07f);
+                MovingPropPool.instance.SpawnProp(transform.position, 0f, forceA, casingSprite, 5f, size, 2f);
+                MovingPropPool.instance.SpawnProp(transform.position, 0f, forceB, casingSprite, 5f, size, 2f);
                 AudioManager.instance.PlaySFX(SFXList.instance.pistolShotSFX);
             }
             else if (weaponMode == WeaponMode.Shotgun)
