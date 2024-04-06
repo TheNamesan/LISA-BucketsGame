@@ -47,6 +47,7 @@ namespace BucketsGame
         }
         private static BucketsGameManager m_instance;
         [SerializeField] private Tween m_hitstunTween;
+        public bool paused { get => m_paused; }
         private bool m_paused = false;
         private const float SLOWTIME = 0.25f;
         public static bool CheckInstance()

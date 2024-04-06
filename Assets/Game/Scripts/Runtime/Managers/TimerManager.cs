@@ -55,7 +55,7 @@ namespace BucketsGame
         private void ToggleTimer(bool input)
         {
             if (input) Resume();
-            else Pause();
+            else if (!BucketsGameManager.instance.paused) Pause();
         }
         public bool FastTime()
         {
