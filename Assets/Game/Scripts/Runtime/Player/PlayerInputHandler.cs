@@ -50,9 +50,7 @@ namespace BucketsGame
         }
         public void Dash(InputAction.CallbackContext context)
         {
-            if (TUFF.GameManager.instance.configData.bucketsSwapDash) 
-                FocusHandler(context);
-            else DashHandler(context);
+            DashHandler(context);
         }
 
         private void DashHandler(InputAction.CallbackContext context)
@@ -66,9 +64,7 @@ namespace BucketsGame
 
         public void Focus(InputAction.CallbackContext context)
         {
-            if (TUFF.GameManager.instance.configData.bucketsSwapDash)
-                DashHandler(context);
-            else FocusHandler(context);
+            FocusHandler(context);
         }
 
         private void FocusHandler(InputAction.CallbackContext context)

@@ -16,6 +16,7 @@ namespace TUFF
         [Header("References")]
         public GameObject gameCanvasPrefab;
         public InputManager inputManager;
+        public PlayerInput playerInput;
         public DatabaseLoader databaseLoader;
         public SceneLoaderManager sceneLoaderManager;
         public CommonEventManager commonEventManager;

@@ -18,7 +18,6 @@ namespace TUFF
         public int textSpeed = 0;
         public bool lost = false;
         public bool bucketsAutoFire = false;
-        public bool bucketsSwapDash = false;
         public bool bucketsComplete = false;
         public bool bucketsPainModeComplete = false;
         public bool bucketsRandoLevelsUnlocked = false;
@@ -46,7 +45,6 @@ namespace TUFF
             textSpeed = load.textSpeed;
             lost = load.lost;
             bucketsAutoFire = load.bucketsAutoFire;
-            bucketsSwapDash = load.bucketsSwapDash;
             bucketsComplete = load.bucketsComplete;
             bucketsPainModeComplete = load.bucketsPainModeComplete;
             bucketsRandoLevelsUnlocked = load.bucketsRandoLevelsUnlocked;
@@ -70,7 +68,6 @@ namespace TUFF
             configData.textSpeed = 0;
             configData.lost = false;
             configData.bucketsAutoFire = false;
-            configData.bucketsSwapDash = false;
             configData.bucketsComplete = false;
             configData.bucketsPainModeComplete = false;
             configData.bucketsRandoLevelsUnlocked = false;

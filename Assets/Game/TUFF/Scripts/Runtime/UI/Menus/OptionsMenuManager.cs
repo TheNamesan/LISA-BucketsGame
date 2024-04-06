@@ -77,8 +77,8 @@ namespace TUFF
             autoFire.highlightedOption = GameManager.instance.configData.bucketsAutoFire ? 1 : 0;
             autoFire.UpdateText();
 
-            swapDash.highlightedOption = GameManager.instance.configData.bucketsSwapDash ? 1 : 0;
-            swapDash.UpdateText();
+            //swapDash.highlightedOption = GameManager.instance.configData.bucketsSwapDash ? 1 : 0;
+            //swapDash.UpdateText();
         }
 
         public void UpdateGlobalMusicVolume(float volume)
@@ -131,9 +131,9 @@ namespace TUFF
         }
         public void SetBucketsSwapDash()
         {
-            Debug.Log("Updated Swap Dash: " + swapDash.highlightedOption);
-            GameManager.instance.configData.bucketsSwapDash = System.Convert.ToBoolean(swapDash.highlightedOption);
-            SaveOptionsData();
+            //Debug.Log("Updated Swap Dash: " + swapDash.highlightedOption);
+            //GameManager.instance.configData.bucketsSwapDash = System.Convert.ToBoolean(swapDash.highlightedOption);
+            //SaveOptionsData();
         }
 
         public void SaveOptionsData()
