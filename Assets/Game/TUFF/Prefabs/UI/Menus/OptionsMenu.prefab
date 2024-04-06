@@ -231,6 +231,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: 7048699364750000836, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 76f389e8-5684-4ea2-90d9-9bd7b6e9f038
+  keybindName: Shoot
   keybindText: {fileID: 1296778597218346558}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -399,6 +400,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: -8090618043017632046, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 1b81d72b-9e9a-49b7-8a1a-77d1d8b425cc
+  keybindName: Right
   keybindText: {fileID: 11939590177550317}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -641,6 +643,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: -8090618043017632046, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 146091b7-874b-473d-a02f-65aceae150fe
+  keybindName: Left
   keybindText: {fileID: 7091929800243130295}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -807,6 +810,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: -6491179925037248502, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 00b87dcc-3669-4fe5-a89c-492c67fc9fa1
+  keybindName: Jump
   keybindText: {fileID: 2018951561437805700}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -975,6 +979,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: -6491179925037248502, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 0ecdbc50-71a3-47d8-b426-ed1af45ae039
+  keybindName: Crouch
   keybindText: {fileID: 5332501196585960398}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -1462,6 +1467,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: 1579278495270556707, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 653e1758-af8e-4a22-b43b-c107426c85e4
+  keybindName: Dash
   keybindText: {fileID: 8627925176393394116}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -3079,6 +3085,7 @@ MonoBehaviour:
   rebindOverlayObject: {fileID: 103950426207957179}
   rebindOverlayText: {fileID: 5336453397410796673}
   inputActionAsset: {fileID: -944628639613478452, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
+  cancelMaxSeconds: 5
 --- !u!114 &215879923065565402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3379,6 +3386,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: -7305270751762235007, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 4093d95d-81d3-42fe-8dc9-c899fa56e20f
+  keybindName: Adrenaline
   keybindText: {fileID: 5678423326184908990}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -3819,6 +3827,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: 8706743857953232091, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 2d8fc123-d159-4bad-b023-0741a5da015f
+  keybindName: Fast Forward
   keybindText: {fileID: 7287072022604493949}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:
@@ -4135,6 +4144,7 @@ MonoBehaviour:
   keybindsMenu: {fileID: 3792031677016607863}
   targetAction: {fileID: 570899602984374563, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   bindingId: 63b07468-0561-4bad-81e8-c73b31f4b1e2
+  keybindName: Retry
   keybindText: {fileID: 2857972546080938292}
   m_DisplayStringOptions: 0
   m_UpdateBindingUIEvent:

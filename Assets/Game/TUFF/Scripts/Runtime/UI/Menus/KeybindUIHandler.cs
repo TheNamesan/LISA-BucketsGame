@@ -13,6 +13,7 @@ namespace TUFF
         [Tooltip("Reference to action that is to be rebound from the UI.")]
         public InputActionReference targetAction;
         public string bindingId = "";
+        public string keybindName = ""; 
         public TMP_Text keybindText;
 
         public InputBinding.DisplayStringOptions displayStringOptions
@@ -172,13 +173,14 @@ namespace TUFF
                     });
 
             // If it's a part binding, show the name of the part in the UI.
-            var partName = default(string);
-            if (action.bindings[bindingIndex].isPartOfComposite)
-                partName = $"Binding '{action.bindings[bindingIndex].name}'. ";
+            //var partName = default(string);
+            //if (action.bindings[bindingIndex].isPartOfComposite)
+            //    partName = $"Binding '{action.bindings[bindingIndex].name}'. ";
 
             // Bring up rebind overlay, if we have one.
             keybindsMenu?.SetOverlayActive(true);
-            keybindsMenu?.SetOverlayText(partName, m_RebindOperation.expectedControlType);
+            keybindsMenu?.SetOverlayText(m_RebindOperation, keybindName);
+            
             //if (m_RebindText != null)
             //{
             //    var text = !string.IsNullOrEmpty(m_RebindOperation.expectedControlType)
