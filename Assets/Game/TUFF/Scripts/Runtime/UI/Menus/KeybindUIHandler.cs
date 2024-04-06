@@ -56,6 +56,10 @@ namespace TUFF
         /// </summary>
         public void ResetToDefault()
         {
+            ResetToDefault(true);
+        }
+        public void ResetToDefault(bool saveConfig)
+        {
             if (!ResolveActionAndBinding(out var action, out var bindingIndex))
                 return;
 
@@ -69,6 +73,7 @@ namespace TUFF
             {
                 action.RemoveBindingOverride(bindingIndex);
             }
+            if (saveConfig) keybindsMenu?.SaveConfig();
             UpdateBindingDisplay();
         }
         /// <summary>
@@ -140,6 +145,7 @@ namespace TUFF
                     operation =>
                     {
                         action.Enable();
+                        keybindsMenu?.SaveConfig();
                         m_RebindStopEvent?.Invoke(this, operation);
                         keybindsMenu?.SetOverlayActive(false);
                         UpdateBindingDisplay();
@@ -149,6 +155,7 @@ namespace TUFF
                     operation =>
                     {
                         action.Enable();
+                        keybindsMenu?.SaveConfig();
                         keybindsMenu?.SetOverlayActive(false);
                         m_RebindStopEvent?.Invoke(this, operation);
                         UpdateBindingDisplay();

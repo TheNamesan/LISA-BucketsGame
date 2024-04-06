@@ -20,6 +20,7 @@ namespace TUFF
         public DatabaseLoader databaseLoader;
         public SceneLoaderManager sceneLoaderManager;
         public CommonEventManager commonEventManager;
+        public InputActionAsset inputActionAsset { get { if (!playerInput) return null; return playerInput.actions; } }
 
         private static bool m_disablePlayerInput = false;
         public static bool disablePlayerInput
@@ -79,9 +80,8 @@ namespace TUFF
             m_instance = target;
             DontDestroyOnLoad(m_instance.gameObject);
             Instantiate(m_instance.gameCanvasPrefab);
-            LocalizationSettings.Instance.GetInitializationOperation();
+            LocalizationSettings.Instance.GetInitializationOperation(); //Start Localization
             m_instance.LoadInitialData();
-            //LocalizationSettings.Instance.GetInitializationOperation(); //Start Localization
             m_instance.StartCoroutine(Dialogue.PreloadTextboxes());
             DOTween.Init();
         }
@@ -110,6 +110,7 @@ namespace TUFF
             //Load Config
             GetUserScreenResolutions();
             configData.LoadData();
+            ApplyKeybinds();
             SetGameFullscreen(configData.fullscreen);
             SetGameResolution(configData.resolutionWidth, configData.resolutionHeight, configData.refreshRate);
             UpdateGlobalVolume();
@@ -117,6 +118,18 @@ namespace TUFF
             //Load Dummy Save Data
             playerData.StartPlayerData();
             playerData.AddToParty(0); //dummy test
+        }
+        private void ApplyKeybinds()
+        {
+            if (configData != null && inputActionAsset)
+            {
+                inputActionAsset.LoadBindingOverridesFromJson(configData.keybinds);
+            }
+        }
+        public string GetDefaultKeybinds() 
+        {
+            if (!inputActionAsset) return "";
+            return inputActionAsset.SaveBindingOverridesAsJson();
         }
         public void SavePlayerData(int fileIndex)
         {

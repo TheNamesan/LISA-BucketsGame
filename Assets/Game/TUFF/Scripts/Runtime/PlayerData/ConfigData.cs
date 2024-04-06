@@ -16,6 +16,7 @@ namespace TUFF
         [Range(0f, 1f)] public float globalSFXVolume = 1f;
         [Range(0f, 1f)] public float globalAmbienceVolume = 1f;
         public int textSpeed = 0;
+        public string keybinds = "";
         public bool lost = false;
         public bool bucketsAutoFire = false;
         public bool bucketsComplete = false;
@@ -43,6 +44,7 @@ namespace TUFF
             globalSFXVolume = load.globalSFXVolume;
             globalAmbienceVolume = load.globalAmbienceVolume;
             textSpeed = load.textSpeed;
+            keybinds = load.keybinds;
             lost = load.lost;
             bucketsAutoFire = load.bucketsAutoFire;
             bucketsComplete = load.bucketsComplete;
@@ -66,6 +68,7 @@ namespace TUFF
             configData.globalSFXVolume = 1f;
             configData.globalAmbienceVolume = 1f;
             configData.textSpeed = 0;
+            configData.keybinds = GameManager.instance.GetDefaultKeybinds();
             configData.lost = false;
             configData.bucketsAutoFire = false;
             configData.bucketsComplete = false;

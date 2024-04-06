@@ -31,14 +31,20 @@ namespace TUFF
             if (!inputActionAsset) return;
             foreach(KeybindUIHandler handler in m_handlers)
             {
-                handler.ResetToDefault();
+                handler.ResetToDefault(false);
             }
+            SaveConfig();
             Debug.Log("All bindings reset!");
         }
         public void AddHandler(KeybindUIHandler handler)
         {
             if (m_handlers.Contains(handler)) return;
             m_handlers.Add(handler);
+        }
+        public void SaveConfig()
+        {
+            GameManager.instance.configData.keybinds = GameManager.instance.inputActionAsset.SaveBindingOverridesAsJson();
+            GameManager.instance.configData.SaveData();
         }
     }
 }
