@@ -119,6 +119,11 @@ namespace BucketsGame
             m_aimIndicator.gameObject.SetActive(true);
             Vector2 worldPosition = (Vector2)player.transform.position + inputAim;
             Vector2 canvasPosition = SceneProperties.cam.WorldToScreenPoint(worldPosition);
+
+            float angle = Vector2.SignedAngle(Vector2.right, inputAim);
+            var rotation = Quaternion.Euler(0, 0, angle);
+            m_aimIndicator.rectTransform.rotation = rotation;
+
             m_aimIndicator.rectTransform.position = canvasPosition;
         }
         private void UpdateRoomIndicator()
