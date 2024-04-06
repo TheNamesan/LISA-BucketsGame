@@ -25,6 +25,7 @@ namespace BucketsGame
         [SerializeField] private Tween m_shakeTween = null;
         [SerializeField] private CinemachineFramingTransposer framing;
         [SerializeField] private CinemachineBasicMultiChannelPerlin noise;
+        // Effect
 
         private void LateUpdate()
         {
@@ -46,7 +47,6 @@ namespace BucketsGame
         {
             camConfiner.m_BoundingShape2D = worldBoundCol;
         }
-
         private void FollowUpdate()
         {
             if (disableFollow)
