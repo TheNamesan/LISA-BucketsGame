@@ -33,6 +33,11 @@ namespace BucketsGame
         {
             m_invulnerable = value;
         }
+        private void OnDrawGizmos()
+        {
+            if (col)
+                Gizmos.DrawWireCube(col.bounds.center, col.size);
+        }
     }
 }
 

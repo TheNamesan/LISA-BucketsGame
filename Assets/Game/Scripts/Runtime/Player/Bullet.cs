@@ -105,7 +105,7 @@ namespace BucketsGame
             }
             if (hitWall) return;
             var hitboxLayers = BucketsGameManager.instance.hurtboxLayers;
-            RaycastHit2D[] hitAll = Physics2D.CircleCastAll(rb.position, radius, rb.transform.up, 0, hitboxLayers);
+            RaycastHit2D[] hitAll = Physics2D.CircleCastAll(m_lastPosition, radius, distance, distance.magnitude, hitboxLayers);
             for (int i = 0; i < hitAll.Length; i++)
             {
                 if (hitAll[i].collider.TryGetComponent(out Hurtbox hurtbox))
@@ -193,6 +193,11 @@ namespace BucketsGame
         private void OnCollisionEnter2D(Collision2D collision)
         {
             //OnWallHit(collision);
+        }
+        private void OnDrawGizmos()
+        {
+            if (col)
+                Gizmos.DrawWireSphere(col.bounds.center, col.radius * transform.localScale.x * 0.75f);
         }
     }
 }
