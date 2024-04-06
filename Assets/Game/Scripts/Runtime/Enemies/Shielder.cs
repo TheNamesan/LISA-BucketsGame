@@ -124,11 +124,20 @@ namespace BucketsGame
             }
             else if (Mathf.Abs(distanceToPlayer) <= approachDistance && m_stunnedTicks <= 0) // Prepare to shoot
             {
-                RaycastHit2D hasWallInWayHit = Physics2D.Linecast(rb.position, player.rb.position, groundLayers);
-                Debug.DrawLine(rb.position, player.rb.position, (hasWallInWayHit ? Color.red : Color.green), Time.fixedDeltaTime);
-                if (!hasWallInWayHit) Fire();
-                if (hasWallInWayHit && hasWallInWayHit.collider.TryGetComponent(out TUFF.TerrainProperties props))
-                    if (props.enemyBulletsGoThrough) Fire();
+                bool wallInWay = false;
+                RaycastHit2D[] hasWallInWayHitAll = Physics2D.LinecastAll(rb.position, player.rb.position, groundLayers);
+                Debug.Log(hasWallInWayHitAll.Length);
+                for (int i = 0; i < hasWallInWayHitAll.Length; i++)
+                {
+                    if (hasWallInWayHitAll[i].collider.TryGetComponent(out TUFF.TerrainProperties props))
+                    {
+                        if (props.enemyBulletsGoThrough) continue;
+                    }
+                    wallInWay = true;
+                    break;
+                }
+                Debug.DrawLine(rb.position, player.rb.position, (wallInWay ? Color.red : Color.green), Time.fixedDeltaTime);
+                if (!wallInWay) Fire();
             }
         }
         private void AttackRaycast()
@@ -268,7 +277,7 @@ namespace BucketsGame
             Vector2 size = Vector2.one;
             // If player is behind enemy, rotate direction in X
             float faceAngle = Vector2.SignedAngle(Vector2.right, dir.normalized);
-            Debug.Log("Angle: " + faceAngle);
+            //Debug.Log("Angle: " + faceAngle);
             if (Mathf.Sign(dir.normalized.x) != FaceToInt())
             {
                 // If the Y value of the vector is too low, it is a blind spot.
