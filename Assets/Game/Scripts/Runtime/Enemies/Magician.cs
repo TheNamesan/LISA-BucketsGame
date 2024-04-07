@@ -87,6 +87,7 @@ namespace BucketsGame
             AssignPatternTime();
             ResetDashes();
             UpdateAfterImages();
+            if (sprite && sprite.material) sprite.material = Instantiate(sprite.material);
         }
 
         private void AssignPatternTime()
@@ -121,7 +122,9 @@ namespace BucketsGame
                 if (pattern == MagicianPatternType.Shoot && InShootTelegraph)
                 {
                     float t = Mathf.InverseLerp(ShootDuration, (ShootDuration - shootTelegraphDuration), m_shootTime);
-                    sprite.color = Color.Lerp(Color.white, shootTelegraphColor, t);
+                    if (sprite.material)
+                        sprite.material.SetColor("_AddedColorA", Color.Lerp(shootTelegraphColor, Color.black, t));
+                    else sprite.color = Color.Lerp(Color.white, shootTelegraphColor, t);
                 }
                 if (invincible)
                 {
@@ -139,7 +142,7 @@ namespace BucketsGame
             {
                 float time = (dashes == 0 ? 0f : (float)m_dashesLeft / dashes);
                 var color = Color.Lerp(zeroDashesColor, maxDashesColor, time);
-                if (invincible) color = invincibilityColor;
+                if (invincible || dashing) color = invincibilityColor;
                 afterImagesHandler.targetColor = color;
             }
         }
@@ -159,6 +162,8 @@ namespace BucketsGame
         private void RecolorMagician()
         {
             if (sprite) sprite.color = Color.white;
+            if (sprite.material)
+                sprite.material.SetColor("_AddedColorA", Color.black);
         }    
         private void FixedUpdate()
         {
@@ -319,8 +324,13 @@ namespace BucketsGame
         {
             if (pattern != MagicianPatternType.Shoot) return;
             if (m_shootTime <= 0) return;
-            if (m_shootTime == ShootDuration - shootTelegraphDuration) 
-                sprite.color = Color.white;
+            if (m_shootTime == ShootDuration - shootTelegraphDuration)
+            {
+                if (sprite.material)
+                    sprite.material.SetColor("_AddedColorA", Color.black);
+                else sprite.color = Color.white;
+            }
+                
             m_shootTime--;
             if (!InShootTelegraph) ShootProjectile();
         }

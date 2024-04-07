@@ -81,7 +81,6 @@ namespace BucketsGame
             {
                 bool wallInWay = false;
                 RaycastHit2D[] hasWallInWayHitAll = Physics2D.LinecastAll(rb.position, player.rb.position, groundLayers);
-                Debug.Log(hasWallInWayHitAll.Length);
                 for (int i = 0; i < hasWallInWayHitAll.Length; i++)
                 {
                     if (hasWallInWayHitAll[i].collider.TryGetComponent(out TUFF.TerrainProperties props))

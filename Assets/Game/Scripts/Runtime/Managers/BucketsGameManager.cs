@@ -248,6 +248,7 @@ namespace BucketsGame
                 TUFF.AudioManager.instance.PlaySFX(SFXList.instance.enemyHitSFX);
                 PlayHitstun(0.35f);
             }
+            AddTicks(hitFocusTicksRegain);
         }
         
         public void OnPlayerDead()
