@@ -58,19 +58,25 @@ namespace BucketsGame
             float intensity = maxIntensity * NormalizedIntensityTime;
             runtimeVignette.intensity.value = intensity;
             Vector2 position = new Vector2(0.5f, 0.5f);
-            //if (camManager && camManager.cam && camManager.virtualCam && camManager.virtualCam.Follow)
-            //{
-            //    Transform target = camManager.virtualCam.Follow;
-            //    Vector2 targetScreenPos = camManager.cam.WorldToScreenPoint(target.position);
-            //    Vector2 normalizedPos = new Vector2(targetScreenPos.x / Screen.width, targetScreenPos.y / Screen.height);
-            //    position = normalizedPos;
-            //}
-            if (camManager && PlayerInputHandler.instance)
+            if (PlayerInputHandler.instance.IsGamepad())
             {
-                //Transform target = PlayerInputHandler.instance.gameInput;
-                Vector2 targetScreenPos = PlayerInputHandler.instance.gameInput.mousePoint;
-                Vector2 normalizedPos = new Vector2(targetScreenPos.x / Screen.width, targetScreenPos.y / Screen.height);
-                position = normalizedPos;
+                if (camManager && camManager.cam && camManager.virtualCam && camManager.virtualCam.Follow)
+                {
+                    Transform target = camManager.virtualCam.Follow;
+                    Vector2 targetScreenPos = camManager.cam.WorldToScreenPoint(target.position);
+                    Vector2 normalizedPos = new Vector2(targetScreenPos.x / Screen.width, targetScreenPos.y / Screen.height);
+                    position = normalizedPos;
+                }
+            }
+            else
+            {
+                if (camManager && PlayerInputHandler.instance)
+                {
+                    //Transform target = PlayerInputHandler.instance.gameInput;
+                    Vector2 targetScreenPos = PlayerInputHandler.instance.gameInput.mousePoint;
+                    Vector2 normalizedPos = new Vector2(targetScreenPos.x / Screen.width, targetScreenPos.y / Screen.height);
+                    position = normalizedPos;
+                }
             }
             position += (Vector2)m_shakeVector * shakeScale;
             runtimeVignette.center.value = position;

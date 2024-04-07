@@ -71,6 +71,11 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (!player) return Vector2.zero;
             Vector2 mousePosWorld = player.input.MousePointWorld;
+            if (PlayerInputHandler.instance.IsGamepad())
+            {
+                mousePosWorld = player.rb.position + player.input.lastAimDirection.normalized * 10f + player.rb.velocity.normalized * 0.5f;
+                //mousePosWorld = player.DistanceToPoint(pos);
+            }
             if (TUFF.GameManager.disablePlayerInput)
             {
                 mousePosWorld = PlayerInputHandler.instance.bufferedPointerWorld;
@@ -86,7 +91,7 @@ namespace BucketsGame
             // Debug
             Color color = Color.Lerp(Color.green, Color.red, inverseLerp.magnitude);
             if (inverseLerp.magnitude >= 1) color = Color.black;
-            Debug.DrawLine(player.rb.position, player.input.MousePointWorld, color);
+            Debug.DrawLine(player.rb.position, mousePosWorld, color);
             return offset;
         }
         private Vector2 FollowPlayer()

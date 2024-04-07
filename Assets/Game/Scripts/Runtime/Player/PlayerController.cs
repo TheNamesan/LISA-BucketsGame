@@ -386,17 +386,30 @@ namespace BucketsGame
             if (m_dead || stunned) return;
             if (BucketsGameManager.IsRusher()) return;
             bool shoot = ShootButton();
+            if (PlayerInputHandler.instance.IsGamepad() && input.inAimThreshold) shoot = true;
             if (shoot && wallClimb)
-            { 
+            {
                 wallClimb = false;
                 m_wallClimbCanceled = true;
             }
             bool disabledByAction = wallClimb || wallJumping || dashing;
-            if (input.inAimThreshold) shoot = true;
             if (weapon && shoot && !disabledByAction)
             {
                 Vector2 aimNormal = DistanceToMouse().normalized;
-                if (input.inAimThreshold) aimNormal = input.aim.normalized;
+                if (PlayerInputHandler.instance.IsGamepad())
+                {
+                    if (input.inAimThreshold) aimNormal = input.aim.normalized;
+                    else
+                    {
+                        if (input.inputH == 0 && input.inputV == 0) 
+                            aimNormal = new Vector2(FaceToInt(), input.inputV);
+                        else
+                            aimNormal = new Vector2(input.inputH, input.inputV);
+                        
+                        aimNormal = aimNormal.normalized * aimNormal.sqrMagnitude;
+                        PlayerInputHandler.instance.gameInput.lastAimDirection = aimNormal;
+                    }
+                }
                 bool shot = weapon.Shoot(aimNormal);
                 if (shot)
                 {

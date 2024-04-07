@@ -8,6 +8,7 @@ namespace BucketsGame
     public class PlayerInputHandler : MonoBehaviour
     {
         public static PlayerInputHandler instance { get => BucketsGameManager.instance.inputHandler; }
+        public PlayerInput playerInput;
         public GamePlayerInput gameInput = new();
         public Vector2 bufferedPointerWorld = new Vector2();
         public Vector2 bufferedPointer = new Vector2();
@@ -163,7 +164,7 @@ namespace BucketsGame
             player.input = new GamePlayerInput();
         }
 
-        public IEnumerator LateFixedUpdate()
+        private IEnumerator LateFixedUpdate()
         {
             while (true)
             {
@@ -173,6 +174,15 @@ namespace BucketsGame
                 gameInput.dashDown = false;
                 gameInput.shootDown = false;
             }
+        }
+        public void OnControlSchemeChange()
+        {
+            Debug.Log(playerInput.currentControlScheme);
+        }
+        public bool IsGamepad()
+        {
+            if (!playerInput) return false;
+            return playerInput.currentControlScheme == "Gamepad";
         }
     }
     [System.Serializable]
