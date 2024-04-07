@@ -69,13 +69,7 @@ namespace BucketsGame
                 }
                 position += offset;
                 BulletsPool.instance.SpawnBullet(position, normal);
-                Vector2 forceA = new Vector2(Random.Range(-1.25f, 1.25f), Random.Range(-1.25f, 1.25f)) * 5f;
-                Vector2 forceB = new Vector2(Random.Range(-1.25f, 1.25f), Random.Range(-1.25f, 1.25f)) * 5f;
-                //forceA *= new Vector2(-normal.x, normal.y);
-                //forceB *= new Vector2(-normal.x, normal.y);
-                Vector2 size = new Vector2(0.19f, 0.07f);
-                MovingPropPool.instance.SpawnProp(transform.position, 0f, forceA, casingSprite, 5f, size, 2f);
-                MovingPropPool.instance.SpawnProp(transform.position, 0f, forceB, casingSprite, 5f, size, 2f);
+                SpawnCasing();
                 AudioManager.instance.PlaySFX(SFXList.instance.pistolShotSFX);
             }
             else if (weaponMode == WeaponMode.Shotgun)
@@ -113,6 +107,18 @@ namespace BucketsGame
             Debug.Log("Pew");
             return true;
         }
+
+        private void SpawnCasing()
+        {
+            Vector2 forceA = new Vector2(Random.Range(-1.25f, 1.25f), Random.Range(-1.25f, 1.25f)) * 5f;
+            Vector2 forceB = new Vector2(Random.Range(-1.25f, 1.25f), Random.Range(-1.25f, 1.25f)) * 5f;
+            //forceA *= new Vector2(-normal.x, normal.y);
+            //forceB *= new Vector2(-normal.x, normal.y);
+            Vector2 size = new Vector2(0.1275f, 0.07f);
+            MovingPropPool.instance.SpawnProp(transform.position, 0f, forceA, casingSprite, 5f, size, 2f);
+            MovingPropPool.instance.SpawnProp(transform.position, 0f, forceB, casingSprite, 5f, size, 2f);
+        }
+
         public float GetVelocity()
         {
             float vel = normalVelocity * (BucketsGameManager.instance.focusMode ? adrenalineVelocityScale : 1f );
