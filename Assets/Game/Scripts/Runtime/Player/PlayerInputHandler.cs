@@ -26,22 +26,27 @@ namespace BucketsGame
             {
                 float value = context.ReadValue<float>();
                 gameInput.inputV = value;
-                if (value > 0) gameInput.jumpDown = true;
+                if (value < 0)
+                {
+                    gameInput.jump = false;
+                    gameInput.fastFallDown = true; 
+                }
             }
         }
         public void Jump(InputAction.CallbackContext context)
         {
-            //if (!player) return;
-            //if (context.performed)
-            //{
-            //    gameInput.jump = true;
-            //    gameInput.jumpDown = true;
-            //}
-            //if (context.canceled)
-            //{
-            //    gameInput.jump = false;
-            //    gameInput.jumpDown = false;
-            //}
+            if (!player) return;
+            if (context.performed)
+            {
+                gameInput.jump = true;
+                gameInput.jumpDown = true;
+                gameInput.fastFallDown = false;
+            }
+            if (context.canceled)
+            {
+                gameInput.jump = false;
+                gameInput.jumpDown = false;
+            }
         }
         public void Aim(InputAction.CallbackContext context)
         {
@@ -163,6 +168,7 @@ namespace BucketsGame
             while (true)
             {
                 yield return new WaitForFixedUpdate();
+                gameInput.fastFallDown = false;
                 gameInput.jumpDown = false;
                 gameInput.dashDown = false;
                 gameInput.shootDown = false;
@@ -184,6 +190,7 @@ namespace BucketsGame
         public bool shootDown;
         public bool jump;
         public bool jumpDown;
+        public bool fastFallDown;
         public bool dashDown;
         public bool focus;
         public Vector2 aim;

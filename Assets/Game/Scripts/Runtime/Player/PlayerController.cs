@@ -46,6 +46,7 @@ namespace BucketsGame
         //public float gravityScale = 2;
         public int extraJumps = 1;
         public int midairDashes = 1;
+        public bool startedJump = false;
         public bool doubleJumping = false;
         [SerializeField] private int m_jumps = 0;
         [SerializeField] private int m_midairDashes = 0;
@@ -448,7 +449,7 @@ namespace BucketsGame
                 if (m_dead || stunned) return;
                 DashCancelCheck(moveH);
                 float velX = GetVelX(moveH);
-                float velY = moveV * jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
+                float velY = jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
                 CheckDoorOpening(moveH);
                 if (((moveH > 0 || wallJumping) && (IsVerticalWall(wallRightHit)) ||
                     ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) 
@@ -489,13 +490,15 @@ namespace BucketsGame
                     rb.velocity = new Vector2(velX, rb.velocity.y);
                 }
                 Jump(velY, true); // Double Jump
-                if (moveV < 0) // Fast Fall
+                if (moveV < 0 && !input.jump) // Fast Fall
                 {
+                    Debug.Log("Fast Fall!");
                     rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
                 }
-                else if (moveV == 0 && rb.velocity.y > 0) // Cancel Jump
+                else if ((startedJump && !input.jump) && rb.velocity.y > 0) // Cancel Jump
                 {
-                    //Debug.Log("Cancel Jump!");
+                    Debug.Log("Cancel Jump!");
+                    startedJump = false;
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                 }
                 ChangeFacingOnMove(moveH);
@@ -505,7 +508,7 @@ namespace BucketsGame
                 DashCancelCheck(moveH);
                 if (stunned) moveH = (int)Mathf.Sign(rb.velocity.x);
                 float velX = GetVelX(moveH);
-                float velY = moveV * jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
+                float velY = jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
                 // Check door opening
                 CheckDoorOpening(moveH);
                 Vector2 finalVel = new Vector2(velX, 0); // This 0 can fix a lot of jank lol
@@ -692,6 +695,7 @@ namespace BucketsGame
         }
         private void ResetMidairMoves()
         {
+            startedJump = false;
             doubleJumping = false;
             m_jumps = extraJumps; // Restore mid-air jumps
             m_midairDashes = midairDashes; // Restore mid-air dashes
@@ -762,6 +766,7 @@ namespace BucketsGame
                 SetAirborne(); //Setting this here so slope fixes get ignored
                 //Debug.Log("Jump!");
                 rb.velocity = new Vector2(rb.velocity.x, velY);
+                startedJump = true;
                 wallClimb = false;
                 m_wallClimbCanceled = false;
                 AudioManager.instance.PlaySFX(SFXList.instance.jumpSFX);

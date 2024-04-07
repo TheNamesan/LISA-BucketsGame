@@ -1132,6 +1132,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3d1bf860-97aa-4353-a2c9-0977aaa6e05d
     m_ActionName: Player/Jump[/Keyboard/w,/SwitchProControllerHID/buttonEast,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6547701444824546339}
+        m_TargetAssemblyTypeName: BucketsGame.PlayerInputHandler, BucketsGameRuntime
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3a1eaabb-b9c1-41f2-a86f-3b63e194e23d
+    m_ActionName: Player/Jump[/Keyboard/w,/SwitchProControllerHID/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1157,9 +1173,11 @@ MonoBehaviour:
     shootDown: 0
     jump: 0
     jumpDown: 0
+    fastFallDown: 0
     dashDown: 0
     focus: 0
     aim: {x: 0, y: 0}
+    lastAimDirection: {x: 0, y: 0}
   bufferedPointerWorld: {x: 0, y: 0}
   bufferedPointer: {x: 0, y: 0}
 --- !u!114 &8566072047202255938
