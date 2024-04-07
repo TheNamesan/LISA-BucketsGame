@@ -204,6 +204,7 @@ namespace BucketsGame
             ToggleFocus(false);
             focusTicks = maxFocusTicks;
             m_cooldownTicks = 0;
+            if (SceneProperties.instance) SceneProperties.instance.roomCleared = false;
             ResetPools();
         }
         private void AddTicks(int value)
@@ -236,8 +237,15 @@ namespace BucketsGame
                 SceneProperties.instance.camManager.ShakeCamera(amplitude);
                 TUFF.AudioManager.instance.PlaySFX(SFXList.instance.enemyDeadSFX);
                 PlayHitstun(0.15f);
+                if (SceneProperties.instance.nextRoomAvailable && SceneProperties.instance.nextRoomCheck
+                    && !SceneProperties.instance.roomCleared)
+                {
+                    TUFF.AudioManager.instance.PlaySFX(SFXList.instance.roomClearedSFX);
+                    SceneProperties.instance.roomCleared = true;
+                }
             }
             AddTicks(hitFocusTicksRegain);
+            
         }
         public void OnMagicianHit()
         {

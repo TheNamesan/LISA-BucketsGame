@@ -39,10 +39,20 @@ namespace BucketsGame
         public bool overrideGravity = false;
         public float overrideGravityValue = 1f;
         [SerializeField] private bool m_spawned = false;
+        private List<Enemy> m_enemies = new(); 
         
         private void Awake()
         {
             PreloadEnemies();
+        }
+        private void Start()
+        {
+            for (int i = 0; i < m_enemies.Count; i++)
+            {
+                var enemy = m_enemies[i];
+                if (enemy)
+                    enemy.AddAsRoomEnemy();
+            }
         }
         private void FixedUpdate()
         {
@@ -91,24 +101,28 @@ namespace BucketsGame
                 var enemy = Instantiate(PrefabList.instance.rusherPrefab, transform);
                 enemy.gameObject.SetActive(false);
                 CheckGeneralEnemyOverrides(enemy);
+                m_enemies.Add(enemy);
             }
             for (int i = 0; i < spawnShieldersCount; i++)
             {
                 var enemy = Instantiate(PrefabList.instance.shielderPrefab, transform);
                 enemy.gameObject.SetActive(false);
                 CheckGeneralEnemyOverrides(enemy);
+                m_enemies.Add(enemy);
             }
             for (int i = 0; i < spawnFlyersCount; i++)
             {
                 var enemy = Instantiate(PrefabList.instance.flyerPrefab, transform);
                 enemy.gameObject.SetActive(false);
                 CheckGeneralEnemyOverrides(enemy);
+                m_enemies.Add(enemy);
             }
             for (int i = 0; i < spawnSnipersCount; i++)
             {
                 var enemy = Instantiate(PrefabList.instance.sniperPrefab, transform);
                 enemy.gameObject.SetActive(false);
                 CheckGeneralEnemyOverrides(enemy);
+                m_enemies.Add(enemy);
             }
             for (int i = 0; i < spawnBarrelBrosCount; i++)
             {

@@ -57,7 +57,7 @@ namespace BucketsGame
         {
             //AddAsRoomEnemy();
         }
-        protected void AddAsRoomEnemy()
+        public void AddAsRoomEnemy()
         {
             if (SceneProperties.instance)
             {
