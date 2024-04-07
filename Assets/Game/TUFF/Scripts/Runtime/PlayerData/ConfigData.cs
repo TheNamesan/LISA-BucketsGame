@@ -70,7 +70,7 @@ namespace TUFF
             configData.textSpeed = 0;
             configData.keybinds = GameManager.instance.GetDefaultKeybinds();
             configData.lost = false;
-            configData.bucketsAutoFire = false;
+            configData.bucketsAutoFire = true;
             configData.bucketsComplete = false;
             configData.bucketsPainModeComplete = false;
             configData.bucketsRandoLevelsUnlocked = false;
