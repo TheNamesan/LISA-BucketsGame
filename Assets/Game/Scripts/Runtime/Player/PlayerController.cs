@@ -703,6 +703,7 @@ namespace BucketsGame
             m_wallJumpDirection = -FaceToInt();
             wallJumping = true;
             ResetMidairMoves();
+            startedJump = true;
             AudioManager.instance.PlaySFX(SFXList.instance.wallJumpSFX);
             hurtbox?.SetInvulnerable(true);
         }
