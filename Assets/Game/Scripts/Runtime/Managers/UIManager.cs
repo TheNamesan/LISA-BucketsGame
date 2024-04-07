@@ -117,7 +117,7 @@ namespace BucketsGame
             Vector2 inputAim = player.input.aim.normalized;
             if (!player.input.InAimThreshold(inputAim)) return;
             m_aimIndicator.gameObject.SetActive(true);
-            Vector2 worldPosition = (Vector2)player.transform.position + inputAim;
+            Vector2 worldPosition = (Vector2)player.transform.position + inputAim * 2f;
             Vector2 canvasPosition = SceneProperties.cam.WorldToScreenPoint(worldPosition);
 
             float angle = Vector2.SignedAngle(Vector2.right, inputAim);
