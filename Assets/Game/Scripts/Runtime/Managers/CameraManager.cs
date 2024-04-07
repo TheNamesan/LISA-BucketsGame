@@ -76,21 +76,36 @@ namespace BucketsGame
                 mousePosWorld = player.rb.position + player.input.lastAimDirection.normalized * 10f + player.rb.velocity.normalized * 0.5f;
                 //mousePosWorld = player.DistanceToPoint(pos);
             }
-            if (TUFF.GameManager.disablePlayerInput)
+            else
             {
-                mousePosWorld = PlayerInputHandler.instance.bufferedPointerWorld;
+                if (TUFF.GameManager.disablePlayerInput)
+                {
+                    mousePosWorld = PlayerInputHandler.instance.bufferedPointerWorld;
+                }
             }
             Vector2 distance = player.DistanceToPoint(mousePosWorld);
             float magnitude = distance.magnitude;
-            Vector2 inverseLerp = new Vector2(Mathf.InverseLerp(m_minDistance.x, m_maxDistance.x, Mathf.Abs(distance.x)), Mathf.InverseLerp(m_minDistance.y, m_maxDistance.y, Mathf.Abs(distance.y)));
-            Vector2 lerp = new Vector2(Mathf.Lerp(m_minOffset.x, m_maxOffset.x, Mathf.Abs(inverseLerp.x)), Mathf.Lerp(m_minOffset.y, m_maxOffset.y, Mathf.Abs(inverseLerp.y)));
-            Vector2 offsetMagnitude = lerp;
-            Vector2 offset = distance.normalized * offsetMagnitude;
+            Vector2 normDist = distance.normalized;
+
+            Vector2 minDist = normDist * m_minDistance.magnitude;
+            Vector2 maxDist = normDist * m_maxDistance.magnitude;
+
+            float magInverseLerp = Mathf.InverseLerp(m_minDistance.magnitude, m_maxDistance.magnitude, distance.magnitude);
+            float magLerp = Mathf.Lerp(m_minOffset.magnitude, m_maxOffset.magnitude, magInverseLerp);
+            Vector2 offset = distance.normalized * magLerp;
+            //Vector2 inverseLerp = new Vector2(
+            //    Mathf.InverseLerp(minDist.x, maxDist.x, Mathf.Abs(distance.x)), 
+            //    Mathf.InverseLerp(minDist.y, maxDist.y, Mathf.Abs(distance.y)));
+            //Vector2 lerp = new Vector2(
+            //    Mathf.Lerp(m_minOffset.x, m_maxOffset.x, Mathf.Abs(inverseLerp.x)), 
+            //    Mathf.Lerp(m_minOffset.y, m_maxOffset.y, Mathf.Abs(inverseLerp.y)));
+            //Vector2 offsetMagnitude = lerp;
+            //Vector2 offset = distance.normalized * offsetMagnitude;
             //Vector2 offset = new Vector2(distance.normalized.x * offsetMagnitude.x, distance.normalized.y * offsetMagnitude.y);
 
             // Debug
-            Color color = Color.Lerp(Color.green, Color.red, inverseLerp.magnitude);
-            if (inverseLerp.magnitude >= 1) color = Color.black;
+            Color color = Color.Lerp(Color.green, Color.red, magInverseLerp);
+            if (magInverseLerp >= 1) color = Color.black;
             Debug.DrawLine(player.rb.position, mousePosWorld, color);
             return offset;
         }
