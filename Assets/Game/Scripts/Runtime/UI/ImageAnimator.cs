@@ -31,14 +31,23 @@ namespace BucketsGame
         private void Awake()
         {
             if (!image) image = GetComponent<Image>();
+            if (image) m_original = image.sprite;
         }
         private void OnEnable()
         {
-            if (image) m_original = image.sprite;
+            if (image) image.sprite = m_original;
             if (playOnEnable) Play(true);
+            if (Application.isPlaying)
+            {
+                EntityResetCaller.onResetLevel.AddListener(Stop);
+                TUFF.SceneLoaderManager.onSceneChanged.AddListener(Stop);
+                TUFF.GameManager.instance.onPlayerInputToggle.AddListener(Stop);
+            }
         }
         public void Play(bool play)
         {
+            if (!gameObject.activeInHierarchy)
+            { m_running = false; return; }
             if (play)
             {
                 if (m_running) return;
@@ -49,8 +58,11 @@ namespace BucketsGame
                     StopCoroutine(m_transitionCoroutine);
                     m_transitionCoroutine = null;
                 }
-                if (m_loopCoroutine == null) m_loopCoroutine = AnimationLoop();
-                StartCoroutine(m_loopCoroutine);
+                //if (gameObject.activeInHierarchy)
+                {
+                    if (m_loopCoroutine == null) m_loopCoroutine = AnimationLoop();
+                    StartCoroutine(m_loopCoroutine);
+                }
             }
             else
             {
@@ -65,8 +77,10 @@ namespace BucketsGame
                 {
                     m_endFrame = 0;
                     m_endRunning = true;
+
                     if (m_transitionCoroutine == null) m_transitionCoroutine = EndTransition();
                     StartCoroutine(m_transitionCoroutine);
+                    
                 }
                 //else if (returnToOriginalOnStop && image)
                 //    image.sprite = m_original;
@@ -102,7 +116,31 @@ namespace BucketsGame
         }
         private void OnDisable()
         {
+            if (Application.isPlaying)
+            {
+                EntityResetCaller.onResetLevel.RemoveListener(Stop);
+                TUFF.SceneLoaderManager.onSceneChanged.RemoveListener(Stop);
+                TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(Stop);
+            }
+        }
+        private void OnDestroy()
+        {
+            if (Application.isPlaying)
+            {
+                EntityResetCaller.onResetLevel.RemoveListener(Stop);
+                TUFF.SceneLoaderManager.onSceneChanged.RemoveListener(Stop);
+                TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(Stop);
+            }
+        }
+        private void Stop()
+        {
             Play(false);
+            StopAllCoroutines();
+            if (image) image.sprite = m_original;
+        }
+        private void Stop(bool enabledInput)
+        {
+            Stop();
         }
     }
 }

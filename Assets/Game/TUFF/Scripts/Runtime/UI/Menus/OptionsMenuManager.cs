@@ -17,6 +17,7 @@ namespace TUFF
         public UIPicker textSpeed;
         public UIPicker autoFire;
         public UIPicker swapDash;
+        public UIPicker toggleSlowmo;
 
         public void OpenOptionsMenu()
         {
@@ -79,6 +80,9 @@ namespace TUFF
 
             //swapDash.highlightedOption = GameManager.instance.configData.bucketsSwapDash ? 1 : 0;
             //swapDash.UpdateText();
+
+            toggleSlowmo.highlightedOption = GameManager.instance.configData.bucketsToggleSlowmo ? 1 : 0;
+            toggleSlowmo.UpdateText();
         }
 
         public void UpdateGlobalMusicVolume(float volume)
@@ -134,6 +138,12 @@ namespace TUFF
             //Debug.Log("Updated Swap Dash: " + swapDash.highlightedOption);
             //GameManager.instance.configData.bucketsSwapDash = System.Convert.ToBoolean(swapDash.highlightedOption);
             //SaveOptionsData();
+        }
+        public void SetBucketsToggleSlowmo()
+        {
+            Debug.Log("Updated Toggle Slow Mo: " + toggleSlowmo.highlightedOption);
+            GameManager.instance.configData.bucketsToggleSlowmo = System.Convert.ToBoolean(toggleSlowmo.highlightedOption);
+            SaveOptionsData();
         }
 
         public void SaveOptionsData()

@@ -8,6 +8,7 @@ namespace TUFF
     [System.Serializable]
     public class ConfigData
     {
+        public static ConfigData instance { get => GameManager.instance.configData; }
         public int refreshRate = 60;
         public bool fullscreen = true;
         public int resolutionWidth = 0;
@@ -19,6 +20,7 @@ namespace TUFF
         public string keybinds = "";
         public bool lost = false;
         public bool bucketsAutoFire = false;
+        public bool bucketsToggleSlowmo = false;
         public bool bucketsComplete = false;
         public bool bucketsPainModeComplete = false;
         public bool bucketsRandoLevelsUnlocked = false;
@@ -47,6 +49,7 @@ namespace TUFF
             keybinds = load.keybinds;
             lost = load.lost;
             bucketsAutoFire = load.bucketsAutoFire;
+            bucketsToggleSlowmo = load.bucketsToggleSlowmo;
             bucketsComplete = load.bucketsComplete;
             bucketsPainModeComplete = load.bucketsPainModeComplete;
             bucketsRandoLevelsUnlocked = load.bucketsRandoLevelsUnlocked;
@@ -71,6 +74,7 @@ namespace TUFF
             configData.keybinds = GameManager.instance.GetDefaultKeybinds();
             configData.lost = false;
             configData.bucketsAutoFire = true;
+            configData.bucketsToggleSlowmo = false;
             configData.bucketsComplete = false;
             configData.bucketsPainModeComplete = false;
             configData.bucketsRandoLevelsUnlocked = false;

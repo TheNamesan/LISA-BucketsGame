@@ -98,9 +98,15 @@ namespace BucketsGame
         {
             if (!player) return;
             if (context.performed)
+            {
                 gameInput.focus = true;
+                gameInput.focusDown = true;
+            }
             if (context.canceled)
+            {
                 gameInput.focus = false;
+                gameInput.focusDown = false;
+            }
         }
 
         public void ResetLevel(InputAction.CallbackContext context)
@@ -173,6 +179,7 @@ namespace BucketsGame
                 gameInput.jumpDown = false;
                 gameInput.dashDown = false;
                 gameInput.shootDown = false;
+                gameInput.focusDown = false;
             }
         }
         public void OnControlSchemeChange()
@@ -203,6 +210,7 @@ namespace BucketsGame
         public bool fastFallDown;
         public bool dashDown;
         public bool focus;
+        public bool focusDown;
         public Vector2 aim;
         public Vector2 lastAimDirection;
         public bool inAimThreshold { get => InAimThreshold(aim); }

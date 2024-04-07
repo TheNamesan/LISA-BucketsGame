@@ -478,7 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192d7aa414129274e853ce9ef9260bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingObjects: 30
+  startingObjects: 50
   prefab: {fileID: 8889923109436102064, guid: 9608ea2edea9b7a4faed3f565695810f, type: 3}
   pool: []
 --- !u!1 &5935450050737164437
@@ -686,6 +686,7 @@ MonoBehaviour:
     keybinds: 
     lost: 0
     bucketsAutoFire: 0
+    bucketsToggleSlowmo: 0
     bucketsComplete: 0
     bucketsPainModeComplete: 0
     bucketsRandoLevelsUnlocked: 0

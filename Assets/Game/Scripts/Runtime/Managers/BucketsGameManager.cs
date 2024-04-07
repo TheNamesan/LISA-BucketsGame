@@ -31,6 +31,7 @@ namespace BucketsGame
         public PhysicsMaterial2D deadMat;
         private bool m_queuedReset = false;
         private bool m_holdingSkip = false;
+        private bool m_toggleFocus = false;
 
         public static BucketsGameManager instance { 
             get
@@ -70,12 +71,18 @@ namespace BucketsGame
         }
         public void OnEnable()
         {
-            if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.AddListener(ResetGameManager);
+            if (Application.isPlaying) { 
+                TUFF.SceneLoaderManager.onSceneLoad.AddListener(ResetGameManager); 
+                TUFF.GameManager.instance.onPlayerInputToggle.AddListener(CancelToggleFocus); 
+            }
             StartCoroutine(LateFixedUpdate());
         }
         public void OnDisable()
         {
-            if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(ResetGameManager);
+            if (Application.isPlaying) { 
+                TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(ResetGameManager);
+                TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(CancelToggleFocus);
+            }
         }
         private static void AssignInstance(BucketsGameManager go)
         {
@@ -137,6 +144,7 @@ namespace BucketsGame
         public void Pause(bool pause)
         {
             if (m_paused == pause) return;
+            m_toggleFocus = false;
             m_paused = pause;
             if (m_paused) UIManager.instance.ShowPauseMenu();
             TUFF.GameManager.instance.DisablePlayerInput(pause);
@@ -162,14 +170,21 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (player != null)
             {
-                //if (player.input.focus && focusTicks > 0 && !player.dead && m_cooldownTicks <= 0)
-                if (player.input.focus && focusTicks > 0 && !player.dead)
+                bool activeFocusInput = player.input.focus;
+                if (TUFF.ConfigData.instance.bucketsToggleSlowmo)
+                {
+                    if (player.input.focusDown) m_toggleFocus = !m_toggleFocus;
+                    activeFocusInput = m_toggleFocus;
+                }
+                else m_toggleFocus = false;
+                if (activeFocusInput && focusTicks > 0 && !player.dead)
                 {
                     ToggleFocus(true);
                     focusTicks--;
                 }
                 else ToggleFocus(false);
             }
+            else m_toggleFocus = false;
             if (m_cooldownTicks > 0)
                 m_cooldownTicks--;
         }
@@ -204,8 +219,13 @@ namespace BucketsGame
             ToggleFocus(false);
             focusTicks = maxFocusTicks;
             m_cooldownTicks = 0;
+            m_toggleFocus = false;
             if (SceneProperties.instance) SceneProperties.instance.roomCleared = false;
             ResetPools();
+        }
+        private void CancelToggleFocus(bool toggle)
+        {
+            m_toggleFocus = false;
         }
         private void AddTicks(int value)
         {
@@ -278,7 +298,10 @@ namespace BucketsGame
         }
         private void OnDestroy()
         {
-            if (Application.isPlaying) TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(ResetGameManager);
+            if (Application.isPlaying) { 
+                TUFF.SceneLoaderManager.onSceneLoad.RemoveListener(ResetGameManager);
+                TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(CancelToggleFocus);
+            }
             Debug.Log("Manager destroyed!");
         }
         public static bool IsPainMode()
