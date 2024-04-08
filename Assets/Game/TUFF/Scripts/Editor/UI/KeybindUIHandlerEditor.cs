@@ -50,11 +50,14 @@ namespace TUFF.TUFFEditor
                 var optionsNew = (InputBinding.DisplayStringOptions)EditorGUILayout.EnumFlagsField(m_DisplayOptionsLabel, optionsOld);
                 if (optionsOld != optionsNew)
                     m_DisplayStringOptionsProperty.intValue = (int)optionsNew;
+
+                EditorGUILayout.PropertyField(m_BindingIdProperty);
             }
 
             // UI section.
             EditorGUILayout.Space();
             //EditorGUILayout.LabelField(m_UILabel, Styles.boldLabel);
+            
             EditorGUILayout.PropertyField(m_KeybindNameProperty);
             EditorGUILayout.PropertyField(m_KeybindsMenuProperty);
             EditorGUILayout.PropertyField(m_KeybindTextProperty);

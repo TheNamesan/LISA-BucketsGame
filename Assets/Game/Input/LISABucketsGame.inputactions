@@ -197,6 +197,39 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "kb_MoveH_B",
+                    "id": "2b2ed90a-4d7c-4c19-b731-c670956f6074",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveH",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "107a8b38-0e23-4f17-9d9e-7bfd2fea1bfe",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MoveH",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "54d195d1-a04a-4aaf-84e1-329c13868653",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MoveH",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "WS",
                     "id": "5981d329-cfe2-412e-b1c2-c6f2784e6db5",
                     "path": "1DAxis",
@@ -291,6 +324,39 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "MoveV",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "kb_MoveV_B",
+                    "id": "2c1ccd62-5ed0-4b5d-9041-53a9e7b026fa",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveV",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d8383692-e2c0-4ddb-b4b1-3acf745dc0bc",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "MoveV",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "50c7348a-13f2-4237-8821-148d6a230a27",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "MoveV",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -530,6 +596,17 @@
                     "name": "",
                     "id": "d4bca18a-cd1e-4c0a-90cd-392fd08470be",
                     "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "108fe5ad-d473-4038-b685-0cca9f10ffd2",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

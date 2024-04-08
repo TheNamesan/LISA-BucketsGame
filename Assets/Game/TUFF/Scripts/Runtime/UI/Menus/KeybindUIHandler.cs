@@ -59,6 +59,24 @@ namespace TUFF
         {
             ResetToDefault(true);
         }
+        public void ClearBind()
+        {
+            if (!ResolveActionAndBinding(out var action, out var bindingIndex))
+                return;
+
+            if (action.bindings[bindingIndex].isComposite)
+            {
+                // It's a composite. Remove overrides from part bindings.
+                for (var i = bindingIndex + 1; i < action.bindings.Count && action.bindings[i].isPartOfComposite; ++i)
+                    action.ApplyBindingOverride(bindingIndex, "");
+            }
+            else
+            {
+                action.ApplyBindingOverride(bindingIndex, "");
+            }
+            keybindsMenu?.SaveConfig();
+            UpdateBindingDisplay();
+        }
         public void ResetToDefault(bool saveConfig)
         {
             if (!ResolveActionAndBinding(out var action, out var bindingIndex))
@@ -138,14 +156,13 @@ namespace TUFF
             }
 
             // Disable action map to prevent errors
-            action.Disable();
-
+            GameManager.instance.DisableActionMaps(true);
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
                 .OnCancel(
                     operation =>
                     {
-                        action.Enable();
+                        GameManager.instance.DisableActionMaps(false);
                         keybindsMenu?.SaveConfig();
                         m_RebindStopEvent?.Invoke(this, operation);
                         keybindsMenu?.SetOverlayActive(false);
@@ -155,7 +172,7 @@ namespace TUFF
                 .OnComplete(
                     operation =>
                     {
-                        action.Enable();
+                        GameManager.instance.DisableActionMaps(false);
                         keybindsMenu?.SaveConfig();
                         keybindsMenu?.SetOverlayActive(false);
                         m_RebindStopEvent?.Invoke(this, operation);
