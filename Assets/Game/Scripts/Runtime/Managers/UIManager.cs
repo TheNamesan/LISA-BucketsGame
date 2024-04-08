@@ -10,6 +10,7 @@ namespace BucketsGame
 {
     public class UIManager : MonoBehaviour
     {
+        public bool forceDisableUI;
         [Header("Pause")]
         [SerializeField] private TUFF.UIMenu pauseMenu;
 
@@ -104,10 +105,13 @@ namespace BucketsGame
                     && SceneProperties.mainPlayer;
                 //if (!showContent) contentDisplayBuffer = 1;
                 //if (showContent && contentDisplayBuffer > 0)
-                    //{ showContent = false; contentDisplayBuffer--; }
-                content.SetActive(showContent);
+                //{ showContent = false; contentDisplayBuffer--; }
+                bool showTimer = TUFF.ConfigData.instance.bucketsTimer;
+                if (forceDisableUI) { showContent = false; showTimer = false; }
                 
-                timerText.gameObject.SetActive(TUFF.GameManager.instance.configData.bucketsTimer);
+                
+                content.SetActive(showContent);
+                timerText.gameObject.SetActive(showTimer);
             }
         }
 
