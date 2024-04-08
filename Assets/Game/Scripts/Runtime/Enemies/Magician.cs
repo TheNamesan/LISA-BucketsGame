@@ -39,6 +39,7 @@ namespace BucketsGame
         public Color maxDashesColor = new Color(0f, 1f, 0f, 0.5f);
         public Color zeroDashesColor = new Color(1f, 0f, 0f, 0.5f);
         public Color invincibilityColor = new Color(0f, 0f, 1f, 0.5f);
+        public float noDashesAlpha = 0.05f;
 
         [Header("Invincibility")]
         public int invincibilityFrames = 150;
@@ -140,9 +141,10 @@ namespace BucketsGame
         {
             if (afterImagesHandler)
             {
-                float time = (dashes == 0 ? 0f : (float)m_dashesLeft / dashes);
+                float time = (dashes == 0 ? 0f : (float)(m_dashesLeft) / dashes);
                 var color = Color.Lerp(zeroDashesColor, maxDashesColor, time);
                 if (invincible) color = invincibilityColor;
+                else if (m_dashesLeft <= 0) color.a = noDashesAlpha;
                 afterImagesHandler.targetColor = color;
             }
         }
