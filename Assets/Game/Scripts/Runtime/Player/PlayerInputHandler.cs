@@ -49,11 +49,18 @@ namespace BucketsGame
                 gameInput.jumpDown = false;
             }
         }
-        public void Aim(InputAction.CallbackContext context)
+        public void AimH(InputAction.CallbackContext context)
         {
             if(!player) return;
             
-            gameInput.aim = context.ReadValue<Vector2>();
+            gameInput.aim.x = context.ReadValue<float>();
+            if (gameInput.inAimThreshold) gameInput.lastAimDirection = gameInput.aim;
+        }
+        public void AimV(InputAction.CallbackContext context)
+        {
+            if (!player) return;
+
+            gameInput.aim.y = context.ReadValue<float>();
             if (gameInput.inAimThreshold) gameInput.lastAimDirection = gameInput.aim;
         }
         public void Pointer(InputAction.CallbackContext context)
