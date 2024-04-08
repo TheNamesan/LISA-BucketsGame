@@ -11,7 +11,7 @@ namespace BucketsGame
         private System.Diagnostics.Stopwatch stopwatch = new();
         private bool m_initialized = false;
         public System.TimeSpan timeSpanElapsed { get => stopwatch.Elapsed; }
-        private double m_fastClearMiliseconds = 165000; // 2:45
+        private double m_fastClearMiliseconds = 180000; // 3:00
         private void OnEnable()
         {
             if (Application.isPlaying)
