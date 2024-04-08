@@ -11,6 +11,7 @@ namespace TUFF
     {
         public Image img;
         Tween fadeTween;
+        private bool m_onCompleteCalled = false;
         public void Awake()
         {
             img = GetComponent<Image>();
@@ -33,8 +34,19 @@ namespace TUFF
         {
             fadeTween?.Pause();
             fadeTween?.Kill();
+            m_onCompleteCalled = false;
             fadeTween = img.DOFade(0f, duration).From(1f).SetAutoKill(false).SetUpdate(true)
-                .OnComplete(() => { onComplete?.Invoke(); });
+                //.OnComplete(() => { onComplete?.Invoke(); })
+                .OnComplete(() => { FadeInUpdate(onComplete); })
+                .OnUpdate(() => FadeInUpdate(onComplete));
+        }
+        private void FadeInUpdate(Action onComplete)
+        {
+            if (fadeTween.ElapsedPercentage() >= 0.5f && !m_onCompleteCalled)
+            {
+                onComplete?.Invoke();
+                m_onCompleteCalled = true;
+            }
         }
 
         public void TriggerFadeOut(float duration)
@@ -50,6 +62,7 @@ namespace TUFF
         {
             fadeTween?.Pause();
             fadeTween?.Kill();
+            m_onCompleteCalled = false;
             fadeTween = img.DOFade(1f, duration).From(0f).SetAutoKill(false).SetUpdate(true)
                 .OnComplete(() => onComplete?.Invoke());
         }
