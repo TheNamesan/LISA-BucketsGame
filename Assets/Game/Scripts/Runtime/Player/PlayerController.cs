@@ -399,13 +399,23 @@ namespace BucketsGame
                 Vector2 aimNormal = DistanceToMouse().normalized;
                 if (PlayerInputHandler.instance.IsGamepad())
                 {
+                    // If aiming with stick, use stick direction
                     if (input.inAimThreshold) aimNormal = input.aim.normalized;
                     else
                     {
-                        if (input.inputH == 0 && input.inputV == 0) 
-                            aimNormal = new Vector2(FaceToInt(), input.inputV);
-                        else
-                            aimNormal = new Vector2(input.inputH, input.inputV);
+                        // Else shoot to where the player is facing
+                        int timeBuffer = (BucketsGameManager.instance.focusMode ? 2 : 4);
+                        int slowmoIt = (BucketsGameManager.instance.focusMode ? weapon.adrenalineFireRateIterations : 1);
+                        //bool inTimeBuffer = 
+                        //(weapon.GetAnimDuration() - weapon.animTicks) / slowmoIt >= (weapon.GetFireRate()) + timeBuffer;
+                        int fireRate = weapon.GetFireRate() / slowmoIt;
+                        bool inTimeBuffer = weapon.ticks <= 0 && (weapon.GetAnimDuration() - (weapon.animTicks + fireRate)) >= timeBuffer;
+                        if (!flipLock || inTimeBuffer) aimNormal = new Vector2(FaceToInt(), input.inputV);
+                        else aimNormal = new Vector2(flipLockDir, input.inputV);
+                        //if (input.inputH == 0 && input.inputV == 0) 
+                        //    aimNormal = dir;
+                        //else 
+                        //    aimNormal = new Vector2(input.inputH, input.inputV);
                         
                         aimNormal = aimNormal.normalized * aimNormal.sqrMagnitude;
                         PlayerInputHandler.instance.gameInput.lastAimDirection = aimNormal;

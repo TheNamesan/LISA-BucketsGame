@@ -156,6 +156,7 @@ namespace BucketsGame
                 m_cooldownTicks = adrenalineCooldown;
             focusMode = enable;
             if (enable) TUFF.AudioManager.instance.PlaySFX(SFXList.instance.adrenalineActiveSFX);
+            else m_toggleFocus = false;
             ToggleTimeScale();
         }
 

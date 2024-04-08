@@ -278,7 +278,6 @@ namespace TUFF
         void AxisHandler(InputAction.CallbackContext context, ref float axisDown, ref float axisHold)
         {
             float value = context.ReadValue<float>();
-            Debug.Log(value);
             if (value == axisHold) return;
             // Wtf
             if (value == -1 || value == 0 || value == 1)
