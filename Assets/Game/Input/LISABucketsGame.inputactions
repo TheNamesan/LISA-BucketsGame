@@ -1284,21 +1284,21 @@
                 },
                 {
                     "name": "UpDown",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "806fa091-d2d3-4f5f-9d87-48f33d3ba2ba",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "LeftRight",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "07307265-94ca-468b-b1aa-7f9702c7e666",
                     "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Q",
@@ -1528,7 +1528,7 @@
                     "id": "4ec7e9ce-7cc8-4539-b64d-a403e1f97b85",
                     "path": "1DAxis",
                     "interactions": "",
-                    "processors": "AxisDeadzone",
+                    "processors": "",
                     "groups": "",
                     "action": "UpDown",
                     "isComposite": true,
@@ -1660,7 +1660,7 @@
                     "id": "7898a0a5-52cd-4592-896c-2a6cc93df576",
                     "path": "1DAxis",
                     "interactions": "",
-                    "processors": "AxisDeadzone",
+                    "processors": "",
                     "groups": "",
                     "action": "LeftRight",
                     "isComposite": true,

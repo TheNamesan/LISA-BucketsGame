@@ -277,10 +277,18 @@ namespace TUFF
         }
         void AxisHandler(InputAction.CallbackContext context, ref float axisDown, ref float axisHold)
         {
-            axisDown = context.ReadValue<float>();
-            axisHold = context.ReadValue<float>();
-            holdTime = 0;
-            intervalTime = 0;
+            float value = context.ReadValue<float>();
+            Debug.Log(value);
+            if (value == axisHold) return;
+            // Wtf
+            if (value == -1 || value == 0 || value == 1)
+            {
+                axisDown = value;
+                axisHold = value;
+                
+                holdTime = 0;
+                intervalTime = 0;
+            }
         }
 
         public void ActionButton(InputAction.CallbackContext context)
