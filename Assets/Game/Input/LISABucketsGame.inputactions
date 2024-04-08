@@ -613,41 +613,30 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "AimHButtons",
-                    "id": "4b8cf3e2-653f-48cb-b4b1-2ae07caac5b5",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "af765138-2d79-40ae-996f-7ee48e69ee10",
+                    "path": "",
                     "interactions": "",
                     "processors": "AxisDeadzone",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "AimH",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "8491b807-89f4-4104-a174-cbe5fcafa152",
+                    "name": "",
+                    "id": "c0f137a1-bde1-4c6a-8649-e5921474f837",
                     "path": "",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert,AxisDeadzone",
                     "groups": "Gamepad",
                     "action": "AimH",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "4f797cc3-c6a7-49a8-a804-9b13818d0ebe",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "AimH",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "7aaae271-ea0f-4355-825b-9e64f7340e3e",
+                    "id": "72232636-024b-4291-b5ca-5ae57060e6e7",
                     "path": "",
                     "interactions": "",
                     "processors": "Invert,AxisDeadzone",
@@ -712,41 +701,30 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "AimVButtons",
-                    "id": "d5100030-7c23-4b06-9939-4eb772f61d9a",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "c99d7e2c-187c-4e40-8edb-256c55f9dd18",
+                    "path": "",
                     "interactions": "",
                     "processors": "AxisDeadzone",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "AimV",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
-                    "id": "602010d3-f888-43a2-9f8d-d79e5502de63",
+                    "name": "",
+                    "id": "03b318fb-1776-42ad-9b1b-da9ec4c75a77",
                     "path": "",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert,AxisDeadzone",
                     "groups": "Gamepad",
                     "action": "AimV",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "1bb2dc38-846c-41da-b9c7-52e0b08f1b68",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "AimV",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "e5b817a4-ce0a-4601-9e2a-4bd3911dcbf7",
+                    "id": "1842112f-4815-46b3-959c-303bf6b5b51c",
                     "path": "",
                     "interactions": "",
                     "processors": "Invert,AxisDeadzone",
