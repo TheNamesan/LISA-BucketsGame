@@ -21,7 +21,7 @@ namespace BucketsGame
         [SerializeField] private Image m_aimIndicator;
         [SerializeField] private Image m_nextRoomIndicator;
 
-        [SerializeField] private GameObject retryText;
+        [SerializeField] private TMP_Text retryText;
         [Header("Bar")]
         public Image focusFill;
         public ImageAnimator focusAnim;
@@ -76,7 +76,12 @@ namespace BucketsGame
             UpdateTimer();
             UpdateContent();
             if (SceneProperties.mainPlayer)
-                retryText?.SetActive(SceneProperties.mainPlayer.dead);
+            {
+                retryText?.gameObject.SetActive(SceneProperties.mainPlayer.dead);
+                if (PlayerInputHandler.instance)
+                    retryText.text = $"Press {PlayerInputHandler.instance.GetCurrentResetKeyText()} to retry";
+            }
+                
         }
         private void LateUpdate()
         {

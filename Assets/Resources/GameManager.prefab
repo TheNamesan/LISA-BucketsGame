@@ -1206,6 +1206,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 6547701444824546351}
+  resetAction: {fileID: 570899602984374563, guid: fa13bfbe2c043f742ba04e8ad4349609, type: 3}
   gameInput:
     inputH: 0
     inputV: 0
@@ -1222,6 +1223,8 @@ MonoBehaviour:
     lastAimDirection: {x: 0, y: 0}
   bufferedPointerWorld: {x: 0, y: 0}
   bufferedPointer: {x: 0, y: 0}
+  keyboardResetId: 63b07468-0561-4bad-81e8-c73b31f4b1e2
+  gamepadResetId: 3b800381-bd8a-453c-835d-6fd5db24bc20
 --- !u!114 &8566072047202255938
 MonoBehaviour:
   m_ObjectHideFlags: 0

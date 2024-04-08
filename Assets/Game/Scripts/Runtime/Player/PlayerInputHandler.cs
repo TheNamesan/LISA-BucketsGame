@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Utilities;
+using TUFF;
 
 namespace BucketsGame
 {
@@ -9,11 +11,13 @@ namespace BucketsGame
     {
         public static PlayerInputHandler instance { get => BucketsGameManager.instance.inputHandler; }
         public PlayerInput playerInput;
+        public InputActionReference resetAction;
         public GamePlayerInput gameInput = new();
         public Vector2 bufferedPointerWorld = new Vector2();
         public Vector2 bufferedPointer = new Vector2();
+        public string keyboardResetId = "";
+        public string gamepadResetId = "";
         public PlayerController player { get => SceneProperties.mainPlayer; }
-
         public void Move(InputAction.CallbackContext context)
         {
             if (!player) return;
@@ -197,6 +201,26 @@ namespace BucketsGame
         {
             if (!playerInput) return false;
             return playerInput.currentControlScheme == "Gamepad";
+        }
+        public string GetCurrentResetKeyText()
+        {
+            if (!resetAction) return "null";
+            var displayString = string.Empty;
+            var deviceLayoutName = default(string);
+            var controlPath = default(string);
+
+            var action = resetAction.action;
+            // Get display string from action.
+            if (action != null)
+            {
+                var id = (IsGamepad() ? gamepadResetId : keyboardResetId);
+                ReadOnlyArray<InputBinding> bind = action.bindings;
+                var bindingIndex = bind.IndexOf(x => x.id.ToString() == id);
+                if (bindingIndex != -1)
+                    displayString = action.GetBindingDisplayString(bindingIndex, out deviceLayoutName, out controlPath, 0);
+            }
+
+            return displayString;
         }
     }
     [System.Serializable]
