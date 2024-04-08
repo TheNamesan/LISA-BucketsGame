@@ -37,12 +37,12 @@ namespace BucketsGame
         {
             if (image) image.sprite = m_original;
             if (playOnEnable) Play(true);
-            if (Application.isPlaying)
-            {
-                EntityResetCaller.onResetLevel.AddListener(Stop);
-                TUFF.SceneLoaderManager.onSceneChanged.AddListener(Stop);
-                TUFF.GameManager.instance.onPlayerInputToggle.AddListener(Stop);
-            }
+            //if (Application.isPlaying)
+            //{
+            //    EntityResetCaller.onResetLevel.AddListener(Stop);
+            //    TUFF.SceneLoaderManager.onSceneChanged.AddListener(Stop);
+            //    TUFF.GameManager.instance.onPlayerInputToggle.AddListener(Stop);
+            //}
         }
         public void Play(bool play)
         {
@@ -116,21 +116,22 @@ namespace BucketsGame
         }
         private void OnDisable()
         {
-            if (Application.isPlaying)
-            {
-                EntityResetCaller.onResetLevel.RemoveListener(Stop);
-                TUFF.SceneLoaderManager.onSceneChanged.RemoveListener(Stop);
-                TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(Stop);
-            }
+            Stop();
+            //if (Application.isPlaying)
+            //{
+            //    EntityResetCaller.onResetLevel.RemoveListener(Stop);
+            //    TUFF.SceneLoaderManager.onSceneChanged.RemoveListener(Stop);
+            //    TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(Stop);
+            //}
         }
         private void OnDestroy()
         {
-            if (Application.isPlaying)
-            {
-                EntityResetCaller.onResetLevel.RemoveListener(Stop);
-                TUFF.SceneLoaderManager.onSceneChanged.RemoveListener(Stop);
-                TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(Stop);
-            }
+            //if (Application.isPlaying)
+            //{
+            //    EntityResetCaller.onResetLevel.RemoveListener(Stop);
+            //    TUFF.SceneLoaderManager.onSceneChanged.RemoveListener(Stop);
+            //    TUFF.GameManager.instance.onPlayerInputToggle.RemoveListener(Stop);
+            //}
         }
         private void Stop()
         {
