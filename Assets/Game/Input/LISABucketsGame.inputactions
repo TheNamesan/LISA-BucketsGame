@@ -648,6 +648,61 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "AimB",
+                    "id": "050a84b6-45e9-4446-a8da-720d632bfae5",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "StickDeadzone",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "6efae901-25ea-4a4f-a11d-dcea952a66d1",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "e9f4ff2e-b678-48d7-974d-9acf7d362a1e",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "d018bbf5-10e2-406b-9afb-db901c613654",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "b19bf111-97f1-42b4-9280-fc375134ebf6",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "d4bca18a-cd1e-4c0a-90cd-392fd08470be",
                     "path": "<Keyboard>/w",
@@ -673,6 +728,17 @@
                     "name": "",
                     "id": "d72ebf18-144f-484b-8ef2-1ef609ebe3c1",
                     "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5dfae785-e359-47fd-a920-2e518cf90b1e",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

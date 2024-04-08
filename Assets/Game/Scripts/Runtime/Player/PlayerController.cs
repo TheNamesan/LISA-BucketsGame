@@ -386,7 +386,8 @@ namespace BucketsGame
             if (m_dead || stunned) return;
             if (BucketsGameManager.IsRusher()) return;
             bool shoot = ShootButton();
-            if (PlayerInputHandler.instance.IsGamepad() && input.inAimThreshold) shoot = true;
+            if (PlayerInputHandler.instance.IsGamepad() && ConfigData.instance.bucketsAimAutoFire 
+                && input.inAimThreshold) shoot = true;
             if (shoot && wallClimb)
             {
                 wallClimb = false;

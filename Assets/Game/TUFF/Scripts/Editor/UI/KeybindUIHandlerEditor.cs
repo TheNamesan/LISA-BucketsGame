@@ -145,6 +145,7 @@ namespace TUFF.TUFFEditor
                     }
                 }
 
+                if (string.IsNullOrEmpty(displayString)) displayString = bindingId.ToString();
                 m_BindingOptions[i] = new GUIContent(displayString);
                 m_BindingOptionValues[i] = bindingId;
 
