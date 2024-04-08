@@ -142,7 +142,7 @@ namespace BucketsGame
             {
                 float time = (dashes == 0 ? 0f : (float)m_dashesLeft / dashes);
                 var color = Color.Lerp(zeroDashesColor, maxDashesColor, time);
-                if (invincible || dashing) color = invincibilityColor;
+                if (invincible) color = invincibilityColor;
                 afterImagesHandler.targetColor = color;
             }
         }

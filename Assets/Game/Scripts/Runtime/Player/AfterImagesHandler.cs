@@ -10,6 +10,8 @@ namespace BucketsGame
         public float rateOverTime = 20;
         public Color targetColor = new Color(0, 1f, 1f, 0.5f);
         public float m_time = 0;
+        public bool useAddedColor = false;
+        
         private void Update()
         {
             CheckAfterImages();
@@ -28,16 +30,13 @@ namespace BucketsGame
                     bool flip = targetSprite.flipX;
                     Color color = targetColor;
                     float duration = 1f;
-                    AfterImagesPool.instance.CallAfterImage(pos, rot, sprite, flip, color, duration);
+                    AfterImagesPool.instance.CallAfterImage(pos, rot, sprite, flip, color, duration, useAddedColor);
                 }
                 float rate = (rateOverTime == 0 ? 1f : rateOverTime);
                 m_time = 1f / rate;
             }
         }
-        private void CallAfterImages()
-        {
 
-        }
     }
 }
 
