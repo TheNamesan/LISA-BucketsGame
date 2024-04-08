@@ -19,6 +19,7 @@ namespace BucketsGame
         [SerializeField] private PlayerController m_player;
         public TUFF.SceneProperties TUFFSceneProperties;
         [SerializeField] private PolygonCollider2D worldBoundsCol;
+        public bool disableRoomReset = false;
         public bool roomCleared = false;
         public PlayerController player
         {

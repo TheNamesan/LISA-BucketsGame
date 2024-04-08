@@ -137,7 +137,8 @@ namespace BucketsGame
         {
             if (m_queuedReset)
             {
-                ResetLevel();
+                if (SceneProperties.instance && !SceneProperties.instance.disableRoomReset)
+                    ResetLevel();
             }
             m_queuedReset = false;
         }

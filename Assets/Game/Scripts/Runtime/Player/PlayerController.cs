@@ -59,6 +59,7 @@ namespace BucketsGame
         [SerializeField] private int m_slowDownTicks = 0;
 
         [Header("Dash")]
+        public bool disableDash = false;
         public float dashSpeed = 25;
         public int dashTicksDuration = 25;
         [Tooltip("Amount of physics ticks it takes to be able to change directions at the start of the dash.")]
@@ -650,6 +651,7 @@ namespace BucketsGame
         }
         private void DashHandler()
         {
+            if (disableDash) return;
             bool zeroTicks = m_dashTicks <= 0;
             bool button = input.dashDown;
             if (BucketsGameManager.IsRusher())
