@@ -57,8 +57,9 @@ namespace BucketsGame
                 virtualCam.ForceCameraPosition(cam.transform.position, cam.transform.rotation);
                 return; 
             }
-            if (SceneProperties.mainPlayer)
-                virtualCam.Follow = SceneProperties.mainPlayer.transform;
+           if (SceneProperties.mainPlayer)
+                if (!SceneProperties.instance.disableCameraFollowForThisRoom)
+                    virtualCam.Follow = SceneProperties.mainPlayer.transform;
             Vector2 result = new Vector2();
             result += FollowPointer();
             result += FollowPlayer();
