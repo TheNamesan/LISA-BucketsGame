@@ -159,8 +159,8 @@ TextureImporter:
       name: 1_Olathe_Tileset_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
+        x: 96
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -180,8 +180,8 @@ TextureImporter:
       name: 1_Olathe_Tileset_4
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 128
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -201,8 +201,8 @@ TextureImporter:
       name: 1_Olathe_Tileset_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 160
+        y: 64
         width: 32
         height: 32
       alignment: 0
@@ -223,7 +223,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -244,7 +244,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -265,7 +265,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 32
         width: 32
         height: 32
       alignment: 0
@@ -277,6 +277,69 @@ TextureImporter:
       bones: []
       spriteID: 81452d2f13741e54c878cd2ddbb88d0a
       internalID: 143049752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_Olathe_Tileset_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a77eefbdafc579b40974bb06cde88ecd
+      internalID: 994609284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_Olathe_Tileset_10
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ae8246108099b44f9aa16e763c6050e
+      internalID: 1091411973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 1_Olathe_Tileset_11
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 556c5f8cc92ac054cb3910bf2b95b42c
+      internalID: -456713501
       vertices: []
       indices: 
       edges: []
@@ -294,6 +357,8 @@ TextureImporter:
     nameFileIdTable:
       1_Olathe_Tileset_0: 552203624
       1_Olathe_Tileset_1: -38458014
+      1_Olathe_Tileset_10: 1091411973
+      1_Olathe_Tileset_11: -456713501
       1_Olathe_Tileset_2: -1440644143
       1_Olathe_Tileset_3: 841541369
       1_Olathe_Tileset_4: -1496391280
@@ -301,6 +366,7 @@ TextureImporter:
       1_Olathe_Tileset_6: -927360068
       1_Olathe_Tileset_7: -1496132514
       1_Olathe_Tileset_8: 143049752
+      1_Olathe_Tileset_9: 994609284
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
