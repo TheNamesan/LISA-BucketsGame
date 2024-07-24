@@ -15,12 +15,10 @@ MonoBehaviour:
   persistentIDs:
   - rid: 7335342560940130307
   - rid: 3976901158666764295
-  - rid: -2
+  - rid: 7335342899867942914
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
     - rid: 3976901158666764295
       type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
       data:
@@ -32,4 +30,10 @@ MonoBehaviour:
       data:
         scene: {fileID: 102900000, guid: 737285274de43634a832180db00b7d23, type: 3}
         localID: 970902518
+        name: Interactable
+    - rid: 7335342899867942914
+      type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
+      data:
+        scene: {fileID: 102900000, guid: 2935eeccdf03b2d48980ecf7cf8e8f7c, type: 3}
+        localID: 1716870719
         name: Interactable
