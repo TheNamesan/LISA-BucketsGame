@@ -12,6 +12,7 @@ namespace TUFF
         [SerializeField] protected UIMenu mainPauseMenu;
         [SerializeField] protected UIMenu itemsMenu;
         [SerializeField] protected UIMenu equipMenu;
+        [SerializeField] protected UIMenu skillsMenu;
 
         [Header("Main Menu")]
         public RectTransform partyReadoutParent;

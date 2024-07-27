@@ -16,6 +16,7 @@ namespace TUFF
         public bool CanBeUsed(Targetable user)
         {
             if (user == null) return false;
+
             if (learnType == LearnType.Level && user.GetLevel() >= levelLearnedAt) return true;
             if (learnType == LearnType.None) return true;
             return false;
@@ -58,6 +59,20 @@ namespace TUFF
         {
             return TUFFTextParser.ParseText(quoteKey);
         }
+    }
+    [System.Serializable]
+    public class CharacterBio
+    {
+        public string fightingArtKey = "";
+        public string pastOccupationKey = "";
+        public string likesKey = "";
+        public string favoriteFoodKey = "";
+        public string mostHatedThingKey = "";
+        public string GetFightingArt() => TUFFTextParser.ParseText(fightingArtKey);
+        public string GetPastOccupation() => TUFFTextParser.ParseText(pastOccupationKey);
+        public string GetLikes() => TUFFTextParser.ParseText(likesKey);
+        public string GetFavoriteFood() => TUFFTextParser.ParseText(favoriteFoodKey);
+        public string GetMostHatedThing() => TUFFTextParser.ParseText(mostHatedThingKey);
     }
     [System.Serializable]
     public class CombatGraphics
@@ -350,6 +365,17 @@ namespace TUFF
     }
 
     [System.Serializable]
+    public struct WeaponTypeList
+    {
+        public List<int> weaponTypes;
+    }
+    [System.Serializable]
+    public struct ArmorTypeList
+    {
+        public List<int> armorTypes;
+    }
+
+    [System.Serializable]
     public struct GameVariableComparator
     {
         public int targetVariableIndex;
@@ -376,6 +402,98 @@ namespace TUFF
                     obj = variableVector; break;
             }
             return variable.EqualsValue(obj);
+        }
+    }
+    [System.Serializable]
+    public struct UnitStatusComparator
+    {
+        public Unit targetUnit;
+        public UnitStatusConditionType unitCondition;
+        public string targetName;
+        public Job targetJob;
+        public Skill targetSkill;
+        public Weapon targetWeapon;
+        public Armor targetArmor;
+        public State targetState;
+        public bool ValidateUnit()
+        {
+            if (PlayerData.instance == null) return false;
+            if (!targetUnit) return true;
+            PartyMember member = PlayerData.instance.GetPartyMember(targetUnit);
+            switch (unitCondition)
+            {
+                case UnitStatusConditionType.IsInParty:
+                    return PlayerData.instance.IsInParty(targetUnit);
+                case UnitStatusConditionType.IsInActiveParty:
+                    return PlayerData.instance.IsInActiveParty(targetUnit);
+                case UnitStatusConditionType.IsNamed:
+                    return targetName == member.GetName();
+                case UnitStatusConditionType.HasJob:
+                    return targetJob == member.GetJob();
+                case UnitStatusConditionType.KnowsSkill:
+                    return member.KnowsSkill(targetSkill);
+                case UnitStatusConditionType.HasWeaponEquipped:
+                    return member.HasWeaponEquipped(targetWeapon);
+                case UnitStatusConditionType.HasArmorEquipped:
+                    return member.HasArmorEquipped(targetArmor);
+                case UnitStatusConditionType.IsStateInflicted:
+                    return member.HasState(targetState);
+                default: return false;
+            }
+        }
+    }
+    [System.Serializable]
+    public struct InventoryComparator
+    {
+        public DropType inventoryType;
+        public NumberComparisonType numberComparison;
+        public int targetItemCount;
+        
+        public Item targetItem;
+        public KeyItem targetKeyItem;
+        public Weapon targetWeapon;
+        public Armor targetArmor;
+
+        public bool includeEquipment;
+        public bool ValidateInventory()
+        {
+            if (Inventory.instance == null) return false;
+            switch (inventoryType)
+            {
+                case DropType.Item:
+                    if (!targetItem) return false;
+                    return ValidateCount(Inventory.instance.GetItemAmount(targetItem));
+                case DropType.KeyItem:
+                    if (!targetKeyItem) return false;
+                    return ValidateCount(Inventory.instance.GetItemAmount(targetKeyItem));
+                case DropType.Weapon:
+                    if (!targetWeapon) return false;
+                    return ValidateCount(Inventory.instance.GetItemAmount(targetWeapon, includeEquipment));
+                case DropType.Armor:
+                    if (!targetArmor) return false;
+                    return ValidateCount(Inventory.instance.GetItemAmount(targetArmor, includeEquipment));
+                default: return false;
+            }
+        }
+        private bool ValidateCount(int count)
+        {
+            switch (numberComparison)
+            {
+                case NumberComparisonType.Equal:
+                    return count == targetItemCount;
+                case NumberComparisonType.NotEqual:
+                    return count != targetItemCount;
+                case NumberComparisonType.Less:
+                    return count < targetItemCount;
+                case NumberComparisonType.LessOrEqual:
+                    return count <= targetItemCount;
+                case NumberComparisonType.Greater:
+                    return count > targetItemCount;
+                case NumberComparisonType.GreaterOrEqual:
+                    return count >= targetItemCount;
+                
+            }
+            return true;
         }
     }
 }

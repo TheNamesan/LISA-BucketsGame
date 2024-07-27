@@ -18,6 +18,7 @@ namespace TUFF
         [SerializeField] ActiveStatesHUD activeStatesHUD;
         [SerializeField] Image commandIcon;
         [System.NonSerialized] public PartyMember memberRef;
+
         public void InitializeUnitHUD()
         {
             activeStatesHUD.InitializeHUD();

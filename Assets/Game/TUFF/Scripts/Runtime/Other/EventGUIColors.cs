@@ -15,6 +15,7 @@ namespace TUFF
         public static Color sound = new Color(0.5f, 0.85f, 1f, 1f);
         public static Color screenEffects = new Color(1f, 1f, 0.7f, 1f);
         public static Color scene = new Color(0.5f, 1f, 0.95f, 1f);
+        public static Color system = new Color(1f, 1f, 0f, 1f);
         public static Color battle = new Color(0.5f, 1f, 0.5f, 1f);
     }
 }

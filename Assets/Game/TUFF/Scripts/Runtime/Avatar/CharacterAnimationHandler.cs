@@ -57,6 +57,7 @@ namespace TUFF
         private AnimatorOverrideController overrideControl;
         private AnimationClipOverrides clipOverrides;
         private bool m_initialized = false;
+        private bool m_lockBuffer = false;
         void Start()
         {
             // Initialize Override Variables
@@ -69,7 +70,7 @@ namespace TUFF
 
         private void Initialize()
         {
-            if (anim != null && anim.runtimeAnimatorController != null)
+            if (anim != null)
             {
                 overrideControl = new AnimatorOverrideController(anim.runtimeAnimatorController);
                 overrideControl.name = $"Override {anim.name}";
@@ -84,17 +85,23 @@ namespace TUFF
         public void ChangeAnimationState(OverworldCharacterController controller, CharacterStates state, bool forcePlaySameState = false)
         {
             if (controller == null) return;
-            
             if (state != controller.lastState)
             {
                 CancelAnimationWait();
             }
             string stateName = GetAnimationStateName(controller, state);
             if (lastStateName == stateName && !forcePlaySameState) { return; }
+            
             anim.enabled = true;
-            anim.Play(stateName, -1, 0);
-            //controller.lastState = state;
             lastStateName = stateName;
+
+            if (m_lockBuffer) { /*Debug.Log($"LOCK BUFFER OFF, TRIED PLAYING: {stateName}");*/ m_lockBuffer = false; }
+            else
+            { 
+                anim.Play(stateName, -1, 0);
+                //Debug.Log($"Playing Anim: {stateName}");
+            }
+            //controller.lastState = state;
         }
         public string GetAnimationStateName(OverworldCharacterController c, CharacterStates state)
         {
@@ -121,12 +128,13 @@ namespace TUFF
                     if (c.faceDirection == FaceDirections.East || c.faceDirection == FaceDirections.West)
                     {
                         if (animationInWait) return lastStateName;
-                        if (lastStateName == "Run" + postfix || lastStateName == "RunTransition" + postfix)
+                        if ((lastStateName == $"Run{postfix}" || lastStateName == $"RunTransition{postfix}") &&
+                            c.runCanceled)
                         {
                             SetAnimationWait();
                             return "Skid" + postfix;
                         }
-                        if (c.nextInput.runButtonHold)
+                        if (c.runButtonHoldTime > 0 || c.runMomentum)
                         {
                             //if (lastStateName != "RunPrep" + postfix) SetAnimationWait();
                             return "RunPrep" + postfix;
@@ -176,12 +184,6 @@ namespace TUFF
                 case CharacterStates.Jump:
                     if (c.jumpDirection > 0) return "JumpDown";
                     return "Jump";
-                //case CharacterStates.Landing:
-                //    if (c.faceDirection == FaceDirections.East) return "LandingRight";
-                //    if (c.faceDirection == FaceDirections.West) return "LandingLeft";
-                //    if (c.faceDirection == FaceDirections.North) return "Landing";
-                //    if (c.faceDirection == FaceDirections.South) return "LandingDown";
-                //    return "Landing";
                 case CharacterStates.HardLanding:
                     if (c.faceDirection == FaceDirections.East) return "HardLandingRight";
                     if (c.faceDirection == FaceDirections.West) return "HardLandingLeft";
@@ -201,29 +203,32 @@ namespace TUFF
                     if (c.moveV == 0)
                     {
                         if (animationInWait) return lastStateName;
-                        if (lastStateName == "ClimbingRight" && c.moveH <= 0)
+                        if (!PlayerData.instance.charProperties.disableRopeJump)
                         {
-                            if (lastStateName != "ClimbingReturnRight")
-                                SetAnimationWait();
-                            return "ClimbingReturnRight";
-                        }
-                        if (lastStateName == "ClimbingLeft" && c.moveH >= 0)
-                        {
-                            if (lastStateName != "ClimbingReturnLeft")
-                                SetAnimationWait();
-                            return "ClimbingReturnLeft";
-                        }
-                        if (c.moveH > 0)
-                        {
-                            if (lastStateName != "ClimbingRight")
-                                SetAnimationWait();
-                            return "ClimbingRight";
-                        }
-                        if (c.moveH < 0)
-                        {
-                            if (lastStateName != "ClimbingLeft")
-                                SetAnimationWait();
-                            return "ClimbingLeft";
+                            if (lastStateName == "ClimbingRight" && c.moveH <= 0)
+                            {
+                                if (lastStateName != "ClimbingReturnRight")
+                                    SetAnimationWait();
+                                return "ClimbingReturnRight";
+                            }
+                            if (lastStateName == "ClimbingLeft" && c.moveH >= 0)
+                            {
+                                if (lastStateName != "ClimbingReturnLeft")
+                                    SetAnimationWait();
+                                return "ClimbingReturnLeft";
+                            }
+                            if (c.moveH > 0)
+                            {
+                                if (lastStateName != "ClimbingRight")
+                                    SetAnimationWait();
+                                return "ClimbingRight";
+                            }
+                            if (c.moveH < 0)
+                            {
+                                if (lastStateName != "ClimbingLeft")
+                                    SetAnimationWait();
+                                return "ClimbingLeft";
+                            }
                         }
                     }
                     return "ClimbingNeutral";
@@ -315,6 +320,8 @@ namespace TUFF
                 clipOverrides[id] = clip;
                 overrideControl.ApplyOverrides(clipOverrides);
                 anim.Play("FreeAnim", -1, 0);
+                //Debug.Log("LOCK BUFFER ON");
+                m_lockBuffer = true; // Used to avoid animations from being interrupted when an ActionList plays without yielding first
             }
             else { Debug.LogWarning("No Animator component assigned"); return; }
         }
@@ -338,6 +345,7 @@ namespace TUFF
         public void RestoreState(OverworldCharacterController controller)
         {
             if (!controller) return;
+            m_lockBuffer = false;
             ChangeAnimationState(controller, controller.lastState, true);
         }
     }

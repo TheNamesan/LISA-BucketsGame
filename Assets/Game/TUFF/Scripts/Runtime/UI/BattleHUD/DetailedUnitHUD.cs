@@ -17,6 +17,9 @@ namespace TUFF
         public StatDisplayHUD SDEFDisplay;
         public StatDisplayHUD AGIDisplay;
         public StatDisplayHUD LUKDisplay;
+        [Header("Level Up Displays")]
+        public StatDisplayHUD currentExpDisplay;
+        public StatDisplayHUD toNextLevelDisplay;
 
         public override void UpdateInfo(PartyMember member, bool displayMaxValues = false)
         {
@@ -29,6 +32,10 @@ namespace TUFF
             SDEFDisplay.UpdateInfo(member.GetSDEF(), Color.white, true, TUFFSettings.SDEFShortText);
             AGIDisplay.UpdateInfo(member.GetAGI(), Color.white, true, TUFFSettings.AGIShortText);
             LUKDisplay.UpdateInfo(member.GetLUK(), Color.white, true, TUFFSettings.LUKShortText);
+            if (currentExpDisplay)
+                currentExpDisplay.UpdateInfo(member.GetTotalEXP(), Color.white, true, TUFFSettings.currentExpText);
+            if (toNextLevelDisplay)
+                toNextLevelDisplay.UpdateInfo(member.GetEXPtoNextLevel(), Color.white, true, TUFFSettings.toNextLevelText);
         }
     }
 }

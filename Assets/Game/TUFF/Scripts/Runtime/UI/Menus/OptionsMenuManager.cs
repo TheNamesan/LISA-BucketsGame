@@ -15,10 +15,6 @@ namespace TUFF
         public UISlider sfxSlider;
         public UISlider ambienceSlider;
         public UIPicker textSpeed;
-        public UIPicker autoFire;
-        public UIPicker swapDash;
-        public UIPicker toggleSlowmo;
-        public UIPicker aimAutoFire;
 
         public void OpenOptionsMenu()
         {
@@ -54,11 +50,6 @@ namespace TUFF
             int index = -1;
             index = System.Array.FindIndex(supportedResolutions,
                 e => currentResolution.width == e.width && currentResolution.height == e.height);
-            //for (int i = 0; i < supportedResolutions.Length; i++)
-            //{
-            //    if (currentResolution.width == supportedResolutions[i].width &&
-            //        currentResolution.height == supportedResolutions[i].height) { index = i; break; }
-            //}
             if (index < 0) 
             {
                 GameManager.instance.ExpandSupportedResolutions(currentResolution);
@@ -75,18 +66,6 @@ namespace TUFF
             // Text Speed
             textSpeed.highlightedOption = GameManager.instance.configData.textSpeed;
             textSpeed.UpdateText();
-
-            autoFire.highlightedOption = GameManager.instance.configData.bucketsAutoFire ? 1 : 0;
-            autoFire.UpdateText();
-
-            //swapDash.highlightedOption = GameManager.instance.configData.bucketsSwapDash ? 1 : 0;
-            //swapDash.UpdateText();
-
-            toggleSlowmo.highlightedOption = ConfigData.instance.bucketsToggleSlowmo ? 1 : 0;
-            toggleSlowmo.UpdateText();
-
-            aimAutoFire.highlightedOption = ConfigData.instance.bucketsAimAutoFire ? 1 : 0;
-            aimAutoFire.UpdateText();
         }
 
         public void UpdateGlobalMusicVolume(float volume)
@@ -109,7 +88,6 @@ namespace TUFF
 
         public void SetFullscreen()
         {
-            //Debug.Log("Updated Fullscreen:" + System.Convert.ToBoolean(windowMode.highlightedOption));
             GameManager.instance.configData.fullscreen = System.Convert.ToBoolean(windowMode.highlightedOption);
             GameManager.instance.SetGameFullscreen(GameManager.instance.configData.fullscreen);
             SaveOptionsData();
@@ -129,30 +107,6 @@ namespace TUFF
         public void SetTextSpeed()
         {
             GameManager.instance.configData.textSpeed = textSpeed.highlightedOption;
-            SaveOptionsData();
-        }
-        public void SetBucketsAutoFire()
-        {
-            Debug.Log("Updated Auto Fire: " + autoFire.highlightedOption);
-            GameManager.instance.configData.bucketsAutoFire = System.Convert.ToBoolean(autoFire.highlightedOption);
-            SaveOptionsData();
-        }
-        public void SetBucketsSwapDash()
-        {
-            //Debug.Log("Updated Swap Dash: " + swapDash.highlightedOption);
-            //GameManager.instance.configData.bucketsSwapDash = System.Convert.ToBoolean(swapDash.highlightedOption);
-            //SaveOptionsData();
-        }
-        public void SetBucketsToggleSlowmo()
-        {
-            Debug.Log("Updated Toggle Slow Mo: " + toggleSlowmo.highlightedOption);
-            GameManager.instance.configData.bucketsToggleSlowmo = System.Convert.ToBoolean(toggleSlowmo.highlightedOption);
-            SaveOptionsData();
-        }
-        public void SetBucketsAimAutoFire()
-        {
-            Debug.Log("Updated Aim Auto Fire: " + aimAutoFire.highlightedOption);
-            GameManager.instance.configData.bucketsAimAutoFire = System.Convert.ToBoolean(aimAutoFire.highlightedOption);
             SaveOptionsData();
         }
 

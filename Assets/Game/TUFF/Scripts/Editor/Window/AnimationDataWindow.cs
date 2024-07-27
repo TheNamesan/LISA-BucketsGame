@@ -10,8 +10,10 @@ namespace TUFF.TUFFEditor
     {
         public enum TimeDisplayMode { TotalTime = 0, Duration = 1 }
         public enum TargetSpritesheetComponent { Image = 0, SpriteRenderer = 1 }
+        public enum AnimationDataWindowTab { ClipData = 0, Duplication = 1 }
 
         public static AnimationDataWindow instance;
+        public static AnimationDataWindowTab windowTab = AnimationDataWindowTab.ClipData;
         private static readonly Vector2 windowMinSize = new Vector2(100f, 200f);
         private static Vector2 scrollPos = new Vector2();
         private const float upperPanelMinHeight = 54f;
@@ -49,20 +51,39 @@ namespace TUFF.TUFFEditor
         private void OnGUI()
         {
             scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(position.height));
-
-            EditorGUI.BeginChangeCheck();
-            clip = (AnimationClip)EditorGUILayout.ObjectField(new GUIContent("Animation Clip"), clip, typeof(AnimationClip), false);
+            DrawTabButtons();
 
             
+            
             LoadAnimClip();
-
-            EditorGUILayout.Space();
             QuickDuplication();
+
             EditorGUILayout.EndScrollView();
+        }
+        private static void DrawTabButtons()
+        {
+            EditorGUILayout.BeginHorizontal("box");
+            // Clip Data
+            DrawTabButton("Clip Data", AnimationDataWindowTab.ClipData);
+            DrawTabButton("Duplication", AnimationDataWindowTab.Duplication);
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private static void DrawTabButton(string name, AnimationDataWindowTab tab)
+        {
+            var prevBgColor = GUI.backgroundColor;
+            if (windowTab == tab) GUI.backgroundColor = Color.gray;
+            else GUI.backgroundColor = Color.white;
+            if (GUILayout.Button(name, EditorStyles.miniButton, GUILayout.Width(100f)))
+            {
+                windowTab = tab;
+            }
+            GUI.backgroundColor = prevBgColor;
         }
 
         private static void QuickDuplication()
         {
+            if (windowTab != AnimationDataWindowTab.Duplication) return;
             EditorGUILayout.LabelField("Duplication");
             battleAnimation = DatabaseDropdownDrawer.DrawAnimationsDropdown(ref animPopupValue, battleAnimation);
             battleAnimation = (BattleAnimation)EditorGUILayout.ObjectField(new GUIContent("Battle Animation"), battleAnimation, typeof(BattleAnimation), false);
@@ -203,15 +224,13 @@ namespace TUFF.TUFFEditor
 
         private static void LoadAnimClip()
         {
-            timeDisplayMode = (TimeDisplayMode)EditorGUILayout.IntPopup("Time Display Mode", (int)timeDisplayMode,
-                new string[] { "Total Time", "Duration" },
-                new int[] { 0, 1 });
-            if (EditorGUI.EndChangeCheck())
-            {
-                objKeyframesDuration.Clear();
-            }
+            if (windowTab != AnimationDataWindowTab.ClipData) return;
+            clip = (AnimationClip)EditorGUILayout.ObjectField(new GUIContent("Animation Clip"), clip, typeof(AnimationClip), false);
             if (clip == null) return;
-            EditorGUILayout.LabelField("Creation");
+            EditorGUILayout.Space();
+
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.LabelField("Creation", EditorStyles.boldLabel);
             EditorGUILayout.BeginHorizontal();
             spritesheet = (Texture2D)EditorGUILayout.ObjectField(new GUIContent("Spritesheet"), spritesheet, typeof(Texture2D), false);
             EditorGUILayout.BeginVertical();
@@ -225,16 +244,43 @@ namespace TUFF.TUFFEditor
                 new int[] { 0, 1 });
             EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
+
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.LabelField("General", EditorStyles.boldLabel);
             clip.frameRate = EditorGUILayout.FloatField("Sample Rate", clip.frameRate);
-            EditorGUILayout.LabelField("Curves:");
+            var settings = AnimationUtility.GetAnimationClipSettings(clip);
+            EditorGUI.BeginChangeCheck();
+            settings.loopTime = EditorGUILayout.Toggle(Styles.clipLoopLabel, settings.loopTime);
+            if (EditorGUI.EndChangeCheck())
+            {
+                AnimationUtility.SetAnimationClipSettings(clip, settings);
+            }
+            EditorGUILayout.LabelField($"Total Length: {clip.length}");
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
+
+            EditorGUILayout.BeginVertical("box");
+            EditorGUILayout.LabelField("Curves", EditorStyles.boldLabel);
+            // Draw Time Display Mode
+            EditorGUI.BeginChangeCheck();
+            timeDisplayMode = (TimeDisplayMode)EditorGUILayout.IntPopup("Time Display Mode", (int)timeDisplayMode,
+                new string[] { "Total Time", "Duration" },
+                new int[] { 0, 1 });
+            if (EditorGUI.EndChangeCheck())
+            {
+                objKeyframesDuration.Clear();
+            }
             EditorGUILayout.LabelField("= OBJECT REFERENCES =");
-            
             var objectBindings = AnimationUtility.GetObjectReferenceCurveBindings(clip);
             for (int k = 0; k < objectBindings.Length; k++)
             {
                 EditorCurveBinding binding = objectBindings[k];
                 var keyframes = AnimationUtility.GetObjectReferenceCurve(clip, binding);
 
+                EditorGUILayout.LabelField($"{binding.path} ({binding.propertyName})");
+                // Draw Assign timings from GIF option
                 if (GUILayout.Button("Assign timings from GIF"))
                 {
                     string gifPath = EditorUtility.OpenFilePanel("Select a GIF file", "", "gif");
@@ -272,7 +318,6 @@ namespace TUFF.TUFFEditor
                     AnimationUtility.SetObjectReferenceCurve(clip, binding, copyKeyframes);
                 }
                 EditorGUILayout.EndHorizontal();
-                EditorGUILayout.LabelField($"{binding.path} ({binding.propertyName})");
 
                 var durations = objKeyframesDuration[binding];
                 // Time
@@ -303,6 +348,13 @@ namespace TUFF.TUFFEditor
                         EditorGUILayout.BeginHorizontal();
                         keyframes[i].time = EditorGUILayout.FloatField("Time " + (i + 1), keyframes[i].time);
                         EditorGUILayout.LabelField($"[{duration.ToString("F2")}]");
+                        if (keyframes[i].value)
+                        {
+                            System.Type valueType = keyframes[i].value.GetType();
+                            keyframes[i].value =
+                                //EditorGUILayout.ObjectField(Styles.keyframeValueLabel, keyframes[i].value, valueType, false, GUILayout.Height(EditorGUIUtility.singleLineHeight));
+                                EditorGUILayout.ObjectField(keyframes[i].value, valueType, false, GUILayout.Width(45f), GUILayout.Height(45f));
+                        }
                         EditorGUILayout.EndHorizontal();
                     }
                     else if (timeDisplayMode == TimeDisplayMode.Duration)
@@ -310,15 +362,33 @@ namespace TUFF.TUFFEditor
                         EditorGUILayout.BeginHorizontal();
                         durations[i] = EditorGUILayout.FloatField("Time " + (i + 1), durations[i]);
                         EditorGUILayout.LabelField($"[{totalTime}]");
+                        if (keyframes[i].value)
+                        {
+                            System.Type valueType = keyframes[i].value.GetType();
+                            keyframes[i].value =
+                                //EditorGUILayout.ObjectField(Styles.keyframeValueLabel, keyframes[i].value, valueType, false, GUILayout.Height(EditorGUIUtility.singleLineHeight));
+                                EditorGUILayout.ObjectField(keyframes[i].value, valueType, false, GUILayout.Width(45f), GUILayout.Height(45f));
+                        }
                         EditorGUILayout.EndHorizontal();
                     }
+                    
                 }
                 if (EditorGUI.EndChangeCheck())
                 {
                     if (timeDisplayMode == TimeDisplayMode.TotalTime) 
                         AnimationUtility.SetObjectReferenceCurve(clip, binding, keyframes);
                 }
+                if (GUILayout.Button("Add Keyframe"))
+                {
+                    System.Array.Resize(ref keyframes, keyframes.Length + 1);
+                    keyframes[^1].time = keyframes[^2].time;
+                    keyframes[^1].value = keyframes[^2].value;
+                    AnimationUtility.SetObjectReferenceCurve(clip, binding, keyframes);
+                }
+                
+                EditorGUILayout.Space();
             }
+            EditorGUILayout.EndVertical();
             //EditorGUILayout.LabelField("= CURVES =");
             //var curveBindings = AnimationUtility.GetCurveBindings(clip);
             //foreach (var binding in curveBindings)
@@ -343,6 +413,11 @@ namespace TUFF.TUFFEditor
         private static void AssignTimingsFromDurations(EditorCurveBinding binding, ObjectReferenceKeyframe[] keyframes, List<float> durations)
         {
             AssignTimingsFromDurations(binding, keyframes, durations.ToArray());
+        }
+        private static class Styles
+        {
+            public static GUIContent clipLoopLabel = new GUIContent("Loop");
+            public static GUIContent keyframeValueLabel = new GUIContent("Value");
         }
     }
 }

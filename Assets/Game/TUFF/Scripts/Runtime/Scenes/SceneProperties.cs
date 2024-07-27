@@ -37,21 +37,21 @@ namespace TUFF
         }
         public void AwakeScene()
         {
-            //gameObject.SetActive(false);
-            //if (gameObject.scene == SceneManager.GetActiveScene())
-            //{
-                //clone = Instantiate(this).GetComponent<SceneProperties>();
-                //gameObject.SetActive(true);
-            //}
+            gameObject.SetActive(false);
+            if (gameObject.scene == SceneManager.GetActiveScene())
+            {
+                clone = Instantiate(this).GetComponent<SceneProperties>();
+                gameObject.SetActive(true);
+            }
         }
         private void OnEnable()
         {
-            //if (clone == null)
-            //{
-                //gameObject.SetActive(false);
-                //clone = Instantiate(this).GetComponent<SceneProperties>();
-                //gameObject.SetActive(true);
-            //}
+            if (clone == null)
+            {
+                gameObject.SetActive(false);
+                clone = Instantiate(this).GetComponent<SceneProperties>();
+                gameObject.SetActive(true);
+            }
         }
         private void OnDisable()
         {
@@ -59,7 +59,7 @@ namespace TUFF
         }
         public void DisableScene()
         {
-            Debug.Log("disale");
+            Debug.Log("Disabled Clone");
             if (clone != null)
             {
                 clone.gameObject.name = gameObject.name;

@@ -15,70 +15,62 @@ namespace TUFF
         public DetailedUnitsMenu detailedUnitsMenu;
         public InventoryItemViewer inventoryItemViewer;
         public MemberEquipmentMenu memberEquipmentMenu;
+        public StatsOverviewHUD statsOverviewHUD;
         public UIMenu uiMenu;
 
         [Header("References")]
-        public TMP_Text nameText;
-        public StatChangeElement maxHPElement;
-        public StatChangeElement maxSPElement;
-        public StatChangeElement maxTPElement;
-        public StatChangeElement ATKElement;
-        public StatChangeElement DEFElement;
-        public StatChangeElement SATKElement;
-        public StatChangeElement SDEFElement;
-        public StatChangeElement AGIElement;
-        public StatChangeElement LUKElement;
-        public StatChangeElement hitRateElement;
-        public StatChangeElement evasionRateElement;
-        public StatChangeElement critRateElement;
-        public StatChangeElement targetRateElement;
+        
+        public UIButton optimizeButton;
+        public UIButton clearButton;
 
         [Header("Selection")]
         public InventoryItem selectedEquipment = null;
         public EquipmentSlotType selectedSlot = EquipmentSlotType.PrimaryWeapon;
         [System.NonSerialized] public PartyMember selectedMember;
-        public void InitializeMenu()
+        public void Awake()
+        {
+            if (optimizeButton)
+            {
+                optimizeButton.useCustomSelectSFX = true;
+                optimizeButton.customSelectSFX = TUFFSettings.equipSFX;
+                optimizeButton.onSelect.AddListener(OptimizeEquipment);
+                optimizeButton.onHighlight.AddListener(ClearItemsBox);
+            }
+            if (clearButton)
+            {
+                clearButton.useCustomSelectSFX = true;
+                clearButton.customSelectSFX = TUFFSettings.equipSFX;
+                clearButton.onSelect.AddListener(ClearEquipment);
+                clearButton.onHighlight.AddListener(ClearItemsBox);
+            }
+            if (memberEquipmentMenu)
+            {
+                if (memberEquipmentMenu.uiMenu)
+                    memberEquipmentMenu.uiMenu.onCloseMenu.AddListener(OnEquipmentBoxClose);
+            }
+        }
+        public void OnOpenMenu()
         {
             detailedUnitsMenu.uiMenu = uiMenu;
             detailedUnitsMenu?.UpdateUnits();
             selectedMember = null;
             selectedSlot = EquipmentSlotType.PrimaryWeapon;
             selectedEquipment = null;
+
+            ClearItemsBox();
             UpdateEquipment();
-            ApplyLabels();
+            statsOverviewHUD?.UpdateLabels();
+        }
+        public void OnEquipmentBoxClose()
+        {
+            ClearItemsBox();
         }
         public void UpdateInfo(List<IEquipable> previewEquipment)
         {
             var member = selectedMember;
             if (member == null) return;
-            var job = member.GetJob();
-            if (job == null) return;
-            Debug.Log(member.GetName());
-            nameText.text = member.GetName();
-            maxHPElement.UpdateInfo(member.GetMaxHP(), member.GetMaxHP(previewEquipment));
-            if (job.usesSP)
-            {
-                maxSPElement.gameObject.SetActive(true);
-                maxSPElement.UpdateInfo(member.GetMaxSP(), member.GetMaxSP(previewEquipment));
-            }
-            else maxSPElement.gameObject.SetActive(false);
-            if (job.usesTP)
-            {
-                maxTPElement.gameObject.SetActive(true);
-                maxTPElement.UpdateInfo(member.GetMaxTP(), member.GetMaxTP(previewEquipment));
-            }
-            else maxTPElement.gameObject.SetActive(false);
-            ATKElement.UpdateInfo(member.GetATK(), member.GetATK(previewEquipment));
-            DEFElement.UpdateInfo(member.GetDEF(), member.GetDEF(previewEquipment));
-            SATKElement.UpdateInfo(member.GetSATK(), member.GetSATK(previewEquipment));
-            SDEFElement.UpdateInfo(member.GetSDEF(), member.GetSDEF(previewEquipment));
-            AGIElement.UpdateInfo(member.GetAGI(), member.GetAGI(previewEquipment));
-            LUKElement.UpdateInfo(member.GetLUK(), member.GetLUK(previewEquipment));
-            ExtraRateUpdateInfo(hitRateElement, member.GetHitRate() * 100f, member.GetHitRate(previewEquipment) * 100f);
-            ExtraRateUpdateInfo(evasionRateElement, member.GetEvasionRate() * 100f, member.GetEvasionRate(previewEquipment) * 100f);
-            ExtraRateUpdateInfo(critRateElement, member.GetCritRate() * 100f, member.GetCritRate(previewEquipment) * 100f);
-            ExtraRateUpdateInfo(targetRateElement, member.GetTargetRate() * 100f, member.GetTargetRate(previewEquipment) * 100f);
-
+            if (statsOverviewHUD)
+                statsOverviewHUD.UpdateInfo(member, previewEquipment);
             memberEquipmentMenu?.UpdateInfo(member);
         }
         protected void ExtraRateUpdateInfo(StatChangeElement element, float oldValue, float newValue)
@@ -104,35 +96,51 @@ namespace TUFF
             else if (selectedSlot == EquipmentSlotType.SecondaryAccessory)
                 LoadSecondaryAccessoryArmors();
         }
+        public void ClearItemsBox()
+        {
+            inventoryItemViewer?.LoadItems(new(), false);
+        }
         public void LoadPrimaryWeapons()
         {
             selectedSlot = EquipmentSlotType.PrimaryWeapon;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetWeaponsAndAmount(), true);
+            var types = new List<int>();
+            if (selectedMember != null) types = selectedMember.GetWeaponEquipTypes();
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetWeaponsAndAmountOfType(WeaponWieldType.PrimarySlotOnly, types), true);
         }
         public void LoadSecondaryWeapons()
         {
             selectedSlot = EquipmentSlotType.SecondaryWeapon;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetWeaponsAndAmount(), true);
+            var types = new List<int>();
+            if (selectedMember != null) types = selectedMember.GetWeaponEquipTypes();
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetWeaponsAndAmountOfType(WeaponWieldType.SecondarySlotOnly, types), true);
         }
         public void LoadHeadArmors()
         {
             selectedSlot = EquipmentSlotType.Head;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmount(), true);
+            var types = new List<int>();
+            if (selectedMember != null) types = selectedMember.GetArmorEquipTypes();
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmountOfType(EquipType.Head, types), true);
         }
         public void LoadBodyArmors()
         {
             selectedSlot = EquipmentSlotType.Body;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmount(), true);
+            var types = new List<int>();
+            if (selectedMember != null) types = selectedMember.GetArmorEquipTypes();
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmountOfType(EquipType.Body, types), true);
         }
         public void LoadPrimaryAccessoryArmors()
         {
             selectedSlot = EquipmentSlotType.PrimaryAccessory;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmount(), true);
+            var types = new List<int>();
+            if (selectedMember != null) types = selectedMember.GetArmorEquipTypes();
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmountOfType(EquipType.Accessory, types), true);
         }
         public void LoadSecondaryAccessoryArmors()
         {
             selectedSlot = EquipmentSlotType.SecondaryAccessory;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmount(), true);
+            var types = new List<int>();
+            if (selectedMember != null) types = selectedMember.GetArmorEquipTypes();
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmountOfType(EquipType.Accessory, types), true);
         }
         public void DetailedUnitsOnCreate(UIButton button, PartyMember member)
         {
@@ -165,23 +173,24 @@ namespace TUFF
             UpdateEquipment();
             UpdateInfo();
         }
+        public void OptimizeEquipment()
+        {
+            selectedMember?.OptimizeEquipment();
+            detailedUnitsMenu?.UpdateUnits();
+            UpdateEquipment();
+            UpdateInfo();
+        }
+        public void ClearEquipment()
+        {
+            selectedMember?.ClearEquipment();
+            detailedUnitsMenu?.UpdateUnits();
+            UpdateEquipment();
+            UpdateInfo();
+        }
         protected void HighlightMember(PartyMember member)
         {
             selectedMember = member;
             UpdateInfo();
-        }
-
-        protected void ApplyLabels()
-        {
-            maxHPElement?.UpdateLabel(TUFFSettings.maxHPShortText);
-            maxSPElement?.UpdateLabel(TUFFSettings.maxSPShortText);
-            maxTPElement?.UpdateLabel(TUFFSettings.maxTPShortText);
-            ATKElement?.UpdateLabel(TUFFSettings.ATKShortText);
-            DEFElement?.UpdateLabel(TUFFSettings.DEFShortText);
-            SATKElement?.UpdateLabel(TUFFSettings.SATKShortText);
-            SDEFElement?.UpdateLabel(TUFFSettings.SDEFShortText);
-            AGIElement?.UpdateLabel(TUFFSettings.AGIShortText);
-            LUKElement?.UpdateLabel(TUFFSettings.LUKShortText);
         }
     }
 }

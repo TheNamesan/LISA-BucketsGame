@@ -229,8 +229,8 @@ GameObject:
   - component: {fileID: 8958794539165501196}
   - component: {fileID: 8958794539165501187}
   - component: {fileID: 8958794539165501199}
-  - component: {fileID: 8966648636824834264}
-  - component: {fileID: 6577305135027838042}
+  - component: {fileID: 7813404227449469874}
+  - component: {fileID: 6699971554960916089}
   m_Layer: 5
   m_Name: ReturnToTitleMenu
   m_TagString: Untagged
@@ -300,7 +300,7 @@ MonoBehaviour:
     - {fileID: 7535947147280407189}
   highlightX: 0
   highlightY: 0
-  transitionHandler: {fileID: 8966648636824834264}
+  transitionHandler: {fileID: 7813404227449469874}
   rememberHighlight: 0
   closeMenuWithCancel: 1
   closeMenuWithSkip: 0
@@ -362,7 +362,7 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
---- !u!114 &8966648636824834264
+--- !u!114 &7813404227449469874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitionType: 1
-  canvasGroup: {fileID: 6577305135027838042}
+  canvasGroup: {fileID: 6699971554960916089}
   adjustToOtherRect: {fileID: 0}
   originalSize: {x: 0, y: 0}
   onAppear:
@@ -387,7 +387,7 @@ MonoBehaviour:
   onTransitionChange:
     m_PersistentCalls:
       m_Calls: []
---- !u!225 &6577305135027838042
+--- !u!225 &6699971554960916089
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

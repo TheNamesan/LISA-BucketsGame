@@ -46,8 +46,29 @@ namespace TUFF
             }
             CommonEventManager.instance.TriggerEventActionBranch(this, branches[index].actionList);
         }
+        private List<ActionList> GetAllActionLists()
+        {
+            var allActionLists = new List<ActionList>();
+            for (int i = 0; i < branches.Count; i++)
+            {
+                allActionLists.Add(branches[i].actionList);
+            }
+            if (addBranchWhenNoConditionsApply) allActionLists.Add(elseActionList);
+            return allActionLists;
+        }
+        public override void OnEnable() 
+        {
+            var allActionLists = GetAllActionLists();
+            for (int i = 0; i < allActionLists.Count; i++)
+                allActionLists[i].OnEnable();
+        }
+        public override void OnStart()
+        {
+            var allActionLists = GetAllActionLists();
+            for (int i = 0; i < allActionLists.Count; i++)
+                allActionLists[i].OnStart();
+        }
 
-        
-    }
+    } 
 }
 

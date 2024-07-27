@@ -668,7 +668,7 @@ MonoBehaviour:
   SPCostText: {fileID: 5628258638616174420}
   TPCostText: {fileID: 6360389275111008505}
   usesText: {fileID: 4089560526491574665}
-  uiElement: {fileID: 0}
+  uiElement: {fileID: 7880828801180933544}
 --- !u!114 &7880828801180933544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -771,14 +771,26 @@ MonoBehaviour:
   highlightDisplayText: 
   useCustomSelectSFX: 0
   customSelectSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
   useCustomDisabledSFX: 0
   customDisabledSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
   menusToClose: []
   menusToOpen: []
 --- !u!1 &7880828801294650280

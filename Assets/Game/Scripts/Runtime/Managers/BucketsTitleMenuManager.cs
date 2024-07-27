@@ -40,7 +40,7 @@ namespace BucketsGame
         protected IEnumerator NewGame()
         {
             UIController.instance.SetMenu(null);
-            UIController.instance.fadeScreen.TriggerFadeOut(1f);
+            UIController.instance.fadeScreen.FadeOut(1f);
             AudioManager.instance.FadeOutVolume(1f);
             //GameManager.instance.StartNewGame();
             yield return new WaitForSeconds(2f);
@@ -58,7 +58,7 @@ namespace BucketsGame
         protected IEnumerator Exit()
         {
             UIController.instance.SetMenu(null);
-            UIController.instance.fadeScreen.TriggerFadeOut(1f);
+            UIController.instance.fadeScreen.FadeOut(1f);
             AudioManager.instance.FadeOutVolume(1f);
             yield return new WaitForSeconds(1f);
             Debug.Log("Exiting Game");

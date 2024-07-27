@@ -221,35 +221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f25cbc05a336bcb45a16e0888cd8049c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  submenuElementPrefab: {fileID: 7880828801180933547, guid: 1f8bab04488ee29468d75c816451b067, type: 3}
+  submenuElementPrefab: {fileID: 961175641783182129, guid: 1f8bab04488ee29468d75c816451b067, type: 3}
+  elementsParent: {fileID: 348195918301442809}
   uiMenu: {fileID: 1139674561668201386}
-  gridLayoutGroup: {fileID: 7467798673914232065}
   scrollRect: {fileID: 8242895424807460663}
-  content: {fileID: 348195918301442809}
   columns: 3
-  battleHUD: {fileID: 0}
-  submenuElements: []
+  elements: []
   commandRef: {fileID: 0}
-  memberRef:
-    HP: 0
-    prevHP: 0
-    SP: 0
-    TP: 0
-    isKOd: 0
-    states: []
-    imageReference: {fileID: 0}
-    m_job: {fileID: 0}
-    prevExp: 0
-    exp: 0
-    prevLevel: 1
-    level: 1
-    primaryWeapon: {fileID: 0}
-    secondaryWeapon: {fileID: 0}
-    head: {fileID: 0}
-    body: {fileID: 0}
-    primaryAccessory: {fileID: 0}
-    secondaryAccessory: {fileID: 0}
-    learnedSkills: 
+  battleHUD: {fileID: 0}
 --- !u!114 &1139674561668201386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +245,8 @@ MonoBehaviour:
   - UIElements: []
   highlightX: 0
   highlightY: 0
+  scrollRect: {fileID: 8242895424807460663}
+  transitionHandler: {fileID: 0}
   rememberHighlight: 0
   closeMenuWithCancel: 0
   closeMenuWithSkip: 0
@@ -285,16 +266,48 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   descriptionDisplay: {fileID: 0}
+  openSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  closeSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   useCustomHighlightSFX: 0
   customHighlightSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
   useCustomCancelSFX: 0
   customCancelSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
 --- !u!1 &3017020484072729928
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1187764421670630471, guid: 23d686498442ce547abc77e4bd6e5d6a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f9a34a225037ed84f8dc682c52d6a689, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -398,7 +411,7 @@ RectTransform:
   m_GameObject: {fileID: 5066349079886836357}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: -1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5220838516240787444}
@@ -408,7 +421,7 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 64, y: 64}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &3609891404806597063
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -437,7 +450,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1187764421670630471, guid: 23d686498442ce547abc77e4bd6e5d6a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b40b3ec2cab908e439c5193f67a40102, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

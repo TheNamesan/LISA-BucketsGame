@@ -13,8 +13,37 @@ namespace TUFF
     { 
         public Image icon;
         public TMP_Text text;
-        [SerializeField] Command command;
-
+        public UIButton uiButton;
+        [SerializeField] protected Command command;
+        
+        public void Initialize(CommandListHUD commandListHUD)
+        {
+            if (uiButton)
+            {
+                uiButton.onHighlight.AddListener(() => commandListHUD.battleHUD.ShowDescriptionDisplay(true));
+                uiButton.onHighlight.AddListener(() => OnHighlightMarkVulnerableTargets(commandListHUD));
+                uiButton.onSelect.AddListener(() => {
+                    commandListHUD.battleHUD.CommandSelect(commandListHUD.memberRef, commandListHUD.commandListIndex, command);
+                });
+                uiButton.onHorizontalInput.AddListener((input) =>
+                {
+                    commandListHUD.battleHUD.SkipCommandMenu(input, commandListHUD.commandListIndex, commandListHUD.uiMenu);
+                });
+            }
+        }
+        private void OnHighlightMarkVulnerableTargets(CommandListHUD commandListHUD)
+        {
+            if (command)
+            {
+                if (command.IsValidSingleCommand())
+                {
+                    var skill = command.skills[0].skill;
+                    var validTargets = BattleManager.instance.GetInvocationValidTargets(commandListHUD.memberRef, skill.scopeData);
+                    commandListHUD.battleHUD.MarkVulnerableTargets(skill, commandListHUD.memberRef, validTargets);
+                }
+            }
+            
+        }
         public void SetCommand(Command setCommand)
         {
             command = setCommand;

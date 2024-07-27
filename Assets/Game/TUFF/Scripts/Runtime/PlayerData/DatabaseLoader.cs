@@ -19,12 +19,14 @@ namespace TUFF
         public static string battlePath = "Database/9Battles";
         public static string animationsPath = "Database/11Animations";
         public static string termsPath = "Database/12Terms/Terms";
-        public static DatabaseLoader instance { get {
+        public static DatabaseLoader instance
+        {
+            get
+            {
                 if (!GameManager.instance) return null;
                 return GameManager.instance.databaseLoader;
                 //if (m_instance == null)
                 //{
-                //    //GameManager.CheckInstance();
                 //    if (GameManager.instance == null) return null;
                 //    AssignInstance(GameManager.instance.GetComponentInChildren<DatabaseLoader>());
                 //}
@@ -32,17 +34,24 @@ namespace TUFF
                 //return m_instance;
             }
         }
+        private bool m_initialized = false;
         //protected static DatabaseLoader m_instance;
         public void Awake()
         {
             //if (m_instance != null)
             //{
-            //    if (instance != this) Destroy(gameObject);
+            //    if (m_instance != this) Destroy(gameObject);
             //}
             //else
             //{
             //    AssignInstance(this);
             //}
+            InitializeDatabase();
+        }
+
+        public void InitializeDatabase()
+        {
+            if (m_initialized) return;
             units = Resources.LoadAll<Unit>("Database/0Units");
             jobs = Resources.LoadAll<Job>("Database/1Jobs");
             skills = Resources.LoadAll<Skill>("Database/2Skills");
@@ -54,7 +63,9 @@ namespace TUFF
             states = Resources.LoadAll<State>("Database/10States");
             animations = Resources.LoadAll<BattleAnimation>(animationsPath);
             AssignIDs();
+            m_initialized = true;
         }
+
         //protected static void AssignInstance(DatabaseLoader target)
         //{
         //    if (target == null) return;
@@ -85,6 +96,22 @@ namespace TUFF
             for (int i = 0; i < armors.Length; i++) { armors[i].id = i; }
             for (int i = 0; i < states.Length; i++) { states[i].id = i; }
         }
+        protected object GetFromArray(object[] array, int index)
+        {
+            if (index < 0 || index >= array.Length) return null;
+            return array[index];
+        }
+        public Unit GetUnitFromID(int index) => (Unit)GetFromArray(units, index);
+        public Job GetJobFromID(int index) => (Job)GetFromArray(jobs, index);
+        public Skill GetSkillFromID(int index) => (Skill)GetFromArray(skills, index);
+        public Command GetCommandFromID(int index) => (Command)GetFromArray(commands, index);
+        public Item GetItemFromID(int index) => (Item)GetFromArray(items, index);
+        public KeyItem GetKeyItemFromID(int index) => (KeyItem)GetFromArray(keyItems, index);
+        public Weapon GetWeaponFromID(int index) => (Weapon)GetFromArray(weapons, index);
+        public Armor GetArmorFromID(int index) => (Armor)GetFromArray(armors, index);
+        public State GetStateFromID(int index) => (State)GetFromArray(states, index);
+
+
         public List<State> GetAllStatesOfType(StateType type)
         {
             var statesOfType = new List<State>();

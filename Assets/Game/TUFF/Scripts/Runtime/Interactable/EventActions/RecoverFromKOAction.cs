@@ -20,11 +20,7 @@ namespace TUFF
         {
             if (scope == PartyScope.EntireParty)
             {
-                var playerParty = PlayerData.instance.GetAllPartyMembers();
-                for (int i = 0; i < playerParty.Count; i++)
-                {
-                    playerParty[i].RemoveKO();
-                }
+                PlayerData.instance.RecoverAllFromKO();
             }
             else if (scope == PartyScope.OnePartyMember)
             {

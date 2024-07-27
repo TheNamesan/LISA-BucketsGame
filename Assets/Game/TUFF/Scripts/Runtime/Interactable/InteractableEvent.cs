@@ -14,7 +14,9 @@ namespace TUFF
         PlayOnStart = 4,
         PlayOnAwake = 5,
         None = 6,
-        Autorun = 7
+        Autorun = 7,
+        PlayerTouchInMovement = 8,
+        ParallelProcess = 9
     }
 
     [System.Serializable]

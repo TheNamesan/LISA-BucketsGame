@@ -20,7 +20,7 @@ namespace TUFF
         private int m_index = 0;
         public InteractableEvent[] triggerEvents = new InteractableEvent[0];
 
-        protected static UnityEvent onUpdateAll = new();
+        public static List<InteractableObject> sceneInteractables = new();
 
         public void Awake()
         {
@@ -35,7 +35,7 @@ namespace TUFF
         }
         public void OnEnable()
         {
-            onUpdateAll.AddListener(LoadIndexData);
+            sceneInteractables.Add(this);
             for (int i = 0; i < triggerEvents.Length; i++)
             {
                 triggerEvents[i].actionList.OnEnable();
@@ -43,11 +43,11 @@ namespace TUFF
         }
         public void OnDisable()
         {
-            onUpdateAll.RemoveListener(LoadIndexData);
+            sceneInteractables.Remove(this);
         }
         private void OnDestroy()
         {
-            onUpdateAll.RemoveListener(LoadIndexData);
+            sceneInteractables.Remove(this);
         }
         public bool HasValidActions()
         {
@@ -74,21 +74,26 @@ namespace TUFF
             LoadIndexData();
             if (!HasValidActions()) return;
             if (triggerEvents[m_index].triggerType == TriggerType.PlayOnStart)
-            {
-                if (HasValidActions())
-                    TriggerInteractable(true);
-            }
-                //StartCoroutine(PlayOnStart());
+                StartCoroutine(PlayOnStart());
         }
-        public void Update()
+        public void FixedUpdate()
         {
             Autorun();
+            ParallelProcess();
         }
-        private void Autorun()
+        private bool Autorun()
         {
-            if (!HasValidActions()) return;
+            if (!HasValidActions()) return false;
             if (triggerEvents[m_index].triggerType == TriggerType.Autorun)
-                TriggerInteractable();
+                return TriggerInteractable();
+            return false;
+        }
+        private bool ParallelProcess()
+        {
+            if (!HasValidActions()) return false;
+            if (triggerEvents[m_index].triggerType == TriggerType.ParallelProcess)
+                return TriggerParallelProcess();
+            return false;
         }
         public IEnumerator PlayOnStart()
         {
@@ -120,6 +125,26 @@ namespace TUFF
                 return false;
             }
             CommonEventManager.instance.TriggerInteractableEvent(triggerEvents[m_index], queue);
+            return true;
+        }
+        public bool TriggerParallelProcess()
+        {
+            if (triggerEvents.Length <= 0)
+            {
+                //Debug.Log("Trigger Events List is empty");
+                return false;
+            }
+            if (m_index < 0)
+            {
+                //Debug.LogWarning("Index is less than zero");
+                return false;
+            }
+            if (m_index >= triggerEvents.Length)
+            {
+                //Debug.LogWarning("Index is out of range");
+                return false;
+            }
+            CommonEventManager.instance.TriggerParallelProcessEvent(triggerEvents[m_index]);
             return true;
         }
         public TriggerType GetCurrentIndexType()
@@ -166,7 +191,27 @@ namespace TUFF
         }
         public static void UpdateAll()
         {
-            onUpdateAll?.Invoke();
+            for (int i = 0; i < sceneInteractables.Count; i++)
+            {
+                sceneInteractables[i].LoadIndexData();
+            }
+        }
+        public static void CheckAutorunTriggers()
+        {
+            for (int i = 0; i < sceneInteractables.Count; i++)
+            {
+                if (!sceneInteractables[i]) continue;
+                bool foundAutorun = sceneInteractables[i].Autorun();
+                if (foundAutorun) break;
+            }
+        }
+        public static void CheckParallelProcessTriggers()
+        {
+            for (int i = 0; i < sceneInteractables.Count; i++)
+            {
+                if (!sceneInteractables[i]) continue;
+                bool foundParallelProcess = sceneInteractables[i].ParallelProcess();
+            }
         }
 
         public void OnTriggerEnter2D(Collider2D collision)

@@ -47,8 +47,16 @@ namespace TUFF.TUFFEditor
                 // scene file. If the user isn't a scene, put them in root instead.
                 var obj = targetProperty.serializedObject.targetObject;
                 var targetName = $"{obj.name} {targetObject.eventName}";
-                Scene scene = (obj is GameObject ? (obj as GameObject).scene : new Scene());
+                var rootGameObject = (obj as InteractableObject).gameObject;
+                
+                Scene scene = rootGameObject.scene;
+                
+                //Scene scene = (obj is GameObject ? (obj as GameObject).scene : new Scene());
+
+                Debug.Log("Scene Name: " + scene.name);
+
                 var path = CreatePath(scene, targetName, obj);
+                
                 Debug.Log(path);
                 profile.objectReferenceValue = VolumeProfileFactory.CreateVolumeProfileAtPath(path);
             }
@@ -124,18 +132,7 @@ namespace TUFF.TUFFEditor
                     var extPath = scene.name;
                     var profilePath = scenePath + Path.DirectorySeparatorChar + extPath;
 
-                    if (!AssetDatabase.IsValidFolder(profilePath))
-                    {
-                        var directories = profilePath.Split(Path.DirectorySeparatorChar);
-                        string rootPath = "";
-                        foreach (var directory in directories)
-                        {
-                            var newPath = rootPath + directory;
-                            if (!AssetDatabase.IsValidFolder(newPath))
-                                AssetDatabase.CreateFolder(rootPath.TrimEnd(Path.DirectorySeparatorChar), directory);
-                            rootPath = newPath + Path.DirectorySeparatorChar;
-                        }
-                    }
+                    LISAEditorUtility.CreateFolderForScene(scene);
 
                     path = profilePath + Path.DirectorySeparatorChar;
                 }

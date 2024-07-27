@@ -11,6 +11,7 @@ namespace TUFF
         public FaceDirections playerFacing = FaceDirections.East;
         public bool disableRun = false;
         public bool disableRopeJump = false;
+        public bool disableMenuAccess = false;
     }
 }
 

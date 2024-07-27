@@ -402,14 +402,26 @@ MonoBehaviour:
   highlightDisplayText: 
   useCustomSelectSFX: 0
   customSelectSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
   useCustomDisabledSFX: 0
   customDisabledSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
   menusToClose: []
   menusToOpen: []
 --- !u!114 &6595524393224550878
@@ -426,6 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 2771375574789066126}
   text: {fileID: 4394584591863830606}
+  uiButton: {fileID: 4394584592101043210}
   command: {fileID: 0}
 --- !u!1 &4394584592196909578
 GameObject:

@@ -51,7 +51,7 @@ namespace TUFF
         {
             if (instance != null)
             {
-                if (instance != this) Destroy(gameObject);
+                Destroy(gameObject);
             }
             else
             {

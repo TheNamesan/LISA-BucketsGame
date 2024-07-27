@@ -180,35 +180,6 @@ MonoBehaviour:
   m_ShadowIntensity: 0.75
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
-  m_Vertices:
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: -0.70710677, g: 0.70710677, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.9985302, y: 0.9985302, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: -0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: -0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0.70710665, g: -0.7071069, b: 0, a: 0}
-    uv: {x: 0, y: 0}
-  - position: {x: 0.99853003, y: -0.9985304, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  - position: {x: 0, y: 0, z: 0}
-    color: {r: 0, g: 0, b: 0, a: 1}
-    uv: {x: 0, y: 0}
-  m_Triangles: 030001000800020000000100030002000100050003000800040002000300050004000300070005000800060004000500070006000500010007000800000006000700010000000700
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
@@ -251,7 +222,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8273364218291266598}
-  - component: {fileID: 6581072434305032397}
   - component: {fileID: 5757243222434293204}
   - component: {fileID: 7536674352941344353}
   - component: {fileID: 8273364218291266600}
@@ -286,33 +256,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6581072434305032397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8273364218291266595}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18bf0d39d665c234a8712b9ea8cc286e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveRouteHandler: {fileID: 4474150523889566799}
-  playerInput:
-    horizontalInput: 0
-    horizontalInputTap: 0
-    verticalInput: 0
-    verticalInputTap: 0
-    interactionButtonDown: 0
-    interactionButtonHold: 0
-    runButtonDown: 0
-    runButtonHold: 0
-    pauseButtonDown: 0
-    pauseButtonHold: 0
-  onMove:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &5757243222434293204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +295,8 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
+  defaultPack: {fileID: 11400000, guid: 0ce7e72b86aa90246a939bb187bd2c65, type: 2}
+  firehandPack: {fileID: 11400000, guid: 7ef04c73ce26329448621ff09d1bd2e1, type: 2}
 --- !u!114 &8273364218291266600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -414,11 +359,12 @@ MonoBehaviour:
   ignoredLayersAtJumpCheck:
     serializedVersion: 2
     m_Bits: 452
-  touchingWalkable: {fileID: 0}
+  m_touchingWalkable: {fileID: 0}
   touchingWalkableBeforeFalling: {fileID: 0}
   touchingWalkableProperties: {fileID: 0}
   ignoreWalkableForSeconds: 0.225
   ignoreWalkable: 0
+  ignoreCollision: 0
   ignoreGroundCheck: 0
   ignoreFallCheck: 0
   distancePerStep: 1.15
@@ -718,7 +664,7 @@ MonoBehaviour:
   - {x: 0.78125, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 68102
+  m_InstanceId: 143686
   m_LocalBounds:
     m_Center: {x: 0, y: 0.78125, z: 0}
     m_Extent: {x: 0.78125, y: 0.78125, z: 0}

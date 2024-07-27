@@ -32,6 +32,15 @@ namespace TUFF
         public BranchConditionType conditionType;
 
         public GameVariableComparator variableComparator;
+        public InteractableObject targetInteractable;
+        public int targetSwitch;
+
+        public UnitStatusComparator unitComparator;
+
+        public int targetMags;
+        public NumberComparisonType numberComparison;
+
+        public InventoryComparator inventoryComparator;
         public bool ValidateCondition()
         {
             bool valid = false;
@@ -39,11 +48,45 @@ namespace TUFF
             {
                 case BranchConditionType.GameVariable:
                     valid = variableComparator.ValidateGameVariable(); break;
-                default:
+                case BranchConditionType.InteractableSwitch:
+                    if (!targetInteractable) valid = true;
+                    else valid = targetInteractable.currentSwitch == targetSwitch;
                     break;
+                case BranchConditionType.Timer:
+                    break;
+                case BranchConditionType.Unit:
+                    valid = unitComparator.ValidateUnit(); break;
+                case BranchConditionType.Enemy:
+                    break;
+                case BranchConditionType.Character:
+                    break;
+                case BranchConditionType.Mags:
+                    valid = ValidateCount(PlayerData.instance.mags); break;
+                case BranchConditionType.InventoryItem:
+                    valid = inventoryComparator.ValidateInventory(); break;
+                default: break;
             }
             if (not) valid = !valid;
             return valid;
+        }
+        public bool ValidateCount(int count)
+        {
+            switch (numberComparison)
+            {
+                case NumberComparisonType.Equal:
+                    return count == targetMags;
+                case NumberComparisonType.NotEqual:
+                    return count != targetMags;
+                case NumberComparisonType.Less:
+                    return count < targetMags;
+                case NumberComparisonType.LessOrEqual:
+                    return count <= targetMags;
+                case NumberComparisonType.Greater:
+                    return count > targetMags;
+                case NumberComparisonType.GreaterOrEqual:
+                    return count >= targetMags;
+            }
+            return true;
         }
     }
 }

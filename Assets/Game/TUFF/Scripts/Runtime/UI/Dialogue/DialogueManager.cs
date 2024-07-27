@@ -383,7 +383,7 @@ namespace TUFF
             openBoxes.RemoveAt(openBoxes.IndexOf(this));
             inUse = false;
             gameObject.SetActive(false);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         private bool DialogueIsNext() // Change this to buffer
         {

@@ -515,7 +515,7 @@ namespace TUFF.TUFFEditor
                 if (i != 0)
                 {
                     Undo.RecordObject(interactableObject, "Moved Event List element up");
-                    LISAUtility.ListSwap(eventList.content, i, i - 1);
+                    LISAUtility.ListItemSwap(eventList.content, i, i - 1);
                     GetEditorsFromEventList(eventList, eventListEditors);
                     if (eventPanelIndex >= 0) OpenWindowOfElement(eventList, i - 1);
                     MarkDirty();
@@ -527,7 +527,7 @@ namespace TUFF.TUFFEditor
                 if (i != eventList.content.Count - 1)
                 {
                     Undo.RecordObject(interactableObject, "Moved Event List element down");
-                    LISAUtility.ListSwap(eventList.content, i, i + 1);
+                    LISAUtility.ListItemSwap(eventList.content, i, i + 1);
                     GetEditorsFromEventList(eventList, eventListEditors);
                     if (eventPanelIndex >= 0) OpenWindowOfElement(eventList, i + 1);
                     MarkDirty();

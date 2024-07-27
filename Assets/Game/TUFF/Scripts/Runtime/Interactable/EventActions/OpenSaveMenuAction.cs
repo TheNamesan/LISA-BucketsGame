@@ -13,8 +13,7 @@ namespace TUFF
         }
         public override void Invoke()
         {
-            GameManager.instance.SavePlayerData(0); // tmp
-            isFinished = true;
+            UIController.instance.OpenFileSelectMenu(FileSelectMenuMode.SaveFile, this);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace TUFF
         public List<Feature> features { get; set; }
         public int GetBonusesOfStat(StatChangeType statType)
         {
-            switch(statType)
+            switch (statType)
             {
                 case StatChangeType.MaxHP:
                     return maxHP;
@@ -41,6 +41,11 @@ namespace TUFF
                 default:
                     return 0;
             }
+        }
+        public int GetStatTotal()
+        {
+            int sum = maxHP + maxSP + maxTP + ATK + DEF + SATK + SDEF + AGI + LUK;
+            return sum;
         }
     }
 }

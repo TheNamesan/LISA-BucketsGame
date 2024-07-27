@@ -12,10 +12,12 @@ namespace TUFF
     }
     public class RandomSFXPlayer : MonoBehaviour
     {
+        public bool muteIfPlayerInputDisabled = false;
         public List<SFXGroup> sfxGroups = new List<SFXGroup>();
 
         public void PlayRandomSFX(int groupIndex)
         {
+            if (muteIfPlayerInputDisabled && GameManager.disablePlayerInput) return;
             if (sfxGroups.Count <= 0) return;
             PlaySFX(sfxGroups[groupIndex].audioSource, sfxGroups[groupIndex].sfxs);
         }

@@ -18,6 +18,7 @@ namespace TUFF.TUFFEditor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_interactableGizmoFilename"));
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_interactablePrefab"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_overworldCharacterPrefab"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_enemyGraphicPrefab"));
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_defaultTextbox"));
@@ -32,6 +33,10 @@ namespace TUFF.TUFFEditor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_overrideUnitInitLevelValue"));
             EditorGUILayout.EndHorizontal();
 
+            // Player Data
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_maxSaveFileSlots"));
+
+            // Battle System
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_critMultiplier"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_TPRecoveryByDamageType"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_TPRecoveryByDamageRatio"));
@@ -84,9 +89,11 @@ namespace TUFF.TUFFEditor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_selectSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_cancelSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_disabledSFX"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_equipSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_saveSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_loadSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_battleStartSFX"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_escapeSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_battleVictorySFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_unitDamageSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_unitKOSFX"), new GUIContent("Unit KO SFX"));
@@ -99,7 +106,7 @@ namespace TUFF.TUFFEditor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_levelUpSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_shopSFX"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_useItemSFX"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("m_equipSFX"));
+            
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_startingSceneName"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("m_startingScenePosition"));
@@ -132,6 +139,17 @@ namespace TUFF.TUFFEditor
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_quantityTermKey", TUFFSettings.quantityText);
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_acceptTermKey", TUFFSettings.acceptText);
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_cancelTermKey", TUFFSettings.cancelText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_saveFilePromptTermKey", TUFFSettings.saveFilePromptText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_loadFilePromptTermKey", TUFFSettings.loadFilePromptText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_currentExpTermKey", TUFFSettings.currentExpText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_toNextLevelTermKey", TUFFSettings.toNextLevelText);
+
+            EditorGUILayout.LabelField("Character Bio", EditorStyles.boldLabel);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_fightingArtTermKey", TUFFSettings.fightingArtText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_pastOccupationTermKey", TUFFSettings.pastOccupationText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_likesTermKey", TUFFSettings.likesText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_favoriteFoodTermKey", TUFFSettings.favoriteFoodText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_mostHatedThingTermKey", TUFFSettings.mostHatedThingText);
 
             EditorGUILayout.LabelField("Basic Status", EditorStyles.boldLabel);
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_levelTermKey", TUFFSettings.levelText);
@@ -151,6 +169,20 @@ namespace TUFF.TUFFEditor
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_SDEFShortTermKey", TUFFSettings.SDEFShortText);
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_AGIShortTermKey", TUFFSettings.AGIShortText);
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_LUKShortTermKey", TUFFSettings.LUKShortText);
+
+            EditorGUILayout.LabelField("Extra Rate", EditorStyles.boldLabel);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_hitRateTermKey", TUFFSettings.hitRateText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_hitRateShortTermKey", TUFFSettings.hitRateShortText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_evasionRateTermKey", TUFFSettings.evasionRateText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_evasionRateShortTermKey", TUFFSettings.evasionRateShortText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_criticalRateTermKey", TUFFSettings.criticalRateText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_criticalRateShortTermKey", TUFFSettings.criticalRateShortText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_criticalEvasionRateTermKey", TUFFSettings.criticalEvasionRateText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_criticalEvasionRateShortTermKey", TUFFSettings.criticalEvasionRateShortText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_targetRateTermKey", TUFFSettings.targetRateText);
+            DrawTermFieldAndLocalizedPreview(serializedObject, "m_targetRateShortTermKey", TUFFSettings.targetRateShortText);
+
+            EditorGUILayout.LabelField("Currency", EditorStyles.boldLabel);
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_currencyTermKey", TUFFSettings.currencyText);
             DrawTermFieldAndLocalizedPreview(serializedObject, "m_currencyShortTermKey", TUFFSettings.currencyShortText);
 

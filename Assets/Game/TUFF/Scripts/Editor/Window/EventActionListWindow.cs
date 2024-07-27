@@ -250,7 +250,7 @@ namespace TUFF.TUFFEditor
         /// <param name="contentProperty">Optional. Content Property to Update. Set to null to update the main property (SelectedContentProperty)</param>
         public static void DisplayEventListContent(Rect position, List<EventAction> eventList, List<EventActionPD> eventListPDs, string selectionPanelTitle, SerializedProperty contentProperty, string parentPropertyPath)
         {
-
+            float orgY = position.y;
             // TODO: Add a "abortDraw" variable to cancel this and all other methods.
 
             if (eventList == null) { Debug.Log("Event List is null!"); return; }
@@ -285,7 +285,7 @@ namespace TUFF.TUFFEditor
             existingKey.value.DoList(position);
             //if (curList != null) { position.y += existingKey.value.GetHeight(); };
             if (eventDeleted) return;
-            if (existingKey.value != null) { position.y += existingKey.value.GetHeight(); };
+            if (existingKey.value != null) { position.y += existingKey.value.GetHeight() - 10f; };
             if (EditorGUI.EndChangeCheck())
             {
                 //list = null;
@@ -293,7 +293,7 @@ namespace TUFF.TUFFEditor
                 MarkDirty();
             }
             DisplayButtons(position, eventList, eventListPDs, selectionPanelTitle, contentProperty);
-            position.y += 60f;
+            position.y += 20f;
 
             //listSelectionPanelTitle = prevListSelectionPanelTitle;
 
@@ -308,7 +308,7 @@ namespace TUFF.TUFFEditor
         public static float GetDisplayEventListContentHeight(ReorderableList list)
         {
             float listHeight = (list != null ? list.GetHeight() : 0f);
-            return 100f + listHeight; 
+            return 60f + 10f + listHeight; 
         }
         public static float GetDisplayEventListContentHeight()
         {
@@ -480,25 +480,16 @@ namespace TUFF.TUFFEditor
         }
         public static void DisplayButtons(Rect position, List<EventAction> eventList, List<EventActionPD> eventListPDs, string title, SerializedProperty contentProperty = null)
         {
-            GUIContent paste = new GUIContent("Paste Copied Event", "Pastes the copied event as a new element.");
-            if (GUI.Button(position, paste))
-            {
-                if (copiedElement == null) Debug.LogWarning("No copied element!");
-                else
-                {
-                    listAddContentProperty = contentProperty;
-                    AddEvent(LISAUtility.Copy(copiedElement) as EventAction, eventList, eventListPDs);
-                }
-                //DisplaySelectionPanel(eventList, eventListPDs, title, contentProperty: contentProperty);
-            }
-            position.y += 20f;
+            float orgWidth = position.width;
+            position.width *= 0.02f;
             GUIContent add = new GUIContent("+", "Add an event action.");
             if (GUI.Button(position, add))
             {
                 DisplaySelectionPanel(eventList, eventListPDs, title, contentProperty: contentProperty);
             }
             GUIContent remove = new GUIContent("-", "Remove an event action.");
-            position.y += 20f;
+            //position.y += 20f;
+            position.x += position.width;//position.y += 20f;
             if (GUI.Button(position, remove))
             {
                 if (eventList.Count > 0)
@@ -511,7 +502,19 @@ namespace TUFF.TUFFEditor
                     eventDeleted = true;
                 }
             }
-            position.y += 20f;
+            position.x += position.width;//position.y += 20f;
+            position.width = orgWidth * 0.075F;
+            GUIContent paste = new GUIContent("Paste Copied Event", "Pastes the copied event as a new element.");
+            if (GUI.Button(position, paste))
+            {
+                if (copiedElement == null) Debug.LogWarning("No copied element!");
+                else
+                {
+                    listAddContentProperty = contentProperty;
+                    AddEvent(LISAUtility.Copy(copiedElement) as EventAction, eventList, eventListPDs);
+                }
+                //DisplaySelectionPanel(eventList, eventListPDs, title, contentProperty: contentProperty);
+            }
         }
         private static void DisplayButtonsLayout(Rect position, List<EventAction> eventList, List<EventActionPD> eventListPDs, string title, SerializedProperty contentProperty = null)
         {
@@ -618,18 +621,23 @@ namespace TUFF.TUFFEditor
         private static void GetList(ref ReorderableList list, List<EventAction> actionListContent)
         {
             list = new ReorderableList(actionListContent, typeof(EventAction), true, false, false, false);
+            list.multiSelect = true;
             list.drawElementCallback = DrawListItems;
             list.elementHeightCallback = GetElementHeight;
+            list.drawElementBackgroundCallback = DrawBackground;
         }
         private static ReorderableList GetList(List<EventAction> actionListContent)
         {
             var list = new ReorderableList(actionListContent, typeof(EventAction), true, false, false, false);
+            list.multiSelect = true;
             list.drawElementCallback = DrawListItems;
             list.elementHeightCallback = GetElementHeight;
+            list.drawElementBackgroundCallback = DrawBackground;
             list.onChangedCallback = (ReorderableList l) => { 
                 lowerPanelPD = null; 
                 //UpdatePDs(); 
                 Debug.Log("Moved"); }; // Change this so it doesn't exit the lower panel?
+            
             return list;
         }
         private static float GetElementHeight(int index)
@@ -676,6 +684,10 @@ namespace TUFF.TUFFEditor
         {
             if (eventDeleted) return;
 
+            // Line Render Stuff
+            float orgY = rect.y;
+            float height = 0;
+
             var curKey = renderingKey;
             if (curKey == null) { Debug.LogWarning($"No key! Index: {index}"); return; };
 
@@ -689,7 +701,8 @@ namespace TUFF.TUFFEditor
             if (index < 0 || index >= actionList.Count) { Debug.LogWarning($"Index {index} is invalid! Count: {actionList.Count}"); return; }
             if (actionList[index] == null) { Debug.LogWarning($"Index {index} is empty! Count: {actionList.Count}"); return; }
 
-            GUI.color = actionList[index].eventColor;
+            Color eventColor = actionList[index].eventColor;
+            GUI.color = eventColor;
             rect.height = 20f;
             bool markListDirty = false;
             CommandDefaultButtons(ref rect, actionList, actionListPDs, index, listSelectionPanelTitle, ref markListDirty, curListContentProperty);
@@ -704,11 +717,26 @@ namespace TUFF.TUFFEditor
             if (!contract) // Change this to contract per element
             {
                 if (actionListPDs.Count > 0 && index < actionListPDs.Count && actionListPDs[index] != null)
+                {
                     actionListPDs[index].SummaryGUI(rect);
+                    height += actionListPDs[index].GetSummaryHeight();
+                }
             }
             GUI.color = prevGUIColor;
             UpdateListContentProperty(curListContentProperty);
+
+            Rect lineRect = new Rect(rect.x - 10, orgY + 20, 1f, height);
+            GUI.DrawTexture(lineRect, lineTexture, ScaleMode.StretchToFill, true, 0, Color.gray * eventColor, 0, 0);
             //listContentProperty = prevListContentProperty;
+        }
+        public static void DrawBackground(Rect rect, int index, bool active, bool focused)
+        {
+            if (index % 2 == 0)
+            {
+                Color color = new Color(0.1f, 0.1f, 0.1f, 0.25f);
+                GUI.DrawTexture(rect, lineTexture, ScaleMode.StretchToFill, true, 0, color, 0, 0);
+            }
+            ReorderableList.defaultBehaviours.DrawElementBackground(rect, index, active, focused, true);
         }
         private static void GetReferences()
         {

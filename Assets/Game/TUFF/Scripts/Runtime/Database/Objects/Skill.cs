@@ -157,5 +157,6 @@ namespace TUFF
             var userB = PlayerData.instance.GetPartyMember(unitedUserB);
             return userA.CanControlAct() && userB.CanControlAct();
         }
+        
     }
 }

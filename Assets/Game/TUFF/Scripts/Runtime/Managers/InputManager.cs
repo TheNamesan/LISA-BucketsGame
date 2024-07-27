@@ -8,12 +8,14 @@ namespace TUFF
     [RequireComponent(typeof(PlayerInput))]
     public class InputManager : MonoBehaviour
     {
-        PlayerInput input;
+        public PlayerInput input;
+        public PlayerInputHandler playerInputHandler;
         [HideInInspector] public InputActionMap playerActionMap;
         [HideInInspector] public InputActionMap uiActionMap;
         public void Awake()
         {
             input = GetComponent<PlayerInput>();
+            playerInputHandler = GetComponent<PlayerInputHandler>();
             playerActionMap = input.actions.FindActionMap("Player");
             uiActionMap = input.actions.FindActionMap("UIController");
             playerActionMap.Enable();
@@ -21,19 +23,19 @@ namespace TUFF
         }
         ///Player
         public void PlayerVerticalInput(InputAction.CallbackContext context) {
-            if (PlayerInputHandler.instance != null) PlayerInputHandler.instance.UpDownInput(context);
+            if (playerInputHandler != null) playerInputHandler.UpDownInput(context);
         }
         public void PlayerMove(InputAction.CallbackContext context) {
-            if (PlayerInputHandler.instance != null) PlayerInputHandler.instance.Move(context);
+            if (playerInputHandler != null) playerInputHandler.Move(context);
         }
         public void PlayerInteraction(InputAction.CallbackContext context) {
-            if (PlayerInputHandler.instance != null) PlayerInputHandler.instance.Interaction(context); 
+            if (playerInputHandler != null) playerInputHandler.Interaction(context); 
         }
         public void PlayerRun(InputAction.CallbackContext context) {
-            if (PlayerInputHandler.instance != null) PlayerInputHandler.instance.Run(context);
+            if (playerInputHandler != null) playerInputHandler.Run(context);
         }
         public void PlayerPause(InputAction.CallbackContext context) {
-            if (PlayerInputHandler.instance != null) PlayerInputHandler.instance.Pause(context);
+            if (playerInputHandler != null) playerInputHandler.Pause(context);
         }
 
         ///UI

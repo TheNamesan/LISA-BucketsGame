@@ -29,7 +29,7 @@ namespace TUFF
         {
             KillTween();
             isFinished = false;
-            UIController.instance.fadeScreen.TriggerFadeIn(0.25f);
+            UIController.instance.UIFadeScreen.FadeIn(0.25f);
             gameObject.SetActive(false);
         }
         private void OnDestroy()

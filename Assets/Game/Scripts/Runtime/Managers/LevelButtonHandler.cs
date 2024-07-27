@@ -16,7 +16,7 @@ namespace BucketsGame
         protected static IEnumerator LoadLevel(string name)
         {
             UIController.instance.SetMenu(null);
-            UIController.instance.fadeScreen.TriggerFadeOut(1f);
+            UIController.instance.fadeScreen.FadeOut(1f);
             AudioManager.instance.FadeOutVolume(1f);
             yield return new WaitForSeconds(2f);
             TimerManager.instance.Initialize();

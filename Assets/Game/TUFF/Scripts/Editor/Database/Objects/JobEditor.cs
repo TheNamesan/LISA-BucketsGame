@@ -82,6 +82,9 @@ namespace TUFF.TUFFEditor
             EditorGUILayout.PropertyField(serializedObject.FindProperty("critRate"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("critEvasionRate"));
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("weaponTypes"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("armorTypes"));
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("features"));
 
             EditorGUILayout.PropertyField(serializedObject.FindProperty("commands"));

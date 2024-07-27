@@ -117,8 +117,9 @@ namespace TUFF
         [Tooltip("The layers to ignore when checking for ground when jumping up or down.")]
         [SerializeField] LayerMask ignoredLayersAtJumpCheck;
 
+        public Collider2D touchingWalkable { get => m_touchingWalkable; }
         [Tooltip("Avatar currently touching Walkable.")]
-        [SerializeField] Collider2D touchingWalkable;
+        [SerializeField] Collider2D m_touchingWalkable;
         [Tooltip("Avatar touched Walkable before falling.")]
         [SerializeField] Collider2D touchingWalkableBeforeFalling;
         [Tooltip("Current Touching Walkable's terrain properties.")]
@@ -127,6 +128,7 @@ namespace TUFF
         [SerializeField] float ignoreWalkableForSeconds;
         [Tooltip("Avatar is currently ignoring walkable while jumping down.")]
         [SerializeField] bool ignoreWalkable;
+        [SerializeField] private bool ignoreCollision;
         [HideInInspector] public bool ignoreGroundCheck = false;
         [HideInInspector] public bool ignoreFallCheck = false;
         [SerializeField] protected float distancePerStep = 1.15f;
@@ -198,7 +200,7 @@ namespace TUFF
         [SerializeField] public bool runMomentum = false;
         [SerializeField] public bool runCanceled = false;
         [SerializeField] public Vector2 runDirection = new Vector2();
-        [SerializeField] double runButtonHoldTime = 0d;
+        [SerializeField] public double runButtonHoldTime = 0d;
         [SerializeField] double runButtonReleaseTime = 0d;
         [SerializeField] double timeForRunPrep = 0.35d;
         [Tooltip("Time to keep the runMomentum variable after releasing the run key.")]
@@ -232,6 +234,7 @@ namespace TUFF
         public UnityEvent onInputUpdate = new();
 
         [SerializeField] float timeJump = 0;
+        protected IEnumerator lateFixedUpdate;
 
         private void Awake()
         {
@@ -244,6 +247,12 @@ namespace TUFF
         private void OnEnable()
         {
             Physics2D.IgnoreLayerCollision(gameObject.layer, gameObject.layer, true);
+            if (lateFixedUpdate == null) lateFixedUpdate = LateFixedUpdate();
+            StartCoroutine(lateFixedUpdate);
+        }
+        private void OnDisable()
+        {
+            if (lateFixedUpdate != null) StopCoroutine(lateFixedUpdate);
         }
 
         void Start()
@@ -289,15 +298,18 @@ namespace TUFF
             lastPosition = rb.position;
             lastVelocity = rb.velocity;
             InputUpdate();
-            nextInput.interactionButtonDown = false;
-            nextInput.runButtonDown = false;
-            nextInput.pauseButtonDown = false;
+            //nextInput.interactionButtonDown = false;
+            //nextInput.runButtonDown = false;
+            //nextInput.pauseButtonDown = false;
             wasGrounded = grounded;
         }
-
-        private void LateUpdate()
+        private IEnumerator LateFixedUpdate()
         {
-            
+            while (true)
+            {
+                yield return new WaitForFixedUpdate();
+
+            }
         }
 
         private void VelocityZeroCorrection() // Attempts to fix sprite clipping when crossing other characters
@@ -348,9 +360,11 @@ namespace TUFF
             Vector2 closestContactPoint = col.ClosestPoint((Vector2)col.bounds.center + Vector2.down * col.bounds.size);
             Vector2 boxCenter = closestContactPoint;
             float DCOMultiplier = 0.1f;
-            collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset * DCOMultiplier);
+            collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset);
+            //collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset * DCOMultiplier);
             Vector2 boxExtents = collisionBoxSize * 0.5f;
-            collisionBoxDistance = (rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f) /*+ (WasOnSlope() ? 0.3f : 0f)*/; //Has a higher distance check if velocity is higher (mainly when falling or jumping down)
+            collisionBoxDistance = Physics2D.defaultContactOffset;
+            //collisionBoxDistance = (rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f) /*+ (WasOnSlope() ? 0.3f : 0f)*/; //Has a higher distance check if velocity is higher (mainly when falling or jumping down)
             RaycastHit2D collision = Physics2D.BoxCast(closestContactPoint, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, walkableLayers);
             Vector2 nextOrigin = closestContactPoint;
             RaycastHit2D nextCollision = Physics2D.BoxCast(nextOrigin, collisionBoxSize, 0f, Vector2.down, 0.15f/*(IsOnSlope() ? 0.5f : 0.15f)*/, walkableLayers);
@@ -372,7 +386,7 @@ namespace TUFF
 
             if ((collision /*|| (nextCollision && grounded)*/) && !IsWalkableLayerCollisionDisabled()) //OnCollisionEnter/Stay
             {
-                if (touchingWalkable == collider || grounded)
+                if (m_touchingWalkable == collider || grounded)
                 {
                     boxColor = Color.yellow;
                 }
@@ -390,13 +404,13 @@ namespace TUFF
                 //    normal = nextCollision.normal;
                 //    point = nextCollision.point;
                 //}
-                if (grounded && touchingWalkable != collider)
+                if (grounded && m_touchingWalkable != collider)
                 {
                     Debug.Log(collider + " (" + collision.collider + ")," + slopeFound + "," + touchingWalkableNormal);
                     SetTouchingWalkable(collider);
                     boxColor = Color.yellow;
                 }
-                if (!grounded && touchingWalkable == null /*&& normal.y > 0*/ && rb.velocity.y < 0.1f && !ignoreGroundCheck)
+                if (!grounded && m_touchingWalkable == null /*&& normal.y > 0*/ && rb.velocity.y < 0.1f && !ignoreGroundCheck)
                 {
                     SnapToGround(closestContactPoint, DCOMultiplier, collider, point);
                     TouchLand(collider);
@@ -439,7 +453,7 @@ namespace TUFF
                 }
                 else
                 {
-                    touchingWalkableBeforeFalling = touchingWalkable;
+                    touchingWalkableBeforeFalling = m_touchingWalkable;
                     SetTouchingWalkable(null);
                 }
             }
@@ -508,7 +522,7 @@ namespace TUFF
                     ignoreWalkable = false;
                     jumpExpectedLanding = Vector2.zero;
 
-                    Debug.Log("top kek");
+                    //Debug.Log("top kek");
                     DisableWalkableLayersCollision(false);
                 }
                 else
@@ -520,6 +534,17 @@ namespace TUFF
                     Debug.DrawLine(closestContactPoint, jumpExpectedLanding, Color.white, 0.5f);
                 } 
             }
+        }
+
+        public void StopInput()
+        {
+            nextInput = new();
+            input = new();
+            nextYFacing = 0;
+            nextXFacing = 0;
+            AbortRunMomentum();
+            MoveHandler();
+            //AnimatorSpeed();
         }
 
         private void InputUpdate()
@@ -549,27 +574,27 @@ namespace TUFF
                     nextXFacing = -1;
                 }
             //}
-            if (Mathf.Abs(input.horizontalInputTap) > 0)
-            {
-                input.horizontalInputTap = 0;
-            }
+            //if (Mathf.Abs(input.horizontalInputTap) > 0)
+            //{
+            //    input.horizontalInputTap = 0;
+            //}
             // Vertical Input
 
             //if (!GameManager.disablePlayerInput)
             //{
-                if (input.verticalInput > 0)
-                {
-                    nextYFacing = 1;
-                }
-                else if (input.verticalInput < 0)
-                {
-                    nextYFacing = -1;
-                }
-            //}
-            if (Mathf.Abs(input.verticalInputTap) > 0)
+            if (input.verticalInput > 0)
             {
-                input.verticalInputTap = 0;
+                nextYFacing = 1;
             }
+            else if (input.verticalInput < 0)
+            {
+                nextYFacing = -1;
+            }
+            //}
+            //if (Mathf.Abs(input.verticalInputTap) > 0)
+            //{
+            //    input.verticalInputTap = 0;
+            //}
             // Z
             if (input.interactionButtonDown)
             {
@@ -655,13 +680,19 @@ namespace TUFF
             runButtonHoldTime = 0;
             runButtonReleaseTime = 0;
         }
+        public void AbortRunMomentum()
+        {
+            StopRunMomentum();
+            runCanceled = false;
+        }
 
         private bool CheckInteractable()
         {
             if (GameManager.disablePlayerInput) return false;
+            if (hardLanded) return false;
+            //Debug.Log($"{gameObject.name}: Check interactable");
             if (grounded && rb.velocity.y == 0 && input.horizontalInput == 0)
             {
-                if (hardLanded) return false;
                 Debug.DrawRay(transform.position, Vector2.right * interactionDistance * faceX, Color.cyan, 3);
                 RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, Vector2.right * faceX, interactionDistance, LayerMask.GetMask("Interactable"));
                 for (int i = 0; i < hit.Length; i++)
@@ -724,7 +755,7 @@ namespace TUFF
             if (climbDetect.climbable == null) return;
             if (disableClimbableCollision && climbDetect.IntersectsLastClimbPoints()) return;
 
-            Vector2 closestContactPoint = col.ClosestPoint((Vector3)rb.position - new Vector3(0, characterHeight, 0));
+            Vector2 closestContactPoint = col.ClosestPoint((Vector2)rb.position - new Vector2(0, characterHeight));
             Vector2 upperPoint = closestContactPoint + Vector2.up * col.bounds.size.y;
             UpdateRopePoints();
 
@@ -735,11 +766,12 @@ namespace TUFF
                 bool ropeIsDown = (closestContactPoint.y + 0.01f >= ropeTop.y);
                 if (input.verticalInput < 0 && !ropeIsDown)
                 {
+                    //Debug.Log($"ClosestPoint: {closestContactPoint.y + 0.01f} vs RopeTop.y {ropeTop.y}");
                     // If walkable layer is on the way down
                     RaycastHit2D hit = Physics2D.Raycast(rb.position, Vector2.down, characterHeight * 0.75f, walkableLayers);
                     float offset = 0.1f;
                     float half = offset * 0.5f;
-                    bool noRopeBelow = LISAUtility.WithinValueRange(ropeBottom.y + half, ropeBottom.y - half, hit.point.y);
+                    bool noRopeBelow = LISAUtility.WithinValueRange(ropeBottom.y + offset, ropeBottom.y - offset, hit.point.y);
                     if (noRopeBelow)
                     {
                         return; 
@@ -1142,8 +1174,8 @@ namespace TUFF
             CancelLadder();
             ChangeFaceDirection(FaceDirections.South);
             SetClimbing(false);
-            StartCoroutine(ReenableCollisionDelay());
-            //DisableWalkableLayersCollision(false);
+            //StartCoroutine(ReenableCollisionDelay());
+            DisableWalkableLayersCollision(false);
             fellAfterClimbing = true;
             disableClimbableCollision = true;
             climbDetect.SetLastPoints();
@@ -1287,14 +1319,29 @@ namespace TUFF
         {
             if (grounded && !hardLanded)
             {
-                UIController.instance.InvokePauseMenu();
+                //UIController.instance.InvokePauseMenu();
             }
         }
 
         void DisableWalkableLayersCollision(bool input)
         {
             if (!col) return;
-            col.isTrigger = input;
+            //col.isTrigger = input;
+            ignoreCollision = input;
+            var walkableTagged = GameObject.FindGameObjectsWithTag("Walkable");
+            for (int i = 0; i < walkableTagged.Length; i++)
+            {
+                var colliders = walkableTagged[i].GetComponents<Collider2D>();
+                //Debug.Log("Found: " + colliders.Length + " colliders");
+                for (int j = 0; j < colliders.Length; j++)
+                {
+                    var targetCol = colliders[j];
+                    //Debug.Log($"Ignore {input} collision with: " + targetCol.gameObject.name);
+                    Physics2D.IgnoreCollision(col, targetCol, input);
+                }    
+                
+            }
+            //col.isTrigger = input;
             
             //for (int i = 0; i < 32; i++)
             //{
@@ -1305,17 +1352,20 @@ namespace TUFF
             //}
         }
         // Prevents Character getting stuck when jumping off a rope near a platform
-        private IEnumerator ReenableCollisionDelay()
-        {
-            if (!col) yield break;
-            yield return new WaitForFixedUpdate();
-            col.isTrigger = false;
-        }
+        //private IEnumerator ReenableCollisionDelay()
+        //{
+        //    yield break;
+        //    if (!col) yield break;
+        //    yield return new WaitForFixedUpdate();
+        //    yield return new WaitForFixedUpdate();
+        //    col.isTrigger = false;
+        //}
 
         private bool IsWalkableLayerCollisionDisabled()
         {
             if (!col) return true;
-            return col.isTrigger;
+            return ignoreCollision;
+            //return col.isTrigger;
             //for (int i = 0; i < 32; i++)
             //{
             //    if (walkableLayers == (walkableLayers | (1 << i)))
@@ -1356,7 +1406,7 @@ namespace TUFF
                 rb.velocity = Vector3.up * jumpDownForce;
                 SetGrounded(false);
                 SetFallStart();
-                touchingWalkableBeforeFalling = touchingWalkable;
+                touchingWalkableBeforeFalling = m_touchingWalkable;
                 DisableWalkableLayersCollision(true);
                 ignoreWalkable = true;
             }
@@ -1513,7 +1563,7 @@ namespace TUFF
         }
         protected void SetupFallConditions()
         {
-            touchingWalkableBeforeFalling = touchingWalkable;
+            touchingWalkableBeforeFalling = m_touchingWalkable;
             muteLandSound = false;
             SetJumping(false, 1);
             SetGrounded(false);
@@ -1555,7 +1605,7 @@ namespace TUFF
         }
         private void SetTouchingWalkable(Collider2D collider2D)
         {
-            touchingWalkable = collider2D;
+            m_touchingWalkable = collider2D;
             if (collider2D != null)
             {
                 if (collider2D.transform.TryGetComponent(out touchingWalkableProperties))

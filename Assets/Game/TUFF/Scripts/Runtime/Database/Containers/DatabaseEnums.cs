@@ -87,7 +87,26 @@ namespace TUFF
     }
     public enum BranchConditionType
     {
-        GameVariable = 0
+        GameVariable = 0,
+        InteractableSwitch = 1,
+        Timer = 2,
+        Unit = 3,
+        Enemy = 4,
+        Character = 5,
+        Mags = 6,
+        InventoryItem = 7,
+        Button = 8
+    }
+    public enum UnitStatusConditionType
+    {
+        IsInParty = 0,
+        IsInActiveParty = 1,
+        IsNamed = 2,
+        HasJob = 3,
+        KnowsSkill = 4,
+        HasWeaponEquipped = 5,
+        HasArmorEquipped = 6,
+        IsStateInflicted = 7
     }
     public enum SpanType
     {
@@ -100,7 +119,12 @@ namespace TUFF
         Enemy = 0,
         Ally = 1
     }
-
+    public enum WeaponWieldType
+    {
+        PrimarySlotOnly = 0,
+        SecondarySlotOnly = 1,
+        AnyWeaponSlot = 2
+    }
     public enum EquipType
     {
         Head = 0,
@@ -145,7 +169,8 @@ namespace TUFF
     {
         Single = 0,
         Group = 1,
-        Items = 2
+        Items = 2,
+        Escape = 3
     }
 
     public enum DropType
@@ -163,6 +188,15 @@ namespace TUFF
         Body = 3,
         PrimaryAccessory = 4,
         SecondaryAccessory = 5
+    }
+    public enum NumberComparisonType
+    {
+        Equal = 0,
+        NotEqual = 1,
+        Less = 2,
+        LessOrEqual = 3,
+        Greater = 4,
+        GreaterOrEqual = 5
     }
     public enum OperationType
     {
@@ -206,5 +240,10 @@ namespace TUFF
     {
         None = 0,
         UserName = 1
+    }
+    public enum FadeType
+    {
+        FadeOut = 0,
+        FadeIn = 1
     }
 }

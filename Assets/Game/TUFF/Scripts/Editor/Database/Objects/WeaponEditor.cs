@@ -40,6 +40,7 @@ namespace TUFF.TUFFEditor
             }
             wpt.intValue = EditorGUILayout.IntPopup("Weapon Type", wpt.intValue, options, values);
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("wieldType"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("price"));
 
             EditorGUILayout.Space();

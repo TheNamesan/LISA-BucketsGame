@@ -10,7 +10,7 @@ namespace TUFF
         public ChangeCharacterRopeJumpAction()
         {
             eventName = "Change Character Rope Jump";
-            eventColor = new Color(0.7f, 1f, 0.6f, 1f);
+            eventColor = EventGUIColors.character;
         }
         public override void Invoke()
         {

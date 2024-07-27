@@ -266,6 +266,7 @@ namespace TUFF
                 HP = GetMaxHP();
             }
         }
+        
         public virtual void CapSP()
         {
             SP = Mathf.Clamp(SP, 0, GetMaxSP());
@@ -273,6 +274,17 @@ namespace TUFF
         public virtual void CapTP()
         {
             TP = Mathf.Clamp(TP, 0, GetMaxTP());
+        }
+        public virtual void CapValues()
+        {
+            CapHP();
+            CapSP();
+            CapTP();
+        }
+        public virtual void OnEquipChange()
+        {
+            UpdateStates();
+            CapValues();
         }
         public virtual void PaySkillCost(Skill skill)
         {
@@ -829,6 +841,50 @@ namespace TUFF
         public virtual bool CanShowStatus()
         {
             return true;
+        }
+        public virtual List<int> GetWeaponEquipTypes()
+        {
+            var list = new List<int>();
+            var addWeaponTypeFeats = GetAllFeaturesOfType(FeatureType.AddWeaponEquipType);
+            for (int i = 0; i < addWeaponTypeFeats.Count; i++)
+            {
+                int index = addWeaponTypeFeats[i].weaponType;
+                if (!list.Contains(index)) list.Add(index);
+            }
+            CheckRemoveWeaponTypes(list);
+            return list;
+        }
+
+        protected void CheckRemoveWeaponTypes(List<int> list)
+        {
+            var removeTypeFeats = GetAllFeaturesOfType(FeatureType.RemoveWeaponEquipType);
+            for (int i = 0; i < removeTypeFeats.Count; i++)
+            {
+                int index = removeTypeFeats[i].weaponType;
+                list.Remove(index);
+            }
+        }
+
+        public virtual List<int> GetArmorEquipTypes()
+        {
+            var list = new List<int>();
+            var addArmorTypeFeats = GetAllFeaturesOfType(FeatureType.AddArmorEquipType);
+            for (int i = 0; i < addArmorTypeFeats.Count; i++)
+            {
+                int index = addArmorTypeFeats[i].armorType;
+                if (!list.Contains(index)) list.Add(index);
+            }
+            CheckRemoveArmorTypes(list);
+            return list;
+        }
+        protected void CheckRemoveArmorTypes(List<int> list)
+        {
+            var removeTypeFeats = GetAllFeaturesOfType(FeatureType.RemoveArmorEquipType);
+            for (int i = 0; i < removeTypeFeats.Count; i++)
+            {
+                int index = removeTypeFeats[i].armorType;
+                list.Remove(index);
+            }
         }
         public virtual List<Feature> GetAllFeaturesOfType(FeatureType featureType)
         {

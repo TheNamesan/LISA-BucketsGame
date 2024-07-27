@@ -70,6 +70,30 @@ namespace TUFF.TUFFEditor
             {
                 SingleField(position, property, orgLabelWidth, totalWidth, "skill", new GUIContent("?"));
             }
+            else if (featureType.enumValueIndex == (int)FeatureType.AddWeaponEquipType || featureType.enumValueIndex == (int)FeatureType.RemoveWeaponEquipType)
+            {
+                var types = TUFFSettings.weaponTypes;
+                GUIContent[] options = new GUIContent[types.Count];
+                int[] values = new int[types.Count];
+                for (int i = 0; i < types.Count; i++)
+                {
+                    options[i] = new GUIContent(types[i].GetName());
+                    values[i] = i;
+                }
+                IntPopupField(position, property, orgLabelWidth, totalWidth, "weaponType", new GUIContent("?"), options, values);
+            }
+            else if (featureType.enumValueIndex == (int)FeatureType.AddArmorEquipType || featureType.enumValueIndex == (int)FeatureType.RemoveArmorEquipType)
+            {
+                var types = TUFFSettings.armorTypes;
+                GUIContent[] options = new GUIContent[types.Count];
+                int[] values = new int[types.Count];
+                for (int i = 0; i < types.Count; i++)
+                {
+                    options[i] = new GUIContent(types[i].GetName());
+                    values[i] = i;
+                }
+                IntPopupField(position, property, orgLabelWidth, totalWidth, "armorType", new GUIContent("?"), options, values);
+            }
             else if (featureType.enumValueIndex == (int)FeatureType.AutoState)
             {
                 position.x += totalWidth * 0.31f;
@@ -124,6 +148,17 @@ namespace TUFF.TUFFEditor
 
             EditorGUIUtility.labelWidth = 7f;
             EditorGUI.PropertyField(position, field, firstGUIContent);
+            EditorGUIUtility.labelWidth = orgLabelWidth;
+        }
+        private static void IntPopupField(Rect position, SerializedProperty property, float orgLabelWidth, float totalWidth, string firstFieldName, GUIContent firstGUIContent, GUIContent[] options, int[] values)
+        {
+            position.x += totalWidth * 0.31f; //0.31
+            position.width = totalWidth * 0.33f;
+            var field = property.FindPropertyRelative(firstFieldName);
+
+            EditorGUIUtility.labelWidth = 7f;
+            //EditorGUI.PropertyField(position, field, firstGUIContent);
+            field.intValue = EditorGUI.IntPopup(position, firstGUIContent, field.intValue, options, values);
             EditorGUIUtility.labelWidth = orgLabelWidth;
         }
 

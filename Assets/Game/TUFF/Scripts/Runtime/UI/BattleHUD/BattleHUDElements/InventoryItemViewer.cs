@@ -49,9 +49,11 @@ namespace TUFF
         
         private void SetupElements()
         {
-            Debug.Log("Setup Elements");
             uiMenu.SetupUIElements();
-            scrollRect.SetupScroll();
+            if (scrollRect)
+            {
+                scrollRect.uiMenu = uiMenu;
+            } 
             elementAdded = false;
         }
         private void UpdateContent(Dictionary<InventoryItem, int> items, int totalElements, bool includeEmpty)

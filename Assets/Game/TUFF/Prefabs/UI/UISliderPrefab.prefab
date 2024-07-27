@@ -33,11 +33,11 @@ RectTransform:
   m_Father: {fileID: 2347536395535887699}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: -10.400024, y: 78}
+  m_Pivot: {x: 0.5, y: 0.25}
 --- !u!222 &1126772420354867216
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -66,7 +66,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: '0
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dd88ec5abbdc41d4ca284a4aacf7b938, type: 2}
   m_sharedMaterial: {fileID: -3533148569124694198, guid: dd88ec5abbdc41d4ca284a4aacf7b938, type: 2}
@@ -93,10 +95,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 72
   m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -131,7 +133,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 2, y: 2, z: 2, w: 2}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -224,6 +226,7 @@ GameObject:
   - component: {fileID: 4598369107833062970}
   - component: {fileID: 9104322563558809375}
   - component: {fileID: 7726932530698049778}
+  - component: {fileID: 554838584450424142}
   m_Layer: 5
   m_Name: BarBG
   m_TagString: Untagged
@@ -289,6 +292,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &554838584450424142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7254465737521116691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5.2, y: -5.2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8391207957768810286
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,8 +346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1100, y: 0}
-  m_SizeDelta: {x: 600, y: 80}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 600, y: 52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4717976780515323511
 CanvasRenderer:
@@ -393,14 +411,26 @@ MonoBehaviour:
   highlightDisplayText: 
   useCustomSelectSFX: 0
   customSelectSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
   useCustomDisabledSFX: 0
   customDisabledSFX:
+    audioClipMode: 0
     audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
     volume: 1
+    minVolume: 1
+    pitchMode: 0
     pitch: 1
+    minPitch: 1
   minValue: 0
   maxValue: 100
   fillIntervals: 1

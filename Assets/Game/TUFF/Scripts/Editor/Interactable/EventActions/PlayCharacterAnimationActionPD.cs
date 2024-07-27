@@ -14,7 +14,7 @@ namespace TUFF.TUFFEditor
             EditorGUILayout.PropertyField(originType);
             if ((FieldOriginType)originType.enumValueIndex == FieldOriginType.FromScene)
             {
-                EditorGUILayout.PropertyField(targetProperty.FindPropertyRelative("targetAnimationHandler"));
+                EditorGUILayout.PropertyField(targetProperty.FindPropertyRelative("targetSceneCharacter"));
             }
             EditorGUILayout.PropertyField(targetProperty.FindPropertyRelative("clip"));
         }
@@ -26,8 +26,8 @@ namespace TUFF.TUFFEditor
         {
             var action = targetObject as PlayCharacterAnimationAction;
 
-            string origin = (action.targetAnimationHandler != null && action.originType == FieldOriginType.FromScene ?
-                action.targetAnimationHandler.name : "(No Handler Set)");
+            string origin = (action.targetSceneCharacter != null && action.originType == FieldOriginType.FromScene ?
+                action.targetSceneCharacter.name : "(No Handler Set)");
             if (action.originType == FieldOriginType.FromPersistentInstance) { origin = "Follower Instance"; }
             string clip = (action.clip != null ? action.clip.name : "null");
 

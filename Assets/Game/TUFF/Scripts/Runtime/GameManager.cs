@@ -20,6 +20,9 @@ namespace TUFF
         public DatabaseLoader databaseLoader;
         public SceneLoaderManager sceneLoaderManager;
         public CommonEventManager commonEventManager;
+        public bool stopPlaytime = false;
+        [Tooltip("Index of the last opened or loaded save file ingame.")]
+        public int lastLoadedFile = -1;
         public InputActionAsset inputActionAsset { get { if (!playerInput) return null; return playerInput.actions; } }
 
         private static bool m_disablePlayerInput = false;
@@ -114,10 +117,37 @@ namespace TUFF
             SetGameFullscreen(configData.fullscreen);
             SetGameResolution(configData.resolutionWidth, configData.resolutionHeight, configData.refreshRate);
             UpdateGlobalVolume();
-
+            databaseLoader.InitializeDatabase();
             //Load Dummy Save Data
             playerData.StartPlayerData();
             playerData.AddToParty(0); //dummy test
+        }
+        public void SavePlayerData(int fileIndex)
+        {
+            lastLoadedFile = fileIndex;
+            configData.lastOpenedFile = fileIndex;
+            playerData.SaveData(fileIndex);
+            configData.SaveData();
+        }
+        public bool LoadSaveData(int fileIndex)
+        {
+            bool loaded = false;
+            playerData.StartPlayerData();
+            playerData.AddToParty(0); //test
+            var load = PlayerData.LoadData(fileIndex);
+            if (load != null)
+            {
+                loaded = true;
+                load.CheckListSizes();
+                load.CheckUnitRefs();
+
+                playerData = load;
+                lastLoadedFile = fileIndex;
+                configData.lastOpenedFile = fileIndex;
+                configData.SaveData();
+            }
+            if (loaded) Debug.Log($"Loaded File {fileIndex}");
+            return loaded;
         }
         private void ApplyKeybinds()
         {
@@ -130,26 +160,6 @@ namespace TUFF
         {
             if (!inputActionAsset) return "";
             return inputActionAsset.SaveBindingOverridesAsJson();
-        }
-        public void SavePlayerData(int fileIndex)
-        {
-            playerData.SaveData(fileIndex);
-        }
-        public bool LoadSaveData(int fileIndex)
-        {
-            bool loaded = false;
-            playerData.StartPlayerData();
-            playerData.AddToParty(0); //test
-            var load = PlayerData.LoadData(fileIndex);
-            if (load != null)
-            {
-                loaded = true;
-                load.CheckListSizes();
-
-                playerData = load;
-                PlayerData.fileLoaded = fileIndex;
-            }
-            return loaded;
         }
         private void Start()
         {
@@ -180,8 +190,8 @@ namespace TUFF
             Debug.Log($"Disable Player Input: {input}");
             if (input != prev)
             {
-                if (input) PlayerInputHandler.instance?.StopInput();
-                else PlayerInputHandler.instance?.ResumeInput();
+                if (input) inputManager.playerInputHandler?.StopInput();
+                else inputManager.playerInputHandler?.ResumeInput();
             }
             onPlayerInputToggle.Invoke(!input);
         }
@@ -221,12 +231,6 @@ namespace TUFF
             }*/
             return false;
         }
-
-        /*public bool DealDamage(Character target, int input)
-        {
-            target.CurrentHP -= input;
-            return false;
-        }*/
 
         public void GameOver()
         {
@@ -321,10 +325,15 @@ namespace TUFF
             UIController.instance.SetMenu(null);
             AudioManager.instance.StopAmbience();
             AudioManager.instance.PlayGameOverMusic();
-            UIController.instance.fadeScreen.TriggerFadeOut(1f);
+            UIController.instance.fadeScreen.FadeOut(1f);
             yield return new WaitForSecondsRealtime(1f);
             ChangeTimeScale(1);
             SceneLoaderManager.instance.LoadSceneWithFadeIn("GameOver", 0.5f, disableActionMap: true, enablePlayerInputAction: false) ;
+        }
+        public void TestBattle(Battle battle)
+        {
+            BattleManager.instance.TestBattle(battle);
+            AudioManager.instance.PlaySFX(TUFFSettings.equipSFX);
         }
     }
 }

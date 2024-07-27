@@ -60,9 +60,19 @@ namespace TUFF
         {
             return value.ToString(format, CultureInfo.InvariantCulture);
         }
-
-        public static void ListSwap<T>(List<T> list, int indexA, int indexB)
+        public static void ListMoveItemToFront<T>(List<T> list, int index)
         {
+            if (list == null) return;
+            if (index < 0 || index >= list.Count) return;
+            var tmp = list[index];
+            list.RemoveAt(index);
+            list.Insert(0, tmp);
+        }
+        public static void ListItemSwap<T>(List<T> list, int indexA, int indexB)
+        {
+            if (list == null) return;
+            if (indexA < 0 || indexA >= list.Count) return;
+            if (indexB < 0 || indexB >= list.Count) return;
             var tmp = list[indexA];
             list[indexA] = list[indexB];
             list[indexB] = tmp;

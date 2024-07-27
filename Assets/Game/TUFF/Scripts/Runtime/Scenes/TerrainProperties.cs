@@ -8,17 +8,24 @@ namespace TUFF
 {
     public class TerrainProperties : MonoBehaviour
     {
-        public TerrainPropertiesData propertiesData = null;
         public bool playerBulletsGoThrough = false;
         public bool enemyBulletsGoThrough = false;
+
+        public TerrainPropertiesData propertiesData = null;
         public UnityEvent onStepEvent = new UnityEvent();
         public Tilemap tilemap;
         [HideInInspector] public ParticleSystem stepEffect;
         [HideInInspector] public Dictionary<TerrainPropertiesData, ParticleSystem> stepEffects = new Dictionary<TerrainPropertiesData, ParticleSystem>();
 
+        //private PlatformEffector2D platformEffector2D;
         private void Awake()
         {
-            if (tilemap == null) tilemap = GetComponent<Tilemap>();  
+            if (tilemap == null) tilemap = GetComponent<Tilemap>();
+            //if (!platformEffector2D) platformEffector2D = GetComponent<PlatformEffector2D>();
+        }
+        private void FixedUpdate()
+        {
+            //if (platformEffector2D) platformEffector2D.surfaceArc = 180;
         }
         void Start()
         {
@@ -51,7 +58,7 @@ namespace TUFF
                     int index = Random.Range(0, propertiesData.stepSFXs.Count);
                     var sfx = propertiesData.stepSFXs[index];
                     var pitchVar = propertiesData.stepPitchVariation;
-                    AudioManager.instance.PlaySFX(sfx.audioClip, sfx.volume, sfx.pitch + Random.Range(-pitchVar, pitchVar));
+                    AudioManager.instance.PlaySFX(sfx.GetAudioClip(), sfx.GetVolume(), sfx.GetPitch() + Random.Range(-pitchVar, pitchVar));
                 }
                 if (propertiesData.stepEffectPrefab != null)
                 {
@@ -66,20 +73,6 @@ namespace TUFF
                 onStepEvent?.Invoke();
             }
         }
-        public void WallHit(bool ignoreSFX = false)
-        {
-            if (propertiesData)
-            {
-                if (propertiesData.wallHitSFXs.Count > 0)
-                {
-                    int index = Random.Range(0, propertiesData.wallHitSFXs.Count);
-                    var sfx = propertiesData.wallHitSFXs[index];
-                    var pitchVar = propertiesData.wallHitVariation;
-                    if (!ignoreSFX) 
-                        AudioManager.instance.PlaySFX(sfx.audioClip, sfx.volume, sfx.pitch + Random.Range(-pitchVar, pitchVar));
-                }
-            }
-        }
         public TerrainPropertiesData GetPropertiesDataFromPosition(Vector3 position, Vector3Int coordinatesOffset)
         {
             if (tilemap == null) return null;
@@ -91,6 +84,20 @@ namespace TUFF
                 return ter.terrainData;
             }
             return null;
+        }
+        public void WallHit(bool ignoreSFX = false)
+        {
+            if (propertiesData)
+            {
+                if (propertiesData.wallHitSFXs.Count > 0)
+                {
+                    int index = Random.Range(0, propertiesData.wallHitSFXs.Count);
+                    var sfx = propertiesData.wallHitSFXs[index];
+                    var pitchVar = propertiesData.wallHitVariation;
+                    if (!ignoreSFX)
+                        AudioManager.instance.PlaySFX(sfx.audioClip, sfx.volume, sfx.pitch + Random.Range(-pitchVar, pitchVar));
+                }
+            }
         }
     }
 }

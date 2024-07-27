@@ -10,7 +10,7 @@ namespace TUFF
         public FieldOriginType originType;
         public PersistentType persistentOrigin = PersistentType.AvatarController;
 
-        public CharacterAnimationHandler targetAnimationHandler;
+        public SceneCharacter targetSceneCharacter;
         public AnimationClip clip;
         public PlayCharacterAnimationAction()
         {
@@ -25,8 +25,7 @@ namespace TUFF
             }
             else
             {
-                if (targetAnimationHandler != null)
-                    targetAnimationHandler.PlayAnimation(clip);
+                targetSceneCharacter?.PlayAnimation(clip);
             }
             isFinished = true;
         }

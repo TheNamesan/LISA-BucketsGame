@@ -22,8 +22,18 @@ namespace TUFF
         SealCommand = 13,
         AddSkill = 14,
         SealSkill = 15,
-        AutoState = 16,
-        SpecialFeature = 17
+        AddWeaponEquipType = 16,
+        RemoveWeaponEquipType = 17,
+        AddArmorEquipType = 18,
+        RemoveArmorEquipType = 19,
+        FixEquipmentSlot = 20,
+        SealEquipmentSlot = 21,
+        DualWield = 22,
+        ActionTimes = 23,
+        CollapseEffect = 24,
+        PartyAbility = 25,
+        AutoState = 26,
+        SpecialFeature = 27
     }
     public enum StatChangeType
     {
@@ -114,9 +124,12 @@ namespace TUFF
         public Command command = null;
         [Tooltip("Skill target.")]
         public Skill skill = null;
+        [Tooltip("Weapon type target.")]
+        public int weaponType = 0;
+        [Tooltip("Armor type target.")]
+        public int armorType = 0;
         [Tooltip("State to apply.")]
         public State autoState = null;
-       
     }
 }
 

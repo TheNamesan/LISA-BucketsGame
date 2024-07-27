@@ -8,7 +8,7 @@ namespace TUFF.TUFFEditor
 {
     public static class EventActionSelectionWindow
     {
-        
+
         public static List<EventAction> eventList;
         public static List<EventActionPD> eventListPDs;
 
@@ -214,6 +214,10 @@ namespace TUFF.TUFFEditor
             GUI.backgroundColor = EventGUIColors.character;
             EditorGUILayout.BeginVertical("box");
             GUILayout.Label("Character", EditorStyles.boldLabel);
+            if (GUILayout.Button(new GUIContent("Change Game Object", "Changes a scene object's GameObject properties. Properties are reset when reloading the Scene.")))
+            {
+                AddEvent(new ChangeGameObjectAction(), eventList, eventListPDs);
+            }
             if (GUILayout.Button(new GUIContent("Change Transform", "Changes a scene object's transform properties. Properties are reset when reloading the Scene.")))
             {
                 AddEvent(new ChangeTransformAction(), eventList, eventListPDs);
@@ -221,6 +225,14 @@ namespace TUFF.TUFFEditor
             if (GUILayout.Button(new GUIContent("Change Sprite", "Changes a SpriteRenderer component's properties. Properties are reset when reloading the Scene.")))
             {
                 AddEvent(new ChangeSpriteAction(), eventList, eventListPDs);
+            }
+            if (GUILayout.Button(new GUIContent("Change Light 2D", "Changes a Light2D component's properties. Properties are reset when reloading the Scene.")))
+            {
+                AddEvent(new ChangeLight2DAction(), eventList, eventListPDs);
+            }
+            if (GUILayout.Button(new GUIContent("Play Animation", "Plays an animation from an Animator component in the scene.")))
+            {
+                AddEvent(new PlayAnimationAction(), eventList, eventListPDs);
             }
             if (GUILayout.Button(new GUIContent("Change Animation Pack", "Swaps the animation pack for a Scene Character or a Follower Instance.")))
             {
@@ -284,6 +296,14 @@ namespace TUFF.TUFFEditor
             GUI.backgroundColor = EventGUIColors.screenEffects;
             EditorGUILayout.BeginVertical("box");
             GUILayout.Label("Screen Effects", EditorStyles.boldLabel);
+            if (GUILayout.Button(new GUIContent("Fade Screen", "Brightens or darkens the screen.")))
+            {
+                AddEvent(new FadeScreenAction(), eventList, eventListPDs);
+            }
+            if (GUILayout.Button(new GUIContent("Tint Screen", "Changes the color of the screen.")))
+            {
+                AddEvent(new TintScreenAction(), eventList, eventListPDs);
+            }
             if (GUILayout.Button(new GUIContent("Modify Global Volume", "Changes the global volume override properties.")))
             {
                 AddEvent(new ModifyGlobalVolumeAction(), eventList, eventListPDs);
@@ -332,9 +352,16 @@ namespace TUFF.TUFFEditor
         }
         private static void SystemOptions()
         {
+            var oldColor = GUI.backgroundColor;
+            GUI.backgroundColor = EventGUIColors.system;
             EditorGUILayout.BeginVertical("box");
             GUILayout.Label("System", EditorStyles.boldLabel);
+            if (GUILayout.Button(new GUIContent("Change Menu Access", "Toggle the player's ability to open or close the pause menu manually.")))
+            {
+                AddEvent(new ChangeMenuAccessAction(), eventList, eventListPDs);
+            }
             EditorGUILayout.EndVertical();
+            GUI.backgroundColor = oldColor;
         }
         private static void BattleOptions()
         {

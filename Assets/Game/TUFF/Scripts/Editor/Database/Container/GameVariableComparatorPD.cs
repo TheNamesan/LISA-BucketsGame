@@ -57,13 +57,13 @@ namespace TUFF.TUFFEditor
             switch (valueEnum)
             {
                 case GameVariableValueType.BoolValue:
-                    EditorGUI.PropertyField(position, property.FindPropertyRelative("variableBool"), label); break;
+                    EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(GameVariableComparator.variableBool)), label); break;
                 case GameVariableValueType.NumberValue:
-                    EditorGUI.PropertyField(position, property.FindPropertyRelative("variableNumber"), label); break;
+                    EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(GameVariableComparator.variableNumber)), label); break;
                 case GameVariableValueType.StringValue:
-                    EditorGUI.PropertyField(position, property.FindPropertyRelative("variableString"), label); break;
+                    EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(GameVariableComparator.variableString)), label); break;
                 case GameVariableValueType.VectorValue:
-                    EditorGUI.PropertyField(position, property.FindPropertyRelative("variableVector"), label); break;
+                    EditorGUI.PropertyField(position, property.FindPropertyRelative(nameof(GameVariableComparator.variableVector)), label); break;
             }
         }
     }

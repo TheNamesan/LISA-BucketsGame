@@ -141,12 +141,12 @@ namespace TUFF
         public void LoadWeapons()
         {
             inventoryCategoryType = InventoryCategoryType.Weapons;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetWeaponsAndAmount());
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetAllWeaponsAndAmount());
         }
         public void LoadArmors()
         {
             inventoryCategoryType = InventoryCategoryType.Armors;
-            inventoryItemViewer?.LoadItems(PlayerData.instance.GetArmorsAndAmount());
+            inventoryItemViewer?.LoadItems(PlayerData.instance.GetAllArmorsAndAmount());
         }
         public void LoadKeyItems()
         {

@@ -13,6 +13,8 @@ namespace TUFF
         public UIElementContainer[] UIElementContainers;
         public UIElement[][] UIElements;
 
+        public int RowCount { get => UIElements.Length; }
+
         protected bool m_isOpen = false;
         public bool IsOpen { get => m_isOpen; }
 
@@ -23,8 +25,11 @@ namespace TUFF
         public int highlightY = 0;
 
         [Header("References")]
-        [Tooltip("Reference to the transition handler component. Optional. If not empty, will play Appear and Dissapear transitions when opening/closing the menu.")]
+        [Tooltip("Optional. Reference to the Scroll Rect For UI Menu component. If not empty, UI Menu's contents will scroll automatically when navigating the menu.")]
+        public ScrollRectForUIMenu scrollRect = null;
+        [Tooltip("Optional. Reference to the transition handler component. If not empty, will play Appear and Dissapear transitions when opening/closing the menu.")]
         public BoxTransitionHandler transitionHandler = null;
+        
 
         [Header("Parameters")]
         [Tooltip("If true, highlightX and highlightY will be remembered when closing the menu. Otherwise both return to 0.")]
@@ -171,6 +176,7 @@ namespace TUFF
         {
             for (int i = 0; i < onCloseMenuMenusToOpen.Count; i++)
             {
+                if (!onCloseMenuMenusToOpen[i]) continue;
                 onCloseMenuMenusToOpen[i].OpenMenu();
             }
         }
@@ -210,6 +216,7 @@ namespace TUFF
             ignoreInput = true;
             if (openSFX != null) PlaySound(openSFX);
             onOpenMenu?.Invoke();
+            scrollRect?.UpdateScroll();
             transitionHandler?.Appear();
             HighlightCurrent(); //Highlight two times in case elements are changed.
             CallElementsOnOpenMenu();
@@ -241,6 +248,8 @@ namespace TUFF
             UIElements = new UIElement[UIElementContainers.Length][];
             for (int i = 0; i < UIElementContainers.Length; i++)
             {
+                if (UIElementContainers[i] == null) { Debug.LogWarning($"Row {i} is null!"); return; }
+                if (UIElementContainers[i].UIElements == null) { Debug.LogWarning($"Row {i} list is null!"); return; }
                 if (UIElementContainers[i].UIElements.Count == 0) return;
                 UIElements[i] = new UIElement[UIElementContainers[i].UIElements.Count];
                 for (int j = 0; j < UIElementContainers[i].UIElements.Count; j++)
@@ -250,6 +259,54 @@ namespace TUFF
                 }
             }
         }
+        public void ExpandRows(int newRowCount)
+        {
+            if (UIElementContainers == null)
+            {
+                UIElementContainers = new UIElementContainer[newRowCount];
+            }
+            if (newRowCount > UIElementContainers.Length) // If row is out of row count, expand
+            {
+                var newArray = new UIElementContainer[newRowCount];
+                System.Array.Copy(UIElementContainers, newArray, UIElementContainers.Length);
+                UIElementContainers = newArray;
+                //Debug.Log("New size: " + uiMenu.UIElementContainers.Length);
+            }
+            for (int i = 0; i < UIElementContainers.Length; i++)
+            {
+                if (UIElementContainers[i] == null)
+                    UIElementContainers[i] = new UIElementContainer();
+            }
+        }
+        public void ExpandColumnsAtRow(int newColumnCount, int rowIndex)
+        {
+            if (UIElementContainers == null) return;
+            if (rowIndex >= UIElementContainers.Length) { Debug.LogWarning("Row Index is out of bounds!"); return; }
+            if (newColumnCount > UIElementContainers[rowIndex].UIElements.Count) // If row is out of row count, expand
+            {
+                while (UIElementContainers[rowIndex].UIElements.Count < newColumnCount)
+                {
+                    UIElementContainers[rowIndex].UIElements.Add(null);
+                }
+            }
+        }
+        public int GetVisibleColumnsCount()
+        {
+            if (UIElements == null) return -1;
+            int count = UIElements.Length;
+            for (int i = 0; i < UIElements.Length; i++)
+            {
+                bool hasOneElementVisible = false;
+                for (int j = 0; j < UIElements[i].Length; j++)
+                {
+                    if (UIElements[i][j] == null) continue;
+                    if (UIElements[i][j].IsActiveInHierarchy()) { hasOneElementVisible = true; break; }
+                }
+                if (!hasOneElementVisible) count--;
+            }
+            return count;
+        }
+
 
         public UIElement GetCurrentHighlight()
         {
@@ -263,10 +320,24 @@ namespace TUFF
             if (!HighlightInUIMenuIsValid(this)) return;
             HighlightElement(highlightX, highlightY);
             DisplayText(UIElements[highlightY][highlightX].highlightDisplayText);
+            scrollRect?.UpdateScroll();
         }
         protected void HighlightElement(int x, int y)
         {
             if (CheckIfUIMenuHasElements(this)) UIElements[y][x].Highlight();
+        }
+        /// <summary>
+        /// Unhighlights the current element and highlights the specified one.
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void HighlightAt(int x, int y)
+        {
+            if (!CheckIfUIMenuHasElements(this)) return;
+            if (HighlightInUIMenuIsValid(this)) UnhighlightCurrent();
+            highlightX = x;
+            highlightY = y;
+            HighlightCurrent();
         }
 
         public void UnhighlightCurrent()

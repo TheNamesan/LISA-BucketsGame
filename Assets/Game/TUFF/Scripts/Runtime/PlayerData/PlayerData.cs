@@ -7,9 +7,9 @@ namespace TUFF
     [System.Serializable]
     public class PlayerData
     {
-        public static int fileLoaded = 0;
         public const int activePartyMaxSize = 4; // Move to TUFF Settings
 
+        public double playtime = 0;
         [Tooltip("Data list of all Units")]
         public PartyMember[] party; //Save 
         public List<sbyte> partyOrder = new List<sbyte>(); //Save
@@ -20,7 +20,7 @@ namespace TUFF
         public CharacterProperties charProperties = new CharacterProperties();
         public GameVariable[] gameVariables = new GameVariable[0];
         public int[] persistentInteractableIDs = new int[0];
-        
+
 
         public static PlayerData instance
         {
@@ -37,6 +37,14 @@ namespace TUFF
         public static PlayerData LoadData(int file)
         {
             return SaveDataConverter.LoadPlayerData(file);
+        }
+        public static bool CheckAnySaveFileExists()
+        {
+            for (int i = 0; i < TUFFSettings.maxSaveFileSlots; i++)
+            {
+                if (SaveDataConverter.CheckSaveExistsAtIndex(i)) return true;
+            }
+            return false;
         }
 
         public void StartPlayerData()
@@ -100,6 +108,13 @@ namespace TUFF
                 gameVariables[i].variableType = variableData[i].variableType;
             }
         }
+        public void CheckUnitRefs()
+        {
+            for (int i = 0; i < party.Length; i++)
+            {
+                party[i].unitRef = DatabaseLoader.instance.units[i];
+            }
+        }
         public void Update()
         {
             var player = FollowerInstance.player;
@@ -108,6 +123,18 @@ namespace TUFF
                 charProperties.playerPosition = player.controller.transform.position;
                 charProperties.playerFacing = player.controller.faceDirection;
             }
+            if (!GameManager.instance.stopPlaytime)
+                playtime += Time.unscaledDeltaTime;
+        }
+        public string GetPlaytimeText()
+        {
+            System.TimeSpan timeSpan = System.TimeSpan.FromSeconds(playtime);
+            var culture = System.Globalization.CultureInfo.InvariantCulture;
+            string hours = (timeSpan.Hours.ToString("00", culture));
+            string minutes = (timeSpan.Minutes.ToString("00", culture));
+            string seconds = (timeSpan.Seconds.ToString("00", culture));
+
+            return $"{hours}:{minutes}:{seconds}";
         }
         public void GetSceneData(out string sceneName, out Vector3 playerPosition, out FaceDirections playerFacing)
         {
@@ -144,10 +171,10 @@ namespace TUFF
         {
             if (!unit) return false;
             return IsInParty(unit.id);
-        } 
+        }
         public void AddEXPToParty(int exp)
         {
-            foreach(sbyte id in partyOrder)
+            foreach (sbyte id in partyOrder)
             {
                 party[id].AddEXP(exp);
             }
@@ -161,6 +188,14 @@ namespace TUFF
         {
             this.mags = mags;
             if (this.mags < 0) this.mags = 0;
+        }
+        public void RecoverAllFromKO()
+        {
+            var playerParty = GetAllPartyMembers();
+            for (int i = 0; i < playerParty.Count; i++)
+            {
+                playerParty[i].RemoveKO();
+            }
         }
         public void AddToInventory(InventoryItem invItem, int amount)
         {
@@ -178,6 +213,7 @@ namespace TUFF
             if (user == null) return;
             UnequipFromUser(user, slot);
             EquipInUserSlot(user, equipable, slot);
+            user.OnEquipChange();
             if (equipable is Weapon) AddToInventory((Weapon)equipable, -1);
             else if (equipable is Armor) AddToInventory((Armor)equipable, -1);
         }
@@ -185,8 +221,30 @@ namespace TUFF
         {
             if (user == null) return;
             var equipable = GetEquipmentFromUserSlot(user, slot);
+            EquipInUserSlot(user, null, slot);
+            user.OnEquipChange();
             if (equipable is Weapon) AddToInventory((Weapon)equipable, +1);
             else if (equipable is Armor) AddToInventory((Armor)equipable, +1);
+        }
+        public void OptimizeEquipmentFromUser(PartyMember user)
+        {
+            // TODO: Add Check for Sealed Equipment so it doesn't get removed.
+            if (user == null) return;
+            int totalEquipmentSlots = 6;
+            for (int i = 0; i < totalEquipmentSlots; i++)
+            {
+                OptimizeSlot(user, (EquipmentSlotType)i);
+            }
+        }
+        public void ClearEquipmentFromUser(PartyMember user)
+        {
+            // TODO: Add Check for Sealed Equipment so it doesn't get removed.
+            if (user == null) return;
+            int totalEquipmentSlots = 6;
+            for (int i = 0; i < totalEquipmentSlots; i++)
+            {
+                UnequipFromUser(user, (EquipmentSlotType)i);
+            }
         }
         protected void EquipInUserSlot(PartyMember user, IEquipable equipable, EquipmentSlotType slot)
         {
@@ -207,6 +265,37 @@ namespace TUFF
                     user.primaryAccessory = armor; return;
                 case EquipmentSlotType.SecondaryAccessory:
                     user.secondaryAccessory = armor; return;
+            }
+        }
+        protected void OptimizeSlot(PartyMember user, EquipmentSlotType slot)
+        {
+            if (user == null) return;
+            bool isWeapon = (slot == EquipmentSlotType.PrimaryWeapon || slot == EquipmentSlotType.SecondaryWeapon);
+            user.GetArmorEquipTypes();
+            IEquipable currentEquipable = GetEquipmentFromUserSlot(user, slot);
+            IEquipable nextEquipable;
+            if (isWeapon) {
+                WeaponWieldType wieldType = WeaponWieldType.AnyWeaponSlot;
+                if (slot == EquipmentSlotType.PrimaryWeapon) wieldType = WeaponWieldType.PrimarySlotOnly;
+                if (slot == EquipmentSlotType.SecondaryWeapon) wieldType = WeaponWieldType.SecondarySlotOnly;
+                nextEquipable = GetHighestStatsWeapon(wieldType, user.GetWeaponEquipTypes());
+            }
+            else {
+                EquipType equipType = EquipType.Head;
+                if (slot == EquipmentSlotType.Head) equipType = EquipType.Head;
+                if (slot == EquipmentSlotType.Body) equipType = EquipType.Body;
+                if (slot == EquipmentSlotType.PrimaryAccessory || slot == EquipmentSlotType.SecondaryAccessory) 
+                    equipType = EquipType.Accessory;
+                nextEquipable = GetHighestStatsArmor(equipType, user.GetArmorEquipTypes());
+            }
+            if (nextEquipable != null)
+            {
+                if (currentEquipable != null)
+                {
+                    if (nextEquipable.GetStatTotal() > currentEquipable.GetStatTotal())
+                        EquipToUser(user, nextEquipable, slot);
+                }
+                else EquipToUser(user, nextEquipable, slot);
             }
         }
         protected IEquipable GetEquipmentFromUserSlot(PartyMember user, EquipmentSlotType slot)
@@ -231,9 +320,24 @@ namespace TUFF
         }
         public Dictionary<InventoryItem, int> GetItemsAndAmount() => inventory.GetItemsAndAmount();
         public Dictionary<InventoryItem, int> GetKeyItemsAndAmount() => inventory.GetKeyItemsAndAmount();
-        public Dictionary<InventoryItem, int> GetWeaponsAndAmount() => inventory.GetWeaponsAndAmount();
-        public Dictionary<InventoryItem, int> GetArmorsAndAmount() => inventory.GetArmorsAndAmount();
+        public Dictionary<InventoryItem, int> GetAllWeaponsAndAmount() => inventory.GetAllWeaponsAndAmount();
+        public Dictionary<InventoryItem, int> GetWeaponsAndAmountOfType(WeaponWieldType wieldType)
+           => inventory.GetWeaponsAndAmountOfType(wieldType);
+        public Dictionary<InventoryItem, int> GetWeaponsAndAmountOfType(WeaponWieldType wieldType, List<int> weaponTypes) 
+            => inventory.GetWeaponsAndAmountOfType(wieldType, weaponTypes);
+        
+        public Dictionary<InventoryItem, int> GetAllArmorsAndAmount() => inventory.GetAllArmorsAndAmount();
+        public Dictionary<InventoryItem, int> GetArmorsAndAmountOfType(EquipType equipType)
+            => inventory.GetArmorsAndAmountOfType(equipType);
+        public Dictionary<InventoryItem, int> GetArmorsAndAmountOfType(EquipType equipType, List<int> armorTypes) 
+            => inventory.GetArmorsAndAmountOfType(equipType, armorTypes);
         public Dictionary<InventoryItem, int> GetEntireInventoryAndAmount() => inventory.GetEntireInventoryAndAmount();
+        public IEquipable GetHighestStatsWeapon(WeaponWieldType wieldType, List<int> weaponTypes) => inventory.GetHighestStatsWeapon(wieldType, weaponTypes);
+        public IEquipable GetHighestStatsArmor(EquipType equipType, List<int> armorTypes) => inventory.GetHighestStatsArmor(equipType, armorTypes);
+        public int GetItemAmountFromPartyEquipment(IEquipable equipable)
+        {
+            return 0;
+        }
         public bool IsValidGameVariableIndex(int index)
         {
             return index >= 0 && index < gameVariables.Length;
@@ -303,7 +407,7 @@ namespace TUFF
         /// An active Party Member is a Unit that can participate in battle.
         /// </summary>
         /// <param name="index"></param>
-        /// <returns></returns>
+        /// <returns>Returns the active party member on the specified slot.</returns>
         public PartyMember GetActivePartyMember(int index)
         {
             if (index >= activePartyMaxSize) return party[partyOrder[activePartyMaxSize - 1]];
@@ -316,6 +420,26 @@ namespace TUFF
             int activePartySize = GameManager.instance.playerData.GetActivePartySize();
             int randomIdx = Random.Range(0, activePartySize);
             return GameManager.instance.playerData.GetActivePartyMember(randomIdx);
+        }
+        /// <summary>
+        /// An active Party Member is a Unit that can participate in battle.
+        /// </summary>
+        /// <param name="unit"></param>
+        /// <returns>Returns the slot index of the specified Unit. 
+        /// Returns -1 if the Unit is not in the active party.</returns>
+        public int GetActivePartyMemberIndex(Unit unit)
+        {
+            int activePartySize = GameManager.instance.playerData.GetActivePartySize();
+            for (int i = 0; i < activePartySize; i++)
+            {
+                PartyMember target = GameManager.instance.playerData.GetActivePartyMember(i);
+                if (target.unitRef == unit) return i;
+            }
+            return -1;
+        }
+        public bool IsInActiveParty(Unit unit)
+        {
+            return GetActivePartyMemberIndex(unit) >= 0;
         }
         public int GetPartySize()
         {

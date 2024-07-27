@@ -30,6 +30,12 @@ namespace TUFF
         public Armor primaryAccessory;
         public Armor secondaryAccessory;
 
+        [Header("Equip Types")]
+        [Tooltip("The weapons of the specified type the Unit can use by default.")]
+        public WeaponTypeList weaponTypes = new();
+        [Tooltip("The armors of the specified type the Unit can use by default.")]
+        public ArmorTypeList armorTypes = new();
+
         [Header("Features")]
         [Tooltip("The changes applied to the affected user.")]
         public List<Feature> features = new List<Feature>();
@@ -39,13 +45,16 @@ namespace TUFF
         public CharacterQuotes levelUpQuotes = new CharacterQuotes();
         public CharacterQuotes dropsQuotes = new CharacterQuotes();
 
+        [Header("Character Bio")]
+        public CharacterBio bio = new CharacterBio();
+
         public override string GetName()
         {
             return TUFFTextParser.ParseText(nameKey);
         }
         public string GetFullName()
         {
-            return TUFFTextParser.ParseText(nameKey);
+            return TUFFTextParser.ParseText(fullNameKey);
         }
     }
 }

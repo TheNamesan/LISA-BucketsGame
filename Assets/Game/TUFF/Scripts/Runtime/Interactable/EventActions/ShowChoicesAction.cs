@@ -59,9 +59,30 @@ namespace TUFF
             }
             else if (cancelBehaviour == ChoicesCancelBehaviour.Branch)
             {
-                Debug.Log("Branch here");
                 CommonEventManager.instance.TriggerEventActionBranch(this, cancelActionList);
             }
+        }
+        private List<ActionList> GetAllActionLists()
+        {
+            var allActionLists = new List<ActionList>();
+            for (int i = 0; i < choices.Count; i++)
+            {
+                allActionLists.Add(choices[i].actionList);
+            }
+            if (cancelBehaviour == ChoicesCancelBehaviour.Branch) allActionLists.Add(cancelActionList);
+            return allActionLists;
+        }
+        public override void OnEnable()
+        {
+            var allActionLists = GetAllActionLists();
+            for (int i = 0; i < allActionLists.Count; i++)
+                allActionLists[i].OnEnable();
+        }
+        public override void OnStart()
+        {
+            var allActionLists = GetAllActionLists();
+            for (int i = 0; i < allActionLists.Count; i++)
+                allActionLists[i].OnStart();
         }
     }
 

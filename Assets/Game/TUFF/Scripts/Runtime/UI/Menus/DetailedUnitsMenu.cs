@@ -11,6 +11,7 @@ namespace TUFF
         public DetailedUnitHUD detailedUnitHUDPrefab;
         public RectTransform contentParent;
         public UIMenu uiMenu;
+        public ScrollRectForUIMenu scrollRect;
 
         public bool clearContentOnAwake = false;
         
@@ -23,6 +24,7 @@ namespace TUFF
         public void Awake()
         {
             if (clearContentOnAwake) ClearContent();
+            if (scrollRect) scrollRect.uiMenu = uiMenu;
         }
         public void UpdateUnits()
         {

@@ -34,14 +34,14 @@ namespace TUFF
         public UnityEvent onUnhighlight = new UnityEvent();
 
         [Header("Input Actions")]
-        public UnityEvent onSelect;
-        public UnityEvent onSelectCanceled;
-        public UnityEvent onCancel;
-        public UnityEvent onCancelCanceled;
-        public UnityEvent onSkip;
-        public UnityEvent onSkipCanceled;
-        public UnityEvent<int> onHorizontalInput;
-        public UnityEvent<int> onVerticalInput;
+        public UnityEvent onSelect = new();
+        public UnityEvent onSelectCanceled = new();
+        public UnityEvent onCancel = new();
+        public UnityEvent onCancelCanceled = new();
+        public UnityEvent onSkip = new();
+        public UnityEvent onSkipCanceled = new();
+        public UnityEvent<int> onHorizontalInput = new();
+        public UnityEvent<int> onVerticalInput = new();
 
         [Header("Description Display")]
         [Tooltip("If the UIMenu's descriptionDisplay is not set to none, it will display this text when the element is highlighted.")]

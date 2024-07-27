@@ -14,6 +14,8 @@ namespace TUFF
         public string descriptionKey = "description_key";
         [Tooltip("The weapon's type. Compatible with Units who can equip this weapon type.")]
         public int weaponType = 0;
+        [Tooltip("The slot that this weapon occupies.")]
+        public WeaponWieldType wieldType = WeaponWieldType.PrimarySlotOnly;
 
         // Stat bonuses
         public int maxHP { get { return m_maxHP; } set { m_maxHP = value; } }

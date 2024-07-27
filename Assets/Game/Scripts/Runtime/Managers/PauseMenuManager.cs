@@ -30,7 +30,7 @@ namespace BucketsGame
         private IEnumerator Exit()
         {
             GameManager.instance.DisablePlayerAndUIInput(true);
-            UIController.instance.fadeScreen.TriggerFadeOut(1f);
+            UIController.instance.fadeScreen.FadeOut(1f);
             AudioManager.instance.FadeOutVolume(1f);
             yield return new WaitForSeconds(1f);
             SceneLoaderManager.instance.LoadSceneWithFadeIn(mainMenuScene, 0.5f, TUFFSettings.startingScenePosition, TUFFSettings.startingSceneFacing, true, true);

@@ -8,18 +8,20 @@ namespace TUFF
     {
         // Interactable Events
         [SerializeField] private List<InteractableEvent> m_queuedInteractableEvents = new();
+        [SerializeField] private List<InteractableEvent> m_parallelInteractableEvents = new();
+
         public static IEnumerator eventsCoroutine;
         public static bool interactableEventPlaying { get => m_interactableEventPlaying; }
+        public static bool parallelProcessPlaying { get => instance.m_parallelInteractableEvents.Count > 0; }
         private static bool m_interactableEventPlaying = false;
+
 
         // Common Events
         [SerializeField] private List<CommonEvent> queuedEvents = new List<CommonEvent>();
         public bool isRunning { get => m_isRunning; }
         private bool m_isRunning = false;
         #region Singleton
-        public static CommonEventManager instance
-        {
-            get
+        public static CommonEventManager instance { get
             {
                 if (!GameManager.instance) return null;
                 return GameManager.instance.commonEventManager;
@@ -27,20 +29,16 @@ namespace TUFF
         }
         private void Awake()
         {
-            //if (instance != null)
-            //{
-            //    if (instance != this) Destroy(gameObject);
-            //}
-            //else
-            //{
-            //    instance = this;
-            //    DontDestroyOnLoad(gameObject);
-            //}
 
         }
         #endregion
 
-        
+        public void TriggerParallelProcessEvent(InteractableEvent interactableEvent)
+        {
+            if (m_parallelInteractableEvents.Contains(interactableEvent)) return;
+            m_parallelInteractableEvents.Add(interactableEvent);
+            instance.StartCoroutine(TriggerParallelProcess(interactableEvent));
+        }
         public void TriggerInteractableEvent(InteractableEvent interactableEvent, bool queue = false)
         {
             if (m_interactableEventPlaying)
@@ -48,7 +46,7 @@ namespace TUFF
                 if (queue)
                     m_queuedInteractableEvents.Add(interactableEvent);
                 //else Debug.LogWarning($"Tried to play: {interactableEvent.interactableObject} with {interactableEvent.eventList.content.Count} Events");
-                return; 
+                return;
             }
             if (eventsCoroutine != null) StopEvents();
             eventsCoroutine = TriggerEventsCoroutine(interactableEvent);
@@ -64,10 +62,6 @@ namespace TUFF
         {
             ActionList actionList = interactableEvent.actionList;
             m_interactableEventPlaying = true;
-            // I put this here in buckets game to hotfix an issue where buckets would be able to keep
-            // moving right as a scene loaded and an interactable with a trigger mode of
-            // Play On Start played something. Which would cause unexpected issues.
-            GameManager.instance.DisablePlayerInput(true);
             // This is probably an ugly way of forcing input disabling if a menu is closed for example.
             // Find a better alternative
             bool yielded = false;
@@ -81,19 +75,29 @@ namespace TUFF
                 }
             });
             InteractableObject.UpdateAll();
-            if (yielded)
-            {
-                yield return new WaitForSeconds(.025f);
-            }
+            
+            if (yielded) yield return new WaitForSeconds(.025f);
             GameManager.instance.DisablePlayerInput(false);
             Debug.Log("Regain Control");
             m_interactableEventPlaying = false;
             if (m_queuedInteractableEvents.Count > 0)
             {
+                // Dequeue
                 var evt = m_queuedInteractableEvents[0];
                 m_queuedInteractableEvents.RemoveAt(0);
                 TriggerInteractableEvent(evt);
-            }    
+            }
+            else
+            {
+                InteractableObject.CheckAutorunTriggers();
+            }
+        }
+        protected IEnumerator TriggerParallelProcess(InteractableEvent interactableEvent)
+        {
+            ActionList actionList = interactableEvent.actionList;
+            yield return actionList.PlayActions();
+            m_parallelInteractableEvents.Remove(interactableEvent);
+            InteractableObject.CheckParallelProcessTriggers();
         }
 
         public void QueueCommonEvent(CommonEvent commonEvent)

@@ -23,6 +23,13 @@ namespace TUFF.TUFFEditor
         override public void OnInspectorGUI()
         {
             var battle = target as Battle;
+
+            if (GUILayout.Button("Test Battle", (EditorStyles.miniButton)))
+            {
+                TUFFWizard.TestBattle(battle);
+            }
+            EditorGUILayout.Space();
+
             EditorGUILayout.PropertyField(serializedObject.FindProperty("background"));
             EditorGUILayout.PropertyField(serializedObject.FindProperty("initialEnemies"));
             if (GUILayout.Button("Instantiate Enemy Graphic", (EditorStyles.miniButton)))
@@ -50,6 +57,9 @@ namespace TUFF.TUFFEditor
 
             EditorGUILayout.PropertyField(autoPlayBGM);
             if (autoPlayBGM.boolValue) EditorGUILayout.PropertyField(bgm);
+
+            
+
             serializedObject.ApplyModifiedProperties();
         }
         private void GetList()

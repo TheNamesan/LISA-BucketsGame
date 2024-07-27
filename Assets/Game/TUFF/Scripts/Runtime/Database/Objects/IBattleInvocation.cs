@@ -33,6 +33,14 @@ namespace TUFF
         {
             return "";
         }
+        public bool CanBeUsedInMenu()
+        {
+            return occasion == OccasionType.Always || occasion == OccasionType.OnlyFromMenu;
+        }
+        public bool CanBeUsedInBattle()
+        {
+            return occasion == OccasionType.Always || occasion == OccasionType.OnlyInBattle;
+        }
         public List<BattleAnimationEvent> GetAllEvents()
         {
             var evts = new List<BattleAnimationEvent>();

@@ -7,21 +7,56 @@ namespace TUFF
     [System.Serializable]
     public class PartyMember : Targetable
     {
-        public virtual Unit unitRef { get; set; }
-        public Job job { get => m_job; }
-        [SerializeField] protected Job m_job;
+        public virtual Unit unitRef { get => m_unitRef; set => m_unitRef = value; }
+        [System.NonSerialized] protected Unit m_unitRef;
+        public Job job
+        {
+            get => DatabaseLoader.instance.GetJobFromID(m_jobID);
+            protected set { m_jobID = (value != null ? value.id : -1); }
+        }
+        [SerializeField] protected int m_jobID = -1;
         public int prevExp = 0;
         public int exp = 0;
         public int prevLevel = 1;
         public int level = 1;
 
         // Equipment
-        public Weapon primaryWeapon;
-        public Weapon secondaryWeapon;
-        public Armor head;
-        public Armor body;
-        public Armor primaryAccessory;
-        public Armor secondaryAccessory;
+        public Weapon primaryWeapon
+        {
+            get => DatabaseLoader.instance.GetWeaponFromID(m_primaryWeaponID);
+            set { m_primaryWeaponID = (value != null ? value.id : -1); }
+        }
+        [SerializeField] protected int m_primaryWeaponID = -1;
+        public Weapon secondaryWeapon
+        {
+            get => DatabaseLoader.instance.GetWeaponFromID(m_secondaryWeaponID);
+            set { m_secondaryWeaponID = (value != null ? value.id : -1); }
+        }
+        [SerializeField] protected int m_secondaryWeaponID = -1;
+        public Armor head
+        {
+            get => DatabaseLoader.instance.GetArmorFromID(m_headID);
+            set { m_headID = (value != null ? value.id : -1); }
+        }
+        [SerializeField] protected int m_headID = -1;
+        public Armor body
+        {
+            get => DatabaseLoader.instance.GetArmorFromID(m_bodyID);
+            set { m_bodyID = (value != null ? value.id : -1); }
+        }
+        [SerializeField] protected int m_bodyID = -1;
+        public Armor primaryAccessory
+        {
+            get => DatabaseLoader.instance.GetArmorFromID(m_primaryAccessoryID);
+            set { m_primaryAccessoryID = (value != null ? value.id : -1); }
+        }
+        [SerializeField] protected int m_primaryAccessoryID = -1;
+        public Armor secondaryAccessory
+        {
+            get => DatabaseLoader.instance.GetArmorFromID(m_secondaryAccessoryID);
+            set { m_secondaryAccessoryID = (value != null ? value.id : -1); }
+        }
+        [SerializeField] protected int m_secondaryAccessoryID = -1;
 
         // Skills
         public bool[] learnedSkills = new bool[0];
@@ -63,6 +98,10 @@ namespace TUFF
         {
             return unitRef.GetName();
         }
+        public string GetFullName()
+        {
+            return unitRef.GetFullName();
+        }
         public override int GetLevel()
         {
             return level;
@@ -73,7 +112,7 @@ namespace TUFF
             newLevel = Mathf.Max(0, newLevel); // Cap Min
             level = newLevel;
             exp = job.LevelToStat(level, LevelToStatType.EXP);
-            var skills = m_job?.GetSkillsToLearnAtLevel(level, 1);
+            var skills = this.job?.GetSkillsToLearnAtLevel(level, 1);
             foreach (Skill skl in skills) LearnSkill(skl);
         }
         public void AddLevel(int levelAdd)
@@ -90,12 +129,12 @@ namespace TUFF
             {
                 if (level == 100) break; // Replace with level cap
                 levelProgress = GetNextLevelProgress(level, job, exp);
-                if (levelProgress >= 1f) { 
+                if (levelProgress >= 1f) {
                     level++;
-                    Debug.Log("LEVEL UP! " + level); 
+                    Debug.Log("LEVEL UP! " + level);
                 }
             }
-            var skills = m_job?.GetSkillsToLearnAtLevel(level, 1);
+            var skills = this.job?.GetSkillsToLearnAtLevel(level, 1);
             foreach (Skill skl in skills) LearnSkill(skl);
         }
         public void SetEXP(int expSet)
@@ -112,12 +151,30 @@ namespace TUFF
         {
             PlayerData.instance.UnequipFromUser(this, slot);
         }
+        public void OptimizeEquipment()
+        {
+            PlayerData.instance.OptimizeEquipmentFromUser(this);
+        }
+        public void ClearEquipment()
+        {
+            PlayerData.instance.ClearEquipmentFromUser(this);
+        }
         public static float GetNextLevelProgress(int level, Job job, int exp)
         {
-            if (level == 100) return 0f; //Replace with level cap
+            if (level >= 100) return 0f; //Replace with level cap
             int currentLevelExp = job.LevelToStat(level, LevelToStatType.EXP);
             int nextLevelExp = job.LevelToStat(level + 1, LevelToStatType.EXP);
             return Mathf.Lerp(0f, 1f, Mathf.InverseLerp(currentLevelExp, nextLevelExp, exp));
+        }
+        public int GetEXPtoNextLevel()
+        {
+            if (level >= 100) return 0; //Replace with level cap
+            int nextLevelExp = job.LevelToStat(level + 1, LevelToStatType.EXP);
+            return nextLevelExp - exp;
+        }
+        public int GetTotalEXP()
+        {
+            return exp;
         }
         public override Job GetJob() {
             Debug.Log(job);
@@ -399,6 +456,11 @@ namespace TUFF
             var value = (GetBaseCritRate() * 0.01f) + BattleManager.GetExtraRateChange(GetAllFeaturesOfType(FeatureType.ExtraRateChange, equipables), ExtraRateChangeType.CritRate);
             return value;
         }
+        public virtual float GetCritEvasionRate(List<IEquipable> equipables)
+        {
+            var value = (GetBaseCritEvasionRate() * 0.01f) + BattleManager.GetExtraRateChange(GetAllFeaturesOfType(FeatureType.ExtraRateChange, equipables), ExtraRateChangeType.CritEvasionRate);
+            return value;
+        }
         public virtual float GetTargetRate(List<IEquipable> equipables)
         {
             var value = (GetBaseTargetRate() * 0.01f) * BattleManager.GetSpecialRateChange(GetAllFeaturesOfType(FeatureType.SpecialRateChange, equipables), SpecialRateChangeType.TargetRate);
@@ -426,7 +488,7 @@ namespace TUFF
         {
             List<Feature> features = featuresRef;
             if (features == null) features = new List<Feature>();
-            List<IEquipable> equipables = new List<IEquipable>{ primaryWeapon, secondaryWeapon, head, body, primaryAccessory, secondaryAccessory };
+            List<IEquipable> equipables = new List<IEquipable> { primaryWeapon, secondaryWeapon, head, body, primaryAccessory, secondaryAccessory };
             for (int i = 0; i < equipables.Count; i++)
             {
                 if (equipables[i] == null) continue;
@@ -467,12 +529,12 @@ namespace TUFF
         }
         public virtual void AssignJob(Job job)
         {
-            m_job = job;
+            this.job = job;
             if (job == null) return;
             var skills = job?.GetSkillsToLearnAtLevel(level, 1);
             foreach (Skill skl in skills) LearnSkill(skl);
         }
-        
+
         public virtual void LearnSkill(Skill skill, bool learn = true)
         {
             if (skill == null) return;
@@ -493,7 +555,71 @@ namespace TUFF
         {
             if (id < 0 || id >= learnedSkills.Length) return false;
             if (TUFFSettings.DebugIgnoreLearnedSkills()) return true;
+            var addSkillFeatures = GetAllFeaturesOfType(FeatureType.AddSkill);
+            if (addSkillFeatures.Find(e => e.skill && e.skill.id == id) != null) return true;
             return learnedSkills[id];
+        }
+        public virtual bool HasWeaponEquipped(Weapon weapon)
+        {
+            if (primaryWeapon == weapon) return true;
+            if (secondaryWeapon == weapon) return true;
+            return false;
+        }
+        public virtual bool HasArmorEquipped(Armor armor)
+        {
+            if (head == armor) return true;
+            if (body == armor) return true;
+            if (primaryAccessory == armor) return true;
+            if (secondaryAccessory == armor) return true;
+            return false;
+        }
+        public override List<int> GetWeaponEquipTypes()
+        {
+            var list = base.GetWeaponEquipTypes();
+            if (m_unitRef)
+            {
+                var unitRefEquips = m_unitRef.weaponTypes.weaponTypes;
+                for (int i = 0; i < unitRefEquips.Count; i++)
+                {
+                    int index = unitRefEquips[i];
+                    if (!list.Contains(index)) list.Add(index);
+                }
+            }
+            if (job)
+            {
+                var jobRefEquips = job.weaponTypes.weaponTypes;
+                for (int i = 0; i < jobRefEquips.Count; i++)
+                {
+                    int index = jobRefEquips[i];
+                    if (!list.Contains(index)) list.Add(index);
+                }
+            }
+            CheckRemoveWeaponTypes(list);
+            return list;
+        }
+        public override List<int> GetArmorEquipTypes()
+        {
+            var list = base.GetArmorEquipTypes();
+            if (m_unitRef)
+            {
+                var unitRefEquips = m_unitRef.armorTypes.armorTypes;
+                for (int i = 0; i < unitRefEquips.Count; i++)
+                {
+                    int index = unitRefEquips[i];
+                    if (!list.Contains(index)) list.Add(index);
+                }
+            }
+            if (job)
+            {
+                var jobRefEquips = job.armorTypes.armorTypes;
+                for (int i = 0; i < jobRefEquips.Count; i++)
+                {
+                    int index = jobRefEquips[i];
+                    if (!list.Contains(index)) list.Add(index);
+                }
+            }
+            CheckRemoveArmorTypes(list);
+            return list;
         }
     }
 }

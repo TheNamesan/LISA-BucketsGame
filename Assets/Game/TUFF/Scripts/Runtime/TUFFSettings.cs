@@ -10,6 +10,7 @@ namespace TUFF
         public static string version { get => "1.0.0"; }
         public static string interactableGizmoFilename { get => Instance.m_interactableGizmoFilename; }
         public static GameObject interactablePrefab { get => Instance.m_interactablePrefab; }
+        public static GameObject overworldCharacterPrefab { get => Instance.m_overworldCharacterPrefab; }
         public static GameObject enemyGraphicPrefab { get => Instance.m_enemyGraphicPrefab; }
         public static GameObject defaultTextbox { get => Instance.m_defaultTextbox; }
         public static GameObject fixedTextbox { get => Instance.m_systemTextbox; }
@@ -19,6 +20,8 @@ namespace TUFF
         public static bool ignoreLearnedSkills { get => Instance.m_ignoreLearnedSkills; }
         public static bool overrideUnitInitLevel { get => Instance.m_overrideUnitInitLevel; }
         public static int overrideUnitInitLevelValue { get => Instance.m_overrideUnitInitLevelValue; }
+        // Player Data
+        public static int maxSaveFileSlots { get => Mathf.Max(1, Instance.m_maxSaveFileSlots); }
         // Battle System
         public static float critMultiplier { get => Instance.m_critMultiplier; }
         public static TPRecoveryByDamageType TPRecoveryByDamageType { get => Instance.m_TPRecoveryByDamageType; }
@@ -71,10 +74,12 @@ namespace TUFF
         public static SFX selectSFX { get => Instance.m_selectSFX; }
         public static SFX cancelSFX { get => Instance.m_cancelSFX; }
         public static SFX disabledSFX { get => Instance.m_disabledSFX; }
+        public static SFX equipSFX { get => Instance.m_equipSFX; }
         public static SFX saveSFX { get => Instance.m_saveSFX; }
         public static SFX loadSFX { get => Instance.m_loadSFX; }
         public static SFX battleStartSFX { get => Instance.m_battleStartSFX; }
-        public static AudioClip battleVictorySFX { get => Instance.m_battleVictorySFX; }
+        public static SFX escapeSFX { get => Instance.m_escapeSFX; }
+        public static SFX battleVictorySFX { get => Instance.m_battleVictorySFX; }
         public static SFX unitDamageSFX { get => Instance.m_unitDamageSFX; }
         public static SFX unitKOSFX { get => Instance.m_unitKOSFX; }
         public static SFX enemyDamageSFX { get => Instance.m_enemyDamageSFX; }
@@ -86,7 +91,7 @@ namespace TUFF
         public static SFX levelUpSFX { get => Instance.m_levelUpSFX; }
         public static SFX shopSFX { get => Instance.m_shopSFX; }
         public static SFX useItemSFX { get => Instance.m_useItemSFX; }
-        public static SFX equipSFX { get => Instance.m_equipSFX; }
+        
         //New Game Load
         public static string startingSceneName { get => Instance.m_startingSceneName; }
         public static Vector2 startingScenePosition { get => Instance.m_startingScenePosition; }
@@ -115,6 +120,16 @@ namespace TUFF
         public static string quantityText { get => ParseText(Instance.m_quantityTermKey); }
         public static string acceptText { get => ParseText(Instance.m_acceptTermKey); }
         public static string cancelText { get => ParseText(Instance.m_cancelTermKey); }
+        public static string saveFilePromptText { get => ParseText(Instance.m_saveFilePromptTermKey); }
+        public static string loadFilePromptText { get => ParseText(Instance.m_loadFilePromptTermKey); }
+        public static string currentExpText { get => ParseText(Instance.m_currentExpTermKey); }
+        public static string toNextLevelText { get => ParseText(Instance.m_toNextLevelTermKey); }
+        // Character Bio
+        public static string fightingArtText { get => ParseText(Instance.m_fightingArtTermKey); }
+        public static string pastOccupationText { get => ParseText(Instance.m_pastOccupationTermKey); }
+        public static string likesText { get => ParseText(Instance.m_likesTermKey); }
+        public static string favoriteFoodText { get => ParseText(Instance.m_favoriteFoodTermKey); }
+        public static string mostHatedThingText { get => ParseText(Instance.m_mostHatedThingTermKey); }
         // Terms
         public static string levelText { get => ParseText(Instance.m_levelTermKey); }
         public static string levelShortText { get => ParseText(Instance.m_levelShortTermKey); }
@@ -133,6 +148,18 @@ namespace TUFF
         public static string SDEFShortText { get => ParseText(Instance.m_SDEFShortTermKey); }
         public static string AGIShortText { get => ParseText(Instance.m_AGIShortTermKey); }
         public static string LUKShortText { get => ParseText(Instance.m_LUKShortTermKey); }
+        // Extra Rate
+        public static string hitRateText { get => ParseText(Instance.m_hitRateTermKey); }
+        public static string hitRateShortText { get => ParseText(Instance.m_hitRateShortTermKey); }
+        public static string evasionRateText { get => ParseText(Instance.m_evasionRateTermKey); }
+        public static string evasionRateShortText { get => ParseText(Instance.m_evasionRateShortTermKey); }
+        public static string criticalRateText { get => ParseText(Instance.m_criticalRateTermKey); }
+        public static string criticalRateShortText { get => ParseText(Instance.m_criticalRateShortTermKey); }
+        public static string criticalEvasionRateText { get => ParseText(Instance.m_criticalEvasionRateTermKey); }
+        public static string criticalEvasionRateShortText { get => ParseText(Instance.m_criticalEvasionRateShortTermKey); }
+        // Special Rate
+        public static string targetRateText { get => ParseText(Instance.m_targetRateTermKey); }
+        public static string targetRateShortText { get => ParseText(Instance.m_targetRateShortTermKey); }
         public static string currencyText { get => ParseText(Instance.m_currencyTermKey); }
         public static string currencyShortText { get => ParseText(Instance.m_currencyShortTermKey); }
         public static string weaponText { get => ParseText(Instance.m_weaponTermKey); }
@@ -155,6 +182,7 @@ namespace TUFF
 
         [Header("TUFF Prefabs")]
         [SerializeField] private GameObject m_interactablePrefab;
+        [SerializeField] private GameObject m_overworldCharacterPrefab;
         [SerializeField] private GameObject m_enemyGraphicPrefab;
 
         [Header("Textbox Prefabs")]
@@ -170,8 +198,13 @@ namespace TUFF
         [SerializeField] private bool m_skillsCostNoResources = false;
         [Tooltip("If true, all party members can use any skill from a command regardless of if the skill is known or not.")]
         [SerializeField] private bool m_ignoreLearnedSkills = false;
+        [Tooltip("If true, all party members will join at the specified level.")]
         [SerializeField] private bool m_overrideUnitInitLevel = false;
         [SerializeField] private int m_overrideUnitInitLevelValue = 1;
+
+        [Header("Player Data")]
+        [Tooltip("The amount of save files the player can save to. Minimum of 1.")]
+        [SerializeField] public int m_maxSaveFileSlots = 16;
 
         [Header("Battle System")]
         [Tooltip("Default: 3")]
@@ -191,7 +224,7 @@ namespace TUFF
         [SerializeField] private bool m_showEnemyStatsByDefault = false;
         [Tooltip("Base value for UP value.")]
         [SerializeField] private int m_baseMaxUP = 300;
-        
+
         // Battle Types
         [Tooltip("List of special characteristics given to attacks. Users can have weaknesses or resistance to a certain element, multiplying the damage dealt.")]
         [SerializeField] private List<BattleType> m_elements = new List<BattleType>();
@@ -247,26 +280,28 @@ namespace TUFF
         [SerializeField] private BGMPlayData m_gameOverBGM = new BGMPlayData();
 
         [Header("SFX")]
-        [SerializeField] private SFX m_highlightSFX;
-        [SerializeField] private SFX m_selectSFX;
-        [SerializeField] private SFX m_cancelSFX;
-        [SerializeField] private SFX m_disabledSFX;
-        [SerializeField] private SFX m_saveSFX;
-        [SerializeField] private SFX m_loadSFX;
-        [SerializeField] private SFX m_battleStartSFX;
-        [SerializeField] private AudioClip m_battleVictorySFX;
-        [SerializeField] private SFX m_unitDamageSFX;
-        [SerializeField] private SFX m_unitKOSFX;
-        [SerializeField] private SFX m_enemyDamageSFX;
-        [SerializeField] private SFX m_enemyKOSFX;
-        [SerializeField] private SFX m_critDamageSFX;
-        [SerializeField] private SFX m_recoverySFX;
-        [SerializeField] private SFX m_missSFX;
-        [SerializeField] private SFX m_EXPTickSFX;
-        [SerializeField] private SFX m_levelUpSFX;
-        [SerializeField] private SFX m_shopSFX;
-        [SerializeField] private SFX m_useItemSFX;
-        [SerializeField] private SFX m_equipSFX;
+        [SerializeField] private SFX m_highlightSFX = new();
+        [SerializeField] private SFX m_selectSFX = new();
+        [SerializeField] private SFX m_cancelSFX = new();
+        [SerializeField] private SFX m_disabledSFX = new();
+        [SerializeField] private SFX m_equipSFX = new();
+        [SerializeField] private SFX m_saveSFX = new();
+        [SerializeField] private SFX m_loadSFX = new();
+        [SerializeField] private SFX m_battleStartSFX = new();
+        [SerializeField] private SFX m_escapeSFX = new();
+        [SerializeField] private SFX m_battleVictorySFX = new();
+        [SerializeField] private SFX m_unitDamageSFX = new();
+        [SerializeField] private SFX m_unitKOSFX = new();
+        [SerializeField] private SFX m_enemyDamageSFX = new();
+        [SerializeField] private SFX m_enemyKOSFX = new();
+        [SerializeField] private SFX m_critDamageSFX = new();
+        [SerializeField] private SFX m_recoverySFX = new();
+        [SerializeField] private SFX m_missSFX = new();
+        [SerializeField] private SFX m_EXPTickSFX = new();
+        [SerializeField] private SFX m_levelUpSFX = new();
+        [SerializeField] private SFX m_shopSFX = new();
+        [SerializeField] private SFX m_useItemSFX = new();
+        
 
         [Header("New Game Load")]
         [Tooltip("The Scene to load on New Game.")]
@@ -300,6 +335,16 @@ namespace TUFF
         public string m_quantityTermKey = "Quantity";
         public string m_acceptTermKey = "";
         public string m_cancelTermKey = "";
+        public string m_saveFilePromptTermKey = "Save to which file?";
+        public string m_loadFilePromptTermKey = "Load which file?";
+        public string m_currentExpTermKey = "Current Exp";
+        public string m_toNextLevelTermKey = "To Next Level";
+
+        public string m_fightingArtTermKey = "Fighting Art";
+        public string m_pastOccupationTermKey = "Past Occupation";
+        public string m_likesTermKey = "Likes";
+        public string m_favoriteFoodTermKey = "Favorite Food";
+        public string m_mostHatedThingTermKey = "Most Hated Thing";
 
         public string m_levelTermKey = "";
         public string m_levelShortTermKey = "";
@@ -318,6 +363,18 @@ namespace TUFF
         public string m_SDEFShortTermKey = "";
         public string m_AGIShortTermKey = "";
         public string m_LUKShortTermKey = "";
+
+        public string m_hitRateTermKey = "Hit Rate";
+        public string m_hitRateShortTermKey = "Hit";
+        public string m_evasionRateTermKey = "Evasion Rate";
+        public string m_evasionRateShortTermKey = "Evasion";
+        public string m_criticalRateTermKey = "Critical Rate";
+        public string m_criticalRateShortTermKey = "Critical";
+        public string m_criticalEvasionRateTermKey = "Critical Evasion Rate";
+        public string m_criticalEvasionRateShortTermKey = "Crit Evasion";
+        public string m_targetRateTermKey = "Target Rate";
+        public string m_targetRateShortTermKey = "Aggro";
+
         public string m_currencyTermKey = "Magazines";
         public string m_currencyShortTermKey = "Mags";
 

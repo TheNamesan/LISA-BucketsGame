@@ -11,15 +11,13 @@ namespace TUFF
         [Header("References")]
         public Camera cam;
         public SceneProperties si;
-    
+
         [Header("Camera Pixel Perfect Offset")]
         private const float pixelPerfectOffsetX = 0.075f;
         private const float pixelPerfectOffsetY = 0.03f;
-        //private const float pixelPerfectOffsetX = 0.0f;
-        //private const float pixelPerfectOffsetY = 0.0f;
 
         float timeOffset = 1;
-    
+
         float camHalfHeight;
         float camHalfWidth;
         Vector3 previousPosition;
@@ -45,11 +43,11 @@ namespace TUFF
         public List<SpriteRenderer> fixedParallaxElements;
 
         public List<Vector3> originalParallaxPos = new List<Vector3>();
-        
+
         SpriteRenderer backgroundSpr;
 
         public UnityEvent<bool> onCameraFollowingToggle = new();
-    
+
         [HideInInspector] public bool disableCameraFollow;
         [HideInInspector] public Vector3 orgPosition;
         private Vector2 min;
@@ -72,18 +70,18 @@ namespace TUFF
             GetParallaxOriginalPosition();
             UpdateCamera();
         }
-    
+
         void LateUpdate()
         {
             UpdateCamera();
         }
-    
+
         public void GetParallaxOriginalPosition()
         {
             originalParallaxPos.Clear();
             for (int i = 0; i < parallaxElements.Count; i++)
             {
-                if (parallaxElements[i] == null) 
+                if (parallaxElements[i] == null)
                 {
                     originalParallaxPos.Add(Vector2.zero);
                     continue;
@@ -101,7 +99,7 @@ namespace TUFF
                 endpos.z = transform.position.z;
                 if (!disableCameraFollow) transform.position = endpos;
             }
-            
+
             camHalfHeight = (2f * cam.orthographicSize) / 2;
             camHalfWidth = camHalfHeight * cam.aspect;
             //Debug.Log($"W: {camHalfWidth}, H: {camHalfHeight}");
@@ -112,8 +110,6 @@ namespace TUFF
             float maxPosX = max.x - camHalfWidth;
             float minPosY = min.y + camHalfHeight;
             float maxPosY = max.y - camHalfHeight;
-            
-            
 
             // Clamp Position
             Vector2 clampMinPos = new Vector2(minPosX + pixelPerfectOffsetX, minPosY + pixelPerfectOffsetY);
@@ -124,7 +120,7 @@ namespace TUFF
                 if (clampMaxPos.x < camHalfWidth) clampMaxPos.x = camHalfWidth;
             }
             if (clampMinPos.y > clampMaxPos.y)
-            { 
+            {
                 if (clampMinPos.y > camHalfHeight) clampMinPos.y = camHalfHeight;
                 if (clampMaxPos.y < camHalfHeight) clampMaxPos.y = camHalfHeight;
             }
@@ -137,10 +133,10 @@ namespace TUFF
 
             UpdateParallax(clampMinPos.x, clampMaxPos.x, clampMinPos.y, clampMaxPos.y);
         }
-    
+
         private void UpdateParallax(float minPosX, float maxPosX, float minPosY, float maxPosY)
         {
-            
+
             if (background != null)
             {
                 Vector2 minimumPos = min + (Vector2)backgroundSpr.bounds.size * 0.5f;
@@ -148,14 +144,11 @@ namespace TUFF
 
                 float timeX = Mathf.InverseLerp(minPosX, maxPosX, transform.position.x);
                 float timeY = Mathf.InverseLerp(minPosY, maxPosY, transform.position.y);
-                float posX = Mathf.Lerp(minimumPos.x, maximumPos.x,
-                    timeX);
-                float posY = Mathf.Lerp(minimumPos.y, maximumPos.y,
-                    timeY);
+                float posX = Mathf.Lerp(minimumPos.x, maximumPos.x, timeX);
+                float posY = Mathf.Lerp(minimumPos.y, maximumPos.y, timeY);
 
                 if (anchorBackgroundX) posX = transform.position.x;
                 if (anchorBackgroundY) posY = transform.position.y;
-
 
                 background.position = new Vector3(
                     posX,
@@ -191,7 +184,7 @@ namespace TUFF
                 float offsetX = transform.position.x * 0.1f * scaleX - (minPosX * 0.1f * scaleX);
                 offsetX -= parallaxElements[i].bounds.size.x * 0.5f - camHalfWidth;
                 Vector2 indParallaxOffset = Vector2.zero;
-                if (i < individualParallaxOffset.Count) 
+                if (i < individualParallaxOffset.Count)
                     indParallaxOffset = individualParallaxOffset[i];
                 float posX = transform.position.x - offsetX + parallaxOffset.x + indParallaxOffset.x;
 
@@ -200,9 +193,9 @@ namespace TUFF
 
                 parallaxElements[i].transform.position = new Vector3(
                     posX,
-                    posY, 
+                    posY,
                     parallaxElements[i].transform.position.z);
-                
+
             }
             previousPosition = transform.position;
         }
@@ -212,42 +205,41 @@ namespace TUFF
             disableCameraFollow = input;
             onCameraFollowingToggle.Invoke(!input);
         }
-    
+
         public void MoveCamera(CameraMove cameraMove)
         {
             bool rememberToEnableCamera = false;
             DisableCameraFollow(true);
             KillTween();
             Vector3 target = Vector3.zero;
-            switch(cameraMove.moveCameraType)
+            switch (cameraMove.moveCameraType)
             {
                 case MoveCameraType.MoveDelta:
                     target = new Vector3(transform.position.x + cameraMove.moveDelta.x,
                         transform.position.y + cameraMove.moveDelta.y, transform.position.z);
                     break;
-    
+
                 case MoveCameraType.MoveToWorldPosition:
                     target = new Vector3(cameraMove.targetWorldPosition.x,
                         cameraMove.targetWorldPosition.y, transform.position.z);
                     break;
-    
+
                 case MoveCameraType.MoveToTransformPosition:
                     Vector2 pos = new Vector2();
                     if (cameraMove.targetTransform) pos = cameraMove.targetTransform.position;
                     target = new Vector3(pos.x, pos.y, transform.position.z);
                     break;
-    
+
                 case MoveCameraType.ReturnToPlayer:
                     target = new Vector3(FollowerInstance.player.controller.transform.position.x,
                         FollowerInstance.player.controller.transform.position.y, transform.position.z);
                     rememberToEnableCamera = true;
                     break;
             }
-            //target = ClampVector(target);
-            //Debug.Log("Target: " + target);
+            target = ClampVector(target);
             MoveCameraToTarget(cameraMove, rememberToEnableCamera, target);
         }
-    
+
         private void MoveCameraToTarget(CameraMove cameraMove, bool rememberToEnableCamera, Vector3 target)
         {
             tween = transform.DOMove(
@@ -261,12 +253,12 @@ namespace TUFF
                                         cameraMove.onMovementEnd?.Invoke();
                                     });
         }
-    
+
         public void ShakeCamera(CameraShake cameraShake)
         {
             DisableCameraFollow(true);
             KillTween();
-            if(!cameraShake.enableFadeOut) orgPosition = transform.position;
+            if (!cameraShake.enableFadeOut) orgPosition = transform.position;
             tween = transform.DOShakePosition(
                     cameraShake.timeDuration,
                     new Vector3(cameraShake.shakeStrength.x, cameraShake.shakeStrength.y, 0),
@@ -276,12 +268,12 @@ namespace TUFF
                     cameraShake.enableFadeOut
                 )
                 .OnComplete(() =>
-                    {
-                        if (!cameraShake.enableFadeOut) transform.position = orgPosition;
-                        KillTween();
-                        DisableCameraFollow(cameraShake.disableCameraFollow);
-                        cameraShake.onShakeEnd?.Invoke();
-                    }
+                {
+                    if (!cameraShake.enableFadeOut) transform.position = orgPosition;
+                    KillTween();
+                    DisableCameraFollow(cameraShake.disableCameraFollow);
+                    cameraShake.onShakeEnd?.Invoke();
+                }
                 );
         }
         Vector3 ClampVector(Vector3 vector)
@@ -289,11 +281,11 @@ namespace TUFF
             if (!si) return vector;
             vector = new Vector3
                 (
-                    Mathf.Clamp(vector.x, si.min.x + camHalfWidth, si.max.x - camHalfWidth),
-                    Mathf.Clamp(vector.y, si.min.y + camHalfHeight, si.max.y - camHalfHeight),
+                    Mathf.Clamp(vector.x, min.x + camHalfWidth, max.x - camHalfWidth),
+                    Mathf.Clamp(vector.y, min.y + camHalfHeight, max.y - camHalfHeight),
                     transform.position.z
                 );
-    
+
             return vector;
         }
         void KillTween()

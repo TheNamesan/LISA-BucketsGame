@@ -8,9 +8,13 @@ namespace TUFF
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        private OverworldCharacterController avatar;
-        public MoveRouteHandler moveRouteHandler = null;
-        public static PlayerInputHandler instance;
+        private OverworldCharacterController avatar { get 
+            {
+                if (FollowerInstance.player)
+                    return FollowerInstance.player.controller;
+                return null;
+            } 
+        }
 
         [Header("Inputs")]
         public CharacterInputStream playerInput = new();
@@ -18,29 +22,50 @@ namespace TUFF
         [Header("Events")]
         public UnityEvent<InputAction.CallbackContext> onMove = new();
 
-        private void Awake()
+        private IEnumerator lateFixedUpdate;
+
+        private void OnEnable()
         {
-            if (instance != null)
+            if (lateFixedUpdate == null) lateFixedUpdate = LateFixedUpdate();
+            StartCoroutine(lateFixedUpdate);
+        }
+        private void OnDisable()
+        {
+            if (lateFixedUpdate != null) StopCoroutine(lateFixedUpdate);
+        }
+        private IEnumerator LateFixedUpdate()
+        {
+            while (true)
             {
-                Destroy(gameObject);
-            }
-            else
-            {
-                instance = this;
-                avatar = GetComponent<OverworldCharacterController>();
-                moveRouteHandler = GetComponent<MoveRouteHandler>();
-                DontDestroyOnLoad(gameObject);
+                yield return new WaitForFixedUpdate();
+                playerInput.interactionButtonDown = false;
+                playerInput.runButtonDown = false;
+                playerInput.pauseButtonDown = false;
+                playerInput.horizontalInputTap = 0f;
+                playerInput.verticalInputTap = 0f;
             }
         }
+        private void FixedUpdate()
+        {
+            UpdateInput();
+        }
+
+        private void UpdateInput()
+        {
+            if (avatar)
+            {
+                if (!GameManager.disablePlayerInput)
+                {
+                    avatar.nextInput = playerInput;
+                }
+            }
+        }
+
         public void StopInput()
         {
             if (avatar == null) return;
-            avatar.nextInput.horizontalInput = 0f;
-            avatar.nextInput.horizontalInputTap = 0f;
-            avatar.nextInput.verticalInput = 0f;
-            avatar.nextInput.verticalInputTap = 0f;
             Debug.Log("STOP INPUT");
-            avatar.StopRunMomentum();
+            avatar.StopInput();
         }
         public void ResumeInput()
         {
@@ -58,11 +83,18 @@ namespace TUFF
             {
                 playerInput.horizontalInput = readValue;
                 playerInput.horizontalInputTap = readValue;
-                if (GameManager.disablePlayerInput) return;
-                avatar.nextInput.horizontalInput = playerInput.horizontalInput;
-                avatar.nextInput.horizontalInputTap = playerInput.horizontalInputTap;
             }
-            onMove?.Invoke(context);
+
+            //float readValue = context.ReadValue<float>();
+            //if (context.performed || context.canceled)
+            //{
+            //    playerInput.horizontalInput = readValue;
+            //    playerInput.horizontalInputTap = readValue;
+            //    if (GameManager.disablePlayerInput) return;
+            //    avatar.nextInput.horizontalInput = playerInput.horizontalInput;
+            //    avatar.nextInput.horizontalInputTap = playerInput.horizontalInputTap;
+            //}
+            //onMove?.Invoke(context);
         }
         public void UpDownInput(InputAction.CallbackContext context)
         {
@@ -71,54 +103,93 @@ namespace TUFF
             {
                 playerInput.verticalInput = readValue;
                 playerInput.verticalInputTap = readValue;
-                if (GameManager.disablePlayerInput) return;
-                avatar.nextInput.verticalInput = playerInput.verticalInput;
-                avatar.nextInput.verticalInputTap = playerInput.verticalInputTap;
             }
+            //float readValue = context.ReadValue<float>();
+            //if (context.performed || context.canceled)
+            //{
+            //    playerInput.verticalInput = readValue;
+            //    playerInput.verticalInputTap = readValue;
+            //    if (GameManager.disablePlayerInput) return;
+            //    //avatar.nextInput.verticalInput = playerInput.verticalInput;
+            //    //avatar.nextInput.verticalInputTap = playerInput.verticalInputTap;
+            //}
         }
 
         public void Interaction(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                if (GameManager.disablePlayerInput) return;
-                avatar.nextInput.interactionButtonDown = true;
-                avatar.nextInput.interactionButtonHold = true;
+                //if (GameManager.disablePlayerInput) return;
+                playerInput.interactionButtonDown = true;
+                playerInput.interactionButtonHold = true;
             }
             if (context.canceled)
             {
-                avatar.nextInput.interactionButtonDown = false;
-                avatar.nextInput.interactionButtonHold = false;
+                playerInput.interactionButtonDown = false;
+                playerInput.interactionButtonHold = false;
             }
+            //if (context.performed)
+            //{
+            //    if (GameManager.disablePlayerInput) return;
+            //    //avatar.nextInput.interactionButtonDown = true;
+            //    //avatar.nextInput.interactionButtonHold = true;
+            //}
+            //if (context.canceled)
+            //{
+            //    avatar.nextInput.interactionButtonDown = false;
+            //    avatar.nextInput.interactionButtonHold = false;
+            //}
         }
         public void Run(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                // Do not disable input here to make arrow inputs buffer possible
-                if (PlayerData.instance.charProperties.disableRun) return;
-                avatar.nextInput.runButtonDown = true;
-                avatar.nextInput.runButtonHold = true;
+                playerInput.runButtonDown = true;
+                playerInput.runButtonHold = true;
             }
             if (context.canceled)
             {
-                avatar.nextInput.runButtonDown = false;
-                avatar.nextInput.runButtonHold = false;
+                playerInput.runButtonDown = false;
+                playerInput.runButtonHold = false;
             }
+            //if (context.performed)
+            //{
+            //    // Do not disable input here to make arrow inputs buffer possible
+            //    if (PlayerData.instance.charProperties.disableRun) return;
+            //    avatar.nextInput.runButtonDown = true;
+            //    avatar.nextInput.runButtonHold = true;
+            //}
+            //if (context.canceled)
+            //{
+            //    avatar.nextInput.runButtonDown = false;
+            //    avatar.nextInput.runButtonHold = false;
+            //}
         }
         public void Pause(InputAction.CallbackContext context)
         {
+            if (!FollowerInstance.player) return;
+            if (PlayerData.instance != null && PlayerData.instance.charProperties.disableMenuAccess) return;
             if (context.performed)
             {
                 if (GameManager.disablePlayerInput) return;
-                avatar.nextInput.pauseButtonDown = true;
-                avatar.nextInput.pauseButtonHold = true;
+                UIController.instance.InvokePauseMenu();
             }
-            if (context.canceled)
-            {
-                avatar.nextInput.pauseButtonDown = false;
-                avatar.nextInput.pauseButtonHold = false;
-            }
+            //if (context.canceled)
+            //{
+            //    playerInput.pauseButtonDown = false;
+            //    playerInput.pauseButtonHold = false;
+            //}
+            //if (context.performed)
+            //{
+            //    if (GameManager.disablePlayerInput) return;
+            //    avatar.nextInput.pauseButtonDown = true;
+            //    avatar.nextInput.pauseButtonHold = true;
+            //}
+            //if (context.canceled)
+            //{
+            //    avatar.nextInput.pauseButtonDown = false;
+            //    avatar.nextInput.pauseButtonHold = false;
+            //}
         }
     }
 }

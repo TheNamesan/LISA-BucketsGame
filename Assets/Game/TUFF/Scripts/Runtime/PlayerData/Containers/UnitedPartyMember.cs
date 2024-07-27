@@ -24,7 +24,7 @@ namespace TUFF
             this.userA = userA;
             this.userB = userB;
 
-            m_job = this.userA.job;
+            this.job = this.userA.job;
             level = this.userA.level;
             exp = this.userA.exp;
             HP = GetMaxHP();

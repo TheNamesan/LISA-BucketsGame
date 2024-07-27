@@ -8,7 +8,6 @@ namespace TUFF
     [System.Serializable]
     public class ConfigData
     {
-        public static ConfigData instance { get => GameManager.instance.configData; }
         public int refreshRate = 60;
         public bool fullscreen = true;
         public int resolutionWidth = 0;
@@ -18,6 +17,7 @@ namespace TUFF
         [Range(0f, 1f)] public float globalAmbienceVolume = 1f;
         public int textSpeed = 0;
         public string keybinds = "";
+        public int lastOpenedFile = 0;
         public bool lost = false;
         public bool bucketsAutoFire = false;
         public bool bucketsToggleSlowmo = false;
@@ -28,8 +28,15 @@ namespace TUFF
         public bool bucketsTimer = false;
         public bool bucketsPainMode = false;
         public bool bucketsRusherMode = false;
-        
 
+        public static ConfigData instance
+        {
+            get
+            {
+                return (GameManager.instance != null ?
+                    GameManager.instance.configData : null);
+            }
+        }
         public void SaveData()
         {
             SaveDataConverter.SaveConfigData(this);
@@ -48,6 +55,7 @@ namespace TUFF
             globalAmbienceVolume = load.globalAmbienceVolume;
             textSpeed = load.textSpeed;
             keybinds = load.keybinds;
+            lastOpenedFile = load.lastOpenedFile;
             lost = load.lost;
             bucketsAutoFire = load.bucketsAutoFire;
             bucketsToggleSlowmo = load.bucketsToggleSlowmo;

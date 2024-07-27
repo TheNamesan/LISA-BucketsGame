@@ -10,6 +10,25 @@ namespace TUFF
     {
         private IBattleInvocation invocation;
 
+        public void Initialize(CommandSubmenuHUD commandSubmenuHUD)
+        {
+            if (uiElement)
+            {
+                uiElement.onHighlight.AddListener(() => commandSubmenuHUD.battleHUD.ShowDescriptionDisplay(true));
+                uiElement.onHighlight.AddListener(() => OnHighlightMarkVulnerableTargets(commandSubmenuHUD));
+                uiElement.onSelect.AddListener(() => GoToTargetSelectionMenu(commandSubmenuHUD));
+            }
+        }
+        private void OnHighlightMarkVulnerableTargets(CommandSubmenuHUD commandSubmenuHUD)
+        {
+            var validTargets = BattleManager.instance.GetInvocationValidTargets(commandSubmenuHUD.memberRef, invocation.ScopeData);
+            commandSubmenuHUD.battleHUD.MarkVulnerableTargets(invocation, commandSubmenuHUD.memberRef, validTargets);
+        }
+        private void GoToTargetSelectionMenu(CommandSubmenuHUD commandSubmenuHUD)
+        {
+            var validTargets = BattleManager.instance.GetInvocationValidTargets(commandSubmenuHUD.memberRef, invocation.ScopeData);
+            commandSubmenuHUD.battleHUD.TargetSelectionMenu(validTargets, invocation, commandSubmenuHUD.memberRef, true);
+        }
         public void SetInvocation(IBattleInvocation setSkill)
         {
             invocation = setSkill;

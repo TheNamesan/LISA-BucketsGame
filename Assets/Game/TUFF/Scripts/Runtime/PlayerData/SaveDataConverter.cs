@@ -31,7 +31,7 @@ namespace TUFF
         {
             CheckSavePathExists();
             string path = SAVE_PATH + SAVE_FILE_NAME + file + SAVE_FILE_EXT;
-            if (File.Exists(path))
+            if (CheckSaveExistsAtIndex(file))
             {
                 string fileString = File.ReadAllText(path);
                 PlayerData load = JsonUtility.FromJson<PlayerData>(fileString);
@@ -39,6 +39,12 @@ namespace TUFF
                 return load;
             }
             return null;
+        }
+        public static bool CheckSaveExistsAtIndex(int index)
+        {
+            CheckSavePathExists();
+            string path = SAVE_PATH + SAVE_FILE_NAME + index + SAVE_FILE_EXT;
+            return File.Exists(path);
         }
 
         public static ConfigData LoadConfigData()

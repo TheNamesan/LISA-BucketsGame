@@ -101,6 +101,12 @@ namespace TUFF
         [Tooltip("Reduces the chance for the incoming damage to be dealt as Critical damage. Default: 0")]
         [Range(-100, 100)] public int critEvasionRate = 0;
 
+        [Header("Equip Types")]
+        [Tooltip("The weapons of the specified type the Unit can use by default.")]
+        public WeaponTypeList weaponTypes = new();
+        [Tooltip("The armors of the specified type the Unit can use by default.")]
+        public ArmorTypeList armorTypes = new();
+
         [Header("Features")]
         [Tooltip("The changes applied to the affected user.")]
         public List<Feature> features = new List<Feature>();

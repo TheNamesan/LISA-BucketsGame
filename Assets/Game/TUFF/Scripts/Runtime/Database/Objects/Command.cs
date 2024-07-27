@@ -20,5 +20,29 @@ namespace TUFF
         {
             return TUFFTextParser.ParseText(nameKey);
         }
+        public override string GetDescription()
+        {
+            if (commandType == CommandType.Single)
+            {
+                var skill = skills[0].skill;
+                if (skill) return skill.GetDescription();
+            }
+            return GetName();
+        }
+        /// <summary>
+        /// Validates if the Command Type is Single and has a skill.
+        /// </summary>
+        /// <returns>Returns true if the command is Single and has at least one skill.</returns>
+        public bool IsValidSingleCommand()
+        {
+            if (skills == null) return false;
+            if (commandType == CommandType.Single && skills.Count > 0)
+                return true;
+            return false;
+        }
+        public bool IsSubmenuType()
+        {
+            return commandType == CommandType.Group || commandType == CommandType.Items; 
+        }
     }
 }

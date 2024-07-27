@@ -6,12 +6,14 @@ namespace TUFF
 {
     public class SFXPlayer : MonoBehaviour
     {
+        public bool muteIfPlayerInputDisabled = false;
         [Tooltip("If null, will play globaly.")]
         public AudioSource audioSource;
         public List<SFX> sfxs = new List<SFX>();
         
         public void Play(int index)
         {
+            if (muteIfPlayerInputDisabled && GameManager.disablePlayerInput) return;
             if (index < 0 || index >= sfxs.Count) return;
             var sfx = sfxs[index];
             if (audioSource != null)

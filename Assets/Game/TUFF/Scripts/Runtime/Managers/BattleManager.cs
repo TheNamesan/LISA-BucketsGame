@@ -40,6 +40,8 @@ namespace TUFF
 
         public bool InBattle { get => m_inBattle; }
         private bool m_inBattle = false;
+        public bool CanEscape { get => m_canEscape; }
+        private bool m_canEscape = false;
         public void Awake()
         {
             if (instance != null)
@@ -52,14 +54,25 @@ namespace TUFF
                 DontDestroyOnLoad(gameObject);
             }
         }
-        public void InitiateBattle(Battle battle, EventAction evtCallback = null)
+        public void TestBattle(Battle battle)
         {
-            UIController.instance.TriggerBattleStart();
-            StartCoroutine(LoadBattle(battle, evtCallback));
+            InitiateBattle(battle, true);
         }
-        private IEnumerator LoadBattle(Battle battle, EventAction evtCallback)
+        public void InitiateBattle(Battle battle, bool canEscape = false, EventAction evtCallback = null)
+        {
+            if (battle == null) { 
+                Debug.LogWarning("Battle is null!"); 
+                if (evtCallback != null) evtCallback.isFinished = true;
+                return; 
+            }
+            UIController.instance.TriggerBattleStart();
+            StartCoroutine(LoadBattle(battle, evtCallback, canEscape));
+        }
+        private IEnumerator LoadBattle(Battle battle, EventAction evtCallback, bool canEscape)
         {
             m_inBattle = true;
+            m_canEscape = canEscape;
+
             if (battle.autoPlayBGM) AudioManager.instance.PlayMusic(battle.bgm);
             //Move To BattleHUD
             eventCallback = evtCallback;
@@ -244,6 +257,11 @@ namespace TUFF
             if (queuedSkills.Count <= 1) return;
             queuedSkills.Sort((skl1, skl2) => skl2.attackSpeed.CompareTo(skl1.attackSpeed));
         }
+        public void EscapeBattle()
+        {
+            battleState = BattleState.ESCAPED;
+            EndBattle();
+        }
         public void RunBattleActions()
         {
             QueueEnemyActions();
@@ -255,6 +273,7 @@ namespace TUFF
         IEnumerator RunBattleActionsCoroutine() //Need to optimize some code here...
         {
             yield return new WaitForSeconds(1f);
+            // Play all the queued invocations
             for (queuedSkillsIndex = 0; queuedSkillsIndex < queuedSkills.Count; queuedSkillsIndex++)
             {
                 yield return StartCoroutine(queuedSkills[queuedSkillsIndex].InvokeSkill());
@@ -267,15 +286,18 @@ namespace TUFF
                 CheckWin();
                 yield return CheckActEndEvents();
                 UncheckBattleConditionsPlayedState(SpanType.OncePerAct);
-                if (CheckBattleEnd()) break;
+                if (CheckBattleEnd()) break; 
             }
+            // If battle ended from party KO or Enemy KO, end battle
             if (CheckBattleEnd())
             {
                 EndBattle();
                 yield break;
             }
+            // Remove states and apply HP, SP and TP regens
             CheckTargetablesTurnEndStatesDuration();
             ApplyTargetablesRegens();
+            // Check if enemies or party died from negative HP regens
             if (CheckGameOver() || CheckWin() || CheckBattleEnd())
             {
                 yield return CheckActEndEvents();
@@ -674,8 +696,8 @@ namespace TUFF
             {
                 var userA = PlayerData.instance.GetPartyMember(skill.unitedUserA);
                 var userB = PlayerData.instance.GetPartyMember(skill.unitedUserB);
-                bool userAInActiveParty = System.Array.IndexOf(activeParty, userA) >= 0;
-                bool userBInActiveParty = System.Array.IndexOf(activeParty, userB) >= 0;
+                bool userAInActiveParty = PlayerData.instance.IsInActiveParty(userA.unitRef);
+                bool userBInActiveParty = PlayerData.instance.IsInActiveParty(userB.unitRef);
                 return userAInActiveParty && userBInActiveParty;
             }
             return false;
@@ -814,6 +836,7 @@ namespace TUFF
         public void UnloadBattle()
         {
             m_inBattle = false;
+            m_canEscape = false;
             if (battle != null) Destroy(battle.gameObject);
             turn = 0;
             rewards.Clear();
@@ -830,27 +853,70 @@ namespace TUFF
         {
             if (battleState == BattleState.WON)
             {
-                GetEnemyRewards();
-                StartCoroutine(EndBattleFade());
+                StartCoroutine(OnBattleWon());
             }
             if (battleState == BattleState.LOST)
             {
-                GameManager.instance.GameOver();
-                StartCoroutine(WaitForGameOverFadeOut());
+                StartCoroutine(OnBattleLost());
+            }
+            if (battleState == BattleState.ESCAPED)
+            {
+                StartCoroutine(OnBattleEscape());
             }
         }
         private IEnumerator EndBattleFade()
         {
-            yield return new WaitForSeconds(1f);
-            //hud.ShowAll();
-            yield return StartCoroutine(hud.ShowResults()); //Show Rewards and EXP
-            UIController.instance.fadeScreen.TriggerFadeOut(0.25f);
             CheckBattleEndStateRemovals();
+            UIController.instance.UIFadeScreen.FadeOut(0.25f);
             yield return new WaitForSeconds(0.25f);
-            if (eventCallback != null) eventCallback.isFinished = true;
+            if (eventCallback != null)
+            { 
+                if (eventCallback is StartBattleAction startBattleAction)
+                {
+                    startBattleAction.OnBattleEnd(battleState);
+                }
+                else eventCallback.isFinished = true; 
+            }
+            else if (!CommonEventManager.interactableEventPlaying) GameManager.instance.DisablePlayerInput(false);
+
             UnloadBattle();
             AudioManager.instance.RestoreAmbienceVolume();
-            UIController.instance.fadeScreen.TriggerFadeIn(0.25f);
+            UIController.instance.UIFadeScreen.FadeIn(0.25f);
+        }
+        private IEnumerator OnBattleWon()
+        {
+            GetEnemyRewards();
+            yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(hud.ShowResults()); //Show Rewards and EXP
+            StartCoroutine(EndBattleFade());
+        }
+        private IEnumerator OnBattleLost()
+        {
+            if (eventCallback != null && eventCallback is StartBattleAction startBattleAction)
+            {
+                if (startBattleAction.continueOnLose)
+                {
+                    AudioManager.instance.StopMusic(1f);
+                    yield return new WaitForSeconds(1f);
+                    PlayerData.instance.RecoverAllFromKO();
+                    StartCoroutine(EndBattleFade());
+                    yield break;
+                }
+            }
+            GameManager.instance.GameOver();
+            while (GameManager.gameOver)
+            {
+                yield return null;
+            }
+            CheckBattleEndStateRemovals();
+            UnloadBattle();
+        }
+        private IEnumerator OnBattleEscape()
+        {
+            AudioManager.instance.StopMusic(1f);
+            AudioManager.instance.PlaySFX(TUFFSettings.escapeSFX);
+            yield return new WaitForSeconds(1f);
+            StartCoroutine(EndBattleFade());
         }
         public void AddEnemyRewards(Enemy enemy)
         {
@@ -882,17 +948,8 @@ namespace TUFF
         }
         private void PlayWinAudio()
         {
-            AudioManager.instance.StopMusic(1f); //Change with FadeOut only
-            AudioManager.instance.PlaySFX(TUFFSettings.battleVictorySFX, 1f, 1f);
-        }
-        protected IEnumerator WaitForGameOverFadeOut()
-        {
-            while (GameManager.gameOver)
-            {
-                yield return null;
-            }
-            CheckBattleEndStateRemovals();
-            UnloadBattle();
+            AudioManager.instance.StopMusic(1f); 
+            AudioManager.instance.PlaySFX(TUFFSettings.battleVictorySFX);
         }
         public void DisplayHit(BattleAnimationEvent hitInfo, int value, int targetIndex, bool isCrit = false)
         {

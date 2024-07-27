@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 using UnityEngine.Localization.Settings;
 using UnityEditor.Localization.UI;
+using UnityEngine.SceneManagement;
 
 #if UNITY_EDITOR
 namespace TUFF.TUFFEditor
@@ -209,6 +211,33 @@ namespace TUFF.TUFFEditor
         public static string GetIndexOfElementLabel(string orgLabel)
         {
             return orgLabel.Split(" ")[1];
+        }
+
+        public static bool CreateFolderForScene(Scene scene)
+        {
+            bool addedFolder = false;
+            if (string.IsNullOrEmpty(scene.path)) return addedFolder;
+            var scenePath = Path.GetDirectoryName(scene.path);
+            var extPath = scene.name;
+            var folderPath = scenePath + Path.DirectorySeparatorChar + extPath;
+
+            if (!AssetDatabase.IsValidFolder(folderPath))
+            {
+                var directories = folderPath.Split(Path.DirectorySeparatorChar);
+                string rootPath = "";
+                foreach (var directory in directories)
+                {
+                    var newPath = rootPath + directory;
+                    if (!AssetDatabase.IsValidFolder(newPath))
+                    {
+                        AssetDatabase.CreateFolder(rootPath.TrimEnd(Path.DirectorySeparatorChar), directory);
+                        addedFolder = true;
+                    }
+
+                    rootPath = newPath + Path.DirectorySeparatorChar;
+                }
+            }
+            return addedFolder;
         }
 
         public static void DrawDatabaseParsedTextPreview(string label, string text, bool wrapText = false, string prefix = "")
