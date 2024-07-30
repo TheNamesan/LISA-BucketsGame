@@ -18,8 +18,8 @@ namespace TUFF
 
         float timeOffset = 1;
 
-        float camHalfHeight;
-        float camHalfWidth;
+        public float camHalfHeight { get { return (2f * cam.orthographicSize) / 2; } }
+        public float camHalfWidth { get { return camHalfHeight * cam.aspect; } }
         Vector3 previousPosition;
 
         [Header("Background")]
@@ -50,8 +50,8 @@ namespace TUFF
 
         [HideInInspector] public bool disableCameraFollow;
         [HideInInspector] public Vector3 orgPosition;
-        private Vector2 min;
-        private Vector2 max;
+        private Vector2 min { get { return si.trueMin; } }
+        private Vector2 max { get { return si.trueMax; } }
         Tween tween;
 
         private void Awake()
@@ -100,12 +100,8 @@ namespace TUFF
                 if (!disableCameraFollow) transform.position = endpos;
             }
 
-            camHalfHeight = (2f * cam.orthographicSize) / 2;
-            camHalfWidth = camHalfHeight * cam.aspect;
             //Debug.Log($"W: {camHalfWidth}, H: {camHalfHeight}");
             if (!si) return;
-            min = new Vector2(Mathf.Min(si.min.x, si.max.x), Mathf.Min(si.min.y, si.max.y));
-            max = new Vector2(Mathf.Max(si.min.x, si.max.x), Mathf.Max(si.min.y, si.max.y));
             float minPosX = min.x + camHalfWidth;
             float maxPosX = max.x - camHalfWidth;
             float minPosY = min.y + camHalfHeight;
@@ -226,7 +222,9 @@ namespace TUFF
 
                 case MoveCameraType.MoveToTransformPosition:
                     Vector2 pos = new Vector2();
-                    if (cameraMove.targetTransform) pos = cameraMove.targetTransform.position;
+                    if (cameraMove.targetTransform) { 
+                        pos = cameraMove.targetTransform.position;
+                    }
                     target = new Vector3(pos.x, pos.y, transform.position.z);
                     break;
 
