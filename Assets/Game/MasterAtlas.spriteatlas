@@ -635,6 +635,9 @@ SpriteAtlas:
   - {fileID: 21300000, guid: e1e3490396b4e8849b992b33e46220e9, type: 3}
   - {fileID: 21300000, guid: 10d450136eec5a944821435dce3cbd9e, type: 3}
   - {fileID: 21300000, guid: 3c9017131b3cb0f46a993d6ad93b9173, type: 3}
+  - {fileID: 1882396897, guid: dd10bc132a3779d41bdbfaac06b8da0b, type: 3}
+  - {fileID: -975794939, guid: dd10bc132a3779d41bdbfaac06b8da0b, type: 3}
+  - {fileID: 850553887, guid: dd10bc132a3779d41bdbfaac06b8da0b, type: 3}
   - {fileID: 21300000, guid: db63be23c5a30f64b9da8442dcbddf64, type: 3}
   - {fileID: 21300000, guid: 6a7d1433f4f3f0c4ca479e5c0bcd63ce, type: 3}
   - {fileID: 21300000, guid: 14391443bcc57834a9bbd59058c1d230, type: 3}
@@ -2350,6 +2353,8 @@ SpriteAtlas:
   - {fileID: 665787854, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 1984396416, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 1037382881, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: 2048307556, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: 210312667, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -1467707812, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 1351388096, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -780886103, guid: dc972bfe3689e944681791762713e19d, type: 3}
@@ -2361,11 +2366,14 @@ SpriteAtlas:
   - {fileID: 1370544448, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -1350080814, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -621815537, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: 1040289601, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -1729332847, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -1420653801, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -468209740, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -1741108297, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -265606905, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 707120002, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: 2068201045, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 1631021941, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 1174482309, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 428836748, guid: dc972bfe3689e944681791762713e19d, type: 3}
@@ -2406,6 +2414,16 @@ SpriteAtlas:
   - {fileID: -893834646, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -1759910693, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -1267050238, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: 814865868, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -132185129, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -1422749950, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -247634777, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -304657658, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -1069258944, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: 194026516, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -189096122, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: 451086650, guid: dc972bfe3689e944681791762713e19d, type: 3}
+  - {fileID: -1128599045, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -1949522277, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: 1273117618, guid: dc972bfe3689e944681791762713e19d, type: 3}
   - {fileID: -778390231, guid: dc972bfe3689e944681791762713e19d, type: 3}
@@ -3489,6 +3507,9 @@ SpriteAtlas:
   - Idle-Sheet
   - lisatiles copy2
   - Title Screen
+  - Metal_objects_0
+  - Metal_objects_1
+  - Metal_objects_2
   - lisatilesinside copy
   - Fancy inside
   - Abandoned Dam
@@ -5204,6 +5225,8 @@ SpriteAtlas:
   - Tiles Alt_72
   - Tiles Alt_71
   - Tiles Alt_70
+  - Tiles Alt_118
+  - Tiles Alt_119
   - Tiles Alt_109
   - Tiles Alt_108
   - Tiles Alt_110
@@ -5215,11 +5238,14 @@ SpriteAtlas:
   - Tiles Alt_102
   - Tiles Alt_115
   - Tiles Alt_101
+  - Tiles Alt_116
   - Tiles Alt_100
+  - Tiles Alt_117
   - Tiles Alt_107
   - Tiles Alt_106
   - Tiles Alt_105
   - Tiles Alt_104
+  - Tiles Alt_130
   - Tiles Alt_33
   - Tiles Alt_32
   - Tiles Alt_31
@@ -5260,6 +5286,16 @@ SpriteAtlas:
   - Tiles Alt_83
   - Tiles Alt_80
   - Tiles Alt_81
+  - Tiles Alt_121
+  - Tiles Alt_120
+  - Tiles Alt_123
+  - Tiles Alt_122
+  - Tiles Alt_125
+  - Tiles Alt_124
+  - Tiles Alt_127
+  - Tiles Alt_126
+  - Tiles Alt_129
+  - Tiles Alt_128
   - Tiles Alt_20
   - Tiles Alt_21
   - Tiles Alt_91
