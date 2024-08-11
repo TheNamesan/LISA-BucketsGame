@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShielderBlock
+  m_Name: RShielderIdle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -505448781, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
-    - time: 0.1
-      value: {fileID: -12869575, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
+      value: {fileID: -1180093758, guid: 667506e8d2827594190bbf2d5d46f6d4, type: 3}
     attribute: m_Sprite
     path: Sprite
     classID: 212
@@ -42,14 +40,13 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -505448781, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
-    - {fileID: -12869575, guid: b804ac1eac163824eb36023722d7a14a, type: 3}
+    - {fileID: -1180093758, guid: 667506e8d2827594190bbf2d5d46f6d4, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.2
+    m_StopTime: 0.1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

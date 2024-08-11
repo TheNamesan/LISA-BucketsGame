@@ -148,7 +148,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -433131298, guid: 0f9b15f09926f1348a6488ed0fe6c2ac, type: 3}
+  m_Sprite: {fileID: -1180093758, guid: 667506e8d2827594190bbf2d5d46f6d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 5115521999454662432}
   - component: {fileID: 5115521999454662433}
   m_Layer: 8
-  m_Name: Shielder
+  m_Name: RShielder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,11 +245,11 @@ MonoBehaviour:
   maxHP: 1
   hp: 1
   m_dead: 0
-  enemyState: 0
+  enemyState: 2
   coneAngle: 45
   coneAngleOffset: 0
-  coneDistance: 8.5
-  coneAccuracy: 12
+  coneDistance: 12
+  coneAccuracy: 16
   nearbyEnemyAlertRadius: 3.5
   painMaxHP: 1
   painMoveSpeed: 12
@@ -262,17 +262,17 @@ MonoBehaviour:
   m_attacking: 0
   m_vulnerable: 0
   attackingAnimTicks: 28
-  attackTick: 20
+  attackTick: 22
   m_attackingTicks: 0
-  bulletVelocity: 30
-  fireAnimDuration: 52
+  bulletVelocity: 25
+  fireAnimDuration: 46
   fireTick: 30
   fireRate: 25
   m_firing: 0
   m_fireAnimTicks: 0
   m_fireCooldownTicks: 0
   stunPushbackSpeed: 12
-  stunnedDuration: 30
+  stunnedDuration: 25
   m_stunnedTicks: 0
   m_stunDirection: 0
   painApproachSpeed: 3.5
@@ -305,7 +305,7 @@ Animator:
   m_GameObject: {fileID: 5115521999454662436}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5c061a781e26ef2459af0fbf99a2f327, type: 2}
+  m_Controller: {fileID: 9100000, guid: 12b0b8b0568946646acd627fdfb243e0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
