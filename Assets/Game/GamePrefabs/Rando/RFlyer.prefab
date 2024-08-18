@@ -83,22 +83,23 @@ MonoBehaviour:
   groundIsOneWay: 0
   gravityScale: 0
   maxFallSpeed: -15
-  maxHP: 2
-  hp: 2
+  maxHP: 4
+  hp: 4
   m_dead: 0
   enemyState: 0
   coneAngle: 90
   coneAngleOffset: 45
   coneDistance: 16
   coneAccuracy: 26
-  painMaxHP: 3
-  painMoveSpeed: 4
-  roamSpeed: 1
-  approachDistance: 10
+  nearbyEnemyAlertRadius: 3.5
+  painMaxHP: 5
+  painMoveSpeed: 6
+  roamSpeed: 3
+  approachDistance: 12
   deadGravity: 2
-  fireAnimDuration: 40
+  fireAnimDuration: 35
   fireTick: 15
-  fireRate: 50
+  fireRate: 30
   m_firing: 0
   m_fireAnimTicks: 0
   m_fireCooldownTicks: 0
@@ -129,7 +130,7 @@ Animator:
   m_GameObject: {fileID: 7588237943867467848}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a078558aa3edaa24a8ddf0db339402ed, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8d9a5818493a8d44eb62153477ee236b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

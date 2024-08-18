@@ -2810,7 +2810,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2831,7 +2831,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2839,6 +2839,27 @@ TextureImporter:
       bones: []
       spriteID: cdfa699cc3e864f4ea194083330e7c23
       internalID: 2068201045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Alt_131
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 384
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce3678d50501294ba470a91972fc2fe
+      internalID: 1584409959
       vertices: []
       indices: 
       edges: []
@@ -2891,6 +2912,7 @@ TextureImporter:
       Tiles Alt_129: 451086650
       Tiles Alt_13: 1130759007
       Tiles Alt_130: 2068201045
+      Tiles Alt_131: 1584409959
       Tiles Alt_14: 2130564118
       Tiles Alt_15: -1703472143
       Tiles Alt_16: 1248451271
