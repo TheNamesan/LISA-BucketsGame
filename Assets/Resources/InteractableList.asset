@@ -16,9 +16,16 @@ MonoBehaviour:
   - rid: 7335342560940130307
   - rid: 3976901158666764295
   - rid: 7335342899867942914
+  - rid: 281945720820858929
   references:
     version: 2
     RefIds:
+    - rid: 281945720820858929
+      type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
+      data:
+        scene: {fileID: 102900000, guid: 7decad873f4b67b45860db4f10c0413c, type: 3}
+        localID: 915014363
+        name: Cutscene_1
     - rid: 3976901158666764295
       type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
       data:
