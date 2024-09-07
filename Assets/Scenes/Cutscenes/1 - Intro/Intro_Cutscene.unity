@@ -334,6 +334,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085]
+      value: TUFF.Runtime TUFF.ShowDialogueAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901266686869506]
       value: TUFF.Runtime TUFF.ChangeSpriteAction
       objectReference: {fileID: 0}
@@ -1259,7 +1263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342661062885385].seconds
-      value: 2.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342661062885386].seconds
@@ -1296,6 +1300,10 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605294002929674].seconds
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].eventName
+      value: Show Dialogue
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901266686869506].material
@@ -1380,6 +1388,10 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342661062885395].material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].isFinished
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901266686869506].eventName
@@ -2296,6 +2308,22 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605294002929674].isFinished
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].eventColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].eventColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].eventColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].eventColor.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901266686869506].keepEnabled
@@ -3962,6 +3990,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.origin
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901266686869506].spriteRenderer
       value: 
       objectReference: {fileID: 1234821826}
@@ -4446,6 +4478,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.originType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901266686869507].bgmPlayData.volume
       value: 1
       objectReference: {fileID: 0}
@@ -4459,7 +4495,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.size
-      value: 38
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.textboxType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.originType
@@ -4626,6 +4666,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.baseTextSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.baseVoicebank
+      value: 
+      objectReference: {fileID: 11400000, guid: 1df9fbeb4562db04590c586e8327b107, type: 2}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.customTextbox
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[0]
       value: 7087076410429800453
       objectReference: {fileID: 0}
@@ -4651,19 +4703,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[6]
-      value: 7335342661062885383
-      objectReference: {fileID: 0}
-    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[7]
       value: 7335342661062885382
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[8]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[7]
       value: 7087076410429800460
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[9]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[8]
       value: 7087076410429800461
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[9]
+      value: 7335342718698389531
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901266686869506].changeOnlyTransparency
@@ -4999,111 +5051,111 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[10]
-      value: 7335342718698389531
-      objectReference: {fileID: 0}
-    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[11]
-      value: 3976901294891204618
-      objectReference: {fileID: 0}
-    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[12]
       value: 7335342661062885384
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[13]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[11]
       value: 7335342661062885385
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[14]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[12]
       value: 7087076410429800463
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[15]
-      value: 9037605294002929674
-      objectReference: {fileID: 0}
-    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[16]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[13]
       value: 7087076410429800473
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[17]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[14]
       value: 3976901266686869508
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[18]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[15]
       value: 7335342661062885376
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[19]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[16]
       value: 3976901294891204617
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[20]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[17]
       value: 7087076410429800469
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[21]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[18]
       value: 3976901266686869529
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[22]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[19]
       value: 7087076410429800472
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[23]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[20]
       value: 3976901266686869523
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[24]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[21]
       value: 7335342661062885393
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[25]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[22]
       value: 7335342661062885379
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[26]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[23]
       value: 7335342661062885388
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[27]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[24]
       value: 7335342661062885389
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[28]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[25]
       value: 7335342661062885392
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[29]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[26]
       value: 7335342661062885377
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[30]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[27]
       value: 3976901266686869530
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[31]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[28]
       value: 7335342661062885391
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[32]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[29]
       value: 3976901266686869525
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[33]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[30]
       value: 3976901266686869524
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[34]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[31]
       value: 7335342661062885394
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[35]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[32]
       value: 7335342661062885395
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
-      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[36]
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[33]
       value: 3976901266686869528
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[34]
+      value: 7087076410429800479
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[35]
+      value: 7087076410429800479
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[36]
+      value: 7087076410429800479
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[37]
@@ -5138,7 +5190,23 @@ PrefabInstance:
       value: 7087076410429800479
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.overrideTextbox
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076476603334661].cameraMove.timeDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.persistentOrigin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.positionOffset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.positionOffset.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -5518,6 +5586,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.fixedTextboxPosition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800451].sfxs.Array.data[0].audioClip
       value: 
       objectReference: {fileID: 8300000, guid: a1c6c89b39677754489429320bfaa0a6, type: 3}
@@ -5571,7 +5647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.sentences.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800451].sfxs.Array.data[0].volumeMode
@@ -5631,7 +5707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800473].dialogue.sentences.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800476].sfxs.Array.data[0].volumeMode
@@ -5739,7 +5815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342718698389531].dialogue.sentences.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800451].sfxs.Array.data[0].audioClipMode
@@ -5764,6 +5840,14 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342661062885387].sfxs.Array.data[0].audioClipMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.sentences.Array.data[0].key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.sentences.Array.data[0].text
+      value: "The world feels lonely now. \nEmpty, even."
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.sentences.Array.data[0].key
@@ -6019,11 +6103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.sentences.Array.data[0].text
-      value: Just like I want to.
+      value: Free to finally go out there and end it all.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.sentences.Array.data[1].text
-      value: ...
+      value: Just like I want to.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.sentences.Array.data[2].text
@@ -6039,7 +6123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800461].dialogue.sentences.Array.data[0].text
-      value: The world feels lonely now.
+      value: 'The world feels lonely now. '
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800461].dialogue.sentences.Array.data[1].text
@@ -6127,15 +6211,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800473].dialogue.sentences.Array.data[0].text
-      value: Free from caring about the past, the future, all of it.
+      value: Free from letting any of it matter.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800473].dialogue.sentences.Array.data[1].text
-      value: Free to finally go out there and end it all.
+      value: Free from the past, the future, all of it.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800473].dialogue.sentences.Array.data[2].text
-      value: ...
+      value: Free from myself.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800473].dialogue.sentences.Array.data[3].text
@@ -6184,8 +6268,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342661062885384].dialogue.sentences.Array.data[0].text
-      value: "Because now you know that it can always \nbe snatched away in a snap
-        of a second.\n"
+      value: "Because now you know what was there can \nalways be snatched away in
+        a snap of a second."
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342661062885384].dialogue.sentences.Array.data[1].text
@@ -6265,15 +6349,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342718698389531].dialogue.sentences.Array.data[0].text
-      value: But I've come to terms with that.
+      value: But I've come to embrace that.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342718698389531].dialogue.sentences.Array.data[1].text
-      value: And I've come to terms with that.
+      value: "I\u2019ve come to want the pain that comes with it."
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342718698389531].dialogue.sentences.Array.data[2].text
       value: And I've come to terms with that.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.sentences.Array.data[0].textSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.sentences.Array.data[0].voicebank
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076410429800451].sfxs.Array.data[0].randomClips.Array.size
@@ -6796,6 +6888,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.sentences.Array.data[0].sentenceTextType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.sentences.Array.data[0].sentenceTextType
       value: 1
       objectReference: {fileID: 0}
@@ -7046,6 +7142,10 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342718698389531].dialogue.sentences.Array.data[2].sentenceTextType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[281945736660911085].dialogue.onDialogueEnd.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901294891204617].dialogue.onDialogueEnd.m_PersistentCalls.m_Calls.Array.size
