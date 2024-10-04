@@ -58,7 +58,7 @@ namespace BucketsGame
             float intensity = maxIntensity * NormalizedIntensityTime;
             runtimeVignette.intensity.value = intensity;
             Vector2 position = new Vector2(0.5f, 0.5f);
-            if (PlayerInputHandler.instance.IsGamepad())
+            if (BucketsPlayerInputHandler.instance.IsGamepad())
             {
                 if (camManager && camManager.cam && camManager.virtualCam && camManager.virtualCam.Follow)
                 {
@@ -70,10 +70,10 @@ namespace BucketsGame
             }
             else
             {
-                if (camManager && PlayerInputHandler.instance)
+                if (camManager && BucketsPlayerInputHandler.instance)
                 {
                     //Transform target = PlayerInputHandler.instance.gameInput;
-                    Vector2 targetScreenPos = PlayerInputHandler.instance.gameInput.mousePoint;
+                    Vector2 targetScreenPos = BucketsPlayerInputHandler.instance.gameInput.mousePoint;
                     Vector2 normalizedPos = new Vector2(targetScreenPos.x / Screen.width, targetScreenPos.y / Screen.height);
                     position = normalizedPos;
                 }

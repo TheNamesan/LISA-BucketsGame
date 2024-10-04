@@ -8,7 +8,7 @@ namespace BucketsGame
     public class BucketsGameManager : MonoBehaviour
     {
         public GameObject eventSystem;
-        public PlayerInputHandler inputHandler;
+        public BucketsPlayerInputHandler inputHandler;
         public SFXList sfxs;
         public PrefabList prefabList;
         public TimerManager timerManager;

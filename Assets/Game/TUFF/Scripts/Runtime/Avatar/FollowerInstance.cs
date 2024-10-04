@@ -16,6 +16,7 @@ namespace TUFF
             else
             {
                 instance = this;
+                PlayerInputHandler.avatar = controller;
                 DontDestroyOnLoad(gameObject);
             }
         }

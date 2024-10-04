@@ -79,8 +79,8 @@ namespace BucketsGame
             if (SceneProperties.mainPlayer)
             {
                 retryText?.gameObject.SetActive(SceneProperties.mainPlayer.dead);
-                if (PlayerInputHandler.instance)
-                    retryText.text = $"Press {PlayerInputHandler.instance.GetCurrentResetKeyText()} to retry";
+                if (BucketsPlayerInputHandler.instance)
+                    retryText.text = $"Press {BucketsPlayerInputHandler.instance.GetCurrentResetKeyText()} to retry";
             }
                 
         }

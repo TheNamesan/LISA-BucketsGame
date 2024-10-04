@@ -93,11 +93,12 @@ namespace TUFF
         private void UpdateCamera()
         {
             Vector3 startpos = transform.position;
-            if (FollowerInstance.player && FollowerInstance.player.controller)
+            if (PlayerInputHandler.avatar)
             {
-                Vector3 endpos = FollowerInstance.player.controller.transform.position;
+                Vector3 endpos = PlayerInputHandler.avatar.transform.position;
                 endpos.z = transform.position.z;
                 if (!disableCameraFollow) transform.position = endpos;
+                Debug.Log("Updating camera");
             }
 
             //Debug.Log($"W: {camHalfWidth}, H: {camHalfHeight}");

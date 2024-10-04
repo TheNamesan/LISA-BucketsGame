@@ -72,7 +72,7 @@ namespace BucketsGame
             var player = SceneProperties.mainPlayer;
             if (!player) return Vector2.zero;
             Vector2 mousePosWorld = player.input.MousePointWorld;
-            if (PlayerInputHandler.instance.IsGamepad())
+            if (BucketsPlayerInputHandler.instance.IsGamepad())
             {
                 mousePosWorld = player.rb.position + player.input.lastAimDirection.normalized * 10f + player.rb.velocity.normalized * 0.5f;
                 //mousePosWorld = player.DistanceToPoint(pos);
@@ -81,7 +81,7 @@ namespace BucketsGame
             {
                 if (TUFF.GameManager.disablePlayerInput)
                 {
-                    mousePosWorld = PlayerInputHandler.instance.bufferedPointerWorld;
+                    mousePosWorld = BucketsPlayerInputHandler.instance.bufferedPointerWorld;
                 }
             }
             Vector2 distance = player.DistanceToPoint(mousePosWorld);

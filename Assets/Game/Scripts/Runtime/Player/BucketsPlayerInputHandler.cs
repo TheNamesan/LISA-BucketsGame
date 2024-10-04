@@ -7,9 +7,9 @@ using TUFF;
 
 namespace BucketsGame
 {
-    public class PlayerInputHandler : MonoBehaviour
+    public class BucketsPlayerInputHandler : MonoBehaviour
     {
-        public static PlayerInputHandler instance { get => BucketsGameManager.instance.inputHandler; }
+        public static BucketsPlayerInputHandler instance { get => BucketsGameManager.instance.inputHandler; }
         public PlayerInput playerInput;
         public InputActionReference resetAction;
         public GamePlayerInput gameInput = new();

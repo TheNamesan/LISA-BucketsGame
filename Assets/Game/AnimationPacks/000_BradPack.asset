@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825ec6c629e4c0841bb33e1419902756, type: 3}
+  m_Name: 000_BradPack
+  m_EditorClassIdentifier: 
+  fallback: {fileID: 11400000, guid: 1c0d5daf59f18ef4da196dfd33c2731d, type: 2}
+  standingAnimR: {fileID: 7400000, guid: f2c9313d752eaa344bcaa7e9538c995c, type: 2}
+  standingAnimL: {fileID: 7400000, guid: 91316a975d4c33d4780fa6a4158c89b2, type: 2}
+  standingAnimU: {fileID: 7400000, guid: 95ba0d32b5cbbb048979d36c95ec356f, type: 2}
+  standingAnimD: {fileID: 7400000, guid: 68d894399ff14614ea325a6b9c435d4a, type: 2}
+  walkR: {fileID: 7400000, guid: b8fb30a95421ec14faf2591477a76c5e, type: 2}
+  walkL: {fileID: 7400000, guid: 200fac0d47426674caef76f68547b3ac, type: 2}
+  runR: {fileID: 7400000, guid: 6ba48ccb648cb0e409a113c5b2c77a50, type: 2}
+  runL: {fileID: 7400000, guid: 7093aed0f52fcb54ba65fce5f697f691, type: 2}
+  runPrepR: {fileID: 7400000, guid: 8ba98733071316e4f95efc4bca06f420, type: 2}
+  runPrepL: {fileID: 7400000, guid: bfce3b0fa15cb0346bb251dfaf2cdfe9, type: 2}
+  skidR: {fileID: 7400000, guid: f74a13367296a9149b37a714a0ff02cd, type: 2}
+  skidL: {fileID: 7400000, guid: dfa9826e53d3ceb4682d287b9216ebc2, type: 2}
+  runUnprepR: {fileID: 7400000, guid: ddbb53e8d7f8198459f4c6fae26fdfbd, type: 2}
+  runUnprepL: {fileID: 7400000, guid: 8446eef6ef49fa842995b2dae2017e12, type: 2}
+  runTransitionR: {fileID: 7400000, guid: 8f44ef3168f2ddd47838d5bf40e50288, type: 2}
+  runTransitionL: {fileID: 7400000, guid: 616b1f55d1d939d40a7dd320348282a7, type: 2}
+  fallR: {fileID: 7400000, guid: dfe4e535a66b7b248ae8bf4a78f2bc75, type: 2}
+  fallL: {fileID: 7400000, guid: ecee28eb3530b834b81eae579e4c09e8, type: 2}
+  fallD: {fileID: 7400000, guid: fa845930efc702e41832d7be832ded89, type: 2}
+  jumpU: {fileID: 7400000, guid: f83cf0c0a0cd1a84ab8e650ef77c801d, type: 2}
+  jumpD: {fileID: 7400000, guid: eebe83e0a2115a940b3229cba17ccbd5, type: 2}
+  hardLandR: {fileID: 7400000, guid: c788dfa7c85a67d4484cfc0bcc3133bf, type: 2}
+  hardLandL: {fileID: 7400000, guid: 3441a07f58afa574aa1f45f78bdebc6b, type: 2}
+  hardLandD: {fileID: 7400000, guid: 2f66866867a06f54dbcdb24c81b63823, type: 2}
+  landR: {fileID: 7400000, guid: aa97b69e174d8aa4f8094522cb6b471e, type: 2}
+  landL: {fileID: 7400000, guid: d4bab66fddd10c34fa8708c945d35550, type: 2}
+  landU: {fileID: 7400000, guid: 004d0c94918932640a00d3d7bea2ee9a, type: 2}
+  landD: {fileID: 7400000, guid: b5d30a059abfb4445936153b1b04cfbe, type: 2}
+  climbN: {fileID: 7400000, guid: 286aa1772ab72f743a6042840c42eeec, type: 2}
+  climbR: {fileID: 7400000, guid: 29752be798139fb43a36259c14eb011d, type: 2}
+  climbL: {fileID: 7400000, guid: f86b083270012974cbeff823bf1b9caf, type: 2}
+  climbU: {fileID: 7400000, guid: 088637acfdedf9945a1fe04e89385398, type: 2}
+  climbD: {fileID: 7400000, guid: 35969f44640a2bb418a4dd1094abc974, type: 2}
+  climbReturnR: {fileID: 7400000, guid: 8c2d2eed485851245bc6e11814d525c1, type: 2}
+  climbReturnL: {fileID: 7400000, guid: 6541a387dbd1f154f84280bc1fe4a055, type: 2}
+  climbFallR: {fileID: 7400000, guid: f1edbb20042159a4d8e531ab4aa9e7a8, type: 2}
+  climbFallL: {fileID: 7400000, guid: 0e837c066eeb6a146bd45d0df4e72c89, type: 2}
+  altPacks:
+  - {fileID: 11400000, guid: bd1d960f9f7315a4eb7949476b9110c6, type: 2}

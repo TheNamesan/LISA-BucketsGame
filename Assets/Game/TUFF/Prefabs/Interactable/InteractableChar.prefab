@@ -164,7 +164,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7715499492148171737
@@ -193,7 +193,7 @@ MonoBehaviour:
   - {x: 0.78125, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 119350
+  m_InstanceId: 115090
   m_LocalBounds:
     m_Center: {x: 0, y: 0.78125, z: 0}
     m_Extent: {x: 0.78125, y: 0.78125, z: 0}
@@ -313,10 +313,10 @@ MonoBehaviour:
   lastVelocity: {x: 0, y: 0}
   walkableLayers:
     serializedVersion: 2
-    m_Bits: 520
+    m_Bits: 64
   wallLayers:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 0
   ignoredLayersAtJumpCheck:
     serializedVersion: 2
     m_Bits: 452
@@ -334,7 +334,7 @@ MonoBehaviour:
   climbMode: 0
   climbableLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   climbing: 0
   disableClimbableCollision: 0
   fellAfterClimbing: 0
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbableLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   col: {fileID: 0}
   climbable: {fileID: 0}
   currentBounds:

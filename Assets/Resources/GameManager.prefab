@@ -577,6 +577,7 @@ GameObject:
   - component: {fileID: 6547701444824546351}
   - component: {fileID: 6547701444824546339}
   - component: {fileID: 8566072047202255938}
+  - component: {fileID: 360040696354841945}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -654,6 +655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData:
+    playtime: 0
     party: []
     partyOrder: 
     inventory:
@@ -672,6 +674,7 @@ MonoBehaviour:
       playerFacing: 0
       disableRun: 0
       disableRopeJump: 0
+      disableMenuAccess: 0
     gameVariables: []
     persistentInteractableIDs: 
   configData:
@@ -684,6 +687,7 @@ MonoBehaviour:
     globalAmbienceVolume: 1
     textSpeed: 0
     keybinds: 
+    lastOpenedFile: 0
     lost: 0
     bucketsAutoFire: 0
     bucketsToggleSlowmo: 0
@@ -700,6 +704,8 @@ MonoBehaviour:
   databaseLoader: {fileID: 7760827275875051410}
   sceneLoaderManager: {fileID: 323278663624473589}
   commonEventManager: {fileID: 2409095652909637868}
+  stopPlaytime: 0
+  lastLoadedFile: -1
   DPI: 0
   DUI: 0
   DPAM: 0
@@ -755,6 +761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_queuedInteractableEvents: []
+  m_parallelInteractableEvents: []
   queuedEvents: []
   references:
     version: 2
@@ -826,6 +833,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8566072047202255938}
+        m_TargetAssemblyTypeName: TUFF.InputManager, TUFF.Runtime
+        m_MethodName: PlayerMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d08470e3-c781-465b-b35a-873d4c7099e7
     m_ActionName: Player/MoveH[/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -882,6 +901,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8566072047202255938}
+        m_TargetAssemblyTypeName: TUFF.InputManager, TUFF.Runtime
+        m_MethodName: PlayerVerticalInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 6183d87a-4eaa-4f13-82e2-57b2184a9c67
     m_ActionName: Player/MoveV[/Keyboard/s,/Keyboard/w]
   - m_PersistentCalls:
@@ -921,6 +952,18 @@ MonoBehaviour:
       - m_Target: {fileID: 6547701444824546339}
         m_TargetAssemblyTypeName: BucketsGame.PlayerInputHandler, BucketsGameRuntime
         m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 8566072047202255938}
+        m_TargetAssemblyTypeName: TUFF.InputManager, TUFF.Runtime
+        m_MethodName: PlayerInteraction
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1237,6 +1280,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c5b64f963ea01b47a01412649ac2633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  input: {fileID: 6547701444824546351}
+  playerInputHandler: {fileID: 360040696354841945}
   playerActionMap:
     m_Name: 
     m_Id: 
@@ -1249,6 +1294,32 @@ MonoBehaviour:
     m_Asset: {fileID: 0}
     m_Actions: []
     m_Bindings: []
+--- !u!114 &360040696354841945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6547701444824546350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18bf0d39d665c234a8712b9ea8cc286e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput:
+    horizontalInput: 0
+    horizontalInputTap: 0
+    verticalInput: 0
+    verticalInputTap: 0
+    interactionButtonDown: 0
+    interactionButtonHold: 0
+    runButtonDown: 0
+    runButtonHold: 0
+    pauseButtonDown: 0
+    pauseButtonHold: 0
+  onMove:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6956888750375369386
 GameObject:
   m_ObjectHideFlags: 0

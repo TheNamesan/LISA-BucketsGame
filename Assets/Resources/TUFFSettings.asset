@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_interactableGizmoFilename: Interactable.png
   m_interactablePrefab: {fileID: 4839283001538814395, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+  m_overworldCharacterPrefab: {fileID: 4089372521618083614, guid: d995b1d651990c1479d996d0d8e7d3e3, type: 3}
   m_enemyGraphicPrefab: {fileID: 0}
   m_defaultTextbox: {fileID: 5973830192642023603, guid: 5cca84c1fa2dc20419ac96bc0f22bab8, type: 3}
   m_systemTextbox: {fileID: 843030366551667578, guid: 3ab4a0f96b316f34f874fc7f76d7d877, type: 3}
@@ -22,6 +23,7 @@ MonoBehaviour:
   m_ignoreLearnedSkills: 0
   m_overrideUnitInitLevel: 0
   m_overrideUnitInitLevelValue: 1
+  m_maxSaveFileSlots: 16
   m_critMultiplier: 3
   m_TPRecoveryByDamageType: 0
   m_TPRecoveryByDamageRatio: 1
@@ -106,6 +108,16 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
+  m_equipSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   m_saveSFX:
     audioClipMode: 0
     audioClip: {fileID: 0}
@@ -136,7 +148,26 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
-  m_battleVictorySFX: {fileID: 0}
+  m_escapeSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
+  m_battleVictorySFX:
+    audioClipMode: 0
+    audioClip: {fileID: 0}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   m_unitDamageSFX:
     audioClipMode: 0
     audioClip: {fileID: 0}
@@ -247,16 +278,6 @@ MonoBehaviour:
     pitchMode: 0
     pitch: 1
     minPitch: 1
-  m_equipSFX:
-    audioClipMode: 0
-    audioClip: {fileID: 0}
-    randomClips: []
-    volumeMode: 0
-    volume: 1
-    minVolume: 1
-    pitchMode: 0
-    pitch: 1
-    minPitch: 1
   m_startingSceneName: 
   m_startingScenePosition: {x: 0, y: 0}
   m_startingSceneFacing: 0
@@ -282,6 +303,15 @@ MonoBehaviour:
   m_quantityTermKey: Quantity
   m_acceptTermKey: 
   m_cancelTermKey: 
+  m_saveFilePromptTermKey: Save to which file?
+  m_loadFilePromptTermKey: Load which file?
+  m_currentExpTermKey: Current Exp
+  m_toNextLevelTermKey: To Next Level
+  m_fightingArtTermKey: Fighting Art
+  m_pastOccupationTermKey: Past Occupation
+  m_likesTermKey: Likes
+  m_favoriteFoodTermKey: Favorite Food
+  m_mostHatedThingTermKey: Most Hated Thing
   m_levelTermKey: 
   m_levelShortTermKey: 
   m_HPTermKey: 
@@ -299,6 +329,16 @@ MonoBehaviour:
   m_SDEFShortTermKey: 
   m_AGIShortTermKey: 
   m_LUKShortTermKey: 
+  m_hitRateTermKey: Hit Rate
+  m_hitRateShortTermKey: Hit
+  m_evasionRateTermKey: Evasion Rate
+  m_evasionRateShortTermKey: Evasion
+  m_criticalRateTermKey: Critical Rate
+  m_criticalRateShortTermKey: Critical
+  m_criticalEvasionRateTermKey: Critical Evasion Rate
+  m_criticalEvasionRateShortTermKey: Crit Evasion
+  m_targetRateTermKey: Target Rate
+  m_targetRateShortTermKey: Aggro
   m_currencyTermKey: Magazines
   m_currencyShortTermKey: Mags
   m_weaponTermKey: 

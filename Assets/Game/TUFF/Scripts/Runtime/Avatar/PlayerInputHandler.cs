@@ -8,13 +8,14 @@ namespace TUFF
 {
     public class PlayerInputHandler : MonoBehaviour
     {
-        private OverworldCharacterController avatar { get 
-            {
-                if (FollowerInstance.player)
-                    return FollowerInstance.player.controller;
-                return null;
-            } 
-        }
+        public static OverworldCharacterController avatar;
+        //private OverworldCharacterController avatar { get 
+        //    {
+        //        if (FollowerInstance.player)
+        //            return FollowerInstance.player.controller;
+        //        return null;
+        //    } 
+        //}
 
         [Header("Inputs")]
         public CharacterInputStream playerInput = new();
