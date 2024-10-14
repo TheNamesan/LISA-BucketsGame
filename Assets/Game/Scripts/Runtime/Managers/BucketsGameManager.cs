@@ -170,6 +170,13 @@ namespace BucketsGame
         private void FocusTimer()
         {
             var player = SceneProperties.mainPlayer;
+            if (SceneProperties.instance && SceneProperties.instance.cutsceneMode)
+            {
+                ToggleFocus(false);
+                m_cooldownTicks = 0;
+                return;
+            }
+
             if (player != null)
             {
                 bool activeFocusInput = player.input.focus;
@@ -187,6 +194,8 @@ namespace BucketsGame
                 else ToggleFocus(false);
             }
             else m_toggleFocus = false;
+            
+
             if (m_cooldownTicks > 0)
                 m_cooldownTicks--;
         }

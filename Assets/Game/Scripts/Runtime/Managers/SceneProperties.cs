@@ -7,7 +7,8 @@ namespace BucketsGame
     public class SceneProperties : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] public bool disableCameraFollowForThisRoom = false;
+        public bool cutsceneMode;
+        public bool disableCameraFollowForThisRoom = false;
         [SerializeField] private CameraManager m_camManager;
         public NextRoomCheck nextRoomCheck;
         public CameraManager camManager {

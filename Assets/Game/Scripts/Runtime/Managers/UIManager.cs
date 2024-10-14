@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using TUFF;
 
 
 namespace BucketsGame
@@ -106,6 +107,8 @@ namespace BucketsGame
                 //if (!showContent) contentDisplayBuffer = 1;
                 //if (showContent && contentDisplayBuffer > 0)
                 //{ showContent = false; contentDisplayBuffer--; }
+                if (SceneProperties.instance && SceneProperties.instance.cutsceneMode)
+                    showContent = false;
                 bool showTimer = TUFF.ConfigData.instance.bucketsTimer;
                 if (forceDisableUI) { showContent = false; showTimer = false; }
                 
