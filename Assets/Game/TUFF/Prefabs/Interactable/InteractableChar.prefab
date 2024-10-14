@@ -193,7 +193,7 @@ MonoBehaviour:
   - {x: 0.78125, y: 0, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 115090
+  m_InstanceId: 104312
   m_LocalBounds:
     m_Center: {x: 0, y: 0.78125, z: 0}
     m_Extent: {x: 0.78125, y: 0.78125, z: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 4089372521618083604}
   - component: {fileID: 4089372521618083610}
   - component: {fileID: 4089372521618083609}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: InteractableChar
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ MonoBehaviour:
     m_Bits: 0
   ignoredLayersAtJumpCheck:
     serializedVersion: 2
-    m_Bits: 452
+    m_Bits: 388
   m_touchingWalkable: {fileID: 0}
   touchingWalkableBeforeFalling: {fileID: 0}
   touchingWalkableProperties: {fileID: 0}

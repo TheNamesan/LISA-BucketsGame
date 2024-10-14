@@ -98,7 +98,6 @@ namespace TUFF
                 Vector3 endpos = PlayerInputHandler.avatar.transform.position;
                 endpos.z = transform.position.z;
                 if (!disableCameraFollow) transform.position = endpos;
-                Debug.Log("Updating camera");
             }
 
             //Debug.Log($"W: {camHalfWidth}, H: {camHalfHeight}");
