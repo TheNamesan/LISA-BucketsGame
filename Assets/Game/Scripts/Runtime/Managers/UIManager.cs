@@ -25,6 +25,7 @@ namespace BucketsGame
 
         [SerializeField] private TMP_Text retryText;
         [Header("Bar")]
+        public GameObject barContent;
         public Image focusFill;
         public ImageAnimator focusAnim;
         public ImageAnimator eyeAnim;
@@ -85,10 +86,6 @@ namespace BucketsGame
             }
                 
         }
-        private void LateUpdate()
-        {
-            //UpdateContent();
-        }
 
         private void UpdateContent()
         {
@@ -107,8 +104,6 @@ namespace BucketsGame
                 //if (!showContent) contentDisplayBuffer = 1;
                 //if (showContent && contentDisplayBuffer > 0)
                 //{ showContent = false; contentDisplayBuffer--; }
-                if (SceneProperties.instance && SceneProperties.instance.cutsceneMode)
-                    showContent = false;
                 bool showTimer = TUFF.ConfigData.instance.bucketsTimer;
                 if (forceDisableUI) { showContent = false; showTimer = false; }
                 
@@ -174,6 +169,9 @@ namespace BucketsGame
 
         private void UpdateBar()
         {
+            bool showContent = true;
+            if (SceneProperties.instance && SceneProperties.instance.cutsceneMode)
+                showContent = false;
             var focus = BucketsGameManager.instance.focusMode;
             if (focusFill)
             {
@@ -188,6 +186,7 @@ namespace BucketsGame
                 focusAnim.Play(focus);
             }
             if (eyeAnim) eyeAnim.Play(focus);
+            barContent?.SetActive(showContent);
         }
         private void UpdateTimer()
         {

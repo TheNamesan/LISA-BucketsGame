@@ -932,12 +932,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed27209eac28794dbac7cb794494d7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceDisableUI: 0
   pauseMenu: {fileID: 8133932264654880427}
   cursorTexture: {fileID: 2800000, guid: 43cff243c07879144ba313784cf99dab, type: 3}
   content: {fileID: 6486243956607972685}
   m_aimIndicator: {fileID: 2009040422505580208}
   m_nextRoomIndicator: {fileID: 5748107555264299828}
   retryText: {fileID: 3269008424846920389}
+  barContent: {fileID: 5540254903304241767}
   focusFill: {fileID: 6486243955396918429}
   focusAnim: {fileID: 3235635339724648416}
   eyeAnim: {fileID: 4790704347389211083}
@@ -1330,6 +1332,7 @@ MonoBehaviour:
     - {fileID: 2212263624428469900}
   highlightX: 0
   highlightY: 0
+  scrollRect: {fileID: 0}
   transitionHandler: {fileID: 4499919313281932568}
   rememberHighlight: 0
   closeMenuWithCancel: 1
