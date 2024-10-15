@@ -226,7 +226,7 @@ namespace TUFF
             {
                 var scene = SceneManager.GetSceneAt(i);
                 if (currentSceneNode.HasScene(scene)) continue;
-                if (lastSceneNode.HasScene(scene)) continue;
+                //if (lastSceneNode.HasScene(scene)) continue;
                 var op = SceneManager.UnloadSceneAsync(scene.name);
                 unloadingScenes.Add(scene.name);
                 op.completed += (asyncOperation) => { unloadingScenes.Remove(scene.name); };
