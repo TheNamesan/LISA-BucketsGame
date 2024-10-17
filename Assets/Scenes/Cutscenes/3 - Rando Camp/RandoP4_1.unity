@@ -5319,91 +5319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9be1a379d45783f4e814efa08351f177, type: 3}
---- !u!1 &722494556
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 722494558}
-  - component: {fileID: 722494557}
-  m_Layer: 0
-  m_Name: Square_4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &722494557
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722494556}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -464518981, guid: 553443db77f4f1040a894e78e496f285, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &722494558
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722494556}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &740068650
+--- !u!43 &686264007
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5567,6 +5483,90 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &722494556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 722494558}
+  - component: {fileID: 722494557}
+  m_Layer: 0
+  m_Name: Square_4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &722494557
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722494556}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -464518981, guid: 553443db77f4f1040a894e78e496f285, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &722494558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722494556}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &810726364 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -38293,7 +38293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182147].dialogue.fixedTextboxPosition
@@ -38401,6 +38401,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[1].key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[2].key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[3].key
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -38541,11 +38549,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[0].text
-      value: You don't really need go to to the bathroom.
+      value: A bathroom.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[1].text
       value: ...
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[2].text
+      value: You suddenly realize how much you really smell.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[3].text
+      value: A bath would be really nice.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182147].dialogue.sentences.Array.data[0].text
@@ -38742,6 +38758,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[1].voicebank
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[2].textSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[2].voicebank
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[3].textSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[3].voicebank
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -39022,6 +39054,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[1].sentenceTextType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[2].sentenceTextType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[3].sentenceTextType
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
