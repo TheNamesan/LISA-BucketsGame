@@ -267,6 +267,10 @@ PrefabInstance:
       value: TUFF.Runtime TUFF.WaitSecondsAction
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344]
+      value: TUFF.Runtime TUFF.PlaySFXAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].triggerType
       value: 2
       objectReference: {fileID: 0}
@@ -435,6 +439,10 @@ PrefabInstance:
       value: Wait Seconds
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].eventName
+      value: Play SFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].isFinished
       value: 0
       objectReference: {fileID: 0}
@@ -528,6 +536,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841845178400773].isFinished
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].isFinished
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -887,6 +899,22 @@ PrefabInstance:
       value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].eventColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].eventColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].eventColor.g
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].eventColor.r
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182151].variableIndex
       value: 0
       objectReference: {fileID: 0}
@@ -967,6 +995,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182151].vectorValueMin.x
       value: 0
       objectReference: {fileID: 0}
@@ -992,7 +1024,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[1].actionList.content.Array.size
@@ -1120,6 +1152,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[3]
+      value: 2611841869103497344
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[4]
       value: 2611841845178400768
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -1359,6 +1395,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.persistentOrigin
       value: 1
       objectReference: {fileID: 0}
@@ -1503,6 +1543,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].minPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182154].choices.Array.data[0].choice
       value: A picture of a few dogs.
       objectReference: {fileID: 0}
@@ -1533,6 +1581,18 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182159].choices.Array.data[3].choice
       value: '*Leave*'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: b5c67861265b0f94e9253385c1da2111, type: 3}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].minVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].pitchMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.fixedTextboxPosition
@@ -1629,6 +1689,14 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841845178400771].dialogue.sentences.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].volumeMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].audioClipMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182154].cancelActionList.content.Array.size
@@ -1989,6 +2057,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182159].choices.Array.data[3].actionList.index
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497344].sfxs.Array.data[0].randomClips.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -5331,6 +5403,170 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!43 &740068650
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 10
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 42
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 16
+    localAABB:
+      m_Center: {x: 0, y: 0.78125, z: 0}
+      m_Extent: {x: 0.78125, y: 0.78125, z: 0}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_BonesAABB: []
+  m_VariableBoneCountWeights:
+    m_Data: 
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 00000100020003000100000003000400010005000400030006000400050004000600070002000800000000000900030001000a00020004000b00010003000c00050007000d00040005000e00060006000f000700
+  m_VertexData:
+    serializedVersion: 3
+    m_VertexCount: 16
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 28
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 704
+    _typelessdata: 0000483f00000000000000000000803f0000008000000080000000800000483f000000000000483f000000000000483f0000c83f00000000000000800000803f00000080000000800000483f0000c83f0000483f0000c83f0000483f0000483f000000000000803f0000008000000080000000800000483f0000c83f0000483f0000000000000000000000000000000000000080000080bf00000000000000800000483f00000000000048bf00000000000000000000c83f00000000000000800000803f0000008000000080000048bf0000c83f0000483f0000c83f000048bf000000000000000000000080000080bf0000000000000080000048bf00000000000048bf00000000000048bf0000483f00000000000080bf000000800000008000000080000048bf00000000000048bf0000c83f000048bf0000c83f00000000000080bf000000800000008000000080000048bf0000c83f000048bf0000c83f0000483f0000483f000000000000803f0000008000000080000000800000483f0000c83f0000483f000000000000483f000000000000000000000080000080bf00000000000000800000483f000000000000483f000000000000483f0000c83f000000000000803f0000008000000080000000800000483f0000c83f0000483f0000c83f000000000000c83f00000000000000800000803f0000008000000080000048bf0000c83f0000483f0000c83f00000000000000000000000000000080000080bf00000000000000800000483f00000000000048bf00000000000048bf0000c83f00000000000000800000803f0000008000000080000048bf0000c83f000048bf0000c83f000048bf0000000000000000000080bf000000800000008000000080000048bf00000000000048bf00000000000048bf0000483f00000000000080bf000000800000008000000080000048bf00000000000048bf0000c83f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: 0, y: 0.78125, z: 0}
+    m_Extent: {x: 0.78125, y: 0.78125, z: 0}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimizationFlags: 1
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!114 &810726364 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -6187,170 +6423,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!43 &1333102243
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  serializedVersion: 10
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 42
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 16
-    localAABB:
-      m_Center: {x: 0, y: 0.78125, z: 0}
-      m_Extent: {x: 0.78125, y: 0.78125, z: 0}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_BonesAABB: []
-  m_VariableBoneCountWeights:
-    m_Data: 
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 00000100020003000100000003000400010005000400030006000400050004000600070002000800000000000900030001000a00020004000b00010003000c00050007000d00040005000e00060006000f000700
-  m_VertexData:
-    serializedVersion: 3
-    m_VertexCount: 16
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 28
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 704
-    _typelessdata: 0000483f00000000000000000000803f0000008000000080000000800000483f000000000000483f000000000000483f0000c83f00000000000000800000803f00000080000000800000483f0000c83f0000483f0000c83f0000483f0000483f000000000000803f0000008000000080000000800000483f0000c83f0000483f0000000000000000000000000000000000000080000080bf00000000000000800000483f00000000000048bf00000000000000000000c83f00000000000000800000803f0000008000000080000048bf0000c83f0000483f0000c83f000048bf000000000000000000000080000080bf0000000000000080000048bf00000000000048bf00000000000048bf0000483f00000000000080bf000000800000008000000080000048bf00000000000048bf0000c83f000048bf0000c83f00000000000080bf000000800000008000000080000048bf0000c83f000048bf0000c83f0000483f0000483f000000000000803f0000008000000080000000800000483f0000c83f0000483f000000000000483f000000000000000000000080000080bf00000000000000800000483f000000000000483f000000000000483f0000c83f000000000000803f0000008000000080000000800000483f0000c83f0000483f0000c83f000000000000c83f00000000000000800000803f0000008000000080000048bf0000c83f0000483f0000c83f00000000000000000000000000000080000080bf00000000000000800000483f00000000000048bf00000000000048bf0000c83f00000000000000800000803f0000008000000080000048bf0000c83f000048bf0000c83f000048bf0000000000000000000080bf000000800000008000000080000048bf00000000000048bf00000000000048bf0000483f00000000000080bf000000800000008000000080000048bf00000000000048bf0000c83f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: 0, y: 0.78125, z: 0}
-    m_Extent: {x: 0.78125, y: 0.78125, z: 0}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
-  m_MeshOptimizationFlags: 1
-  m_StreamData:
-    serializedVersion: 2
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &1337568901
 GameObject:
   m_ObjectHideFlags: 0
@@ -7516,12 +7588,16 @@ PrefabInstance:
       value: TUFF.Runtime TUFF.StopBGMAction
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343]
+      value: TUFF.Runtime TUFF.PlaySFXAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].triggerType
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841786].duration
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841786].fadeType
@@ -7540,6 +7616,10 @@ PrefabInstance:
       value: Stop BGM
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].eventName
+      value: Play SFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841786].isFinished
       value: 0
       objectReference: {fileID: 0}
@@ -7549,6 +7629,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841789].isFinished
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].isFinished
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -7600,12 +7684,32 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].eventColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].eventColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].eventColor.g
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].eventColor.r
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841788].dialogue.origin
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841789].fadeOutDuration
-      value: 25
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841786].waitForCompletion
@@ -7625,11 +7729,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[0]
-      value: 2611841798647841786
+      value: 2611841869103497343
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[1]
-      value: 2611841798647841788
+      value: 2611841798647841786
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.data[2]
@@ -7652,6 +7756,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].pitch
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841788].dialogue.persistentOrigin
       value: 1
       objectReference: {fileID: 0}
@@ -7664,6 +7772,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].minPitch
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ac67ee4d1b770f47965cdb64e1327f1, type: 3}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].minVolume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].pitchMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841788].dialogue.fixedTextboxPosition
       value: 0
       objectReference: {fileID: 0}
@@ -7672,12 +7800,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].volumeMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].audioClipMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841788].dialogue.sentences.Array.data[0].key
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841788].dialogue.sentences.Array.data[0].text
-      value: It'll be okay.
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[2611841869103497343].sfxs.Array.data[0].randomClips.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841798647841788].dialogue.sentences.Array.data[0].textSpeed
@@ -31396,7 +31536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBulletsGoThrough: 0
   enemyBulletsGoThrough: 0
-  propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
+  propertiesData: {fileID: 11400000, guid: ef1059a411b328649b2475337a06ff0d, type: 2}
   onStepEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -35507,7 +35647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182147].dialogue.fixedTextboxPosition
@@ -35765,16 +35905,16 @@ PrefabInstance:
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[0].text
       value: 'It''s a few books.
 
-        Most of them look pretty used.'
+        They all look pretty used.'
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[1].text
-      value: You can't really tell what they're about from the covers.
+      value: Been a long time since you've red anything, now that you think about
+        it.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[2].text
-      value: Been a long time since you've red anything, now that you think about
-        it.
+      value: Not that that changes anything since you always struggled with reading.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[3].text
@@ -40394,7 +40534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182147].dialogue.fixedTextboxPosition
@@ -40646,11 +40786,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[0].text
-      value: It's a nice flower in a bottle.
+      value: It's a cute flower in a bottle.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[1].text
-      value: It's cute.
+      value: It looks pretty well maintained, too.
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[2611841824850182146].dialogue.sentences.Array.data[2].text
