@@ -445,6 +445,9 @@ SpriteAtlas:
   - {fileID: -1865510895, guid: 10897891229298b44925779114169e24, type: 3}
   - {fileID: -478656751, guid: 10897891229298b44925779114169e24, type: 3}
   - {fileID: 21300000, guid: 6696e6a1dc7e8c943b3188e6c312fafc, type: 3}
+  - {fileID: 188477792, guid: 22df01b1b8f58154ead1c6332100ace4, type: 3}
+  - {fileID: 1220044318, guid: 22df01b1b8f58154ead1c6332100ace4, type: 3}
+  - {fileID: 1557549908, guid: 22df01b1b8f58154ead1c6332100ace4, type: 3}
   - {fileID: 21300000, guid: a67ce6b1ef33b9341bb95af77250b1d7, type: 3}
   - {fileID: 21300000, guid: bce82ab189021dc4ba25b225ef9c8c3c, type: 3}
   - {fileID: -578235056, guid: eeb9a0e11286d5d4880bfc0d04ca8dd9, type: 3}
@@ -453,7 +456,9 @@ SpriteAtlas:
   - {fileID: -1397360002, guid: eeb9a0e11286d5d4880bfc0d04ca8dd9, type: 3}
   - {fileID: 244281055, guid: eeb9a0e11286d5d4880bfc0d04ca8dd9, type: 3}
   - {fileID: 628245952, guid: eeb9a0e11286d5d4880bfc0d04ca8dd9, type: 3}
+  - {fileID: -1325223427, guid: eeb9a0e11286d5d4880bfc0d04ca8dd9, type: 3}
   - {fileID: -1948160834, guid: eeb9a0e11286d5d4880bfc0d04ca8dd9, type: 3}
+  - {fileID: 1351009776, guid: eeb9a0e11286d5d4880bfc0d04ca8dd9, type: 3}
   - {fileID: 21300000, guid: f613f9e183bb9cd4a9d301ed5e5a96dd, type: 3}
   - {fileID: 21300000, guid: 4da726f17f9ff69489cddecb17f04588, type: 3}
   - {fileID: 504436076, guid: 08fb760209e897c41b081f79026d7c0f, type: 3}
@@ -783,6 +788,10 @@ SpriteAtlas:
   - {fileID: -1128409960, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
   - {fileID: 122100067, guid: 58276c73596183348bb8ab4a45a15340, type: 3}
   - {fileID: 21300000, guid: 3f345283a34adeb4fb936c39396f44e2, type: 3}
+  - {fileID: 1345830944, guid: 9be4e6938a38dae4b937afe26c938990, type: 3}
+  - {fileID: 723795630, guid: 9be4e6938a38dae4b937afe26c938990, type: 3}
+  - {fileID: -199346628, guid: 9be4e6938a38dae4b937afe26c938990, type: 3}
+  - {fileID: 21300000, guid: d2f001a3264fea642800aeb812ffe193, type: 3}
   - {fileID: 21300000, guid: caefa4b38128e5545982304f1119cf3c, type: 3}
   - {fileID: -1079699989, guid: 98d229b3ceb48454e806fb4c8af8f5b1, type: 3}
   - {fileID: 833889162, guid: 98d229b3ceb48454e806fb4c8af8f5b1, type: 3}
@@ -1672,6 +1681,8 @@ SpriteAtlas:
   - {fileID: 21300000, guid: a3065988401a27d4393dfc3778e9a5a4, type: 3}
   - {fileID: 21300000, guid: 51e72a987abab3a43a74de6bbe77db2c, type: 3}
   - {fileID: 21300000, guid: a9d7c0a8c59b5be4282132661a0e8d0c, type: 3}
+  - {fileID: -2072886637, guid: 2b3289b87ebfe694a811b117c0c9a218, type: 3}
+  - {fileID: 846385165, guid: 2b3289b87ebfe694a811b117c0c9a218, type: 3}
   - {fileID: 21300000, guid: 8b1fecc864b15d6408b5c4f3ebef38a2, type: 3}
   - {fileID: 21300000, guid: 93eaf1d80ceb97d4dab3d0111d74d7f8, type: 3}
   - {fileID: 220787816, guid: 90d806d8e06cd804384a138793a46e96, type: 3}
@@ -1734,6 +1745,7 @@ SpriteAtlas:
   - {fileID: 914263568, guid: a89a9449f42f40f478d221dc050aaa7e, type: 3}
   - {fileID: -6146720, guid: a89a9449f42f40f478d221dc050aaa7e, type: 3}
   - {fileID: -727322204, guid: a89a9449f42f40f478d221dc050aaa7e, type: 3}
+  - {fileID: 21300000, guid: f56268591a5319743863a103042ccc71, type: 3}
   - {fileID: 1964995317, guid: 19535a599264ae245a3e9815faaa7392, type: 3}
   - {fileID: 2142750236, guid: 19535a599264ae245a3e9815faaa7392, type: 3}
   - {fileID: -1367590895, guid: 19535a599264ae245a3e9815faaa7392, type: 3}
@@ -3908,6 +3920,9 @@ SpriteAtlas:
   - Facility Tiles Walls 3_0
   - Facility Tiles Walls 3_1
   - inside copy2
+  - Lightswitch_0
+  - Lightswitch_1
+  - Lightswitch_2
   - Dungeon_A5
   - template
   - Apartment_stuff_1
@@ -3916,7 +3931,9 @@ SpriteAtlas:
   - Apartment_stuff_2
   - Apartment_stuff_5
   - Apartment_stuff_4
+  - Apartment_stuff_7
   - Apartment_stuff_6
+  - Apartment_stuff_8
   - ground copy2
   - Trash4 (Mack)
   - Facility Props_3
@@ -4246,6 +4263,10 @@ SpriteAtlas:
   - Painful_Graffiti_45
   - Painful_Graffiti_34
   - Inside_A1
+  - Clothing_2
+  - Clothing_3
+  - Clothing_0
+  - Dog food
   - PillarsNCliffs
   - Furniture2_B_100
   - Furniture2_B_101
@@ -5135,6 +5156,8 @@ SpriteAtlas:
   - Inside_B
   - Trip
   - fastfoodground
+  - Wardrobe_0
+  - Wardrobe_1
   - crossroads1
   - lisatilesinside copy
   - Door_2
@@ -5197,6 +5220,7 @@ SpriteAtlas:
   - paperwork_0
   - paperwork_3
   - paperwork_2
+  - WINDOW
   - $Flowers_8
   - $Flowers_9
   - $Flowers_6
