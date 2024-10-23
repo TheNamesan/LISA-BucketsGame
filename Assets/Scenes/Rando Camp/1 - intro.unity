@@ -12900,6 +12900,10 @@ PrefabInstance:
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: sceneBGM.bgm
       value: 
+      objectReference: {fileID: 11400000, guid: 103a9f5b52e9c4241a5e6a9164b7b858, type: 2}
+    - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
+      propertyPath: sceneBGM.pitch
+      value: 0.125
       objectReference: {fileID: 0}
     - target: {fileID: 6423423899683277877, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: m_Name
@@ -65646,7 +65650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 229453945971046007, guid: 50231c5a31e09af439ca1dde1242ff0d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8
+      value: -8.0000305
       objectReference: {fileID: 0}
     - target: {fileID: 2212263624428469902, guid: 50231c5a31e09af439ca1dde1242ff0d, type: 3}
       propertyPath: m_AnchorMax.y
