@@ -476,15 +476,32 @@ namespace BucketsGame
                 float velX = GetVelX(moveH);
                 float velY = jumpForce * (m_slowDownTicks > 0 ? slowDownJumpScale : 1f);
                 CheckDoorOpening(moveH);
-                if (((moveH > 0 || wallJumping) && (IsVerticalWall(wallRightHit)) ||
-                    ((moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit))) 
+                bool wallClimbFoundRight = (moveH > 0 || wallJumping) && IsVerticalWall(wallRightHit);
+                bool wallClimbFoundLeft = (moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit);
+                if ( (wallClimbFoundRight || wallClimbFoundLeft)
                     && !dashing && !m_wallClimbCanceled) // Wall Climb
                 {
-                    if (!wallJumping) ChangeFacingOnMove(moveH);
-                    else ChangeFacingOnMove(m_wallJumpDirection);
-                    StopWallJump();
-                    CancelFacingLock();
-                    wallClimb = true;
+                    bool foundNonClimbable = false;
+                    if (wallClimbFoundRight) // If found a wall to the right, but non climbable, stop
+                    {
+                        if (wallRightHit)
+                            if (wallRightHit.transform.TryGetComponent(out TerrainProperties terrain))
+                                if (terrain.nonClimbable) foundNonClimbable = true;
+                    }
+                    else if (wallClimbFoundLeft) // If found a wall to the left, but non climbable, stop 
+                    {
+                        if (wallLeftHit)
+                            if (wallLeftHit.transform.TryGetComponent(out TerrainProperties terrain))
+                                if (terrain.nonClimbable) foundNonClimbable = true;
+                    }
+                    if (!foundNonClimbable)
+                    {
+                        if (!wallJumping) ChangeFacingOnMove(moveH);
+                        else ChangeFacingOnMove(m_wallJumpDirection);
+                        StopWallJump();
+                        CancelFacingLock();
+                        wallClimb = true;
+                    }
                 }
                 if (wallClimb && (IsVerticalWall(wallRightHit) || IsVerticalWall(wallLeftHit))) // Wall Climb speed
                 {

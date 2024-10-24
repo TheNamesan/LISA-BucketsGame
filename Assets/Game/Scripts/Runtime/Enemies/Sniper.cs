@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TUFF;
 using UnityEngine;
 
 namespace BucketsGame
@@ -264,6 +265,7 @@ namespace BucketsGame
             Debug.DrawRay(m_shotOrigin, dir, Color.magenta, Time.fixedDeltaTime);
             hitTarget = false;
             hitGround = new();
+            AudioManager.instance.PlaySFX(SFXList.instance.sniperFiringSFX);
             for (int i = 0; i < groundHits.Length; i++)
             {
                 var ground = groundHits[i];
