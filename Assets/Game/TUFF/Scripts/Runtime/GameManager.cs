@@ -101,7 +101,7 @@ namespace TUFF
                 else
                 {
                     Debug.Log("Creating Instance!");
-                    AssignInstance(Instantiate(Resources.Load<GameManager>("GameManager")));
+                    AssignInstance(Instantiate(Resources.Load<GameManager>("BucketsGameManager")));
                 }
             }
             return m_instance;

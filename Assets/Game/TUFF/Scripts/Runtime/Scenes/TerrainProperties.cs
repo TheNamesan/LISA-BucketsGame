@@ -10,6 +10,7 @@ namespace TUFF
     {
         public bool playerBulletsGoThrough = false;
         public bool enemyBulletsGoThrough = false;
+        public bool nonClimbable = false;
 
         public TerrainPropertiesData propertiesData = null;
         public UnityEvent onStepEvent = new UnityEvent();

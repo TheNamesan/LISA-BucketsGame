@@ -12,7 +12,7 @@ namespace BucketsGame
         public void OnPointerEnter(PointerEventData pointerEventData)
         {
             //Output to console the GameObject's name and the following message
-            Debug.Log("Cursor Entering " + name + " GameObject");
+            //Debug.Log("Cursor Entering " + name + " GameObject");
             if (group) group.alpha = 0.5f;
         }
 
@@ -20,7 +20,7 @@ namespace BucketsGame
         public void OnPointerExit(PointerEventData pointerEventData)
         {
             //Output the following message with the GameObject's name
-            Debug.Log("Cursor Exiting " + name + " GameObject");
+            //Debug.Log("Cursor Exiting " + name + " GameObject");
             if (group) group.alpha = 1f;
         }
     }

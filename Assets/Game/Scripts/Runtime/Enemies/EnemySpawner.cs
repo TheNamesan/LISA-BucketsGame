@@ -31,6 +31,10 @@ namespace BucketsGame
         public int spawnFlyersCount = 0;
         public int spawnSnipersCount = 0;
         public int spawnBarrelBrosCount = 0;
+
+        public int spawnR_RushersCount = 0;
+        public int spawnR_ShieldersCount = 0;
+        public int spawnR_FlyersCount = 0;
         [Header("Spawn Properties")]
         public EnemyAIState spawnState = EnemyAIState.Roaming;
         public Facing spawnFacing = Facing.Right;
@@ -127,6 +131,24 @@ namespace BucketsGame
             for (int i = 0; i < spawnBarrelBrosCount; i++)
             {
                 var enemy = Instantiate(PrefabList.instance.barrelBroPrefab, transform);
+                enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
+            }
+            for (int i = 0; i < spawnR_RushersCount; i++)
+            {
+                var enemy = Instantiate(PrefabList.instance.r_RusherPrefab, transform);
+                enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
+            }
+            for (int i = 0; i < spawnR_ShieldersCount; i++)
+            {
+                var enemy = Instantiate(PrefabList.instance.r_ShielderPrefab, transform);
+                enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
+            }
+            for (int i = 0; i < spawnR_FlyersCount; i++)
+            {
+                var enemy = Instantiate(PrefabList.instance.r_FlyerPrefab, transform);
                 enemy.gameObject.SetActive(false);
                 CheckGeneralEnemyOverrides(enemy);
             }
