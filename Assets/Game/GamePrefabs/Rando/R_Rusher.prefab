@@ -230,7 +230,7 @@ MonoBehaviour:
   sprite: {fileID: 7740060641241979796}
   hurtbox: {fileID: 7740060641428632434}
   facing: 0
-  moveSpeed: 8
+  moveSpeed: 10
   grounded: 0
   ignoreOneWay: 0
   groundCollider: {fileID: 0}
@@ -253,7 +253,7 @@ MonoBehaviour:
   nearbyEnemyAlertRadius: 3.5
   painMaxHP: 5
   painMoveSpeed: 22
-  roamSpeed: 18
+  roamSpeed: 6
   m_attacking: 0
   attackingAnimTicks: 25
   attackTick: 17
