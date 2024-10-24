@@ -242,21 +242,21 @@ MonoBehaviour:
   groundIsOneWay: 0
   gravityScale: 2
   maxFallSpeed: -15
-  maxHP: 3
-  hp: 3
+  maxHP: 4
+  hp: 4
   m_dead: 0
-  enemyState: 0
+  enemyState: 2
   coneAngle: 45
   coneAngleOffset: 0
   coneDistance: 8.5
   coneAccuracy: 12
   nearbyEnemyAlertRadius: 3.5
-  painMaxHP: 4
-  painMoveSpeed: 12
-  roamSpeed: 5
+  painMaxHP: 5
+  painMoveSpeed: 22
+  roamSpeed: 18
   m_attacking: 0
-  attackingAnimTicks: 28
-  attackTick: 20
+  attackingAnimTicks: 25
+  attackTick: 17
   m_attackingTicks: 0
 --- !u!114 &5250226330865186458
 MonoBehaviour:
