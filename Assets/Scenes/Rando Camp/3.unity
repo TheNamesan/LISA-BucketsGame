@@ -387,7 +387,7 @@ PrefabInstance:
     - target: {fileID: 7013784661484930830, guid: 4961f2fa1f848ba4b847a74c65ea679b, type: 3}
       propertyPath: enemiesToCheck.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1016972963}
     - target: {fileID: 7013784661484930831, guid: 4961f2fa1f848ba4b847a74c65ea679b, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -520,6 +520,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3711834660284266073, guid: 37532a4b7aa528149b825501ed221534, type: 3}
   m_PrefabInstance: {fileID: 204929414}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1016972963 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7740060643212712034, guid: edb506cf81a48fb4598bad083d158b41, type: 3}
+  m_PrefabInstance: {fileID: 15516331}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448efbab8fbabd14aaa488be6cf22f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1349643621
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -636,7 +647,7 @@ PrefabInstance:
     - target: {fileID: 7013784661484930830, guid: 4961f2fa1f848ba4b847a74c65ea679b, type: 3}
       propertyPath: enemiesToCheck.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1016972963}
     - target: {fileID: 7013784661484930831, guid: 4961f2fa1f848ba4b847a74c65ea679b, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -5582,19 +5593,19 @@ PrefabInstance:
       objectReference: {fileID: 1502514554}
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: max.x
-      value: -9999
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: max.y
-      value: -9999
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: min.x
-      value: 9999
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: min.y
-      value: 9999
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: sceneBGM.bgm
