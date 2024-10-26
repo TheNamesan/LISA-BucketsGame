@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TUFF;
+using static Codice.Client.Commands.WkTree.WorkspaceTreeNode;
 
 namespace BucketsGame
 {
@@ -319,6 +320,37 @@ namespace BucketsGame
             {
                 groundProperties.Step(transform.position, new Vector3Int(0, -1, 0));
             }
+        }
+        public static bool HasDirectLoSWithTarget(Vector2 origin, Vector2 target, float distance = Mathf.Infinity, bool isPlayer = false )
+        {
+            LayerMask layers = BucketsGameManager.instance.groundLayers | (1 << BucketsGameManager.instance.playerLayer);
+            if (!isPlayer) layers = layers | (1 << BucketsGameManager.instance.playerLayer);
+            //else layers = layers | (1 << BucketsGameManager.instance.enemyLayer);
+            Vector2 dir = target - origin;
+
+            RaycastHit2D[] expectedHits = Physics2D.RaycastAll(origin, dir, distance, layers);
+
+            for (int i = 0; i < expectedHits.Length; i++)
+            {
+                var los = expectedHits[i];
+                if (los.collider.gameObject.layer == 6)
+                {
+                    if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                        if (!isPlayer && props.enemyBulletsGoThrough) continue;
+                        else if (isPlayer && props.playerBulletsGoThrough) continue;
+                    if (los.collider.TryGetComponent(out Door door))
+                        continue;
+                    break;
+                }
+                if (!isPlayer)
+                {
+                    if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }

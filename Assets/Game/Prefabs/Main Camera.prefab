@@ -48,6 +48,8 @@ MonoBehaviour:
   camManager: {fileID: 8554847308507395934}
   volume: {fileID: 1497658359738286897}
   maxIntensity: 0.666
+  intensityTimerCap: 0.3
+  shakeScale: 0.002
 --- !u!114 &1497658359738286897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +428,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 31743
+    m_Bits: 130047
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
