@@ -97,6 +97,30 @@ namespace BucketsGame
         {
             lastPosition = rb.position;
             lastVelocity = rb.velocity;
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.AddListener(OnReset);
+        }
+        private void OnDisable()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(OnReset);
+        }
+        private void OnDestroy()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(OnReset);
+        }
+        public void OnReset()
+        {
+            m_dead = false;
+            m_stunTicks = 0;
+            StartCoroutine(LateReset());
+        }
+        public void OnLateReset()
+        {
+            ForceUpdateAnim();
+        }
+        public IEnumerator LateReset()
+        {
+            yield return new WaitForEndOfFrame();
+            OnLateReset();
         }
         private void Start()
         {
@@ -857,6 +881,10 @@ namespace BucketsGame
             //GroundedAnimationStateCheck();
         }
 
+        public void ForceUpdateAnim()
+        {
+            animHandler?.ChangeAnimationState(this, lastState, true);
+        }
         public void ChangeState(CharacterStates state, bool forcePlaySameAnim = false)
         {
             animHandler.ChangeAnimationState(this, state, forcePlaySameAnim);
