@@ -303,9 +303,11 @@ namespace TUFF
         }
         public void SetPlayerPosition(Vector2 position, FaceDirections faceDirection)
         {
-            if (FollowerInstance.player == null) return;
-            var controller = FollowerInstance.player.controller;
-            controller.transform.position = (Vector3)position + Vector3.up * Physics2D.defaultContactOffset * 0.5f;
+            //if (FollowerInstance.player == null) return;
+            if (PlayerInputHandler.avatar == null) return;
+            //var controller = FollowerInstance.player.controller;
+            var controller = PlayerInputHandler.avatar;
+            //controller.transform.position = (Vector3)position + Vector3.up * Physics2D.defaultContactOffset * 0.5f;
             controller.ChangeFaceDirection(faceDirection);
             controller.SetSceneChangeFrameConditions();
             controller.fallStart = position;
