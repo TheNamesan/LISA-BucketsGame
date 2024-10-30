@@ -19,6 +19,7 @@ namespace BucketsGame
         public int coneAccuracy = 40;
 
         public bool hasBucketsLoS = false;
+        public float distanceToBuckets = 999f;
 
         public static List<EnemyWallDoor> sceneEnemyWallDoors = new();
 
@@ -62,6 +63,11 @@ namespace BucketsGame
             if (!neighbourDoor) return false;
             return neighbourDoor.hasBucketsLoS;
         }
+        public float GetNeighbourDistance()
+        {
+            if (!neighbourDoor) return 9999f;
+            return neighbourDoor.distanceToBuckets;
+        }
         private void FixedUpdate()
         {
             EnemyLineOfSight();
@@ -103,6 +109,7 @@ namespace BucketsGame
                         //Debug.Log($"[{gameObject.name}] Found enemy on it: " + i + $". Pos: {SceneProperties.mainPlayer.transform.position}");
                         //AlertEnemy();
                         hasBucketsLoS = true;
+                        distanceToBuckets = Mathf.Abs(los.collider.transform.position.x - pos.x);
                         break;
                     }
                 }

@@ -172,6 +172,36 @@ namespace BucketsGame
                 //Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
             }
         }
+        public bool CheckIfDoorIsFaster(PlayerController player, float distanceToPlayer, ref int moveH, bool enterIfClose = true)
+        {
+            EnemyWallDoor nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position);
+            float distanceToDoor = 99999f;
+            if (nearest) { distanceToDoor = Mathf.Abs(rb.position.x - nearest.transform.position.x); }
+            bool isCloserWithDoor = nearest && nearest.GetNeighbourDistance() + distanceToDoor < Mathf.Abs(distanceToPlayer);
+
+            if (!HasDirectLoSWithTarget(rb.position, player.rb.position)
+                || isCloserWithDoor)
+            {
+                //color = Color.red;
+                if (nearest)
+                {
+                    // If already at the door
+                    if (enterIfClose && Physics2D.BoxCast(rb.position, col.size, 0f, Vector3.down, 0f, (1 << 16)))
+                    {
+                        nearest.TeleportToNeighbour(this);
+                    }
+                    else
+                    {
+                        float distanceToNearestWallDoor = nearest.transform.position.x - rb.position.x;
+                        moveH = (int)Mathf.Sign(distanceToNearestWallDoor);
+                        return true;
+                    }
+                }
+                //else moveH = (int)Mathf.Sign(distanceToPlayer);
+            }
+
+            return false;
+        }
         protected virtual void AlertEnemy()
         {
             enemyState = EnemyAIState.Alert;

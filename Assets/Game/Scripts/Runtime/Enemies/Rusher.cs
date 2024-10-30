@@ -128,34 +128,17 @@ namespace BucketsGame
                     {
                         speed = moveSpeed;
                         if (BucketsGameManager.IsPainMode()) speed = painMoveSpeed;
-                        if (!HasDirectLoSWithTarget(rb.position, player.rb.position))
-                        {
-                            color = Color.red;
-                            EnemyWallDoor nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position);
-                            if (nearest)
-                            {
-                                // If already at the door
-                                if (Physics2D.BoxCast(rb.position, col.size, 0f, Vector3.down, 0f, (1 << 16)))
-                                {
-                                    nearest.TeleportToNeighbour(this);
-                                }
-                                else
-                                {
-                                    float distanceToNearestWallDoor = nearest.transform.position.x - rb.position.x;
-                                    moveH = (int)Mathf.Sign(distanceToNearestWallDoor);
-                                }
-                            }
-                            else moveH = (int)Mathf.Sign(distanceToPlayer);
-                        }
-                        else
-                        {
-                            moveH = (int)Mathf.Sign(distanceToPlayer);
-                        }
+
+                        moveH = (int)Mathf.Sign(distanceToPlayer);
+
+                        CheckIfDoorIsFaster(player, distanceToPlayer, ref moveH, !m_attacking);
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
+                        {
                             moveH = 0;
+                        }
                         CheckDoorOpening(moveH);
                     }
-                    
+
                     Debug.DrawLine(rb.position, player.rb.position, color);
                     if (enemyState == EnemyAIState.Roaming)
                     {
@@ -187,6 +170,7 @@ namespace BucketsGame
             }
             CapVelocity();
         }
+
         public void OnDrawGizmos()
         {
             DrawLineOfSightGizmos();

@@ -192,9 +192,16 @@ namespace BucketsGame
                             
                         if (distanceToPlayer <= 0.3f) speed = 0;
                         moveH = (int)Mathf.Sign(distanceToPlayerX);
-                        CheckDoorOpening(moveH);
+                        bool enterDoor = !m_attacking && !stunned && !m_firing;
+                        if (CheckIfDoorIsFaster(player, distanceToPlayer, ref moveH, enterDoor))
+                        {
+                            speed = (BucketsGameManager.IsPainMode() ? painApproachSpeed : approachSpeed);
+                        }
+                            
+                        else moveH = (int)Mathf.Sign(distanceToPlayerX);
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH = 0;
+                        CheckDoorOpening(moveH);
                     }
                     if (enemyState == EnemyAIState.Roaming)
                     {
