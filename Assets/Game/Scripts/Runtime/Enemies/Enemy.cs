@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Codice.Client.Common.GameUI;
 
 namespace BucketsGame
 {
@@ -27,6 +28,11 @@ namespace BucketsGame
         [Header("Pain Mode")]
         public int painMaxHP = 2;
         public float painMoveSpeed = 12;
+
+        public int doorFadeTicks = 0;
+        private int m_doorFadeDuration = 19;
+        public bool InDoorFade { get => doorFadeTicks > 0; }
+        public EnemyWallDoor targetWallDoor = null;
         
         
 
@@ -174,6 +180,7 @@ namespace BucketsGame
         }
         public bool CheckIfDoorIsFaster(PlayerController player, float distanceToPlayer, ref int moveH, bool enterIfClose = true)
         {
+            if (InDoorFade) return false;
             EnemyWallDoor nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position);
             float distanceToDoor = 99999f;
             if (nearest) { distanceToDoor = Mathf.Abs(rb.position.x - nearest.transform.position.x); }
@@ -186,9 +193,10 @@ namespace BucketsGame
                 if (nearest)
                 {
                     // If already at the door
-                    if (enterIfClose && Physics2D.BoxCast(rb.position, col.size, 0f, Vector3.down, 0f, (1 << 16)))
+                    var hit = Physics2D.BoxCast(rb.position, col.size, 0f, Vector3.down, 0f, (1 << 16));
+                    if (enterIfClose && hit && hit.collider == nearest.col)
                     {
-                        nearest.TeleportToNeighbour(this);
+                        EnterWallDoor(nearest);
                     }
                     else
                     {
@@ -197,10 +205,34 @@ namespace BucketsGame
                         return true;
                     }
                 }
-                //else moveH = (int)Mathf.Sign(distanceToPlayer);
             }
 
             return false;
+        }
+        public void EnterWallDoor(EnemyWallDoor door)
+        {
+            if (!door) return;
+            doorFadeTicks = m_doorFadeDuration;
+            targetWallDoor = door;
+        }
+        protected void WallDoorTransitionTimer()
+        {
+            if (InDoorFade)
+            {
+                doorFadeTicks--;
+                int half = m_doorFadeDuration / 2;
+                float normalizedTime = (doorFadeTicks / (float)m_doorFadeDuration);
+                if (doorFadeTicks == half)
+                {
+                    targetWallDoor?.TeleportToNeighbour(this);
+                }
+                if (sprite)
+                {
+                    float a = 1 - Mathf.Sin(normalizedTime * Mathf.PI);
+                    sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, a);
+                }
+                
+            }
         }
         protected virtual void AlertEnemy()
         {

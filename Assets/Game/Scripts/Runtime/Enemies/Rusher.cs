@@ -48,6 +48,7 @@ namespace BucketsGame
             CheckPlayerDistance();
             MoveHandler();
             FallOffMapCheck();
+            WallDoorTransitionTimer();
         }
         private void CheckPlayerDistance()
         {
@@ -160,7 +161,7 @@ namespace BucketsGame
                     Vector2 velocity = new Vector2(velX, 0);
                     Vector2 normal = groundNormal;
                     velocity = GetSlopeVelocity(moveH, velX, velocity, normal);
-                    if (m_attacking)
+                    if (m_attacking || InDoorFade)
                     {
                         velocity = Vector2.zero;
                     }

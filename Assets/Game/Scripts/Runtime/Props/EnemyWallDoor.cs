@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace BucketsGame
 {
@@ -75,6 +76,7 @@ namespace BucketsGame
         protected virtual void EnemyLineOfSight()
         {
             hasBucketsLoS = false;
+            distanceToBuckets = 99999f;
 
             LayerMask layers = BucketsGameManager.instance.groundLayers | (1 << BucketsGameManager.instance.playerLayer);
 
