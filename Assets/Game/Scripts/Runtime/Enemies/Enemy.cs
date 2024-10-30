@@ -30,7 +30,7 @@ namespace BucketsGame
         public float painMoveSpeed = 12;
 
         public int doorFadeTicks = 0;
-        private int m_doorFadeDuration = 19;
+        private int m_doorFadeDuration = 25;
         public bool InDoorFade { get => doorFadeTicks > 0; }
         public EnemyWallDoor targetWallDoor = null;
         
@@ -217,7 +217,7 @@ namespace BucketsGame
         }
         protected void WallDoorTransitionTimer()
         {
-            if (InDoorFade)
+            if (InDoorFade && targetWallDoor)
             {
                 doorFadeTicks--;
                 int half = m_doorFadeDuration / 2;
@@ -231,7 +231,7 @@ namespace BucketsGame
                     float a = 1 - Mathf.Sin(normalizedTime * Mathf.PI);
                     sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, a);
                 }
-                
+                if (doorFadeTicks <= 0) targetWallDoor = null;
             }
         }
         protected virtual void AlertEnemy()
