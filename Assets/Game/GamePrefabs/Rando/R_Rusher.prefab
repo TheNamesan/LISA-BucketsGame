@@ -251,8 +251,10 @@ MonoBehaviour:
   coneDistance: 8.5
   coneAccuracy: 12
   nearbyEnemyAlertRadius: 3.5
-  painMaxHP: 5
-  painMoveSpeed: 22
+  painMaxHP: 4
+  painMoveSpeed: 12
+  doorFadeTicks: 0
+  targetWallDoor: {fileID: 0}
   roamSpeed: 6
   m_attacking: 0
   attackingAnimTicks: 25

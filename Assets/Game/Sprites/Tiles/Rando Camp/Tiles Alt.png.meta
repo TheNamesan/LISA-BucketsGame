@@ -3146,7 +3146,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3167,7 +3167,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3175,6 +3175,48 @@ TextureImporter:
       bones: []
       spriteID: 5482956c923cb794baf3da64e859d685
       internalID: -1411199927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Alt_147
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 339d17710fe84e9449fdfb6816f20777
+      internalID: 284402946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tiles Alt_148
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 480
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dfb0a4c2c1c0b145976d81a5578f61c
+      internalID: -155118783
       vertices: []
       indices: 
       edges: []
@@ -3244,6 +3286,8 @@ TextureImporter:
       Tiles Alt_144: -1344319009
       Tiles Alt_145: 1261112764
       Tiles Alt_146: -1411199927
+      Tiles Alt_147: 284402946
+      Tiles Alt_148: -155118783
       Tiles Alt_15: -1703472143
       Tiles Alt_16: 1248451271
       Tiles Alt_17: 327481687
