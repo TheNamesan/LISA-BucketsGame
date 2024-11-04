@@ -22,6 +22,8 @@ MonoBehaviour:
   - rid: 2611841824850182149
   - rid: 2611842078363877376
   - rid: 2611842099772915797
+  - rid: 6007158779938865154
+  - rid: 6007158779938865157
   references:
     version: 2
     RefIds:
@@ -67,6 +69,18 @@ MonoBehaviour:
         scene: {fileID: 102900000, guid: 9063725315a61cb409b3cef14d885ccf, type: 3}
         localID: 343037095
         name: Interactable
+    - rid: 6007158779938865154
+      type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
+      data:
+        scene: {fileID: 102900000, guid: 591710927ee2a164cb3e55c48a484645, type: 3}
+        localID: 1035530281
+        name: Interactable
+    - rid: 6007158779938865157
+      type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
+      data:
+        scene: {fileID: 102900000, guid: 591710927ee2a164cb3e55c48a484645, type: 3}
+        localID: 122212063
+        name: InteractableData
     - rid: 7335342560940130307
       type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
       data:
