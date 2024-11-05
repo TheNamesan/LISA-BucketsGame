@@ -42,6 +42,7 @@ namespace BucketsGame
         private void ToggleFollow(bool follow)
         {
             disableFollow = !follow;
+            if (camOffset) camOffset.m_Offset = Vector2.zero;
         }
         public void SetBounds(Collider2D worldBoundCol)
         {
