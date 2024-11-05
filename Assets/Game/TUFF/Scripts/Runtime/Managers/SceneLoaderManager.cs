@@ -308,6 +308,7 @@ namespace TUFF
             //var controller = FollowerInstance.player.controller;
             var controller = PlayerInputHandler.avatar;
             //controller.transform.position = (Vector3)position + Vector3.up * Physics2D.defaultContactOffset * 0.5f;
+            PlayerInputHandler.avatar.transform.position = (Vector3)position + Vector3.up * Physics2D.defaultContactOffset * 0.5f;
             controller.ChangeFaceDirection(faceDirection);
             controller.SetSceneChangeFrameConditions();
             controller.fallStart = position;
