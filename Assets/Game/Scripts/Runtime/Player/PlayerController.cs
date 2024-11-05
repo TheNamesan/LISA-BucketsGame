@@ -503,7 +503,7 @@ namespace BucketsGame
                 bool wallClimbFoundRight = (moveH > 0 || wallJumping) && IsVerticalWall(wallRightHit);
                 bool wallClimbFoundLeft = (moveH < 0 || wallJumping) && IsVerticalWall(wallLeftHit);
                 if ( (wallClimbFoundRight || wallClimbFoundLeft)
-                    && !dashing && !m_wallClimbCanceled) // Wall Climb
+                    && !dashing && !m_wallClimbCanceled && !Physics2D.Raycast(closestContactPointD, Vector3.down, 1f, groundLayers)) // Wall Climb
                 {
                     bool foundNonClimbable = false;
                     if (wallClimbFoundRight) // If found a wall to the right, but non climbable, stop
