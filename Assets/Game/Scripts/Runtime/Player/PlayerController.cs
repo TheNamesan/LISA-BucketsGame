@@ -558,12 +558,12 @@ namespace BucketsGame
                 Jump(velY, true); // Double Jump
                 if (moveV < 0 && !input.jump) // Fast Fall
                 {
-                    Debug.Log("Fast Fall!");
+                    //Debug.Log("Fast Fall!");
                     rb.velocity = new Vector2(rb.velocity.x, maxFallSpeed);
                 }
                 else if ((startedJump && !input.jump) && rb.velocity.y > 0) // Cancel Jump
                 {
-                    Debug.Log("Cancel Jump!");
+                    //Debug.Log("Cancel Jump!");
                     startedJump = false;
                     rb.velocity = new Vector2(rb.velocity.x, 0);
                 }

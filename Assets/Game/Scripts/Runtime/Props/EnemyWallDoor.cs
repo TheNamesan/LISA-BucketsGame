@@ -111,7 +111,7 @@ namespace BucketsGame
                         //Debug.Log($"[{gameObject.name}] Found enemy on it: " + i + $". Pos: {SceneProperties.mainPlayer.transform.position}");
                         //AlertEnemy();
                         hasBucketsLoS = true;
-                        distanceToBuckets = Mathf.Abs(los.collider.transform.position.x - pos.x);
+                        distanceToBuckets = Vector2.Distance(los.collider.transform.position, pos);//Mathf.Abs(los.collider.transform.position.x - pos.x);
                         break;
                     }
                 }

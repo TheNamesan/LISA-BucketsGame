@@ -83,13 +83,15 @@ namespace BucketsGame
             else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
             GroundCheck();
             WallCheck();
-            CheckPlayerDistance();
+            CheckPlayerDistanceAndAttacks();
             MoveHandler();
             TimerHandler();
             FallOffMapCheck();
+            WallDoorTransitionTimer();
         }
-        private void CheckPlayerDistance()
+        private void CheckPlayerDistanceAndAttacks()
         {
+            if (InDoorFade) return;
             if (m_dead) return;
             var player = SceneProperties.mainPlayer;
             if (player == null) return;
@@ -185,20 +187,22 @@ namespace BucketsGame
                     if (enemyState == EnemyAIState.Alert)
                     {
                         speed = moveSpeed;
-                        if (Mathf.Abs(distanceToPlayerX) <= approachDistance)
-                        {
-                            speed = (BucketsGameManager.IsPainMode() ? painApproachSpeed : approachSpeed);
-                        }
-                            
-                        if (distanceToPlayer <= 0.3f) speed = 0;
+                         
+                        
                         moveH = (int)Mathf.Sign(distanceToPlayerX);
                         bool enterDoor = !m_attacking && !stunned && !m_firing;
                         if (CheckIfDoorIsFaster(player, distanceToPlayer, ref moveH, enterDoor))
                         {
-                            speed = (BucketsGameManager.IsPainMode() ? painApproachSpeed : approachSpeed);
-                        }
                             
-                        else moveH = (int)Mathf.Sign(distanceToPlayerX);
+                        }
+                        else
+                        {
+                            if (Mathf.Abs(distanceToPlayerX) <= approachDistance)
+                            {
+                                speed = (BucketsGameManager.IsPainMode() ? painApproachSpeed : approachSpeed);
+                            }
+                            if (distanceToPlayer <= 0.3f) speed = 0;
+                        }
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                             moveH = 0;
                         CheckDoorOpening(moveH);
@@ -232,7 +236,7 @@ namespace BucketsGame
                         //Debug.Log(x);
                         velocity.Set(x, 0);
                     }
-                    else if (m_attacking || m_firing)
+                    else if (m_attacking || m_firing || InDoorFade)
                     {
                         velocity = Vector2.zero;
                     }

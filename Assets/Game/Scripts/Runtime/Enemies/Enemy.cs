@@ -183,7 +183,7 @@ namespace BucketsGame
             if (InDoorFade) return false;
             EnemyWallDoor nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position);
             float distanceToDoor = 99999f;
-            if (nearest) { distanceToDoor = Mathf.Abs(rb.position.x - nearest.transform.position.x); }
+            if (nearest) { distanceToDoor = Vector2.Distance(rb.position, nearest.transform.position); }//Mathf.Abs(rb.position.x - nearest.transform.position.x); }
             bool isCloserWithDoor = nearest && nearest.GetNeighbourDistance() + distanceToDoor < Mathf.Abs(distanceToPlayer);
 
             if (!HasDirectLoSWithTarget(rb.position, player.rb.position)

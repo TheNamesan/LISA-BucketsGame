@@ -45,13 +45,14 @@ namespace BucketsGame
             else rb.sharedMaterial = BucketsGameManager.instance.deadMat;
             GroundCheck();
             WallCheck();
-            CheckPlayerDistance();
+            CheckPlayerDistanceAndAttacks();
             MoveHandler();
             FallOffMapCheck();
             WallDoorTransitionTimer();
         }
-        private void CheckPlayerDistance()
+        private void CheckPlayerDistanceAndAttacks()
         {
+            if (InDoorFade) return;
             if (m_dead) return;
             var player = SceneProperties.mainPlayer;
             if (player == null) return;
