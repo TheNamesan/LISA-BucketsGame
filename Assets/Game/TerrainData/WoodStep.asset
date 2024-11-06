@@ -17,7 +17,7 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: a4ceb88bd7e9175498a7e9a52016b8c4, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 0.8
+    volume: 1
     minVolume: 0
     pitchMode: 0
     pitch: 1
@@ -25,15 +25,15 @@ MonoBehaviour:
   stepPitchVariation: 0.4
   wallHitSFXs:
   - audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: c101579e3cc7aff4c86105bfe725eefd, type: 3}
+    audioClip: {fileID: 8300000, guid: ce095f3c6839a0e448132b8acca1e4dd, type: 3}
     randomClips: []
     volumeMode: 0
-    volume: 1
+    volume: 1.5
     minVolume: 0
     pitchMode: 0
-    pitch: 1
-    minPitch: 0
-  wallHitVariation: 0.4
+    pitch: 0.8
+    minPitch: 0.8
+  wallHitVariation: 0.2
   stepEffectPrefab: {fileID: 0}
   changeAnimationPackAlt: 0
   animationPackAltIndex: 0
