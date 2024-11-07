@@ -476,12 +476,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: coneAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: enemyState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
-      propertyPath: nearbyEnemyAlertRadius
+      propertyPath: coneAccuracy
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: coneDistance
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: nearbyEnemyAlertRadius
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712040, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: m_Name
@@ -758,7 +770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.5
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalPosition.y
@@ -814,12 +826,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: coneAngle
+      value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: enemyState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
-      propertyPath: nearbyEnemyAlertRadius
+      propertyPath: coneAccuracy
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: coneDistance
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7740060643212712034, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
+      propertyPath: nearbyEnemyAlertRadius
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7740060643212712040, guid: 3a74bd3a0fc0669459a014cd2ace4bdd, type: 3}
       propertyPath: m_Name
@@ -24446,6 +24470,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6034475092956864976, guid: 1b4e478cf208b3b4c928314373b5ce67, type: 3}
+      propertyPath: propertiesData
+      value: 
+      objectReference: {fileID: 11400000, guid: cad8d457d53175048b9cb44ba50ea054, type: 2}
     - target: {fileID: 6034475092956864978, guid: 1b4e478cf208b3b4c928314373b5ce67, type: 3}
       propertyPath: m_Size.y
       value: 22
@@ -28458,7 +28486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 229453945971046007, guid: 50231c5a31e09af439ca1dde1242ff0d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -8
+      value: -7.9999695
       objectReference: {fileID: 0}
     - target: {fileID: 2212263624428469902, guid: 50231c5a31e09af439ca1dde1242ff0d, type: 3}
       propertyPath: m_AnchorMax.y
