@@ -253,12 +253,14 @@ MonoBehaviour:
   nearbyEnemyAlertRadius: 3.5
   painMaxHP: 1
   painMoveSpeed: 12
+  doorFadeTicks: 0
+  targetWallDoor: {fileID: 0}
   animationHandler: {fileID: 5115521999454662445}
   roamSpeed: 3
   approachSpeed: 2
   approachDistance: 11
   spearSprite: {fileID: 21300000, guid: ac57645cd7a776147b9a0771daa46288, type: 3}
-  doorSprite: {fileID: 21300000, guid: 76f51520d9deb8a44a6f75dae83ce244, type: 3}
+  doorSprite: {fileID: 21300000, guid: d9c3328b527955e4188b3786015eb99e, type: 3}
   m_attacking: 0
   m_vulnerable: 0
   attackingAnimTicks: 28
