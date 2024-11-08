@@ -934,6 +934,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 98
@@ -2395,7 +2396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef8f59de272d0a14d9497f1b997909b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Intro_Cutscene
+  levelName: IntroP1
 --- !u!1001 &750444340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3324,6 +3325,7 @@ MonoBehaviour:
     - {fileID: 1657595600}
   highlightX: 0
   highlightY: 0
+  scrollRect: {fileID: 0}
   transitionHandler: {fileID: 0}
   rememberHighlight: 1
   closeMenuWithCancel: 0
@@ -3398,7 +3400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2dec956470dc54c86f8dea1fda4ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newGameScene: Intro_Cutscene
+  newGameScene: Intro_P1
   timerButton: {fileID: 1326551432}
   painModeButton: {fileID: 917132610}
   rusherModeButton: {fileID: 1657595600}
@@ -5257,6 +5259,7 @@ MonoBehaviour:
     - {fileID: 1907881789}
   highlightX: 0
   highlightY: 0
+  scrollRect: {fileID: 0}
   transitionHandler: {fileID: 1770732681}
   rememberHighlight: 0
   closeMenuWithCancel: 1
