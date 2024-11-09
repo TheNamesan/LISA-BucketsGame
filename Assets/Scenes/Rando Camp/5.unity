@@ -1574,6 +1574,14 @@ PrefabInstance:
       propertyPath: neighbourDoor
       value: 
       objectReference: {fileID: 1713167761}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: neighbours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: neighbours.Array.data[0]
+      value: 
+      objectReference: {fileID: 1713167761}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
 --- !u!4 &756513415 stripped
@@ -9132,6 +9140,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
       propertyPath: neighbourDoor
+      value: 
+      objectReference: {fileID: 1538929843}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: neighbours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: neighbours.Array.data[0]
       value: 
       objectReference: {fileID: 1538929843}
     m_RemovedComponents: []

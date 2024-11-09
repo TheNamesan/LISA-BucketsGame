@@ -78353,6 +78353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBulletsGoThrough: 0
   enemyBulletsGoThrough: 0
+  nonClimbable: 0
   propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
   onStepEvent:
     m_PersistentCalls:
@@ -80288,7 +80289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6423423899683277878, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6423423899683277878, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: m_LocalPosition.x
@@ -80434,11 +80435,11 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1712725485}
     m_Modifications:
     - target: {fileID: 4839283001538814384, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814384, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -80458,15 +80459,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814384, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814384, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814384, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814384, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -84595,6 +84596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerBulletsGoThrough: 0
   enemyBulletsGoThrough: 1
+  nonClimbable: 0
   propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
   onStepEvent:
     m_PersistentCalls:

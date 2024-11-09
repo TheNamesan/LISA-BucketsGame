@@ -1,3 +1,4 @@
+using Codice.Client.IssueTracker;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BucketsGame
 {
     public class EnemyWallDoor : MonoBehaviour
     {
-        public EnemyWallDoor neighbourDoor = null;
+        public List<EnemyWallDoor> neighbours = new();
         public SFX enterSFX = new();
 
         [Header("References")]
@@ -61,19 +62,42 @@ namespace BucketsGame
         }
         public void TeleportToNeighbour(Enemy enemy)
         {
-            if (!neighbourDoor) return;
+            if (neighbours == null) return;
             if (!enemy) return;
-            enemy.rb.position = neighbourDoor.transform.position;
+            EnemyWallDoor closest = GetClosestNeighbour();
+            if (!closest) return;
+            enemy.rb.position = closest.transform.position;
         }
         public bool NeighbourHasLoS()
         {
-            if (!neighbourDoor) return false;
-            return neighbourDoor.hasBucketsLoS;
+            if (neighbours == null) return false;
+            for (int i = 0; i < neighbours.Count; i++)
+            {
+                if (!neighbours[i]) continue;
+                if (neighbours[i].hasBucketsLoS) return true;
+            }
+            return false;
+        }
+        public EnemyWallDoor GetClosestNeighbour()
+        {
+            EnemyWallDoor closest = null;
+            if (neighbours == null) return null;
+            for (int i = 0; i < neighbours.Count; i++)
+            {
+                if (!neighbours[i]) continue;
+                if (!closest) closest = neighbours[i];
+                if (neighbours[i].distanceToBuckets < closest.distanceToBuckets)
+                    closest = neighbours[i];
+            }
+            return closest;
         }
         public float GetNeighbourDistance()
         {
-            if (!neighbourDoor) return 9999f;
-            return neighbourDoor.distanceToBuckets;
+            float distance = 9999f;
+            if (neighbours == null) return distance;
+            EnemyWallDoor closest = GetClosestNeighbour();
+            if (!closest) return distance;
+            return closest.distanceToBuckets;
         }
         private void FixedUpdate()
         {
@@ -152,11 +176,12 @@ namespace BucketsGame
         }
         private void OnDrawGizmosSelected()
         {
-            if (neighbourDoor)
+            foreach(var neighbour in neighbours)
             {
+                if (!neighbour) continue;
                 Color prev = Gizmos.color;
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(transform.position, neighbourDoor.transform.position);
+                Gizmos.DrawLine(transform.position, neighbour.transform.position);
                 Gizmos.color = prev;
             }
         }
