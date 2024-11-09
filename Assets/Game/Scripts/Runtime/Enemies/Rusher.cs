@@ -133,7 +133,11 @@ namespace BucketsGame
 
                         moveH = (int)Mathf.Sign(distanceToPlayer);
 
-                        CheckIfDoorIsFaster(player, distanceToPlayer, ref moveH, !m_attacking);
+                        if (CheckIfDoorIsFaster(player, distanceToPlayer, out EnemyWallDoor nearest, !m_attacking))
+                        {
+                            float distanceToNearestWallDoor = nearest.transform.position.x - rb.position.x;
+                            moveH = (int)Mathf.Sign(distanceToNearestWallDoor);
+                        }
                         if ((moveH > 0 && !normalRight) || (moveH < 0 && !normalLeft))
                         {
                             moveH = 0;

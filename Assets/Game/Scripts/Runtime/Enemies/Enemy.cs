@@ -114,6 +114,14 @@ namespace BucketsGame
             }
             CapVelocity();
         }
+        public void FacePlayer()
+        {
+            if (SceneProperties.mainPlayer)
+            {
+                float distanceToPlayerX = SceneProperties.mainPlayer.rb.position.x - rb.position.x;
+                ChangeFacingOnMove((int)Mathf.Sign(distanceToPlayerX));
+            }
+        }
         public override bool Hurt(Vector2 launch)
         {
             if (m_dead) return false;
@@ -179,10 +187,11 @@ namespace BucketsGame
                 //Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
             }
         }
-        public bool CheckIfDoorIsFaster(PlayerController player, float distanceToPlayer, ref int moveH, bool enterIfClose = true)
+        public bool CheckIfDoorIsFaster(PlayerController player, float distanceToPlayer, out EnemyWallDoor nearest, bool enterIfClose = true)
         {
+            nearest = null;
             if (InDoorFade) return false;
-            EnemyWallDoor nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position);
+            nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position);
             float distanceToDoor = 99999f;
             if (nearest) { distanceToDoor = Vector2.Distance(rb.position, nearest.transform.position); }//Mathf.Abs(rb.position.x - nearest.transform.position.x); }
             bool isCloserWithDoor = nearest && nearest.GetNeighbourDistance() + distanceToDoor < Mathf.Abs(distanceToPlayer);
@@ -201,8 +210,6 @@ namespace BucketsGame
                     }
                     else
                     {
-                        float distanceToNearestWallDoor = nearest.transform.position.x - rb.position.x;
-                        moveH = (int)Mathf.Sign(distanceToNearestWallDoor);
                         return true;
                     }
                 }

@@ -74,7 +74,8 @@ namespace BucketsGame
             for (int i = 0; i < neighbours.Count; i++)
             {
                 if (!neighbours[i]) continue;
-                if (neighbours[i].hasBucketsLoS) return true;
+                if (neighbours[i].hasBucketsLoS) { Debug.Log($"({gameObject.name}) Has LoS: " + i ); return true; }
+                
             }
             return false;
         }

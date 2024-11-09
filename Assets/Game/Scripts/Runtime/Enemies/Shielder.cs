@@ -191,9 +191,10 @@ namespace BucketsGame
                         
                         moveH = (int)Mathf.Sign(distanceToPlayerX);
                         bool enterDoor = !m_attacking && !stunned && !m_firing;
-                        if (CheckIfDoorIsFaster(player, distanceToPlayer, ref moveH, enterDoor))
+                        if (CheckIfDoorIsFaster(player, distanceToPlayer, out EnemyWallDoor nearest, enterDoor) && !HasDirectLoSWithTarget(rb.position, player.rb.position))
                         {
-                            
+                            float distanceToNearestWallDoor = nearest.transform.position.x - rb.position.x;
+                            moveH = (int)Mathf.Sign(distanceToNearestWallDoor);
                         }
                         else
                         {
@@ -269,6 +270,7 @@ namespace BucketsGame
         private void Fire()
         {
             if (m_firing || m_fireCooldownTicks > 0 || !OnScreen) return;
+            FacePlayer();
             m_fireAnimTicks = fireAnimDuration;
             m_firing = true;
         }
@@ -325,14 +327,7 @@ namespace BucketsGame
             }
         }
 
-        private void FacePlayer()
-        {
-            if (SceneProperties.mainPlayer)
-            {
-                float distanceToPlayerX = SceneProperties.mainPlayer.rb.position.x - rb.position.x;
-                ChangeFacingOnMove((int)Mathf.Sign(distanceToPlayerX));
-            }
-        }
+        
 
         private void TimerHandler()
         {
