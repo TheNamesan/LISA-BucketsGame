@@ -63872,9 +63872,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df27540a2d685948ba7f466156fbb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
   playerBulletsGoThrough: 0
   enemyBulletsGoThrough: 0
+  nonClimbable: 0
+  propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
   onStepEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -68282,6 +68283,10 @@ PrefabInstance:
       value: TUFF.Runtime TUFF.ShowDialogueAction
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802]
+      value: TUFF.Runtime TUFF.ChangeSwitchAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076485916524544]
       value: TUFF.Runtime TUFF.ShowDialogueAction
       objectReference: {fileID: 0}
@@ -68398,6 +68403,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].target
+      value: 
+      objectReference: {fileID: 1914945674}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663560].target
       value: 
       objectReference: {fileID: 1914945674}
@@ -68420,6 +68429,14 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901177579143179].eventName
       value: Show Dialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].eventName
+      value: Change Switch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].newSwitch
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7087076485916524544].eventName
@@ -68503,6 +68520,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901177579143179].isFinished
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].isFinished
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -68623,6 +68644,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[3976901177579143179].eventColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].eventColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].eventColor.b
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].eventColor.g
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[6007158894429470802].eventColor.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
@@ -68991,7 +69028,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[0].actionList.content.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: triggerEvents.Array.data[1].actionList.content.Array.size
@@ -69851,16 +69888,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663557].dialogue.sentences.Array.data[2].text
-      value: 'SHIFT - DASH
+      value: 'SHIFT - DASH / INTERACTING WITH OBJECTS
 
-        SPACE BAR - ADRENALINE FOCUS (SLOW MO)
+        SPACE BAR - ADRENALINE
+        FOCUS (SLOW MO)
 
-        C
-        - FAST FORWARD CUTSCENES'
+        C - FAST FORWARD CUTSCENES'
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663557].dialogue.sentences.Array.data[3].text
-      value: You can change the controls from the options menu (ESC).
+      value: 'SHIFT - DASH / INTERACTING WITH OBJECTS IN CUTSCENES
+
+        SPACE
+        BAR - ADRENALINE FOCUS (SLOW MO)
+
+        C - FAST FORWARD CUTSCENES'
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663557].dialogue.sentences.Array.data[4].text
@@ -69891,7 +69933,7 @@ PrefabInstance:
         B BUTTON MIDAIR - DOUBLE JUMP
 
         RB
-        / A - DASH'
+        / A - DASH / INTERACTING WITH OBJECTS IN CUTSCENES'
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663558].dialogue.sentences.Array.data[2].text
@@ -69947,12 +69989,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663564].dialogue.sentences.Array.data[2].text
-      value: 'SHIFT - DASH
+      value: 'SHIFT - DASH / INTERACTING WITH OBJECTS IN CUTSCENES
 
-        SPACE BAR - ADRENALINE FOCUS (SLOW MO)
+        SPACE
+        BAR - ADRENALINE FOCUS (SLOW MO)
 
-        C
-        - FAST FORWARD CUTSCENES'
+        C - FAST FORWARD CUTSCENES'
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663564].dialogue.sentences.Array.data[3].text
@@ -69987,7 +70029,7 @@ PrefabInstance:
         B BUTTON MIDAIR - DOUBLE JUMP
 
         RB
-        / A - DASH'
+        / A - DASH / INTERACTING WITH OBJECTS IN CUTSCENES'
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663565].dialogue.sentences.Array.data[2].text
@@ -70495,7 +70537,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663554].choices.Array.data[2].actionList.content.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663562].choices.Array.data[0].actionList.content.Array.size
@@ -70524,6 +70566,10 @@ PrefabInstance:
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663554].choices.Array.data[2].actionList.content.Array.data[0]
       value: 9037605337984663559
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
+      propertyPath: managedReferences[9037605337984663554].choices.Array.data[2].actionList.content.Array.data[1]
+      value: 6007158894429470802
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[9037605337984663562].choices.Array.data[0].actionList.content.Array.data[0]
