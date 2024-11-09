@@ -959,7 +959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[6007158822414319698].dialogue.sentences.Array.data[0].text
-      value: Maybe an accident?
+      value: Maybe it was an accident?
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[6007158822414319698].dialogue.sentences.Array.data[1].text
@@ -1284,7 +1284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1292,7 +1292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1304,15 +1304,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4952781121646547096, guid: b27c7a397a2d0c740ae5f2a0d9c60dce, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1522,6 +1522,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1712725485}
     m_Modifications:
+    - target: {fileID: 2228109669854074144, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 394133729, guid: 2d0e4ca09f2749040a55a109b026f37e, type: 3}
     - target: {fileID: 2228109670864118556, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -1574,6 +1578,10 @@ PrefabInstance:
       propertyPath: neighbourDoor
       value: 
       objectReference: {fileID: 1713167761}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: enterSFX.audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c77cd5af02c9ac46952e87808d1fdb3, type: 3}
     - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
       propertyPath: neighbours.Array.size
       value: 1
@@ -9086,6 +9094,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1712725485}
     m_Modifications:
+    - target: {fileID: 2228109669854074144, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -341420740, guid: 2d0e4ca09f2749040a55a109b026f37e, type: 3}
     - target: {fileID: 2228109670864118556, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -9142,6 +9154,22 @@ PrefabInstance:
       propertyPath: neighbourDoor
       value: 
       objectReference: {fileID: 1538929843}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: enterSFX.pitch
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: enterSFX.minPitch
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: enterSFX.audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 5c77cd5af02c9ac46952e87808d1fdb3, type: 3}
+    - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
+      propertyPath: enterSFX.pitchMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2228109670864118562, guid: 8e3a5285233a1d94888eb7023f40f58f, type: 3}
       propertyPath: neighbours.Array.size
       value: 1

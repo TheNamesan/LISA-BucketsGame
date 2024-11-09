@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 1926251282, guid: 2d0e4ca09f2749040a55a109b026f37e, type: 3}
+  m_Sprite: {fileID: -1566955620, guid: dcbf8571677d1f544b9746c89aa3af18, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,17 +130,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7677f6fc3d5b147908f1be991eb77b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  neighbourDoor: {fileID: 0}
+  neighbours: []
   enterSFX:
     audioClipMode: 0
-    audioClip: {fileID: 8300000, guid: 64f6f8a1c17aed4449015453403eb1e6, type: 3}
+    audioClip: {fileID: 8300000, guid: 051e94a4f85907a4585e611c71d41bec, type: 3}
     randomClips: []
     volumeMode: 0
     volume: 1
     minVolume: 1
-    pitchMode: 0
-    pitch: 1
-    minPitch: 1
+    pitchMode: 1
+    pitch: 1.2
+    minPitch: 0.9
   col: {fileID: 2228109670864118557}
   coneAngle: 180
   coneAngleOffset: -88
