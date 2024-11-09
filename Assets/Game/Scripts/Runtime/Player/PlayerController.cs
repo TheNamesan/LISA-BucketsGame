@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TUFF;
 using DG.Tweening;
+using Codice.CM.Client.Differences;
 
 namespace BucketsGame
 {
@@ -93,22 +94,15 @@ namespace BucketsGame
         [Header("Rusher")]
         public float rusherDashSpeed = 30;
 
-        private void OnEnable()
+        protected override void OnDefaultEnable()
         {
+            base.OnDefaultEnable();
             lastPosition = rb.position;
             lastVelocity = rb.velocity;
-            if (Application.isPlaying) EntityResetCaller.onResetLevel.AddListener(OnReset);
         }
-        private void OnDisable()
+        public override void OnRoomReset()
         {
-            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(OnReset);
-        }
-        private void OnDestroy()
-        {
-            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(OnReset);
-        }
-        public void OnReset()
-        {
+            base.OnRoomReset();
             m_dead = false;
             m_stunTicks = 0;
             StartCoroutine(LateReset());

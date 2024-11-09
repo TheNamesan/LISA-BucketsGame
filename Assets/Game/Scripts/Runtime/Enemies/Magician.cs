@@ -148,18 +148,10 @@ namespace BucketsGame
                 afterImagesHandler.targetColor = color;
             }
         }
-
-        private void OnEnable()
+        public override void OnRoomReset()
         {
-            if (Application.isPlaying) EntityResetCaller.onResetLevel.AddListener(RecolorMagician);
-        }
-        private void OnDisable()
-        {
-            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(RecolorMagician);
-        }
-        private void OnDestroy()
-        {
-            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(RecolorMagician);
+            //base.OnRoomReset();
+            RecolorMagician();
         }
         private void RecolorMagician()
         {

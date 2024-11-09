@@ -65,6 +65,39 @@ namespace BucketsGame
         {
             hp = maxHP;
         }
+        protected void OnEnable()
+        {
+            OnDefaultEnable();
+        }
+        protected void OnDisable()
+        {
+            OnDefaultDisable();
+        }
+        protected void OnDestroy()
+        {
+            OnDefaultDestroy();
+        }
+
+        protected virtual void OnDefaultEnable()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.AddListener(OnRoomReset);
+        }
+        protected virtual void OnDefaultDisable()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(OnRoomReset);
+        }
+        protected virtual void OnDefaultDestroy()
+        {
+            if (Application.isPlaying) EntityResetCaller.onResetLevel.RemoveListener(OnRoomReset);
+        }
+        public virtual void OnRoomReset()
+        {
+            RestoreColor();
+        }
+        public void RestoreColor()
+        {
+            if (sprite) sprite.color = Color.white;
+        }
         protected virtual void GroundCheck()
         {
             //if (m_dead) return;
