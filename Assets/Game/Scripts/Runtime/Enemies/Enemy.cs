@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Codice.Client.Common.GameUI;
+using TUFF;
 
 namespace BucketsGame
 {
@@ -214,6 +215,7 @@ namespace BucketsGame
             if (!door) return;
             doorFadeTicks = m_doorFadeDuration;
             targetWallDoor = door;
+            door?.PlayEnterSFX();
         }
         protected void WallDoorTransitionTimer()
         {

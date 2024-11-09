@@ -131,12 +131,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   neighbourDoor: {fileID: 0}
+  enterSFX:
+    audioClipMode: 0
+    audioClip: {fileID: 8300000, guid: 64f6f8a1c17aed4449015453403eb1e6, type: 3}
+    randomClips: []
+    volumeMode: 0
+    volume: 1
+    minVolume: 1
+    pitchMode: 0
+    pitch: 1
+    minPitch: 1
   col: {fileID: 2228109670864118557}
   coneAngle: 180
   coneAngleOffset: -88
   coneDistance: 15
   coneAccuracy: 40
   hasBucketsLoS: 0
+  distanceToBuckets: 999
 --- !u!61 &2228109670864118557
 BoxCollider2D:
   m_ObjectHideFlags: 0

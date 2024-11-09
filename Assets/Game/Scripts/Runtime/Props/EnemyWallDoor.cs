@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TUFF;
 using UnityEngine;
 using static UnityEditor.PlayerSettings;
 
@@ -9,6 +10,7 @@ namespace BucketsGame
     public class EnemyWallDoor : MonoBehaviour
     {
         public EnemyWallDoor neighbourDoor = null;
+        public SFX enterSFX = new();
 
         [Header("References")]
         public BoxCollider2D col;
@@ -35,6 +37,10 @@ namespace BucketsGame
         private void OnDestroy()
         {
             sceneEnemyWallDoors?.Remove(this);
+        }
+        public void PlayEnterSFX()
+        {
+            AudioManager.instance.PlaySFX(enterSFX);
         }
         public static EnemyWallDoor FindNearestWallDoorWithLoS(Vector3 enemyPos)
         {
