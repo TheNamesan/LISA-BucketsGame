@@ -9,6 +9,7 @@ namespace BucketsGame
     public class CameraManager : MonoBehaviour
     {
         public bool disableFollow = false;
+        public bool skipCameraFollowUpdate = false;
         public Transform disableFollowTransform;
         public Camera cam;
         public CinemachineVirtualCamera virtualCam;
@@ -32,7 +33,7 @@ namespace BucketsGame
         {
             FollowUpdate();
             brain?.ManualUpdate();
-            followCam?.UpdateCamera();
+            if (!skipCameraFollowUpdate) followCam?.UpdateCamera();
         }
         private void OnEnable()
         {
