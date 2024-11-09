@@ -12,6 +12,7 @@ namespace BucketsGame
         public Transform disableFollowTransform;
         public Camera cam;
         public CinemachineVirtualCamera virtualCam;
+        public CinemachineBrain brain;
         public TUFF.CameraFollow followCam;
         public CinemachineCameraOffset camOffset;
         public CinemachineConfiner camConfiner;
@@ -30,6 +31,8 @@ namespace BucketsGame
         private void LateUpdate()
         {
             FollowUpdate();
+            brain?.ManualUpdate();
+            followCam?.UpdateCamera();
         }
         private void OnEnable()
         {

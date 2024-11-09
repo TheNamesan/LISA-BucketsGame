@@ -71,7 +71,7 @@ namespace TUFF
             UpdateCamera();
         }
 
-        void LateUpdate()
+        void Update()
         {
             UpdateCamera();
         }
@@ -90,7 +90,7 @@ namespace TUFF
                 originalParallaxPos.Add(new Vector2(position.x, position.y));
             }
         }
-        private void UpdateCamera()
+        public void UpdateCamera()
         {
             Vector3 startpos = transform.position;
             if (PlayerInputHandler.avatar)
@@ -126,7 +126,6 @@ namespace TUFF
                     Mathf.Clamp(transform.position.y, clampMinPos.y, clampMaxPos.y),
                     transform.position.z
                 );
-
             UpdateParallax(clampMinPos.x, clampMaxPos.x, clampMinPos.y, clampMaxPos.y);
         }
 

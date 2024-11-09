@@ -456,6 +456,7 @@ MonoBehaviour:
   disableFollowTransform: {fileID: 0}
   cam: {fileID: 8554847308507395930}
   virtualCam: {fileID: 8554847309708343404}
+  brain: {fileID: 8554847308507395935}
   followCam: {fileID: 8963224288354636984}
   camOffset: {fileID: 6007828927435111045}
   camConfiner: {fileID: 8560046703084248617}
@@ -553,7 +554,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 1
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 3
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -701,7 +702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Offset: {x: 0, y: 0, z: 0}
-  m_ApplyAfter: 1
+  m_ApplyAfter: 2
   m_PreserveComposition: 0
 --- !u!114 &8560046703084248617
 MonoBehaviour:
