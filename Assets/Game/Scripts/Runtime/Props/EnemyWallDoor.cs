@@ -1,10 +1,8 @@
-using Codice.Client.IssueTracker;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TUFF;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 namespace BucketsGame
 {
