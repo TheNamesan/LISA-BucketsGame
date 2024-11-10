@@ -33,7 +33,7 @@ namespace BucketsGame
         {
             FollowUpdate();
             brain?.ManualUpdate();
-            if (!skipCameraFollowUpdate) followCam?.UpdateCamera();
+            //if (!skipCameraFollowUpdate) followCam?.UpdateCamera();
         }
         private void OnEnable()
         {
