@@ -137,7 +137,7 @@ namespace BucketsGame
             }
             else
             {
-                if (m_buryCooldownTicks <= 0)
+                if (m_buryCooldownTicks <= 0 && grounded)
                 {
                     Bury();
                 }
@@ -266,6 +266,7 @@ namespace BucketsGame
                 if (m_shield > 0)
                 {
                     m_shield--;
+                    TUFF.AudioManager.instance.PlaySFX(SFXList.instance.diggerBurrowHitSFX);
                     return true;
                 }
                 return false;
