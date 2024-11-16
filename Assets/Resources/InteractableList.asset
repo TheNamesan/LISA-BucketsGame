@@ -24,6 +24,7 @@ MonoBehaviour:
   - rid: 2611842099772915797
   - rid: 6007158779938865154
   - rid: 6007158779938865157
+  - rid: 6007159066557939815
   references:
     version: 2
     RefIds:
@@ -81,6 +82,12 @@ MonoBehaviour:
         scene: {fileID: 102900000, guid: 591710927ee2a164cb3e55c48a484645, type: 3}
         localID: 122212063
         name: InteractableData
+    - rid: 6007159066557939815
+      type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
+      data:
+        scene: {fileID: 102900000, guid: e72949aa8a9a77748907e66c7939cad4, type: 3}
+        localID: 135845924
+        name: End_level
     - rid: 7335342560940130307
       type: {class: PersistentInteractableData, ns: TUFF, asm: TUFF.Runtime}
       data:
