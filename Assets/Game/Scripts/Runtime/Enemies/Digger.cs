@@ -164,6 +164,7 @@ namespace BucketsGame
             m_buried = false;
             m_buryCooldownTicks = buryCooldown;
             rb.velocity = new Vector2(0, jumpForce);
+            TUFF.AudioManager.instance.PlaySFX(SFXList.instance.diggerJumpSFX);
             SetAirborne();
         }
 
