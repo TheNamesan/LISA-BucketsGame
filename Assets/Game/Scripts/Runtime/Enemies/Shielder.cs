@@ -191,7 +191,7 @@ namespace BucketsGame
                         
                         moveH = (int)Mathf.Sign(distanceToPlayerX);
                         bool enterDoor = !m_attacking && !stunned && !m_firing;
-                        if (CheckIfDoorIsFaster(player, distanceToPlayer, out EnemyWallDoor nearest, enterDoor) && !HasDirectLoSWithTarget(rb.position, player.rb.position))
+                        if (CheckIfDoorIsFaster(player, distanceToPlayer, out EnemyWallDoor nearest, enterDoor) && !HasDirectLoSWithPlayer(rb.position, player.rb.position))
                         {
                             float distanceToNearestWallDoor = nearest.transform.position.x - rb.position.x;
                             moveH = (int)Mathf.Sign(distanceToNearestWallDoor);

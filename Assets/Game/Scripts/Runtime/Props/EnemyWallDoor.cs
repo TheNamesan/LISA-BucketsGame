@@ -41,18 +41,23 @@ namespace BucketsGame
         {
             AudioManager.instance.PlaySFX(enterSFX);
         }
-        public static EnemyWallDoor FindNearestWallDoorWithLoS(Vector3 enemyPos)
+        public static EnemyWallDoor FindNearestWallDoorWithLoS(Vector3 enemyPos, bool ignoreOneWayWalkables = true, bool ignoreGoThroughWalls = false)
         {
             EnemyWallDoor nearest = null;
             float lastDistance = 999999f;
 
             for (int i = 0; i < sceneEnemyWallDoors.Count; i++)
             {
-                EnemyWallDoor wallDoor = sceneEnemyWallDoors[i];
-                float curDistance = Vector3.Distance(enemyPos, wallDoor.transform.position);
-                if (curDistance < lastDistance && wallDoor.NeighbourHasLoS())
+                EnemyWallDoor curWallDoor = sceneEnemyWallDoors[i];
+                Color color = Color.red;
+                bool directSight = MovingEntity.HasDirectLoSWithPoint(enemyPos, curWallDoor.transform.position, ignoreOneWayWalkables, ignoreGoThroughWalls);
+                if (directSight) color = Color.blue;
+                Debug.DrawLine(enemyPos, curWallDoor.transform.position, color);
+                float curDistance = Vector3.Distance(enemyPos, curWallDoor.transform.position);
+                EnemyWallDoor neighbourWithLos = curWallDoor.GetAnyNeighbourWithLoS();
+                if (curDistance < lastDistance && neighbourWithLos && directSight)
                 {
-                    nearest = sceneEnemyWallDoors[i];
+                    nearest = curWallDoor;
                     lastDistance = curDistance;
                 }
             }
@@ -66,16 +71,31 @@ namespace BucketsGame
             if (!closest) return;
             enemy.rb.position = closest.transform.position;
         }
-        public bool NeighbourHasLoS()
+        public EnemyWallDoor GetAnyNeighbourWithLoS()
         {
-            if (neighbours == null) return false;
+            if (neighbours == null) return null;
             for (int i = 0; i < neighbours.Count; i++)
             {
                 if (!neighbours[i]) continue;
-                if (neighbours[i].hasBucketsLoS) { Debug.Log($"({gameObject.name}) Has LoS: " + i ); return true; }
+                if (neighbours[i].hasBucketsLoS) { return neighbours[i]; }
                 
             }
-            return false;
+            return null;
+        }
+        public EnemyWallDoor GetAccessibleNeighbourWithLos(Vector2 enemyPos, bool ignoreOneWayWalkables = true, bool ignoreGoThroughWalls = false)
+        {
+            if (neighbours == null) return null;
+            for (int i = 0; i < neighbours.Count; i++)
+            {
+                if (!neighbours[i]) continue;
+                if (neighbours[i].hasBucketsLoS && 
+                    MovingEntity.HasDirectLoSWithPoint(enemyPos, neighbours[i].transform.position, ignoreOneWayWalkables, ignoreGoThroughWalls)) 
+                {
+                    return neighbours[i]; 
+                }
+
+            }
+            return null;
         }
         public EnemyWallDoor GetClosestNeighbour()
         {
@@ -126,15 +146,16 @@ namespace BucketsGame
                 {
                     var los = losHits[j];
                     // If ground layer
-                    if (los.collider.gameObject.layer == 6)
-                    {
-                        if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
-                            if (props.enemyBulletsGoThrough) continue;
-                        if (los.collider.TryGetComponent(out Door door))
-                            continue;
-                        break;
-                    }
-                    else if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
+                    //if (los.collider.gameObject.layer == 6)
+                    //{
+                    //    if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                    //        if (props.enemyBulletsGoThrough) continue;
+                    //    if (los.collider.TryGetComponent(out Door door))
+                    //        continue;
+                    //    break;
+                    //}
+                    //else 
+                    if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
                     {
                         color = Color.green;
                         //Debug.Log($"[{gameObject.name}] Found enemy on it: " + i + $". Pos: {SceneProperties.mainPlayer.transform.position}");

@@ -353,36 +353,86 @@ namespace BucketsGame
                 groundProperties.Step(transform.position, new Vector3Int(0, -1, 0));
             }
         }
-        public static bool HasDirectLoSWithTarget(Vector2 origin, Vector2 target, float distance = Mathf.Infinity, bool isPlayer = false )
+        public static bool HasDirectLoSWithPlayer(Vector2 origin, Vector2 target, bool ignoreOneWayWalkables = true, bool ignoreGoThroughWalls = false, float distance = Mathf.Infinity, bool isPlayer = false )
         {
-            LayerMask layers = BucketsGameManager.instance.groundLayers | (1 << BucketsGameManager.instance.playerLayer);
-            if (!isPlayer) layers = layers | (1 << BucketsGameManager.instance.playerLayer);
-            //else layers = layers | (1 << BucketsGameManager.instance.enemyLayer);
-            Vector2 dir = target - origin;
+            LayerMask groundLayers = BucketsGameManager.instance.groundLayers;
+            //if (!isPlayer) groundLayers = groundLayers | (1 << BucketsGameManager.instance.playerLayer);
+            //else 
+            if (!ignoreOneWayWalkables) 
+                groundLayers = groundLayers | (BucketsGameManager.instance.oneWayLayers);
 
-            RaycastHit2D[] expectedHits = Physics2D.RaycastAll(origin, dir, distance, layers);
+            RaycastHit2D[] expectedHits = Physics2D.LinecastAll(origin, target, groundLayers);
+
+            int walkableLayer = LayerMask.NameToLayer("Walkable");
+            int oneWayWalkableLayer = LayerMask.NameToLayer("OneWayWalkable");
 
             for (int i = 0; i < expectedHits.Length; i++)
             {
                 var los = expectedHits[i];
-                if (los.collider.gameObject.layer == 6)
+                if (los.collider.gameObject.layer == walkableLayer)
                 {
-                    if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
-                        if (!isPlayer && props.enemyBulletsGoThrough) continue;
-                        else if (isPlayer && props.playerBulletsGoThrough) continue;
+                    if (!ignoreGoThroughWalls)
+                    {
+
+                        if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                            if (!isPlayer && props.enemyBulletsGoThrough) continue;
+                            else if (isPlayer && props.playerBulletsGoThrough) continue;
+                    }
                     if (los.collider.TryGetComponent(out Door door))
                         continue;
-                    break;
+                    Debug.DrawLine(origin, target, Color.red);
+                    return false;
                 }
-                if (!isPlayer)
+                if (!ignoreOneWayWalkables && los.collider.gameObject.layer == oneWayWalkableLayer)
                 {
-                    if (los.collider.gameObject.layer == BucketsGameManager.instance.playerLayer)
-                    {
-                        return true;
-                    }
+                    Debug.DrawLine(origin, target, Color.red);
+                    return false;
                 }
             }
+            LayerMask targetLayers = (1 << BucketsGameManager.instance.playerLayer);
+            //if (isPlayer) layers = (1 << BucketsGameManager.instance.enemyLayer);
+            
+            if (Physics2D.Linecast(origin, target, targetLayers))
+            {
+                Debug.DrawLine(origin, target, Color.green);
+
+                return true;
+            }
             return false;
+        }
+        
+        public static bool HasDirectLoSWithPoint(Vector2 origin, Vector2 target, bool ignoreOneWayWalkables = true, bool ignoreGoThroughWalls = false, bool isPlayer = false)
+        {
+            LayerMask layers = BucketsGameManager.instance.groundLayers;
+            //if (!isPlayer) layers = layers | (1 << BucketsGameManager.instance.playerLayer);
+            if (!ignoreOneWayWalkables) layers = layers | (BucketsGameManager.instance.oneWayLayers);
+            //else layers = layers | (1 << BucketsGameManager.instance.enemyLayer);
+
+            RaycastHit2D[] expectedHits = Physics2D.LinecastAll(origin, target, layers);
+            int walkableLayer = LayerMask.NameToLayer("Walkable");
+            int oneWayWalkableLayer = LayerMask.NameToLayer("OneWayWalkable");
+
+            for (int i = 0; i < expectedHits.Length; i++)
+            {
+                var los = expectedHits[i];
+                if (los.collider.gameObject.layer == walkableLayer)
+                {
+                    if (!ignoreGoThroughWalls)
+                    {
+                        if (los.collider.TryGetComponent(out TUFF.TerrainProperties props))
+                            if (!isPlayer && props.enemyBulletsGoThrough) continue;
+                            else if (isPlayer && props.playerBulletsGoThrough) continue;
+                    }
+                    if (los.collider.TryGetComponent(out Door door))
+                        continue;
+                    return false;
+                }
+                if (!ignoreOneWayWalkables && los.collider.gameObject.layer == oneWayWalkableLayer)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

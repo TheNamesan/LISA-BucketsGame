@@ -185,16 +185,17 @@ namespace BucketsGame
                 //Debug.DrawRay(rb.position, dir.normalized * distance, color, Time.fixedDeltaTime);
             }
         }
-        public bool CheckIfDoorIsFaster(PlayerController player, float distanceToPlayer, out EnemyWallDoor nearest, bool enterIfClose = true)
+        public bool CheckIfDoorIsFaster(PlayerController player, float distanceToPlayer, out EnemyWallDoor nearest, bool enterIfClose = true, bool ignoreOneWayWalkables = true, bool ignoreGoThroughWalls = false)
         {
             nearest = null;
             if (InDoorFade) return false;
-            nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position);
+            nearest = EnemyWallDoor.FindNearestWallDoorWithLoS(rb.position, ignoreOneWayWalkables, ignoreGoThroughWalls);
             float distanceToDoor = 99999f;
-            if (nearest) { distanceToDoor = Vector2.Distance(rb.position, nearest.transform.position); }//Mathf.Abs(rb.position.x - nearest.transform.position.x); }
+            if (!nearest) return false;
+            distanceToDoor = Vector2.Distance(rb.position, nearest.transform.position); //Mathf.Abs(rb.position.x - nearest.transform.position.x); }
             bool isCloserWithDoor = nearest && nearest.GetNeighbourDistance() + distanceToDoor < Mathf.Abs(distanceToPlayer);
 
-            if (!HasDirectLoSWithTarget(rb.position, player.rb.position)
+            if (!HasDirectLoSWithPlayer(rb.position, player.rb.position, ignoreOneWayWalkables, ignoreGoThroughWalls)
                 || isCloserWithDoor)
             {
                 //color = Color.red;

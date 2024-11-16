@@ -122,7 +122,8 @@ namespace BucketsGame
                 var player = SceneProperties.mainPlayer;
                 if (player != null)
                 {
-                    float distanceToPlayer = player.rb.position.x - rb.position.x;
+                    float distanceToPlayerX = player.rb.position.x - rb.position.x;
+                    float distanceToPlayer = Vector2.Distance(player.rb.position, rb.position);
                     int moveH = 0;
                     float speed = 0f;
                     Color color = Color.green;
@@ -131,10 +132,11 @@ namespace BucketsGame
                         speed = moveSpeed;
                         if (BucketsGameManager.IsPainMode()) speed = painMoveSpeed;
 
-                        moveH = (int)Mathf.Sign(distanceToPlayer);
+                        moveH = (int)Mathf.Sign(distanceToPlayerX);
 
-                        if (CheckIfDoorIsFaster(player, distanceToPlayer, out EnemyWallDoor nearest, !m_attacking))
+                        if (CheckIfDoorIsFaster(player, distanceToPlayer, out EnemyWallDoor nearest, !m_attacking, false, true))
                         {
+                            color = Color.red;
                             float distanceToNearestWallDoor = nearest.transform.position.x - rb.position.x;
                             moveH = (int)Mathf.Sign(distanceToNearestWallDoor);
                         }
@@ -145,7 +147,7 @@ namespace BucketsGame
                         CheckDoorOpening(moveH);
                     }
 
-                    Debug.DrawLine(rb.position, player.rb.position, color);
+                    //Debug.DrawLine(rb.position, player.rb.position, color);
                     if (enemyState == EnemyAIState.Roaming)
                     {
                         speed = roamSpeed;
