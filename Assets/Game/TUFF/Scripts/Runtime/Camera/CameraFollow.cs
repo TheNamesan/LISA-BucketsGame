@@ -13,8 +13,8 @@ namespace TUFF
         public SceneProperties si;
 
         [Header("Camera Pixel Perfect Offset")]
-        private const float pixelPerfectOffsetX = 0.075f;
-        private const float pixelPerfectOffsetY = 0.03f;
+        public const float pixelPerfectOffsetX = 0.075f;
+        public const float pixelPerfectOffsetY = 0.03f;
 
         float timeOffset = 1;
 
@@ -44,14 +44,14 @@ namespace TUFF
 
         public List<Vector3> originalParallaxPos = new List<Vector3>();
 
-        SpriteRenderer backgroundSpr;
+        public SpriteRenderer backgroundSpr;
 
         public UnityEvent<bool> onCameraFollowingToggle = new();
 
         [HideInInspector] public bool disableCameraFollow;
         [HideInInspector] public Vector3 orgPosition;
-        private Vector2 min { get { return si.trueMin; } }
-        private Vector2 max { get { return si.trueMax; } }
+        public Vector2 min { get { return si.trueMin; } }
+        public Vector2 max { get { return si.trueMax; } }
         Tween tween;
 
         private void Awake()
@@ -102,14 +102,32 @@ namespace TUFF
 
             //Debug.Log($"W: {camHalfWidth}, H: {camHalfHeight}");
             if (!si) return;
+            Vector2 clampMinPos, clampMaxPos;
+            GetCameraBoundaries(out clampMinPos, out clampMaxPos);
+            
+            transform.position = new Vector3
+                (
+                    Mathf.Clamp(transform.position.x, clampMinPos.x, clampMaxPos.x),
+                    Mathf.Clamp(transform.position.y, clampMinPos.y, clampMaxPos.y),
+                    transform.position.z
+                );
+            UpdateParallax(clampMinPos.x, clampMaxPos.x, clampMinPos.y, clampMaxPos.y);
+        }
+
+        public void GetCameraBoundaries(out Vector2 clampMinPos, out Vector2 clampMaxPos)
+        {
+            clampMinPos = Vector2.zero;
+            clampMaxPos = Vector2.zero;
+            if (!si) return;
             float minPosX = min.x + camHalfWidth;
             float maxPosX = max.x - camHalfWidth;
             float minPosY = min.y + camHalfHeight;
             float maxPosY = max.y - camHalfHeight;
 
             // Clamp Position
-            Vector2 clampMinPos = new Vector2(minPosX + pixelPerfectOffsetX, minPosY + pixelPerfectOffsetY);
-            Vector2 clampMaxPos = new Vector2(maxPosX - pixelPerfectOffsetX, maxPosY - pixelPerfectOffsetY);
+            clampMinPos = new Vector2(minPosX + pixelPerfectOffsetX, minPosY + pixelPerfectOffsetY);
+            clampMaxPos = new Vector2(maxPosX - pixelPerfectOffsetX, maxPosY - pixelPerfectOffsetY);
+
             if (clampMinPos.x > clampMaxPos.x)
             {
                 if (clampMinPos.x > camHalfWidth) clampMinPos.x = camHalfWidth;
@@ -120,22 +138,16 @@ namespace TUFF
                 if (clampMinPos.y > camHalfHeight) clampMinPos.y = camHalfHeight;
                 if (clampMaxPos.y < camHalfHeight) clampMaxPos.y = camHalfHeight;
             }
-            transform.position = new Vector3
-                (
-                    Mathf.Clamp(transform.position.x, clampMinPos.x, clampMaxPos.x),
-                    Mathf.Clamp(transform.position.y, clampMinPos.y, clampMaxPos.y),
-                    transform.position.z
-                );
-            UpdateParallax(clampMinPos.x, clampMaxPos.x, clampMinPos.y, clampMaxPos.y);
         }
 
-        private void UpdateParallax(float minPosX, float maxPosX, float minPosY, float maxPosY)
+        public void UpdateParallax(float minPosX, float maxPosX, float minPosY, float maxPosY)
         {
-
             if (background != null)
             {
-                Vector2 minimumPos = min + (Vector2)backgroundSpr.bounds.size * 0.5f;
-                Vector2 maximumPos = max - (Vector2)backgroundSpr.bounds.size * 0.5f;
+                var targetMin = new Vector2(Mathf.Min(transform.position.x - camHalfWidth, min.x), Mathf.Min(transform.position.y - camHalfHeight, min.y));
+                var targetMax = new Vector2(Mathf.Max(transform.position.x + camHalfWidth, max.x), Mathf.Max(transform.position.y + camHalfHeight, max.y));
+                Vector2 minimumPos = targetMin + (Vector2)backgroundSpr.bounds.size * 0.5f;
+                Vector2 maximumPos = targetMax - (Vector2)backgroundSpr.bounds.size * 0.5f;
 
                 float timeX = Mathf.InverseLerp(minPosX, maxPosX, transform.position.x);
                 float timeY = Mathf.InverseLerp(minPosY, maxPosY, transform.position.y);

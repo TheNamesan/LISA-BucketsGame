@@ -33,6 +33,12 @@ namespace BucketsGame
         {
             FollowUpdate();
             brain?.ManualUpdate();
+            if (followCam && followCam.si)
+            {
+                Vector2 clampMinPos, clampMaxPos;
+                followCam.GetCameraBoundaries(out clampMinPos, out clampMaxPos);
+                followCam.UpdateParallax(clampMinPos.x, clampMaxPos.x, clampMinPos.y, clampMaxPos.y);
+            }
             //if (!skipCameraFollowUpdate) followCam?.UpdateCamera();
         }
         private void OnEnable()
