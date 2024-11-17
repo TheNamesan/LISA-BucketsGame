@@ -13172,12 +13172,28 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
+      propertyPath: autoPlayAMBS
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: sceneBGM.bgm
       value: 
       objectReference: {fileID: 11400000, guid: 103a9f5b52e9c4241a5e6a9164b7b858, type: 2}
     - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
+      propertyPath: sceneAMBS.clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f10fbb97c596bc34d9ddf5bde0edda7d, type: 3}
+    - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: sceneBGM.pitch
       value: 0.125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
+      propertyPath: sceneAMBS.pitch
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030289221685050753, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
+      propertyPath: sceneAMBS.volume
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 6423423899683277877, guid: c8f6e709d62de9345bcf88e20cca0326, type: 3}
       propertyPath: m_Name
