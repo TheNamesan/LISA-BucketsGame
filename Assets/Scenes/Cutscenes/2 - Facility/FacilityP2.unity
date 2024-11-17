@@ -54678,9 +54678,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df27540a2d685948ba7f466156fbb87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
   playerBulletsGoThrough: 0
   enemyBulletsGoThrough: 0
+  nonClimbable: 0
+  propertiesData: {fileID: 11400000, guid: 557a3261f1260ce43b77803fb4750c89, type: 2}
   onStepEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -60949,11 +60950,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.positionOffset.x
-      value: 0
+      value: 8.75
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414151].dialogue.positionOffset.y
-      value: 0
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414153].sfxs.Array.data[0].volume
@@ -61161,11 +61162,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342832001744917].dialogue.positionOffset.x
-      value: 0
+      value: 8.75
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342832001744917].dialogue.positionOffset.y
-      value: 0
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342832001744919].dialogue.persistentOrigin
@@ -61173,11 +61174,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342832001744919].dialogue.positionOffset.x
-      value: 0
+      value: 8.75
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[7335342832001744919].dialogue.positionOffset.y
-      value: 0
+      value: 3.75
       objectReference: {fileID: 0}
     - target: {fileID: 4839283001538814390, guid: c2e3387be0ffe314dace6221fc14dfe5, type: 3}
       propertyPath: managedReferences[4840228804657414148].cameraMove.targetTransform
