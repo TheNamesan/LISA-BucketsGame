@@ -29,6 +29,7 @@ namespace BucketsGame
         public int spawnRushersCount = 0;
         public int spawnShieldersCount = 0;
         public int spawnFlyersCount = 0;
+        public int spawnDiggersCount = 0;
         public int spawnSnipersCount = 0;
         public int spawnBarrelBrosCount = 0;
 
@@ -120,6 +121,12 @@ namespace BucketsGame
                 enemy.gameObject.SetActive(false);
                 CheckGeneralEnemyOverrides(enemy);
                 m_enemies.Add(enemy);
+            }
+            for (int i = 0; i < spawnDiggersCount; i++)
+            {
+                var enemy = Instantiate(PrefabList.instance.DiggerPrefab, transform);
+                enemy.gameObject.SetActive(false);
+                CheckGeneralEnemyOverrides(enemy);
             }
             for (int i = 0; i < spawnSnipersCount; i++)
             {

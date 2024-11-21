@@ -14,6 +14,7 @@ namespace BucketsGame
         public Flyer flyerPrefab;
         public Sniper sniperPrefab;
         public BarrelBro barrelBroPrefab;
+        public Digger DiggerPrefab;
 
         [Header("Rando Enemies")]
         public Rusher r_RusherPrefab;
