@@ -254,19 +254,26 @@ namespace BucketsGame
                 Vector2 leftOrigin = closestContactPointD - offset;
                 normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
 
-                
 
+
+                Vector2 correctionBox = new Vector2(Physics2D.defaultContactOffset * 2, Physics2D.defaultContactOffset);
                 if (normalRight)
                 {
-                    //Debug.DrawRay(normalRight.point, normalRight.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
+                    RaycastHit2D normalCorrection = Physics2D.BoxCast(normalRight.point, correctionBox, 0f, Vector2.down, distance, layers);
+                    if (normalCorrection) { normalRight.normal = normalCorrection.normal; }
+                    Debug.DrawRay(normalRight.point, normalRight.normal, Color.red); //
                 }
                 if (normalLeft)
                 {
-                    //Debug.DrawRay(normalLeft.point, normalLeft.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
+                    RaycastHit2D normalCorrection = Physics2D.BoxCast(normalLeft.point, correctionBox, 0f, Vector2.down, distance, layers);
+                    if (normalCorrection) { normalLeft.normal = normalCorrection.normal; }
+                    Debug.DrawRay(normalLeft.point, normalLeft.normal, Color.red); //
                 }
                 if (normalHitV)
                 {
-                    normal = normalHitV.normal;
+                    RaycastHit2D normalCorrection = Physics2D.BoxCast(normalHitV.point, correctionBox, 0f, Vector2.down, distance, layers);
+                    if (normalCorrection) { normal = normalCorrection.normal; }
+                    else normal = normalHitV.normal;
                 }
                 if (normalHitVRay)
                 {
@@ -307,10 +314,10 @@ namespace BucketsGame
                 
                 UpdateGroundData(collider, collision.point, normal);
                 Debug.DrawRay(collision.point, normal, new Color32(255, 165, 0, 255));
+
             }
             else // OnCollisionExit
             {
-                //if (ignoreLandAnim) Debug.Log("no collision :(");
                 SetAirborne();
             }
 

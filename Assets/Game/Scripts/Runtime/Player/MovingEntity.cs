@@ -139,17 +139,24 @@ namespace BucketsGame
                 Vector2 leftOrigin = closestContactPointD - offset;
                 normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, angle, Vector2.down, distance, layers);
 
+                Vector2 correctionBox = new Vector2(Physics2D.defaultContactOffset * 2, Physics2D.defaultContactOffset);
                 if (normalRight)
                 {
-                    Debug.DrawRay(normalRight.point, normalRight.normal, Color.red); //
+                    //Debug.DrawRay(normalRight.point, normalRight.normal, Color.red); //
+                    RaycastHit2D normalCorrection = Physics2D.BoxCast(normalRight.point, correctionBox, 0f, Vector2.down, distance, layers);
+                    if (normalCorrection) { normalRight.normal = normalCorrection.normal; }
                 }
                 if (normalLeft)
                 {
-                    Debug.DrawRay(normalLeft.point, normalLeft.normal, Color.red); //
+                    RaycastHit2D normalCorrection = Physics2D.BoxCast(normalLeft.point, correctionBox, 0f, Vector2.down, distance, layers);
+                    if (normalCorrection) { normalLeft.normal = normalCorrection.normal; }
+                    //Debug.DrawRay(normalLeft.point, normalLeft.normal, Color.red); //
                 }
                 if (normalHitV)
                 {
-                    normal = normalHitV.normal;
+                    RaycastHit2D normalCorrection = Physics2D.BoxCast(normalHitV.point, correctionBox, 0f, Vector2.down, distance, layers);
+                    if (normalCorrection) { normal = normalCorrection.normal; }
+                    else normal = normalHitV.normal;
                 }
                 if (normalHitVRay)
                 {
