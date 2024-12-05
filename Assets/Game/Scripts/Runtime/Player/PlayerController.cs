@@ -258,11 +258,11 @@ namespace BucketsGame
 
                 if (normalRight)
                 {
-                    Debug.DrawRay(normalRight.point, normalRight.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
+                    //Debug.DrawRay(normalRight.point, normalRight.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
                 }
                 if (normalLeft)
                 {
-                    Debug.DrawRay(normalLeft.point, normalLeft.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
+                    //Debug.DrawRay(normalLeft.point, normalLeft.normal, (normalLeft.normal.y >= 0 ? Color.red : Color.magenta)); //
                 }
                 if (normalHitV)
                 {
@@ -277,7 +277,7 @@ namespace BucketsGame
                     if (boxDiff < rayDiff) 
                     // (Mathf.Abs(boxDiff - rayDiff) >= 0.001f) // Keep this!!!!
                     {
-                        Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
+                        //Debug.Log($"box: {boxDiff} < ray: {rayDiff}");
                         normal = normalHitVRay.normal; // If this takes priority, it allows climbing down normally
                     }
                 }
@@ -310,7 +310,7 @@ namespace BucketsGame
             }
             else // OnCollisionExit
             {
-                if (ignoreLandAnim) Debug.Log("no collision :(");
+                //if (ignoreLandAnim) Debug.Log("no collision :(");
                 SetAirborne();
             }
 

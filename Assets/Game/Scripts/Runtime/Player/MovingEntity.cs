@@ -104,23 +104,24 @@ namespace BucketsGame
             if (!ignoreOneWay) layers = layers | oneWayGroundLayers;
 
             //Vertical Collision
+            float angle = rb.rotation;
             float sizeMult = 0.1f;
             Vector2 collisionBoxSize = new Vector2(col.bounds.size.x, Physics2D.defaultContactOffset);
             float collisionBoxDistance = Physics2D.defaultContactOffset;//(rb.velocity.y > -10 ? collisionBoxSize.y * 10f : collisionBoxSize.y * 200f);
-            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
+            RaycastHit2D collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, angle, Vector2.down, collisionBoxDistance, layers);
 
             Color boxColor = Color.red;
 
             // This is a fix used when reaching the top of a slope
             if (!collision && IsOnSlope && grounded) // If was on slope climbing up, attempt to find expected ground
             {
-                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance * 100f, layers);
+                RaycastHit2D snapAttempt = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, angle, Vector2.down, collisionBoxDistance * 100f, layers);
                 if (snapAttempt)
                 {
                     collision = snapAttempt;
                     rb.velocity = Vector2.zero; // Important!
                     SnapToGround(sizeMult, collision, instant: true); // The instant is important so it doesn't cancel the speed in MoveHandler (rb.MovePosition is the issue)
-                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, collisionBoxDistance, layers);
+                    collision = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, angle, Vector2.down, collisionBoxDistance, layers);
                 }
             }
             if (collision)
@@ -131,12 +132,12 @@ namespace BucketsGame
                 //RaycastHit2D normalHitHR = Physics2D.Raycast(closestContactPointD, Vector2.right, distance, groundLayers);
                 //RaycastHit2D normalHitHL = Physics2D.Raycast(closestContactPointD, Vector2.left, distance, groundLayers);
                 RaycastHit2D normalHitVRay = Physics2D.Raycast(closestContactPointD, Vector2.down, distance, layers);
-                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, 0f, Vector2.down, distance, layers);
+                RaycastHit2D normalHitV = Physics2D.BoxCast(closestContactPointD, collisionBoxSize, angle, Vector2.down, distance, layers);
                 Vector2 offset = new Vector2(moveSpeed * Time.fixedDeltaTime, 0);
                 Vector2 rightOrigin = closestContactPointD + offset;
-                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
+                normalRight = Physics2D.BoxCast(rightOrigin, collisionBoxSize, angle, Vector2.down, distance, layers);
                 Vector2 leftOrigin = closestContactPointD - offset;
-                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, 0f, Vector2.down, distance, layers);
+                normalLeft = Physics2D.BoxCast(leftOrigin, collisionBoxSize, angle, Vector2.down, distance, layers);
 
                 if (normalRight)
                 {

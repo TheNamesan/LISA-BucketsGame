@@ -36,5 +36,7 @@ namespace BucketsGame
         public SFX sniperFiringSFX = new();
         public SFX diggerBurrowHitSFX = new();
         public SFX diggerJumpSFX = new();
+        public SFX cartMoveSFX = new();
+        public SFX cartHitSFX = new();
     }
 }
